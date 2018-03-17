@@ -65,6 +65,9 @@ var H = 0
 				WebViewJavascriptBridge.callHandler('gotoChat',data, function(response) {
 					document.getElementById("returnValue").value = response;
 				});
+                
+                
+
 			}
 
            function tixing() {
