@@ -36,6 +36,8 @@ body{background: #ebebeb !important;}
   <div>
     <!--A.4个模块的跳转-->
 <!--    <p id="dddd" class="h100 red"></p>-->
+<p @click="model('http://192.168.0.104:85/yemian/zusouwuye/model8.html?name=代购代收&sessiontoken=ohlhgspmwdk5eh0iy6qkacuks')">测试八大模块的发布</p>
+
     <ul style="height:3.65rem;" class="header" id='buttomss'>
       <li @click="gorouter(index)" class="lf relative" v-for="(item,index) in header">
         <span :style="{bottom:index==0||index==1?'-0.1rem':'0.05rem'}" class="fz25 c333333 spjz bold" style="bottom:0;">{{item}}</span>
@@ -192,7 +194,9 @@ body{background: #ebebeb !important;}
 
       },
           methods: {
- 
+ model(href){
+     location.href=href
+ },
           //跳到详情
       xiangqings(objectId,item){
         // this.$store.state.jianjuItem=item
