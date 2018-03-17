@@ -64,7 +64,7 @@ var H = 0
 		    if (ua.match(/iPhone\sOS/i) == "iphone os") {
 		    	// 苹果
 					 console.log('苹果')
-					WebViewJavascriptBridge.callHandler('goback', {pageNumber: data,needRefresh: 'YES'})
+					WebViewJavascriptBridge.callHandler('goback', {pageNumber: data.toString(),needRefresh: 'YES'})
 		    }else{
 		    	// 安卓
                    console.log('安卓')
