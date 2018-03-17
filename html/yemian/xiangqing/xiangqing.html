@@ -282,13 +282,14 @@
     </p>
     <img src="../../assets/img/xiangqing/phone.png" @alt="" style="width:0.66rem;right:0.42rem;" class="czjz"/>
   </div>
-  <div @click='im()' class="mui-pull-right fz30 c333333 relative" style="height:0.98rem;padding-right:0.26rem;line-height:0.98rem;">
+  <!--  -->
+  <div  @click='im()' class="mui-pull-right fz30 c333333 relative" style="height:0.98rem;padding-right:0.26rem;line-height:0.98rem;">
     <img src="../../assets/img/xiangqing/zixun.png" alt="" style="width:0.53rem;right:1.5rem;" class="czjz"/>
     在線咨詢
   </div>
 </div>
 
-<!--从租售列表跳过来的并且contactType==0-->
+<!--从租售列表跳过来的并且contactType==0 -->
  <!--2.在线咨询：纯绿色：白色微信图片+在线咨询文字-->
 <div @click='im()' v-if="datas!='no'&&datas.contactType==0&&isyulan!='no'" style="position:fixed;left:0;bottom:0;width:6.4rem;height: 0.98rem;" class="bai">
   <div class="fz44 cffffff relative center bg36c748"  style="height:0.98rem;padding-right:0.26rem;line-height:0.98rem;">
@@ -387,6 +388,10 @@
       // var user = '';
     </script>
 <script>
+
+
+                 // window.android.gotoChat('hkjhiuhgiuhgi')
+
     var vm = new Vue({
         el: '#app',
         // store,
@@ -401,7 +406,6 @@
         datas:'no',//这个是详情的信息
         //轮播图图片
         slideimg:'no'
-
       },
       methods: {
         goback(){
@@ -409,15 +413,15 @@
         },
 //在线咨询
 im(){
-  if(sessiontoken){
+  if(sessiontoken&&sessiontoken!='null'){
     console.log('进来了'+sessiontoken)
          // 判断是否是发布者 不是则调用手机聊天接口  是则弹出提示框
     if(sessiontoken==this.datas.user.objectId){ 
       mui.alert('您是本盤的發佈者，不能進行在線諮詢',' ',['好的']) 
     }else{
        // window.webkit.messageHandlers.gotoChat.postMessage(this.datas)
-       console.log(this.datas)
-       gotoChat(this.datas)
+       console.log("数据"+this.datas)
+       gotoChat(JSON.stringify(this.datas))
     }
     
   }else{
@@ -428,7 +432,7 @@ im(){
 },
             //拨打电话
       tel(phone){
-        if(sessiontoken){
+        if(sessiontoken&&sessiontoken!='null'){
                   if(phone){
                   console.log("tel:"+phone)
                   if(isNaN(phone)){
@@ -474,7 +478,8 @@ im(){
         console.log(aa)
         that.datas=aa
 
-        var bb=JSON.parse(window.localStorage.getItem('pics'))
+        // var bb=JSON.parse(window.localStorage.getItem('pics'))
+        var bb=JSON.parse(window.localStorage.getItem('xiangqingData')).pics
         if(bb){
           that.slideimg=bb
         }

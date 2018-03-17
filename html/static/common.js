@@ -53,29 +53,45 @@ var H = 0
 				var objectId=locations('objectId')
 				var bb={'objectId':objectId,'wheres':wheres}
 				return bb
-			}
+			};
+
+
+
+
              //返回
 			function goback(data) {
-				WebViewJavascriptBridge.callHandler('goback',data, function(response) {
-					document.getElementById("returnValue").value = response;
-				});
-			}
+				var ua = navigator.userAgent.toLowerCase();
+		    if (ua.match(/iPhone\sOS/i) == "iphone os") {
+		    	// 苹果
+					 console.log('苹果')
+					WebViewJavascriptBridge.callHandler('goback', {pageNumber: data,needRefresh: 'YES'})
+		    }else{
+		    	// 安卓
+                   console.log('安卓')
+	               window.mianyong.goBack(data);  
+		    }
+				
+			};
+
+
+
+
 			// 聊天
 			function gotoChat(data) {
-				// 苹果
-				// WebViewJavascriptBridge.callHandler('gotoChat',data, function(response) {
-				// 	document.getElementById("returnValue").value = response;
-				// });
-
-
-                // 安卓
+						// 判斷機型, android / ios
+		    var ua = navigator.userAgent.toLowerCase();
+		    if (ua.match(/iPhone\sOS/i) == "iphone os") {
+		    	// 苹果
+					 console.log('苹果')
+					WebViewJavascriptBridge.callHandler('gotoChat',data, function(response) {
+						document.getElementById("returnValue").value = response;
+					});
+		    }else{
+		    	// 安卓
                    console.log('安卓')
-                   var jsObj='android'
-	               window.jsObj.gotoChat(data);  
-	              
-	              
-
-			}
+	               window.mianyong.gotoChat(JSON.stringify(data));  
+		    }    
+			};
 
            function tixing() {
            	mui.confirm('離開本頁面將清空當前頁面的內容，確定離開？','title',['離開','取消'],function(data){
@@ -87,7 +103,7 @@ var H = 0
 			    goback(1)
   			}
   		},'div')
-           }
+           };
 
 
             // 所有页面进来的时候手机都请求
@@ -98,16 +114,6 @@ var H = 0
 				  	window.localStorage.setItem('userId',objectId)
 				  	console.log(window.localStorage.getItem('userId'))
 				  }
-				  // if(objectId){
-					 //   $.get(Boss+'user/'+objectId, function (data, status) {
-					 //  	if(status){
-					 //  		 localStorage.setItem('userData', JSON.stringify(data.result))
-					 //  		 console.log(data.result)
-					 //  	}
-					    
-					 //  })
-				  // }
-			
 			}
 
 

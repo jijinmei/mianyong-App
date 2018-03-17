@@ -312,6 +312,7 @@
         el: '#app',
         store,
         data: {
+            objectId:'no',
             fengmiantu: '',
             isending: true, //是否结束了请求
             //        prending:true,//是否开始请求了，默认是可以请求的
@@ -393,6 +394,7 @@
                     console.log('wodefabu 去后台')
                     var hh = JSON.parse(localStorage.getItem('model8fabu_array'))
                     this.content = hh.content
+                    this.objectId=hh.objectId
                     this.title = hh.title //名称
                     if (hh.price != '-1') {
                         this.values = hh.price //输入框的价格
@@ -439,6 +441,7 @@
 
                         this.content = hh.content
                         this.title = hh.title //名称
+                        this.objectId='no'
 
                         this.values = hh.values //输入框的价格
                         this.price = hh.price //面议的变量
@@ -486,8 +489,16 @@
             },
             //防止刷新的时候详情的预览数据消失
             xiangqingyulans() {
-                var pic = []
-                var pp = JSON.parse(localStorage.getItem('pics'))
+               var pic = []
+               var pp=''
+                 if (locations('from') == 'wodefabu') {
+                    console.log('wodefabu')
+                    pp= JSON.parse(localStorage.getItem('model8fabu_array')).pics
+                }else{
+                    pp= JSON.parse(localStorage.getItem('pics'))
+                }
+                
+               
                 // var pp=this.$store.state.currentObject.pics
                 if (pp) {
                     for (var i = 0; i < pp.length; i++) {
@@ -501,8 +512,14 @@
                 } else {
                     id = 'content_01'
                 }
-
+                var idds=''
+                if(pp.objectId){
+                   idds=pp.objectId
+                }else{
+                    idds='no'
+                };
                 var xiangqingData = {
+                    objectId:idds,
                     pics:pic, 
                     title: this.title,
                     createdAt: '',
@@ -532,7 +549,7 @@
                 },1000)
                
             },
-            //详情预览
+            //点击详情预览的按钮的时候
             savemessage() {
                 //保存model8发布页面的缓存
                 var who = ''
@@ -554,6 +571,7 @@
                     contacts: this.contacts, //联络人
                     type: this.type, //分类  1是二手家私  2是二手电器  3是全新家私  tags
                 }
+                // 存储model8的数据
                 window.localStorage.setItem('huancun', JSON.stringify(huancun))
                 //跳到详情 保存详情页面的数据格式
                 this.xiangqingyulans()
@@ -578,35 +596,19 @@
                 formData.append("sessiontoken", sessiontoken);
                 //                  formData.append("channel",'services');//home=主页 discuss=讨论 services= 服务
                 formData.append("title", this.title); //标题或商店名称
+                // 只有调用了上传的插件才传图片去后台修改，否则不传
                 var pics = JSON.parse(localStorage.getItem('pics'))
-                var items = 'pics'
-                commonFiles(pics, formData, items)
+                if(pics){
+                    var items = 'pics'
+                    commonFiles(pics, formData, items)
+                }
+                
+
                 if (this.names == '裝修設計' || this.names == '代購代收' || this.names == '搬屋配送' || this.names == '招生招聘' || this.names == '家政服務') {
                     formData.append("address", this.address); //版块名称
                 }
                 formData.append("section", this.names); //版块名称
-
-
-                //                   
-                //                  if(this.names=='qiChe'||this.names=='jiaSi'||this.names=='zhaoSheng'||this.names=='jiaZheng'){
-                //                     formData.append("tags",this.Fenlei[this.type-1]);//分类标题，多个以','分隔
-                //                  }
-                //                  
-                //                  
-                //                  if(this.names=='qiChe'||this.names=='jiaSi'||this.names=='tiaoSi'){
-                //                        if(this.values==''&&this.price==-1){
-                //                        formData.append("price",-1);//价格，当-1时为面议
-                //                        }else{
-                //                           formData.append("price",this.price);//价格，当-1时为面议
-                //                        }
-                //                  }
-
-
-                //                  if(this.names=='汽車交易'||this.names=='傢俬電器'||this.names=='招生招聘'||this.names=='家政服務'){
                 formData.append("tags", this.Fenlei[this.type - 1]); //分类标题，多个以','分隔
-                //                  }
-
-
                 if (this.names == '汽車交易' || this.names == '傢俬電器' || this.names == '跳蚤市場') {
                     if (this.values == '' && this.price == -1) {
                         formData.append("price", -1); //价格，当-1时为面议
@@ -614,7 +616,10 @@
                         formData.append("price", this.price); //价格，当-1时为面议
                     }
                 }
-
+                // 判断是修改还是新的发布
+                if(this.objectId!='no'){
+                    formData.append("objectId", this.objectId);
+                }
                 formData.append("contactType", this.contactType); //联繁方式, 1=电话; 0= 仅在线
                 if (this.contactType == 1) {
                     formData.append("contacts", this.contacts); //联繁人
@@ -675,7 +680,7 @@
             //发布按钮为填完必填项目的时候將提示弹出框
             fabu() {
                 var that = this
-                console.log('111111111111')
+                // console.log('111111111111')
                 //      if(this.prending==false){
                 //        mui.toast('你已经发了请求，暂时不能发请求')
                 //        return
@@ -754,24 +759,6 @@
                     }
                 })
             }
-
-
-
-            //读取缓存的数据
-            //            var hh=JSON.parse(window.localStorage.getItem("huancun"))
-            //            hh.pics=JSON.parse(window.localStorage.getItem("pics"))
-            //  //读取缓存的图片              
-            //           if(hh){
-            //             console.log("hh.pics")
-            // //            console.log(hh.pics)
-            //             this.$store.state.currentObject.pics=hh.pics
-            //             if(hh.pics){
-            //                this.$store.state.currentObject.fengmiantu=hh.pics[0]
-            //             this.fengmiantu=hh.pics[0]
-            //             }
-
-            //             console.log(this.fengmiantu)
-            //           }
 
 
             $.get(Boss3 + 'section/tagItems', { 'title': this.names, 'sessiontoken': sessiontoken }, function(data) {
