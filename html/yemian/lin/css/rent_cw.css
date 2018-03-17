@@ -1,0 +1,145 @@
+.remark {
+  padding-bottom: 1.08rem;
+}
+.remark .content {
+  border-bottom: none!important;
+}
+.cwfloor .content div {
+  border: 1px solid #bbbbbb;
+  position: relative;
+  width: 4.6rem;
+  margin: 0 auto;
+}
+.cwfloor .content div::after {
+  content: '';
+  display: block;
+  clear: both;
+}
+.cwfloor .content div input {
+  float: left;
+  margin: 0;
+  display: block;
+  border-bottom: none;
+  background-color: #eeeeee;
+  border-right: 1px solid #bbbbbb;
+  border-radius: 0;
+  width: 3.89rem;
+  height: 0.7rem;
+}
+.cwfloor .content div span {
+  display: block;
+  width: 0;
+  height: 0;
+  border-top: 0.15rem solid #36c748;
+  border-left: 0.17rem solid rgba(0, 0, 0, 0);
+  border-right: 0.17rem solid rgba(0, 0, 0, 0);
+  border-bottom: 0.15rem solid rgba(0, 0, 0, 0);
+  position: absolute;
+  right: 0.18rem;
+  top: 50%;
+  margin-top: -0.085rem;
+}
+.cwfloordiv {
+  background-color: rgba(0, 0, 0, 0.4);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 111111;
+}
+.cwfloordiv .box {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 4.2rem;
+  overflow: auto;
+  font-size: 0.3rem;
+}
+.cwfloordiv .box ul {
+  padding-top: 0.7rem;
+}
+.cwfloordiv .box h2,
+.cwfloordiv .box li {
+  height: 0.7rem;
+  line-height: 0.7rem;
+  text-align: center;
+}
+.cwfloordiv .box h2 {
+  color: white;
+  background-color: #36c748;
+  position: fixed;
+  left: 0;
+  bottom: 3.5rem;
+  width: 100%;
+}
+.cwfloordiv .box li {
+  background-color: white;
+  color: black;
+  border-bottom: 1px solid #ebebeb;
+}
+.start-time .content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+.start-time .content span {
+  display: inline-block;
+  height: 0.4rem;
+  line-height: 0.4rem;
+  background-size: 0.4rem 0.4rem;
+  background-repeat: no-repeat;
+  padding-left: 0.57rem;
+}
+.start-time .content span:first-of-type {
+  margin-right: 0.97rem;
+}
+.start-time .content span:last-of-type {
+  background-image: url('../imgs/fangzu/time.png');
+  background-repeat: no-repeat;
+  background-size: 0.4rem 0.4rem;
+}
+.footer {
+  height: 1.08rem;
+  padding-top: 0.1rem;
+  -webkit-box-shadow: 0 0 0.5rem rgba(235, 235, 235, 0.8);
+  box-shadow: 0 0 0.5rem rgba(235, 235, 235, 0.8);
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+}
+.footer div {
+  background-color: white;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+.footer div button {
+  width: 1.73rem;
+  height: 0.65rem;
+  border-radius: 0.1rem;
+  background-color: #36c748;
+  color: white;
+  font-size: 0.3rem;
+  line-height: normal;
+  border: none;
+  outline: none;
+}
+.footer div button:first-of-type {
+  margin-right: 0.63rem;
+  background-color: white;
+  color: #36c748;
+  border: 1px solid #36c748;
+}

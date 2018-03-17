@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <title>我的樓盤</title>
+    <script typet="text/javascript" src="https://cdn.bootcss.com/jquery/2.2.0/jquery.min.js"></script>
+    <script typet="text/javascript" src="../../static/common.js"></script>
+
+    <!-- <link href="https://cdn.bootcss.com/Swiper/3.4.2/css/swiper.css" rel="stylesheet"> -->
+    <!-- <script src="https://cdn.bootcss.com/Swiper/3.4.2/js/swiper.jquery.min.js"></script> -->
+    <link href="../../static/common.css" rel="stylesheet">
+    <link href="../../static/commonS.css" rel="stylesheet">
+    <!-- <link href="../../static/imgUp.css" rel="stylesheet"> -->
+    <link rel="stylesheet" href="../../static/mui.min.css">
+<style scoped>
+/*子组件liebiao.js的样式*/
+/*左边的图片的样式*/	
+	.tukuang {
+		width: 2.45rem !important;
+		height: 2.15rem !important;
+		max-width: 2.45rem !important;
+		/*插件默认了一个最大宽度，这里要重新定义*/
+	}
+/*分租的样式*/	
+	.fenzu {
+		padding:0rem 0.04rem 0rem 0.04rem;
+	   /* height:0.32rem; */
+	   /*line-height:0.3rem;*/ 
+	   
+	}
+		.fenzu:active {
+		background-color: white !important;
+	}
+/*列表右边的间距*/	
+	.mui-table-view-cell:after {
+		right: 0.2rem;left: 0.2rem;
+	}
+</style>
+<style scoped>
+/*父组件wodeloupan.html的样式*/
+.header{height:0.7rem;}
+.header>ul{height:0.7rem;}
+.header>ul:after,.header>ul>li:after{height:0 !important;}
+.liebiao{margin-top:0.1rem;}
+/*箭头重新定位*/
+.tap1:after{color:#666666;}
+.tap2:after{color:#666666;}
+/*由于字数不一样，箭头要贴近文字，所以要区别对待*/
+.tap1.jiantou0:after{right:0.9rem !important;}
+.tap1.jiantou1:after{right:1.15rem !important;}
+.tap1.jiantou2:after{right:1.15rem !important;}
+
+.tap2.jiantou0:after{right:0.9rem !important;}
+.tap2.jiantou1:after{right:1.05rem !important;}
+.tap2.jiantou2:after{right:1.05rem !important;}
+
+.tap1.c36c748:after,.tap2.c36c748:after{color:#36C748;}
+.mui-table-view-cell.mui-collapse.mui-active,.mui-table-view-cell.mui-collapse.mui-active>a:after{color:#36C748;}
+.mui-table-view-cell.mui-active {
+    background-color: white !important;
+}
+/*类型*/
+.mui-table-view-cell.mui-collapse .mui-table-view .mui-table-view-cell{padding-right: 0;padding-left: 0;}
+.tap1.mui-active,.tap2.mui-active{background:white !important;}
+.list>li:after{left:0 !important;}
+.list>li{height: 0.74rem;line-height: 0.74rem;padding:0;color:#333333;}
+.list>li:active{color:#36C748;}
+.list:before{height: 1px !important;}
+/*左边的图片的样式*/	
+	.tukuang {
+		width: 2.45rem;
+		height: 2.15rem;
+		max-width: 2.45rem;
+		/*插件默认了一个最大宽度，这里要重新定义*/
+	}
+/*分租的样式*/	
+	.fenzu {
+		padding:0rem 0.04rem 0rem 0.04rem;
+	   /* height:0.32rem; */
+	   /*line-height:0.3rem;*/ 
+	   
+	}
+		.fenzu:active {
+		background-color: white !important;
+	}
+/*列表右边的间距*/	
+	.mui-table-view-cell:after {
+		right: 0.2rem;left: 0.2rem;
+	}
+</style>
+  </head>
+
+  <body>
+
+    <div id="app" v-cloak>
+
+  <div  class="fixbody">
+    <!--1.头部帅选-->
+    <header style="z-index:997;" class="WODELOUPAN mui-bar mui-bar-nav bai header padding0" data-top='0' data-offset='150' data-duration='16' data-scrollby=".mui-scroll-wrapper">
+      <ul class="mui-table-view fz23 c666666">
+          <li class="first tap mui-table-view-cell mui-collapse mui-pull-left center" style="width:50%;">
+              <a @tap="zzc1($event)" class="mui-navigate-right tap1 fz23  center" :class="{c36c748:zuoitem!=0,jiantou0:zuoitem==0,jiantou1:zuoitem==1,jiantou2:zuoitem==2}" href="#">{{zuoitem==0?'全部類型':(zuoitem==1?'租盤':'售盤')}}</a>
+              <div class="mui-collapse-content margint0" >
+                  <ul class="mui-table-view list margint0">
+                         <li  @tap="type(index)" class="mui-table-view-cell fz27" v-for="(item,index) in zuo">
+                            {{item}}
+                          </li>
+                      </ul>
+              </div>
+          </li>
+          <li class="second tap mui-table-view-cell mui-collapse mui-pull-right center" style="width:50%;">
+              <a @tap="zzc2($event)"  class="mui-navigate-right tap2 fz23 center"  href="#"  :class="{c36c748:youitem!=0,jiantou0:youitem==0,jiantou1:youitem==1,jiantou2:youitem==2}" >
+              {{youitem==0?'全部狀態':(youitem==1?'審核中':(youitem==2?'已發佈':(youitem==3?'不通過':'已封盤')))}}
+              </a>
+              <div class="mui-collapse-content margint0 center" >
+                  <ul class="mui-table-view list fz27 margint0">
+                          <li  @tap="status(index)" class="mui-table-view-cell fz27" v-for="(item,index) in you">
+                            {{item}}
+                          </li>
+                      </ul>
+              </div>
+                 
+          </li>
+         
+      </ul>
+      <span class="border-r jz" style="height:0.3rem;width:0.1rem;"></span>
+    </header>
+    <!--2.帅选出来的列表内容-->
+    <div class="mui-scroll-wrapper WODELOUPANLIEBIAO">
+      <liebiao :datas='datas' :name='name' class="liebiao mui-scroll"  ref="fengpan"></liebiao>
+    </div>
+    
+    <!--遮罩层-->
+    <div class="mui-backdrop" v-show="backdrop==true" style="z-index:996;"></div>
+    
+    <!--点击操作的弹出框-->
+<div  @click="tanchukuang=false" v-if="tanchukuang==true" class="wai_kuangs" style="z-index:2000;">
+<ul class="bai w497 center radius spjz" style="top:3rem;">
+  <li v-show="keep==0||keep==2" @click.stop="gobianji" class="fz33 c000000" :class="{h100:keep==2,h150:keep==0,lh100:keep==2,lh150:keep==0,'border-b':keep==2}">編輯</li>
+  <li v-show="keep==1||keep==2" @click.stop="fengpan"  class="fz33 c000000"  :class="{h100:keep==2,h150:keep==1,lh100:keep==2,lh150:keep==1}">封盤</li>
+</ul>
+</div>
+
+</div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
+ <script src="https://cdn.bootcss.com/vuex/3.0.1/vuex.min.js"></script>
+ <script src="https://cdn.bootcss.com/vue-router/3.0.1/vue-router.min.js"></script>
+
+    <script src="../../static/vconsole.min.js"></script>
+    <script src="../../static/mui.min.js"></script>
+    <script src="../../templated/liebiao.js"></script>
+    <!-- <script src="../../static/imgUp.js"></script> -->
+    <script src="../../static/mui.pullToRefresh.js"></script>
+    <script src="../../static/mui.pullToRefresh.material.js"></script>
+    <!-- <script src="../../static/mui.zoom.js"></script> -->
+    <!-- <script src="../../static/mui.previewimage.js"></script> -->
+    <!-- <script src="../../static/public.js"></script> -->
+    <script type="text/javascript">
+      // 初始化previewImage
+      // mui.previewImage();
+      mui.init();
+      // var objectId = '58bd0b8b1b69e6006b274f76' //'587f3b29570c352201193d6e'
+      // var user = '';
+    </script>
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data: {
+         tanchukuang:false,//编辑和封盘的弹出框
+        bianjiarray:'',//点击编辑跳去小林的发布房源的租盘或者售盘
+        index:-1,//点击的是第几个楼盘
+        arrayitem:'',//判断当前是租盘还是售盘 子元素传过来
+        keep:-1,//判断是否显示编辑和封盘的哪一个
+        
+        page:0,
+        count:'',
+        name:'wodeloupan',
+        zuoitem:0,//当前选择的类型
+        zuo:['全部類型','租盤','售盤'],
+        you:['全部狀態','審核中','已發佈','不通過','已封盤'],
+        youitem:0,//当前选择的状态
+        backdrop:false,
+        datas: []
+
+      },
+            //在创建vue实例时，引入路由
+            //  router: router,
+//          store: store,
+           components: {
+      'liebiao': liebiao
+    },
+            methods: {
+//点击封盘
+    fengpan(){
+          this.tanchukuang=false
+        this.$refs.fengpan.fengpan(this.arrayitem.title,this.index,this.arrayitem.objectId)
+    },
+    //点击编辑跳去小林的发布房源的租盘或者售盘
+    gobianji(){
+      if(this.arrayitem.category=='rent'){
+        //我要放租
+          alert('我要放租')
+      }else if(this.arrayitem.category=='sell'){
+        //我要放售
+         alert('我要放售')
+          // this.$router.push({name:'publish_sell'})
+      }
+              
+    },
+    //点击全部类型
+      zzc1(e){
+        if($('.first').hasClass('mui-active')){
+          this.backdrop=false
+        }else{
+          this.backdrop=true
+        }
+      },
+      //点击全部状态
+      zzc2(e){
+        if($('.second').hasClass('mui-active')){
+          this.backdrop=false
+        }else{
+          this.backdrop=true
+        }
+      },
+//全部类型
+type(item){
+  this.zuoitem=item
+  this.backdrop=false
+  this.datas=[]
+  $('.first').toggleClass('mui-active')
+  this.page=0
+  this.refresh()
+},
+//全部状态
+status(item){
+  this.youitem=item
+  this.backdrop=false
+  this.datas=[]
+  $('.second').toggleClass('mui-active')
+  this.page=0
+  this.refresh()
+},
+//刷新和加载
+refresh(){
+        var that=this;
+      (function($) {
+        //阻尼系数
+        var deceleration = mui.os.ios?0.003:0.0009;
+        $('.mui-scroll-wrapper').scroll({
+          bounce: false,
+          indicators: true, //是否显示滚动条
+          deceleration:deceleration
+        });
+        $.ready(function() {
+          //循环初始化所有下拉刷新，上拉加载。
+          $.each(document.querySelectorAll('.mui-scroll'), function(index, pullRefreshEl) {
+            $(pullRefreshEl).pullToRefresh({
+              down: {
+                callback: function() {
+//                  alert('刷新')
+                  var self = this;
+                  that.page=0
+                  that.datas=[]
+                  var wheredata={}
+                  if(that.zuoitem!=0){//全部类型不用传字段
+                    if(that.zuoitem==1){
+                      wheredata['category']='rent'
+                    }else if(that.zuoitem==2){
+                      wheredata['category']='sell'
+                    }
+                  }
+                  // 0=审核中，1=已发布，-1=不通过，-2=已封盘
+                  if(that.youitem!=0){//全部状态不用传字段
+                          if(that.youitem==1){
+                      wheredata['status']='0'//审核中
+                    }else if(that.youitem==2){
+                        wheredata['status']='1'//已发布
+                    }else if(that.youitem==3){
+                        wheredata['status']='-1'//不通过
+                    }else if(that.youitem==4){
+                        wheredata['status']='-2'//已封盘
+                    }
+                  }
+                  
+                  wheredata['limit']=limit20
+                  wheredata['page']=1
+                  wheredata['sessiontoken']=sessiontoken
+                  //获取租盘列表的信息
+                  mui.ajax(Boss + 'user/agent', {
+                      data:wheredata,
+                      dataType: 'json', //服务器返回json格式数据
+                      type: 'GET', //HTTP请求类型
+                      timeout: 10000, //超时时间设置为10秒；
+                      //  headers:{'Content-Type':'application/json'},
+                    success: function(data) {
+                        //1.服务器返回响应，根据响应结果，分析是否登录成功；
+                        if(data.status == true) {
+                            that.count = data.result.count
+                            that.datas = data.result.data
+                        setTimeout(function(){
+                                                     self.endPullDownToRefresh();//关闭刷新
+                        },1000)
+                                                
+                        }
+                        
+
+                      },
+                      error: function(xhr, type, errorThrown) {
+                        //异常处理；
+                        self.endPullDownToRefresh();//关闭刷新
+                        mui.toast(errorThrown, {
+                          duration: 'long',
+                          type: 'div'
+                        })
+                      }
+                    });
+
+                }
+              },
+              up: {
+                auto: true,//可选,默认false.首次加载自动下拉刷新一次
+                callback: function() {
+//                  alert('加载')
+                  var self = this;
+                  that.page++
+                  var wheredata={}
+                  if(that.zuoitem!=0){//全部类型不用传字段
+                    if(that.zuoitem==1){
+                      wheredata['category']='rent'
+                    }else if(that.zuoitem==2){
+                      wheredata['category']='sell'
+                    }
+                  }
+                  // 0=审核中，1=已发布，-1=不通过，-2=已封盘
+                  if(that.youitem!=0){//全部状态不用传字段
+                          if(that.youitem==1){
+                      wheredata['status']='0'//审核中
+                    }else if(that.youitem==2){
+                        wheredata['status']='1'//已发布
+                    }else if(that.youitem==3){
+                        wheredata['status']='-1'//不通过
+                    }else if(that.youitem==4){
+                        wheredata['status']='-2'//已封盘
+                    }
+                  }
+
+                  
+                  wheredata['limit']=limit20
+                  wheredata['page']=that.page
+                  wheredata['sessiontoken']=sessiontoken
+                  //获取租盘列表的信息
+                  mui.ajax(Boss + 'user/agent', {
+                      data: wheredata,
+                      dataType: 'json', //服务器返回json格式数据
+                      type: 'GET', //HTTP请求类型
+                      timeout: 10000, //超时时间设置为10秒；
+                    success: function(data) {
+                        //1.服务器返回响应，根据响应结果，分析是否登录成功；
+                        if(data.status == true) {
+                            that.count=data.result.count  
+                            //如果是切换标签的加载事件也就是现在请求的是第一页，所以则要让页数变为1，下次加载的时候就变成++
+                            if(that.page==1){
+                              that.datas=[]
+                            }
+                            
+                            for (var i = 0; i < data.result.data.length; i++) {
+                            that.datas.push(data.result.data[i])
+                             }
+                            if(that.count == that.datas.length) {
+                              self.endPullUpToRefresh(true);//没有更多数据
+                              
+                            }else{
+                                    self.endPullUpToRefresh();//加载更多数据
+                            }
+                                                
+                        }
+                        
+
+                      },
+                      error: function(xhr, type, errorThrown) {
+                        //异常处理；让当前页数变回减1
+                          that.page--
+                        self.endPullDownToRefresh();//关闭刷新
+                        mui.toast(errorThrown, {
+                          duration: 'long',
+                          type: 'div'
+                        })
+                      }
+                    });
+
+                }
+              }
+            });
+          });
+
+
+        });
+      })(mui);
+      }
+        },
+        mounted: function() {
+            //加载和刷新的插件
+         this.refresh()
+        }
+    })
+  </script> 
+  </body>
+
+</html>

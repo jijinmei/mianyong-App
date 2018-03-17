@@ -1,0 +1,113 @@
+.active {
+  color: white;
+  background-color: #36c748;
+  border-color: #36c748 !important;
+}
+.space .bordergreen {
+  border-color: #36c748 !important;
+  color: #36c748;
+}
+.space .content {
+  padding-left: 0.2rem;
+  padding-right: 0.2rem;
+}
+.space .content div {
+  border-width: 1px;
+  border-style: solid;
+  border-color: #ebebeb;
+  border-radius: 0.05rem;
+  margin: 0 auto 0.19rem;
+  height: 0.7rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
+.space .content div:first-of-type {
+  border-color: #36c748;
+  color: #36c748;
+}
+.space .content div:last-of-type {
+  margin-bottom: 0;
+}
+.space .content div span {
+  display: inline-block;
+  width: 3rem;
+  height: 0.67rem;
+  line-height: 0.67rem;
+  text-align: center;
+}
+.space .content div span:first-of-type {
+  width: 0.86rem;
+  border-right: 1px solid #ebebeb;
+}
+.space .content div span:last-of-type {
+  width: 0.86rem;
+  float: right;
+  border-left: 1px solid #ebebeb;
+}
+.direct .content ul {
+  padding: 0 0.37rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+.direct .content ul li {
+  width: 0.85rem;
+  height: 0.85rem;
+  margin-right: 0.5rem;
+  border: 1px solid #999999;
+  border-radius: 0.85rem;
+  text-align: center;
+  line-height: 0.85rem;
+  font-size: 0.25rem;
+}
+.direct .content ul li:nth-of-type(4),
+.direct .content ul li:nth-of-type(8) {
+  margin-right: 0;
+}
+.direct .content ul li:nth-of-type(5),
+.direct .content ul li:nth-of-type(6),
+.direct .content ul li:nth-of-type(7),
+.direct .content ul li:nth-of-type(8) {
+  margin-top: 0.27rem;
+  margin-bottom: 0.1rem;
+}
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  -webkit-box-shadow: 0 0 0.5rem rgba(235, 235, 235, 0.8);
+  box-shadow: 0 0 0.5rem rgba(235, 235, 235, 0.8);
+}
+.footer div {
+  background-color: white;
+  height: 1rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+.footer div button {
+  width: 2.41rem;
+  height: 0.65rem;
+  background-color: #36c748;
+  color: white;
+  font-size: 0.3rem;
+  line-height: normal;
+  border: none;
+  outline: none;
+}

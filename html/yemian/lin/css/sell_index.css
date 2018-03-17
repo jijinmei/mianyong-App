@@ -1,0 +1,6 @@
+body div {
+  font-size: 0.26rem;
+  color: red;
+  -webkit-box-shadow: 0 1px 5px black;
+  box-shadow: 0 1px 5px black;
+}

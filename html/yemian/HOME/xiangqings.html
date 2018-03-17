@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <title>詳情</title>
+    <script typet="text/javascript" src="https://cdn.bootcss.com/jquery/2.2.0/jquery.min.js"></script>
+    <script typet="text/javascript" src="../../static/common.js"></script>
+
+    <link href="https://cdn.bootcss.com/Swiper/3.4.2/css/swiper.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/Swiper/3.4.2/js/swiper.jquery.min.js"></script>
+    <link href="../../static/common.css" rel="stylesheet">
+    <link href="../../static/commonS.css" rel="stylesheet">
+    <link href="../../static/imgUp.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../static/mui.min.css">
+
+
+  </head>
+
+  <body>
+
+    <div id="app" v-cloak>
+<div class="bai" v-if="datas!='no'">
+      <p class="center fz35 c333333 bold" style="padding:0.35rem 0.5rem 0.25rem 0.5rem;line-height: 0.43rem;">
+        {{datas.title}}
+      </p>
+      <p class="c999999 fz18 center border-b" style="padding-bottom: 0.2rem;">發佈:{{datas.createdAt}}</p>
+      <div class="padding20">
+        <img src="../../assets/img/home/1 (2).png" alt="" style="height:3.4rem;width:100%;"/>
+        <p class="fz25 c333333" style="margin-top:0.3rem;"  v-html="datas.content">
+            
+        </p>
+      </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
+ <script src="https://cdn.bootcss.com/vuex/3.0.1/vuex.min.js"></script>
+ <script src="https://cdn.bootcss.com/vue-router/3.0.1/vue-router.min.js"></script>
+<script src="../store.js"></script>
+    <script src="../../static/vconsole.min.js"></script>
+    <script src="../../static/mui.min.js"></script>
+    <script src="../../templated/liebiao.js"></script>
+    <script src="../../static/imgUp.js"></script>
+    <script src="../../static/mui.pullToRefresh.js"></script>
+    <script src="../../static/mui.pullToRefresh.material.js"></script>
+    <script src="../../static/mui.zoom.js"></script>
+    <script src="../../static/mui.previewimage.js"></script>
+    <script src="../../static/public.js"></script>
+    <script type="text/javascript">
+      // 初始化previewImage
+      mui.previewImage();
+      mui.init();
+      var objectId = '58bd0b8b1b69e6006b274f76' //'587f3b29570c352201193d6e'
+      var user = '';
+    </script>
+<script>
+    var vm = new Vue({
+        el: '#app',
+        // store,
+        data: {
+         datas:'no'
+
+      },
+      methods: {
+      //最新消息詳細內容
+     xiangqings(){
+      var that=this
+      $.get(Boss3+'news/'+locations('objectId'),{sessiontoken:sessiontoken},function(data){
+        console.log(data.result)
+        that.datas=data.result
+      })
+     }
+      
+
+    },
+    mounted() {
+
+      this.xiangqings()
+    }
+
+
+    })
+
+  </script> 
+
+
+
+
+
+  </body>
+
+</html>

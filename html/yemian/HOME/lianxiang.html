@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <title>搜索</title>
+    <script typet="text/javascript" src="https://cdn.bootcss.com/jquery/2.2.0/jquery.min.js"></script>
+    <script typet="text/javascript" src="../../static/common.js"></script>
+
+    <!-- <link href="https://cdn.bootcss.com/Swiper/3.4.2/css/swiper.css" rel="stylesheet"> -->
+    <!-- <script src="https://cdn.bootcss.com/Swiper/3.4.2/js/swiper.jquery.min.js"></script> -->
+    <link href="../../static/common.css" rel="stylesheet">
+    <link href="../../static/commonS.css" rel="stylesheet">
+    <!-- <link href="../../static/imgUp.css" rel="stylesheet"> -->
+    <link rel="stylesheet" href="../../static/mui.min.css">
+
+<style scoped="">
+.after00:after{font-size:0.2rem;color:#999999;}
+</style>
+  </head>
+
+  <body>
+
+    <div id="app" v-cloak>
+<div>
+  <!--头部的搜索条-->
+      <form class="mui-input-group after00 before00 border-b fixed" style="padding:0.15rem 0.2rem;width:6.4rem;z-index: 999;">
+        <div class="mui-input-row after00" style="height: 0.58rem;">
+          <!--放大镜-->
+          <span class="mui-icon mui-icon-search mui-icon czjz c999999 fz29 bold" style="left:0.2rem;"></span>
+          <input v-model="keyword" @focus="datas='no'" type="text" class="fz24 c999999 radius" style="height: 0.58rem;width:5rem;padding-left:0.6rem;background: #EBEBEB;" placeholder="請輸入內容進行搜索">
+           <!--关联叉子-->
+           <img v-show="keyword!=''" @click="clears" src="../../assets/img/home/san.png" alt="" class="czjz" style="width:0.32rem;right:1.2rem;"/>
+            <!--搜索按钮-->
+            <button @click="search" type="button" class="padding0 mui-btn mui-btn-green mui-pull-right fz30 radius" style="height:100%;width:0.86rem;">搜索</button>
+        </div>
+      </form>
+
+           <ul v-show="datas!='no'" class="mui-table-view left relative before00 after00" style="width: 100%;top:0.85rem;">
+                   <li class="mui-table-view-cell afterlf0 padding0" style="height: 0.4rem;">
+                       <a class="margin0 after02s relative"  style="height: 0.4rem;adding:0 0.2rem 0 0.2rem;">
+                            <span class="fz20 c999999 czjz" style="left:0.2rem;">請選擇類別</span>
+                            <span class="fz20 c999999 czjz" style="right:0.2rem;">共{{total}}條</span>
+                       </a>
+                   </li>
+                   <li @click="gosearch(index,item.title)" class="mui-table-view-cell afterlf0 padding0" v-for="(item,index) in datas">
+                       <a class="margin0 mui-navigate-right after02s"  style="height: 0.7rem;line-height: 0.7rem;padding:0 0.45rem 0 0.2rem;">
+                            <span class="fz27 c333333">{{item.title}}</span>
+                            <span class="fz20 c999999 mui-pull-right">{{item.count}}條信息</span>
+                       </a>
+                   </li>
+                    <li class="mui-table-view-cell afterlf0 fz23 c999999 center" style="padding:1rem 0 0.5rem 0;">
+                                                                                  已顯示全部結果
+                   </li>
+                 
+               </ul>
+    
+</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
+ <script src="https://cdn.bootcss.com/vuex/3.0.1/vuex.min.js"></script>
+ <script src="https://cdn.bootcss.com/vue-router/3.0.1/vue-router.min.js"></script>
+<!-- <script src="../store.js"></script> -->
+    <script src="../../static/vconsole.min.js"></script>
+    <script src="../../static/mui.min.js"></script>
+    <!-- <script src="../../templated/liebiao.js"></script> -->
+    <!-- <script src="../../static/imgUp.js"></script> -->
+    <!-- <script src="../../static/mui.pullToRefresh.js"></script> -->
+    <!-- <script src="../../static/mui.pullToRefresh.material.js"></script> -->
+    <!-- <script src="../../static/mui.zoom.js"></script> -->
+    <!-- <script src="../../static/mui.previewimage.js"></script> -->
+    <!-- <script src="../../static/public.js"></script> -->
+    <script type="text/javascript">
+      // 初始化previewImage
+      // mui.previewImage();
+      mui.init();
+      // var objectId = '58bd0b8b1b69e6006b274f76' //'587f3b29570c352201193d6e'
+      // var user = '';
+    </script>
+<script>
+    var vm = new Vue({
+        el: '#app',
+        // store,
+        data: {
+        datas:'no',
+        total:'',
+             keyword:''//搜索关键字
+             // content:'no'
+
+      },
+        methods: {
+      //跳到对应8大搜索的模块
+      gosearch(index,names){
+        if(index==0){
+          // 如何租的有内容，则显示租的内容先
+          if(this.datas[0].detail.rent){
+            location.href='../xiangqing/liebiaoSearch.html?souorzu=liebiaoZu&sessiontoken='+sessiontoken+'&keyword='+this.keyword       
+          }else{
+            location.href='../xiangqing/liebiaoSearch.html?souorzu=liebiaoSou&sessiontoken='+sessiontoken+'&keyword='+this.keyword       
+          }
+             
+        }else{
+            location.href='../zusouwuye/model8Search.html?name='+names+'&sessiontoken='+sessiontoken+'&keyword='+this.keyword 
+        }
+      },
+              search(){
+                var that=this
+                  //发请求关键字
+                  if(this.keyword){
+                    // this.$store.state.name='搜索'
+                  $.get(Boss3+'search/count',{'s':this.keyword},function(data){
+                      console.log(data)
+                      if(data.status){
+                          that.datas=data.result.results
+                          that.total=data.result.total
+                      }else{
+                         mui.toast(data.result.message)
+                      }
+                  })
+                  }
+                  
+              },
+              clears(){
+                this.keyword=""
+                this.datas="no"
+              }
+    },
+    mounted() {
+                  
+    }
+
+
+    })
+
+  </script> 
+
+
+
+
+
+  </body>
+
+</html>

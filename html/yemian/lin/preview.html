@@ -1,0 +1,165 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>發佈租盤房源</title>
+  <!-- 引入样式 -->
+  <link rel="stylesheet" href="https://unpkg.com/vant/lib/vant-css/index.css">
+  <link rel="stylesheet" href="./css/reset.css">
+  <link rel="stylesheet" href="./css/preview.css">
+  <script src="./js/flexible.min.js"></script>
+</head>
+
+<body>
+  <div id="app" v-cloak>
+    <div class="swipe">
+      <van-swipe :autoplay="5000">
+        <van-swipe-item v-for="(item, index) in rentobject.pics" :key="index">
+          <img :src="item" @click="clickSwipeImg(index)">
+        </van-swipe-item>
+      </van-swipe>
+    </div>
+    <div class="pubStyle sectionOne">
+      <div class="top">
+        <h2>{{rentobject.build_name || "--"}}</h2>
+        <div class="top-sub">
+          <span>發佈時間: {{rentobject.start_time || "--"}}</span>
+          <span>瀏覽: 7130人</span>
+        </div>
+        <div class="buttom-sub">
+          <span>租金
+            <i>({{rentobject.rent_type || "--"}})</i>
+          </span>
+          <span>{{rentobject.price || "--"}}
+            <i>元/月</i>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="pubStyle sectionTwo">
+      <div class="cell">
+        <span>類&emsp;&emsp;型:
+          <i>{{rentobject.type || "--"}}</i>
+        </span>
+        <span>間&emsp;&emsp;隔:
+          <i>{{rooms || "--"}}</i>
+        </span>
+      </div>
+      <div class="cell">
+        <span>樓層單位:
+          <i>{{rentobject.code || "--"}}</i>
+        </span>
+        <span>建築面積:
+          <i>{{rentobject.area || "--"}}呎</i>
+        </span>
+      </div>
+      <div class="cell">
+        <span class="bgimg">實用面積:
+          <i>{{rentobject.useableArea || "--"}}呎</i>
+        </span>
+        <span @click="average">平均呎價:
+          <i>{{averageFeet}}元/呎</i>
+        </span>
+      </div>
+      <div class="cell">
+        <span>景&emsp;&emsp;觀:
+          <i>{{rentobject.landscape || "--"}}</i>
+        </span>
+        <span>座&emsp;&emsp;向:
+          <i>{{rentobject.direct || "--"}}</i>
+        </span>
+      </div>
+      <div class="cell">
+        <span>明火煮食:
+          <i>{{rentobject.cook || "--"}}</i>
+        </span>
+        <span>飼養寵物:
+          <i>{{rentobject.pet || "--"}}</i>
+        </span>
+      </div>
+      <div class="cell">
+        <span class="span-width">地&emsp;&emsp;區:
+          <i>{{rentobject.build_area || "--"}}</i>
+        </span>
+      </div>
+      <div class="cell">
+        <span class="span-width">街&emsp;&emsp;道:
+          <i>{{rentobject.build_street || "--"}}</i>
+        </span>
+      </div>
+    </div>
+    <div class="pubStyle sectionThree">
+      <div class="cell">
+        <span>裝修程度:
+          <i>{{rentobject.decoration || "--"}}</i>
+        </span>
+        <span>可入住時間:
+          <i>{{rentobject.start_time || "--"}}</i>
+        </span>
+      </div>
+    </div>
+    <div class="pubStyle sectionFour" v-if="infrastructureData.length">
+      <div class="left-div">配套設備: </div>
+      <div class="right-div">
+        <span v-for="item in infrastructureData">{{item}}</span>
+      </div>
+    </div>
+    <div class="pubStyle sectionFive" v-if="homeInfrastructureData.length">
+      <div class="left-div">屋苑設施: </div>
+      <div class="right-div">
+        <span v-for="item in homeInfrastructureData">{{item}}</span>
+      </div>
+    </div>
+    <div class="pubStyle sectionSix" v-if="locationInfrastructureData.length">
+      <div class="left-div">附近設施: </div>
+      <div class="right-div">
+        <span v-for="item in locationInfrastructureData">{{item}}</span>
+      </div>
+    </div>
+    <div class="pubStyle sectionSeven">
+      <span>詳細描述</span>
+      <p>{{rentobject.remark || "這業主很懶什麼都沒有留下..."}}</p>
+    </div>
+    <div class="pubStyle sectionEight" :class="{showfooter : rentobject.contactType==='1'}">
+      <span>發佈者資訊</span>
+      <div class="info">
+        <p class="icon">
+          <img :src="userIcon" alt="">
+        </p>
+        <p class="username">{{nickname}}
+          <span>業主</span>
+        </p>
+        <p class="is-verify">
+          <span>手機號碼已驗證</span>
+        </p>
+        <div class="date-time">
+          <span>
+            <i></i>{{createdAt}}</span>
+          <em></em>
+          <span>
+            <i></i>2569993</span>
+        </div>
+      </div>
+    </div>
+    <div class="footer" v-if="rentobject.contactType==='1'">
+      <div class="f_cont">
+        <p>{{rentobject.from}} 联络人</p>
+        <p>{{rentobject.call}}{{rentobject.contacts}}</p>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdn.bootcss.com/vue/2.5.13/vue.min.js"></script>
+  <script src="https://cdn.bootcss.com/axios/0.18.0/axios.min.js"></script>
+
+  <!-- 配置axios -->
+  <script src="./js/axios.config.js"></script>
+
+  <!-- 引入组件 -->
+  <script src="https://unpkg.com/vant/lib/vant.min.js"></script>
+  <script src="./js/saveObject.js"></script>
+  <script src="./js/preview.js"></script>
+</body>
+
+</html>

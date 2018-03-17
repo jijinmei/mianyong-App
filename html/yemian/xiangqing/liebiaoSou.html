@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <title>查看售盤</title>
+    <script typet="text/javascript" src="https://cdn.bootcss.com/jquery/2.2.0/jquery.min.js"></script>
+    <script typet="text/javascript" src="../../static/common.js"></script>
+
+    <!-- <link href="https://cdn.bootcss.com/Swiper/3.4.2/css/swiper.css" rel="stylesheet"> -->
+    <!-- <script src="https://cdn.bootcss.com/Swiper/3.4.2/js/swiper.jquery.min.js"></script> -->
+    <link href="../../static/common.css" rel="stylesheet">
+    <link href="../../static/commonS.css" rel="stylesheet">
+    <!-- <link href="../../static/imgUp.css" rel="stylesheet"> -->
+    <link rel="stylesheet" href="../../static/mui.min.css">
+<!-- 子组件liebiao,js的样式 -->
+<style>
+/*左边的图片的样式*/  
+  .tukuang {
+    width: 2.45rem !important;
+    height: 2.15rem !important;
+    max-width: 2.45rem !important;
+    /*插件默认了一个最大宽度，这里要重新定义*/
+  }
+/*分租的样式*/ 
+  .fenzu {
+    padding:0rem 0.04rem 0rem 0.04rem;
+     /* height:0.32rem; */
+     /*line-height:0.3rem;*/ 
+     
+  }
+    .fenzu:active {
+    background-color: white !important;
+  }
+/*列表右边的间距*/ 
+  .mui-table-view-cell:after {
+    right: 0.2rem;left: 0.2rem;
+  }
+/*列表最外层的li的四周都是0.2rem的*/
+/*.listLiebiao{padding:0.2rem !important;}*/
+  
+
+
+
+
+
+</style>
+<style>
+/*子组件shuaixuan.js帅选的样式*/
+  .shuaixuan {
+    height: 0.7rem
+  }
+  .shuaixuan>li{
+    /*border:1px solid red;*/
+    width: 25% !important;
+    float: left;
+    height: 0.7rem;
+    /*border:1px solid red;*/
+    overflow: visible;
+    padding:0 !important;
+  }
+  .shuaixuan>li>a{
+    
+    /*border:1px solid red;*/
+    
+    text-align:left;
+    height: 0.7rem;
+    line-height: 0.7rem;
+    /*margin:0 !important;*/
+    margin:0 auto !important;
+    width:0.8rem !important;
+    padding:0 !important;
+  }
+    .shuaixuan>.isquyu{
+    /*width: 1.9rem !important;*/
+  }
+  .shuaixuan>.mui-table-view-cell:after {
+    height: 0;
+  }
+/*帅选四个块的上下箭头定位*/
+  /*左边地区的箭头*/
+  .quyuz .mui-navigate-right:after{
+    right: 0.25rem;
+  }
+  /*标题的地区的箭头*/
+   .parent>li>.mui-navigate-right:after{
+    right:0 !important;
+    /*color:red !important;
+    font-size:0.8rem;*/
+  }
+   .parent>.isquyu>.mui-navigate-right:after{
+    /*right: 0.9rem !important;*/
+  }
+  .mui-navigate-right:after, .mui-push-right:after
+/*帅选的箭头去除没有下一级的*/
+.jiantous:after{
+  display:none !important;
+}
+/*帅选点击的时候背景色重置为白色*/ 
+  .mui-table-view-cell.mui-active {
+    background: white;
+  }
+    .mui-active {
+    background: white !important;
+  }
+    .mui-active a,
+  .mui-active :after {
+    color: #36C748;
+  }
+/*弹出框的内容*/  
+  .mui-collapse-content {
+    margin-top: 0 !important;
+  }
+/*区域*/
+.quyuz>.mui-table-view-cell:after,.quyuy>.mui-table-view-cell:after{left:0 !important;} 
+.quyuz>li>a:after{color:#666666 !important;}
+.quyuz>li:last-child:after,.quyuy>li:last-child:after{height:1px !important;}
+/*租金 */
+.zujin>ul>li:after,.leixing>ul>li:after,.laiyuan>ul>li:after{left:0 !important;}
+/*标题的非第一个的选择条件的右边箭头为绿色*/
+.jtc36c748.c36c748:after{color:#36C748;}
+.shuaixuan>li>a{width:0.8rem !important;}
+.shuaixuan>li>.leng2{width:0.8rem !important;}
+.shuaixuan>li>.leng3{width:1.1rem !important;}
+.shuaixuan>li>.leng4{width:1.3rem !important;}
+</style>
+  </head>
+
+  <body>
+
+    <div id="app">
+<div class="fixbody">
+    <!--1.头部帅选-->
+        <shuaixuan  :souorzu="souorzu" class="fixed SHUAIXUANSOU" style="top:0;left:0;z-index:1000;width:100%;"></shuaixuan>
+    <!--2.帅选出来的列表内容-->
+    <div class="mui-scroll-wrapper LIEBIAOSOU" style="">
+      <liebiao :datas='datas' :name='name' class="mui-scroll" ></liebiao>
+    </div>
+    <!--查看搜索按钮-->
+    <img @click="searchs"  src="../../assets/img/xiangqing/searchs.png" alt="" class="fixed" style="width:0.82rem;right:0.2rem;bottom:1.5rem;z-index:996;"/>
+  </div>
+</div>
+
+ <script src="https://cdn.bootcss.com/vue/2.5.9/vue.min.js"></script>
+ <script src="https://cdn.bootcss.com/vuex/3.0.1/vuex.min.js"></script>
+ <script src="https://cdn.bootcss.com/vue-router/3.0.1/vue-router.min.js"></script>
+
+    <script src="../../static/vconsole.min.js"></script>
+    <script src="../../static/mui.min.js"></script>
+    <script src="../../templated/liebiao.js"></script>
+    <script src="shuaixuan.js"></script>
+    <!-- <script src="../../static/imgUp.js"></script> -->
+    <script src="../../static/mui.pullToRefresh.js"></script>
+    <script src="../../static/mui.pullToRefresh.material.js"></script>
+    <!-- <script src="../../static/mui.zoom.js"></script> -->
+    <!-- <script src="../../static/mui.previewimage.js"></script> -->
+    <!-- <script src="../../static/public.js"></script> -->
+    <script type="text/javascript">
+      // 初始化previewImage
+      // mui.previewImage();
+      mui.init();
+      // var objectId = '58bd0b8b1b69e6006b274f76' //'587f3b29570c352201193d6e'
+      // var user = '';
+    </script>
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data: {
+        souorzu:'liebiaoSou',//传给帅选的类型判断
+        category:'sell',//售盘的信息
+        build_area:'不限',//具体的地区，只需要传这个，上一级不用传
+        price_min:'不限',//最小租金
+        price_max:'不限',//最大租金
+        type:'不限',//類型 = 住宅、車位、商鋪、寫字樓、工業大廈 
+        from:'不限',//来源
+        count:'',
+        page:0,
+        name:'liebiaoSou',
+        datas: []
+
+      },
+         components:{'liebiao':liebiao,'shuaixuan':shuaixuan},
+   methods: {
+    //搜索图标
+    searchs(){
+      location.href="liebiaoSearch.html?souorzu="+this.souorzu+"&sessiontoken="+sessiontoken
+      // if(isAPP){
+      //     locationClick('liebiaoSearch/'+this.souorzu)
+      //   }else{
+      //     this.$router.push({name:'liebiaoSearch',params:{souorzu:this.souorzu}})
+      //   }
+      
+    },
+      //父元素的方法根据条件去更新列表
+      onfresh(){
+        this.datas=[]
+        this.page=0
+        this.refresh()
+      },
+      refresh(){
+        var that=this;
+      (function($) {
+        //阻尼系数
+        var deceleration = mui.os.ios?0.003:0.0009;
+        $('.mui-scroll-wrapper').scroll({
+          bounce: false,
+          indicators: true, //是否显示滚动条
+          deceleration:deceleration
+        });
+        $.ready(function() {
+          //循环初始化所有下拉刷新，上拉加载。
+          $.each(document.querySelectorAll('.mui-scroll'), function(index, pullRefreshEl) {
+            $(pullRefreshEl).pullToRefresh({
+              down: {
+                callback: function() {
+//                  alert('刷新')
+                  var self = this;
+                  that.page=0
+                  var wheredata={}
+                  wheredata['category']=that.category
+                  if(that.build_area!='不限'){
+                    wheredata['build_area']=that.build_area
+                  }
+                  if(that.price_min!='不限'&&that.price_min!=''){
+                    wheredata['price_min']=that.price_min
+                  }
+                  if(that.price_max!='不限'&&that.price_max!=''){
+                    wheredata['price_max']=that.price_max
+                  }
+                  if(that.type!='不限'){
+                    wheredata['type']=that.type
+                  }
+                  if(that.from!='不限'){
+                    wheredata['from']=that.from
+                  }
+                  wheredata['limit']=limit20
+                  wheredata['page']=1
+                  wheredata['sessiontoken']=sessiontoken
+                  //获取租盘列表的信息
+                  mui.ajax(Boss + 'agent', {
+                      data:wheredata,
+//                      {
+//                        category:that.category,//租盘
+//                        page: 1,
+//                        limit: limit20,
+//                        sessiontoken: sessiontoken
+//                      },
+                      dataType: 'json', //服务器返回json格式数据
+                      type: 'GET', //HTTP请求类型
+                      timeout: 10000, //超时时间设置为10秒；
+                      //  headers:{'Content-Type':'application/json'},
+                    success: function(data) {
+                        //1.服务器返回响应，根据响应结果，分析是否登录成功；
+                        if(data.status == true) {
+                            that.count = data.result.count
+                            that.datas = data.result.data
+                        setTimeout(function(){
+                                                     self.endPullDownToRefresh();//关闭刷新
+                        },1000)
+                                                
+                        }
+                        
+
+                      },
+                      error: function(xhr, type, errorThrown) {
+                        //异常处理；
+                        self.endPullDownToRefresh();//关闭刷新
+                        mui.toast(errorThrown, {
+                          duration: 'long',
+                          type: 'div'
+                        })
+                      }
+                    });
+
+                }
+              },
+              up: {
+                auto: true,//可选,默认false.首次加载自动下拉刷新一次
+                callback: function() {
+//                  alert('加载')
+                  var self = this;
+                  that.page++
+                  var wheredata={}
+                  wheredata['category']=that.category
+                  if(that.build_area!='不限'){
+                    wheredata['build_area']=that.build_area
+                  }
+                  if(that.price_min!='不限'&&that.price_min!=''){
+                    wheredata['price_min']=that.price_min
+                  }
+                  if(that.price_max!='不限'&&that.price_max!=''){
+                    wheredata['price_max']=that.price_max
+                  }
+                  if(that.type!='不限'){
+                    wheredata['type']=that.type
+                  }
+                  if(that.from!='不限'){
+                    wheredata['from']=that.from
+                  }
+                  wheredata['limit']=limit20
+                  wheredata['page']=that.page
+                  wheredata['sessiontoken']=sessiontoken
+                  //获取租盘列表的信息
+                   mui.ajax(Boss + 'agent', {
+                      data: wheredata,
+//                      {
+//                        page:that.page,
+//                        limit: limit20,
+//                        sessiontoken: sessiontoken
+//                      },
+                      dataType: 'json', //服务器返回json格式数据
+                      type: 'GET', //HTTP请求类型
+                      timeout: 10000, //超时时间设置为10秒；
+                      //  headers:{'Content-Type':'application/json'},
+                    success: function(data) {
+                        //1.服务器返回响应，根据响应结果，分析是否登录成功；
+                        if(data.status == true) {
+                            that.count=data.result.count  
+                            //如果是切换标签的加载事件也就是现在请求的是第一页，所以则要让页数变为1，下次加载的时候就变成++
+                            if(that.page==1){
+                              that.datas=[]
+                            }
+                            
+                            for (var i = 0; i < data.result.data.length; i++) {
+                            that.datas.push(data.result.data[i])
+                             }
+                            if(that.count == that.datas.length) {
+                              setTimeout(function(){
+                                self.endPullUpToRefresh(true);//没有更多数据
+                              },1000)
+                              
+                              
+                            }else{
+                              setTimeout(function(){
+                                self.endPullUpToRefresh();//加载更多数据
+                              },1000)
+                                    
+                            }
+                                                
+                        }
+                        
+
+                      },
+                      error: function(xhr, type, errorThrown) {
+                        //异常处理；让当前页数变回减1
+                          that.page--
+                        self.endPullDownToRefresh();//关闭刷新
+                        mui.toast(errorThrown, {
+                          duration: 'long',
+                          type: 'div'
+                        })
+                      }
+                    });
+
+                }
+              }
+            });
+          });
+
+
+        });
+      })(mui);
+      }
+             
+        
+    },
+    mounted() {
+      //加载和刷新的插件
+         this.refresh()
+    }
+
+    })
+
+  </script> 
+
+
+
+
+
+  </body>
+
+</html>

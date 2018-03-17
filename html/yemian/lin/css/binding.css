@@ -1,0 +1,169 @@
+input {
+  border: none;
+  color: #999999;
+  width: 5.66rem;
+  height: 0.76rem;
+  border: 1px solid #36c748;
+  font-size: 0.25rem;
+  padding-left: 0.6rem;
+  margin-bottom: 0.3rem;
+}
+input::-webkit-input-placeholder,
+input textarea::-webkit-input-placeholder {
+  line-height: normal;
+  color: #999999;
+  font-size: 0.25rem;
+}
+input:-moz-placeholder,
+input textarea:-moz-placeholder {
+  line-height: normal;
+  color: #999999;
+  font-size: 0.25rem;
+}
+input::-moz-placeholder,
+input textarea::-moz-placeholder {
+  line-height: normal;
+  color: #999999;
+  font-size: 0.25rem;
+}
+input:-ms-input-placeholder,
+input textarea:-ms-input-placeholder {
+  line-height: normal;
+  color: #999999;
+  font-size: 0.25rem;
+}
+.agent {
+  background-color: #e6e6e6;
+  padding-bottom: 0.15rem;
+}
+.agent div:last-child {
+  background-color: white;
+  padding: 0.06rem 0.4rem 0.3rem 0.4rem;
+  padding-left: 1.9rem;
+  font-size: 0.2rem;
+  line-height: 0.2rem;
+  color: #ff0000;
+}
+.agent p {
+  background-color: white;
+  padding: 0.27rem 0.4rem;
+  font-size: 0.25rem;
+  line-height: 0.25rem;
+  color: #999999;
+}
+.agent .radiobox {
+  background-color: white;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding-left: 0.4rem;
+}
+.agent .radiobox li {
+  font-size: 0.25rem;
+  line-height: 0.4rem;
+  height: 0.4rem;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: right center;
+  margin-right: 1.3rem;
+  padding-right: 0.51rem;
+}
+.agent .radiobox li:last-of-type {
+  margin-right: 0;
+}
+.mobile,
+.code,
+.passw,
+.passw2,
+.name {
+  text-align: center;
+}
+.mobile {
+  padding-top: 0.4rem;
+}
+.mobile input {
+  background: url('../imgs/login/mobile.png') no-repeat;
+  background-position: 0.2rem center;
+  background-size: 0.27rem 0.45rem;
+}
+.code {
+  position: relative;
+}
+.code span {
+  position: absolute;
+  top: 0.12rem;
+  right: 0.53rem;
+  padding: 0.15rem 0.16rem;
+  color: white;
+  background-color: #36c748;
+  border-radius: 0.1rem;
+  font-size: 0.25rem;
+  line-height: 0.25rem;
+}
+.code input {
+  background: url('../imgs/login/code.png') no-repeat;
+  background-position: 0.16rem center;
+  background-size: 0.36rem 0.28rem;
+}
+.passw input {
+  background: url('../imgs/login/password.png') no-repeat;
+  background-position: 0.2rem center;
+  background-size: 0.3rem 0.4rem;
+}
+.passw2 {
+  position: relative;
+}
+.passw2 span {
+  position: absolute;
+  width: 0.35rem;
+  height: 0.35rem;
+  top: 0.2rem;
+  right: 0.53rem;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: auto;
+}
+.passw2 input {
+  background: url('../imgs/login/password.png') no-repeat;
+  background-position: 0.2rem center;
+  background-size: 0.3rem 0.4rem;
+}
+.name input {
+  background: url('../imgs/login/name.png') no-repeat;
+  background-position: 0.16rem center;
+  background-size: 0.36rem 0.45rem;
+}
+.peoples {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: reverse;
+  -ms-flex-direction: row-reverse;
+  flex-direction: row-reverse;
+  width: 5.66rem;
+  margin: 0 auto;
+}
+.peoples li {
+  height: 0.4rem;
+  font-size: 0.27rem;
+  line-height: 0.4rem;
+  padding-right: 0.5rem;
+  background-repeat: no-repeat;
+  background-position: right center;
+  background-size: contain;
+  margin-right: 0.49rem;
+}
+.peoples li:first-of-type {
+  margin-right: 0;
+}
+.footer p {
+  margin: 0.92rem 2rem 2rem;
+  padding: 0.23rem 0.6rem;
+  color: white;
+  background-color: #36c748;
+  text-align: center;
+  font-size: 0.3rem;
+  line-height: 0.3rem;
+  border-radius: 0.05rem;
+}

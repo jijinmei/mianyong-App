@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <title>我要發佈</title>
+    <script typet="text/javascript" src="https://cdn.bootcss.com/jquery/2.2.0/jquery.min.js"></script>
+    <script typet="text/javascript" src="../../static/common.js"></script>
+
+    <link href="https://cdn.bootcss.com/Swiper/3.4.2/css/swiper.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/Swiper/3.4.2/js/swiper.jquery.min.js"></script>
+    <link href="../../static/common.css" rel="stylesheet">
+    <link href="../../static/commonS.css" rel="stylesheet">
+    <link href="../../static/imgUp.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../static/mui.min.css">
+<style scoped>
+.mui-zoom-scroller>img{ 
+    max-width: 100% !important;
+    max-height: 100% !important;
+    height:auto !important;
+    width:auto !important;
+  }
+  .mg32 {
+    margin-right: 0.3rem;
+  }
+     img {
+            width: 3.2rem;
+            max-width:3.2rem;
+            padding: 10px 15px;
+        }
+</style>
+
+  </head>
+
+  <body>
+
+    <div id="app" v-cloak>
+<div class="bgebebeb">
+    <div class="bai" style="padding:0.24rem 0.2rem 0 0.2rem;">
+      <p class="fz23 c888888">請選擇發布內容的類型</p>
+      <ul class="overflow" style="margin-top:0.25rem;height:0.8rem;">
+        <li v-for="(item,index) in btn" class="lf" :class="{mg32:index!=3}">
+          <button @click="btnindex=index" type="button" class="radius05 fz27 mui-btn" :class="{'mui-btn-outlined':btnindex!=index,'mui-btn-green':btnindex==index,'mui-btn-8':btnindex!=index}" style="padding:0.1rem 0.32rem !important;">{{item}}</button>
+        </li>
+      </ul>
+    </div>
+    
+    <div class="mg10 bai" style="padding:0.25rem 0.2rem 0 0.2rem;">
+        <div class="mui-input-row" style="height:0.8rem;">
+            <input v-model="title" type="text" placeholder="請輸入貼子標題" class="marginb0 fz27 left" style="line-height:0.27rem;">
+        </div>
+       <textarea  v-model="content"  placeholder="請輸入貼子內容" rows="" cols="" style="height:2.45rem;margin:0.15rem 0;padding:0.26rem;" class="left fz27 c333333"></textarea>
+        
+    </div>
+    
+
+<!--添加本地图片.uploads .up-img  -->
+<div class="bai">
+  <ul class="uploads overflow bai" style="padding:0 0.2rem 0.1rem 0.2rem;width:100%;">
+    <li class="first lf " style="" >
+      <div class="img-box full" style="width: 100%;margin-top: 0">
+      <section class="img-section">
+        <div class="z_photo upimg-div clear" >
+         <!--2.当前点击上传的-->
+                     <section class="z_file fl w193 h193 mR10" v-if="!(tdate.length==9)">
+                      <img src="../../assets/img/taolunqu/add.png"  class="add cursor w193 h193 padding0">
+                      <input  type="file" name="file" id="file" class="file addsfile" value="" 
+                       accept="image/jpg,image/jpeg,image/png,image/bmp,image/JPG,image/JPEG,image/PNG,image/BMP" multiple />
+                     </section>
+             </div>
+       </section>
+       </div>              
+    </li>
+  </ul>
+  <p class="fz22 c888888 bai pL20">最多可上傳9張圖片</p>
+  <p class="center pB100">
+    <span class="display:none;">{{watch}}</span>
+<button type="button" @click="woyaofabu" class="mui-btn mT74 fz019 border0" :style="{'background':btnindex!=-1&&title!=''&&content!=''&&tdate.length>0?'#36c748':'#aaaaaa'}" style="color:white;padding:0.15rem 0.39rem;">發佈</button>
+</p>
+</div>
+<!--正在發佈-->
+    <div class="wai_kuangs" v-if="isending==false">
+      <div class="nei_kuang fz32 bai w497 h200 lh200 center radius">正在發佈,請稍後...</div>
+    </div>
+  </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
+ <script src="https://cdn.bootcss.com/vuex/3.0.1/vuex.min.js"></script>
+ <script src="https://cdn.bootcss.com/vue-router/3.0.1/vue-router.min.js"></script>
+<script src="../store.js"></script>
+    <script src="../../static/vconsole.min.js"></script>
+    <script src="../../static/mui.min.js"></script>
+    <!-- <script src="../../templated/liebiao.js"></script> -->
+    <script src="../../static/imgUp.js"></script>
+    <!-- <script src="../../static/mui.pullToRefresh.js"></script> -->
+    <!-- <script src="../../static/mui.pullToRefresh.material.js"></script> -->
+    <script src="../../static/mui.zoom.js"></script>
+    <script src="../../static/mui.previewimage.js"></script>
+    <!-- <script src="../../static/public.js"></script> -->
+    <script type="text/javascript">
+      // 初始化previewImage
+      mui.previewImage();
+      mui.init();
+      var objectId = '58bd0b8b1b69e6006b274f76' //'587f3b29570c352201193d6e'
+      var user = '';
+    </script>
+<script>
+    var vm = new Vue({
+        el: '#app',
+        store,
+        data: {
+         isending:true,//是否结束了请求
+        tdate:[],
+        btnindex: -1, //发布内容的类型
+        btn: ['求盤', '時事', '疑問', '綜合'],
+        title:'',//标题
+        content:''//标题
+
+      },
+      
+      computed:{
+      watch(){
+        this.tdate=this.$store.state.tdate
+      }
+    },
+    methods: {
+      adds(){
+        // mui.toast('点击到了上传框')
+          // $("#file").change()
+      },
+      woyaofabu(){
+var that=this
+if(this.btnindex!=-1&&this.title!=''&&this.content!=''&&this.tdate.length>0){
+that.isending=false//正在发布，请稍后
+var formData = new FormData();
+for (var i = 0; i < this.tdate.length; i++) {
+  formData.append("pics",this.tdate[i]);
+};
+    var tag=$(".active_top").html()
+formData.append("title", this.title);
+formData.append("content", this.content);
+formData.append("tag", this.btn[this.btnindex]);
+formData.append("sessiontoken", sessiontoken);
+setTimeout(function(){
+  jQuery.ajax({
+    url: Boss3+"discuss/post",
+    type: "POST",
+    processData: false,
+    contentType: false,
+    data: formData,
+})
+.done(function(data, textStatus, jqXHR) {
+    console.log("HTTP Request Succeeded: " + jqXHR.status);
+    that.tdate=[]
+    that.$store.state.tdate=[]
+    that.btnindex=-1
+    that.title=''
+    that.content=''
+    that.isending=true//正在发布，请稍后
+    // location.href='../taolunqu/taolunqu.html?sessiontoken='+sessiontoken
+    // 通知手机执行返回事件
+// mui.toast('通知手机执行返回事件')
+    goback(1)
+})
+.fail(function(jqXHR, textStatus, errorThrown) {
+    console.log("HTTP Request Failed");
+    mui.toast('發佈失敗，請稍后再試')
+})
+.always(function() {
+
+    /* ... */
+});
+
+},500)
+
+        }
+      },
+          adjust(e) {
+      //获取容器宽高
+      var pwidth = $(e.currentTarget).parent().width()
+      var pheight = $(e.currentTarget).parent().height()
+      //获取图片实际宽高
+      var width = $(e.currentTarget).width()
+      var height = $(e.currentTarget).height()
+      //获取实际宽高比例
+      var kgb = width / height
+      var gkb = height / width
+      console.log(width, height, pwidth, pheight)
+      //修正图片宽高 多加了==
+      if(width < height || width == height) {
+        $(e.currentTarget).css('width', pwidth + 'px')
+        var xzg = pwidth / kgb
+        $(e.currentTarget).css('height', xzg + 'px')
+        console.log('取宽')
+      } else {
+        $(e.currentTarget).css('height', pheight + 'px')
+        var xzk = pheight * kgb
+        $(e.currentTarget).css('width', xzk + 'px')
+        console.log('取高')
+      }
+    },
+     // fabus(){
+     //          console.log(this.title,this.content)
+     //         }      
+               
+    },
+    mounted() {
+          
+
+    }
+
+    })
+
+  </script> 
+
+
+
+
+
+  </body>
+
+</html>

@@ -1,0 +1,46 @@
+.remark {
+  padding-bottom: 1.08rem;
+}
+.remark .content {
+  border-bottom: none!important;
+}
+.footer {
+  height: 1.08rem;
+  padding-top: 0.1rem;
+  -webkit-box-shadow: 0 0 0.5rem rgba(235, 235, 235, 0.8);
+  box-shadow: 0 0 0.5rem rgba(235, 235, 235, 0.8);
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+}
+.footer div {
+  background-color: white;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+.footer div button {
+  height: 0.65rem;
+  padding: 0 0.2rem;
+  border-radius: 0.1rem;
+  background-color: #36c748;
+  color: white;
+  font-size: 0.3rem;
+  line-height: normal;
+  border: none;
+  outline: none;
+}
+.footer div button:first-of-type {
+  margin-right: 0.63rem;
+  background-color: white;
+  color: #36c748;
+  border: 1px solid #36c748;
+}

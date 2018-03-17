@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <title>home</title>
+    <script typet="text/javascript" src="https://cdn.bootcss.com/jquery/2.2.0/jquery.min.js"></script>
+    <script typet="text/javascript" src="../../static/common.js"></script>
+
+    <link href="https://cdn.bootcss.com/Swiper/3.4.2/css/swiper.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/Swiper/3.4.2/js/swiper.jquery.min.js"></script>
+    <link href="../../static/common.css" rel="stylesheet">
+    <link href="../../static/commonS.css" rel="stylesheet">
+    <!-- <link href="../../static/imgUp.css" rel="stylesheet"> -->
+    <link rel="stylesheet" href="../../static/mui.min.css">
+
+<style scoped>
+.mui-bar-tab{box-shadow:none !important;height:1.25rem !important;background:url('../../assets/img/home/tu.png') no-repeat;background-size:6.4rem 1.25rem;}
+</style>
+<style scoped>
+/*souye.js*/
+  .mui-bar-tab {
+    top: 0 !important;
+    height: 0.88rem !important;
+  }
+  
+  .model>li:nth-child(4),
+  .model>li:nth-child(8) {
+    margin-right: 0 !important;
+  }
+  /*.zusouwuye .mui-slider-indicator .mui-indicator {
+    background: #cacaca !important;
+  }
+  
+  .lbt .mui-slider-indicator .mui-indicator {
+    background: white !important;
+  }
+  
+  .mui-slider-indicator .mui-active.mui-indicator {
+    background: #36c748 !important;
+  }*/
+  
+  .after02:after {
+    right: 0rem !important;
+  }
+  
+  .tjfw>img {
+    min-height: 100% !important;
+    min-width: 100% !important;
+  }
+  
+  .tjfw {
+    width: 1.44rem !important;
+    height: 1.44rem !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  /*.swiper-container {
+    width: 100%;
+    height: 1.66rem;
+    background: white;
+    padding-bottom:0.22rem;
+  }*/
+  
+  .swiper-button-prev2 {
+    display: none;
+  }
+  
+  .swiper-button-next2 {
+    display: none;
+  }
+  
+  .swiper-slide {
+    text-align: left;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+  }
+  
+  .swiperk {
+    margin-right: 0.08rem !important;
+  }
+  .lastfabus>li{float:left;}
+  .lastfabus>li:nth-child(2n){float:right;}
+  /*.xiaoxi{position:relative; animation: moveUp 8s 0.6s infinite; -webkit-animation: moveUp 8s 0.6s infinite;}
+@keyframes moveUp
+ {
+ 18% {top:0px;}
+ 20% {top:-28px;}
+ 38% {top:-28px;}
+ 40% {top:-56px;}
+ 58% {top:-56px;}
+ 60% {top:-84px;}
+ 78% {top:-84px;}
+ 80% {top:-112px;}
+ 98% {top:-112px;}
+ }*/
+</style>
+  </head>
+
+  <body>
+
+    <div id="app">
+<div >
+    <!-- <div style="display: none;">{{watch}}</div> -->
+  <!-- <fuwu v-show="index==0"></fuwu> -->
+  <!-- <taolunqu v-if="index==1"></taolunqu> -->
+  <souye v-if="index==9"></souye>
+  <!-- <xunxi v-if="index==2"></xunxi> -->
+  <!-- <me v-if="index==3"></me> -->
+  
+  <!-- <nav class="mui-bar mui-bar-tab"> -->
+     <!--  <a @click="toindex(0)" class="mui-tab-item mui-active relative" style="height: 1.25rem;">
+         <img :src="index==0?require('../../assets/img/home/ones.png'):require('../../assets/img/home/one.png')" alt="" style="top:0.42rem;width:0.54rem;" class="spjz"/>
+          <span class="mui-tab-label fz19 c666666 spjz" style="top:0.85rem;">幫助</span>
+      </a>
+      <a @click="toindex(1)" class="mui-tab-item relative" style="height: 1.25rem;">
+           <img :src="index==1?require('../../assets/img/home/twos.png'):require('../../assets/img/home/two.png')" alt="" style="top:0.42rem;width:0.54rem;" class="spjz"/>
+          <span class="mui-tab-label fz19 c666666 spjz" style="top:0.85rem;">討論區</span>
+      </a>
+      
+       <a @click="toindex(9)" class="mui-tab-item relative" style="height: 1.25rem;">
+           <img :src="require('../../assets/img/home/home.png')" alt="" style="top:0.15rem;width:1.02rem;" class="spjz"/>
+          
+      </a>
+      <a @click="toindex(2)" class="mui-tab-item relative" style="height: 1.25rem;">
+          <img :src="index==2?require('../../assets/img/home/threes.png'):require('../../assets/img/home/three.png')" alt="" style="top:0.42rem;width:0.54rem;" class="spjz"/>
+          <span class="mui-tab-label fz19 c666666 spjz" style="top:0.85rem;">訊息</span>
+      </a>
+      <a @click="toindex(3)" class="mui-tab-item relative" style="height: 1.25rem;">
+           <img :src="index==3?require('../../assets/img/home/fours.png'):require('../../assets/img/home/four.png')" alt="" style="top:0.42rem;width:0.54rem;" class="spjz"/>
+          <span class="mui-tab-label fz19 c666666 spjz" style="top:0.85rem;">我的</span>
+      </a> -->
+  <!-- </nav> -->
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
+ <script src="https://cdn.bootcss.com/vuex/3.0.1/vuex.min.js"></script>
+ <script src="https://cdn.bootcss.com/vue-router/3.0.1/vue-router.min.js"></script>
+<script src="../store.js"></script>
+    <script src="../../static/vconsole.min.js"></script>
+    <script src="../../static/mui.min.js"></script>
+    <!-- <script src="../fuwu/fuwu.js"></script> -->
+     <!-- <script src="../taolunqu/taolunqu.js"></script> -->
+      <script src="souye.js"></script>
+      <!-- <script src="../xunxi/xunxi.js"></script> -->
+       <!-- <script src="../me/me.js"></script> -->
+    <!-- <script src="../../static/imgUp.js"></script> -->
+    <!-- <script src="../../static/mui.pullToRefresh.js"></script> -->
+    <!-- <script src="../../static/mui.pullToRefresh.material.js"></script> -->
+    <!-- <script src="../../static/mui.zoom.js"></script> -->
+    <!-- <script src="../../static/mui.previewimage.js"></script> -->
+    <!-- <script src="../../static/public.js"></script> -->
+    <script type="text/javascript">
+      // 初始化previewImage
+      // mui.previewImage();
+      mui.init();
+      // var objectId = '58bd0b8b1b69e6006b274f76' //'587f3b29570c352201193d6e'
+      // var user = '';
+    </script>
+<script>
+    var vm = new Vue({
+        el: '#app',
+         store,
+        data: {
+       index:9
+
+      },
+       components:{'souye':souye},
+    methods: {
+      toindex(index){
+        // this.$store.state.index=index
+        // if(index==0){
+        //   this.$store.state.name='幫助'
+        // }else if(index==1){
+        //   this.$store.state.name='討論區'
+        // }else if(index==2){
+        //   this.$store.state.name='訊息'
+        // }else if(index==3){
+        //   this.$store.state.name='我的'
+        // }
+
+      }
+               
+    },
+    mounted() {
+         
+    }
+
+
+    })
+
+  </script> 
+
+
+
+
+
+  </body>
+
+</html>

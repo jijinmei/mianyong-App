@@ -1,0 +1,116 @@
+#input {
+  display: block;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+}
+[v-show] {
+  display: none;
+}
+.main .ul {
+  padding: 0 0.2rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+.main .ul li {
+  width: 1.92rem;
+  height: 1.92rem;
+  margin: 0.2rem 0.04rem 0;
+  position: relative;
+}
+.main .ul li .slc-style {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-size: 50% 50%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-image: url('../imgs/fangzu/del.png');
+  z-index: 1231;
+}
+.main .ul li:first-of-type .pic-r {
+  position: absolute;
+  top: -0.01rem;
+  left: -0.01rem;
+  width: 0.82rem;
+  height: 0.82rem;
+  background: url('../imgs/fangzu/picR.png') no-repeat;
+  background-size: 0.82rem 0.82rem;
+}
+.main .ul li img {
+  width: 1.92rem;
+  height: 1.92rem;
+  -o-object-fit: cover;
+  object-fit: cover;
+  vertical-align: middle;
+}
+.main .ul li:last-of-type {
+  background-size: 1.92rem 1.92rem;
+  background-position: center;
+  background-repeat: no-repeat;
+  -ms-flex-item-align: start;
+  align-self: flex-start;
+}
+.normalfooter {
+  position: absolute;
+  bottom: 0.63rem;
+  left: 0;
+}
+.footer {
+  width: 100%;
+  margin-top: 0.66rem;
+}
+.footer div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+.footer div button {
+  width: 1.45rem;
+  height: 0.65rem;
+  color: white;
+  background-color: #36c748;
+  border: 1px solid #36c748;
+  font-size: 0.3rem;
+  line-height: normal;
+}
+.footer div button:first-of-type {
+  margin-right: 1.18rem;
+  color: #36c748;
+  border: 1px solid #36c748;
+  background-color: white;
+}
+.warp {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.warp .wrap-box {
+  width: 4.96rem;
+  background-color: white;
+  border-radius: 0.2rem;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+.warp .wrap-box p {
+  color: black;
+  height: 1rem;
+  font-size: 0.33rem;
+  line-height: 1rem;
+  text-align: center;
+}
+.warp .wrap-box p:first-of-type {
+  border-bottom: 1px solid #e6e6e6;
+}

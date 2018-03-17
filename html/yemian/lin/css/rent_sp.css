@@ -1,0 +1,94 @@
+.area .content div {
+  text-align: center;
+}
+.decoration {
+  padding-bottom: 0;
+}
+.decoration .content {
+  border-bottom: 1px solid #e6e6e6!important;
+}
+.code .content div {
+  text-align: center;
+}
+.code .content div input {
+  width: 100%;
+  border-bottom: none;
+}
+.features .content p {
+  font-size: 0.2rem;
+  line-height: normal;
+  color: #cccccc;
+  margin-top: 0.28rem;
+  padding: 0 0.2rem;
+}
+.features .content p span {
+  color: #36c748;
+  font-size: 0.2rem;
+  line-height: normal;
+}
+.start-time .content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+.start-time .content span {
+  display: inline-block;
+  height: 0.4rem;
+  line-height: 0.4rem;
+  background-size: 0.4rem 0.4rem;
+  background-repeat: no-repeat;
+  padding-left: 0.57rem;
+}
+.start-time .content span:first-of-type {
+  margin-right: 0.97rem;
+}
+.start-time .content span:last-of-type {
+  background-image: url('../imgs/fangzu/time.png');
+  background-repeat: no-repeat;
+  background-size: 0.4rem 0.4rem;
+}
+.remark .content textarea {
+  padding: 0.25rem;
+  height: 1.65rem;
+  font-size: 0.23rem;
+}
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  -webkit-box-shadow: 0 0 0.5rem rgba(235, 235, 235, 0.8);
+  box-shadow: 0 0 0.5rem rgba(235, 235, 235, 0.8);
+}
+.footer div {
+  background-color: white;
+  height: 1rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+.footer div button {
+  width: 1.73rem;
+  height: 0.65rem;
+  border-radius: 0.1rem;
+  background-color: #36c748;
+  color: white;
+  font-size: 0.3rem;
+  line-height: normal;
+  border: none;
+}
+.footer div button:first-of-type {
+  margin-right: 0.63rem;
+  background-color: white;
+  color: #36c748;
+  border: 1px solid #36c748;
+}

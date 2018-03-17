@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-Control" content="no-cache">
+<meta http-equiv="Expires" content="0">
+    <title>置業計算器</title>
+    <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1.0">
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+    <link href="./bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="./base.css">
+    <style>
+ body{font-family: "微软雅黑";}
+#js{opacity: 0;}
+::-webkit-input-placeholder {
+  color: #cccccc;
+}
+:-moz-placeholder {/* Firefox 18- */
+  color:#cccccc;
+}
+::-moz-placeholder{/* Firefox 19+ */
+ color: #cccccc;
+}
+:-ms-input-placeholder {
+  color: #cccccc;
+}
+</style>
+</head>
+<body>
+<!-- 计算 -->
+<div id="js">
+<ul  id="jisuan" class="list-group">
+    <li  class="list-group-item zhehe" id="label1" >
+      <div class="shang" style="position: relative;">
+        <span class="yi" style="position: absolute;left:0;top:50%;-webkit-transform: translateY(-50%);-moz-transform: translateY(-50%);transform: translateY(-50%);color:#666666;">物業價格</span>
+        <span class="zuo er" style="position: absolute;top:50%;-webkit-transform: translateY(-50%);-moz-transform: translateY(-50%);transform: translateY(-50%);color: black;display: inline-block;">
+            <input type="radio" id="nba1"  name="sport1" value="nba1" style="">
+            <label name="nba1" for="nba1" data-js="1" style="font-weight: bold;color:black;">澳門幣</label>
+        </span>
+        <span class="you san" style="position: absolute;top:50%;-webkit-transform: translateY(-50%);-moz-transform: translateY(-50%);transform: translateY(-50%);display: inline-block;" >
+              
+              <input type="radio" id="cba1" checked="checked" name="sport1" value="cba1">
+              <label name="cba1" for="cba1" data-js="1.03" class="checked "> 港幣</label>
+
+        </span>
+        <span class="si" style="font-weight: bold;position: absolute;right:0;top:50%;-webkit-transform: translateY(-50%);-moz-transform: translateY(-50%);transform: translateY(-50%);">
+            <input type="text" onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')"  name="A" id="A" placeholder="300" style="text-align:right;border:none;outline: none;">
+            <span>萬元</span>
+      </span>
+      </div>
+      <div style="color:#666666;text-align: right;">折合澳門幣<span id="B">309.00</span>萬元</div>
+
+    </li>
+
+    <li style="" class="list-group-item">
+      <!--   <span class="pull-left l">貸款總額(上限<span class="wenhao" style="color:#3AD14D;"><span id="C">231.00</span>萬元 </span>)</span> -->
+        <span class="pull-left l">貸款總額(澳門幣)</span>
+        <span class="pull-right r" style="font-weight: bold;">
+
+        <input type="text" onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')" name="D" id="D" placeholder="231" style="text-align:right;border:none;outline: none;">
+            <span>萬元</span>
+    </li>
+    <li style="" class="list-group-item">
+        <span class="pull-left l" style="letter-spacing: 0.5em;">還款<span  style="letter-spacing: 0em;">期</span></span>
+        <span class="pull-right r" style="font-weight: bold;">
+        <input type="text" onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')"    name="E" id="E" placeholder="10" style="text-align:right;border:none;outline: none;">
+        年(<span id="F">120</span>期)
+        </span>
+    </li>
+    <li style="" class="list-group-item">
+        <span class="pull-left l" style="letter-spacing:2em;">年<span style="letter-spacing: 0em;">息</span></span>
+        <span class="pull-right r" style="font-weight: bold;">
+        <input type="text" onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')"    name="G" id="G" placeholder="2.75" style="text-align:right;border:none;outline: none;">
+        %
+        </span>
+    </li>
+    <li style="" class="list-group-item" id="label2" style="position: relative;">
+        <span class="pull-left sc l" style="">首次置業</span>
+        <span class="pull-right">
+             <label name="nba2" for="nba2" data-s="1">是</label>
+             <input type="radio" id="nba2" name="sport1" value="nba2">
+             <label name="cba2" for="cba2" class="checked" data-s="0">否</label>
+             <input type="radio" id="cba2" name="sport2" checked="checked" value="cba2">
+        </span>
+    </li>
+</ul>
+<div class="begin">
+    <button class="kaishi" id='kfl'>開始計算</button>
+</div>
+<div class="tp">
+    本計算結果幣值為澳門幣，並只供一般參考及說明用途，實際情況應以相關部門或機構所計算為準。
+</div>
+  
+<!-- <div class="tp1">
+    
+</div> -->
+<div id='kf' style="display: none;">
+<div >
+<div class="a1" style="margin:0 auto;border-bottom: 1px solid #DDDDDD;">
+    <span  style="letter-spacing:5em;">首<span style="letter-spacing:0;">期</span></span>
+    <span style="text-align:left;color: #FF7533"><b style="color:black;text-align: center;">:</b>
+    <span id="M">153.23</span>萬元</span></div>
+  
+<div class="a1" style="margin:0 auto;border-bottom: 1px solid #DDDDDD;">
+    <span style="letter-spacing:0em;">手續費及印花稅</span>
+    <span style="text-align:left;color: #FF7533;position: relative;"><b style="color:black;text-align:center;">:</b>
+    <span id="L">1.23</span>
+    萬元
+    <img src="jisuan/sq.png" alt=""  id='sq' style=""> </span>
+   </div>
+    <div style="color: #818181;" id='wuzhi'>
+           <div class="a2" style="margin:0 auto;border-bottom: 1px solid #DDDDDD;">
+                    <span  style="letter-spacing:1.34em;">公證費<span style="letter-spacing:0em;">用</span></span>
+                    <span style="text-align:left;"><b style="text-align: center;">:</b>
+                    <span id="I">7000</span>元
+                    </span>
+            </div>
+            <div class="a2" style="margin:0 auto;border-bottom: 1px solid #DDDDDD;">
+                    <span style="letter-spacing:0em;">不動產轉移印花稅</span>
+                    <span style="text-align:left;"><b style="text-align: center;">:</b>
+                    <span id="J">500</span>元
+                    </span>
+            </div>
+            <div class="a2" style="margin:0 auto;border-bottom: 1px solid #DDDDDD;">
+               <span  style="letter-spacing:2.5em;">登記<span style="letter-spacing:0em;">費</span></span>
+                <span style="text-align:left;"><b style="text-align: center;">:</b>
+                <span id="K">3500</span>元
+                </span>
+            </div>
+        </div>
+<div class="a1 a11" style="margin:0 auto;border-bottom: 1px solid #DDDDDD;">
+    <span  style="letter-spacing:1em;">每月供<span style="letter-spacing:0;">款</span></span>
+    <span style="text-align:left;color:#FF7533"><b style="color:black;text-align:center;">:</b>
+    <span id="N">1.2</span>
+    元</span>
+    </div>
+  </div> 
+
+<div style="overflow:hidden;">
+<div class="a3" >
+    <span  style="text-align: right;color: #3AD14D">貸款總額<b style="text-align:left;color:black;">:</b></span>
+    <span style="text-align:left;color:black;">
+    <span id="Q">348</span>
+    萬元</span>
+</div>
+  
+<div class="a3" >
+    <span  style="text-align: right;color:#3AD14D">貸款比率<b style="text-align:left;color:black;">:</b></span>
+    <span style="text-align:left;color:black;">
+    <span id="O">69.60
+    </span>%
+</div>
+<div class="a3" >
+    <span  style="text-align: right;color: #3AD14D">利息總額<b style="text-align:left;color:black;">:</b></span>
+    <span style="text-align:left;color: black;">
+    <span id="P">30</span>
+    萬元</span>
+    </div>
+  </div> 
+</div>
+
+
+</div>
+<script type="text/javascript" src='./jquery-1.11.3.js'>
+	
+</script>
+    <script src="./bootstrap.min.js"></script>
+    <script src="./jisuan.js"></script>
+<script type="text/javascript">
+   var w=$(window).width()/640;
+var data_jj=1.03
+var H=0
+
+$("#jisuan").css("margin","0 auto")
+// li左边灰色 右边黑色
+$("#jisuan>li>span:first-child").css("color","#666666")
+$("#jisuan>li>span:last-child").css("color","black")
+// 开始计算
+$(".kaishi").css({"display":"block",
+                    "margin":"0 auto",
+                    "font-size":32*w+"px",
+                    "border":"none",
+                    "outline":"none",
+                    "width":237*w+"px",
+                    "height":70*w+"px",
+                    "line-height":70*w+"px",
+                    "text-align":"center",
+                    "color":"white",
+                    "background":"#3AD14D",
+                     "border-radius":"5px"})
+$(".begin").css({"margin":30*w+"px auto"   
+                   })
+// 本计算结果
+$(".tp").css({
+    "display":"block",
+    "line-height":30*w+"px",
+    "text-align":"center",
+    "padding":"0 "+20*w+"px",
+    "font-size": 21*w+"px",
+    "color":"#A4A4A4"
+  
+})
+// 本计算结果
+$(".tp1").css({
+    "line-height":35*w+"px",
+    "display":"block",
+    "margin-bottom":13*w+"px",
+    "text-align": "center",
+    "font-size": 21*w+"px",
+    "color":"#A4A4A4"
+     
+})
+// ？图片
+$(".wenhao").css({
+    "padding-right":28*w+"px",
+    "display":"inline-block",
+    "margin-right":"3px",
+    "background":"url(jisuan/dkze.png) no-repeat right center",
+                    "background-size":25*w+"px "+25*w+"px"
+})
+
+
+$("input[type='radio']").css("display","none")
+// 第一组单选
+$("#label1 label").css({
+                  "margin-bottom":'0',
+                  'height':38*w+"px",
+                  'padding-top':4*w+"px",
+                  "padding-left":45*w+"px",
+                  'display':'inline-block',
+                    "font-size":22*w+"px",
+                    "cursor":"pointer",
+                    "background":"url(jisuan/wx.png) no-repeat 0% 43%",
+                    "background-size":37*w+"px "+37*w+"px"})
+
+
+
+$("#label1 label.checked").css({"background-position":"left bottom",
+                    "background":"url(jisuan/yx.png) no-repeat 0% 43%",
+                    "background-size":37*w+"px "+37*w+"px"
+                   })
+
+// 第二组单选
+$("#label2 label").css({
+                  'height':45*w+"px",
+                  'line-height':45*w+"px",
+                  "padding-right":55*w+"px",
+                  "padding-top":2*w+"px",
+                  'display':'inline-block',
+                    "cursor":"pointer",
+                    "background":"url(jisuan/wx.png) no-repeat 100% 45%",
+                    "background-size":41*w+"px "+41*w+"px"})
+$("#label2 label:first").css({"position":"absolute","top":"50%","right":130*w+"px","transform":"translateY(-50%)"})
+$("#label2 label:last").css({"position":"absolute","top":"50%","right":20*w+"px","transform":"translateY(-50%)"})
+
+$("#label2 label.checked").css({"background-position":"left bottom",
+                    "background":"url(jisuan/yx.png) no-repeat 100% 45%",
+                    "background-size":41*w+"px "+41*w+"px"
+                   })
+
+
+
+
+
+//头部ul 
+    $("#jisuan>li").css({"overflow":"hidden",
+                       "height":68*w+"px",
+                       "position":"relative",  
+                     "padding":"0px "+20*w+"px "+"0px "+20*w+"px",
+                    })
+    $(".l").css({"position":"absolute","top":"50%","left":20*w+"px","transform":"translateY(-45%)"})
+    $(".r").css({"position":"absolute","top":"50%","right":20*w+"px","transform":"translateY(-45%)"})
+    $("#jisuan>#label1").css({"overflow":"hidden",
+                       "height":107*w+"px",
+                       "position":"relative"
+                    })
+        $("#jisuan>#label2").css({"overflow":"hidden",
+                       
+                       "position":"relative"
+                    })
+ 
+  $("#jisuan>#label1>span").css({
+                       "height":37*w+"px",
+                       "line-height":37*w+"px"
+                    })                
+// 第一层计算列表
+    $(".a1").css({"width":480*w+"px",
+                   "height":70*w+"px",
+                   "position":"relative",
+                    "font-size":29*w+"px"
+                     })
+       $(".a1>span:first-child").css({"width":210*w+"px","position":"absolute","top":"50%","left":20*w+"px","transform":"translateY(-45%)"})
+       $(".a1>span:nth-child(2)").css({"width":230*w+"px","position":"absolute","top":"50%","left":236*w+"px","transform":"translateY(-45%)"})               
+       $(".a11").css({"margin-bottom":22*w+"px" })            
+       $(".a1 b").css({"padding-right":10*w+"px","padding-left":5*w+"px"})
+                     
+                                    
+ // 第三层计算列表   
+        $(".a3>span:first-child").css({"float":"left"})               
+        $(".a3>span:nth-child(2)").css({"float":"left"})               
+        $(".a3").css({"width":430*w+"px",
+                    "font-size":25*w+"px",
+                    "height":50*w+"px",
+                    "margin-left":210*w+"px"
+
+                     })         
+         $(".a3 b").css({"padding-right":10*w+"px","padding-left":8*w+"px"})
+                     
+                                                                                
+ // 第二层计算列表                    
+       $(".a2>span:nth-child(2)").css({"width":230*w+"px","position":"absolute","top":"50%","left":236*w+"px","transform":"translateY(-45%)"})
+       $(".a2>span:first-child").css({"width":210*w+"px","position":"absolute","top":"50%","left":20*w+"px","transform":"translateY(-45%)"})                           
+       $(".a2").css({"width":480*w+"px",
+                       "position":"relative",
+                    "height":70*w+"px",
+                    "font-size":25*w+"px"
+                     })
+       $(".a2 b").css({"padding-right":10*w+"px","padding-left":5*w+"px"})
+              
+// 收起与展开
+   $("#sq").css({"width":28*w+"px",
+                 "height":27*w+"px",
+                
+                 "position": "absolute",
+                 "top":"50%",
+                 "right":"0px",
+                 "transform":"-ms-transform:translateY(-50%)",  /* IE 9 */
+    "-moz-transform":"translateY(-50%)",  /* Firefox */
+    "-webkit-transform":"translateY(-50%)", /* Safari 和 Chrome */
+    "-o-transform":"translateY(-50%)"  /* Opera */
+  })
+    var kfl=document.getElementById('kfl')
+    var kf=document.getElementById('kf')
+
+$("#sq").on("click",function(){ 
+    $("#wuzhi").toggle()
+    if($("#sq").attr('src')=='jisuan/zk.png'){
+       
+        $("#sq").attr('src','jisuan/sq.png')
+        $("#sq").css({"width":28*w+"px","height":27*w+"px"})
+    }else{
+         $("#sq").attr('src','jisuan/zk.png')
+         $("#sq").css({"width":28*w+"px","height":27*w+"px"})
+    }
+    
+    })
+
+
+// 单选按钮
+        $('#label1 label').click(function(){
+            var radioId = $(this).attr('name');
+            $('#label1 label').removeAttr('class') && $(this).attr('class', 'checked');
+            $('#label1 input[type="radio"]').removeAttr('checked') && $('#' + radioId).attr('checked', 'checked');
+            var js=$(this).attr("data-js")
+            data_jj=js
+         if($("#A").val()!=false){
+              var val=$("#A").val()
+              var js=$(this).attr("data-js")
+              var a=val*js
+              d=a.toFixed(2);
+              $("#B").html(d)
+              shangxian(a)
+         }else{
+              var val=300
+              var js=$(this).attr("data-js")
+              var a=val*js
+              d=a.toFixed(2);
+              $("#B").html(d)
+              shangxian(a)
+         }
+            
+             $("#label1 label").css({
+                  "margin-bottom":'0',
+                  'height':38*w+"px",
+                  'padding-top':4*w+"px",
+                  "padding-left":45*w+"px",
+                  'display':'inline-block',
+                    "font-size":22*w+"px",
+                    "cursor":"pointer",
+                    "background":"url(jisuan/wx.png) no-repeat 0% 43%",
+                    "background-size":37*w+"px "+37*w+"px"})
+
+
+
+$("#label1 label.checked").css({"background-position":"left bottom",
+                    "background":"url(jisuan/yx.png) no-repeat 0% 43%",
+                    "background-size":37*w+"px "+37*w+"px"
+                   })
+
+        });
+
+        $('#label2 label').click(function(){
+            var radioId = $(this).attr('name');
+            $('#label2 label').removeAttr('class') && $(this).attr('class', 'checked');
+            $('#label2 input[type="radio"]').removeAttr('checked') && $('#' + radioId).attr('checked', 'checked');
+           $("#label2 label").css({
+                  'height':45*w+"px",
+                  'line-height':45*w+"px",
+                  "padding-right":55*w+"px",
+                  "padding-top":2*w+"px",
+                  'display':'inline-block',
+                    "cursor":"pointer",
+                    "background":"url(jisuan/wx.png) no-repeat 100% 45%",
+                    "background-size":41*w+"px "+41*w+"px"})
+$("#label2 label:first").css({"position":"absolute","top":"50%","right":130*w+"px","transform":"translateY(-50%)"})
+$("#label2 label:last").css({"position":"absolute","top":"50%","right":20*w+"px","transform":"translateY(-50%)"})
+
+$("#label2 label.checked").css({"background-position":"left bottom",
+                    "background":"url(jisuan/yx.png) no-repeat 100% 45%",
+                    "background-size":41*w+"px "+41*w+"px"
+                   })
+var H1=$(this).attr("data-s")
+H=H1
+
+// jisuangongshi1(H)
+       
+        });
+$("#js").css({"opacity":"1"}) 
+
+
+
+
+ 
+//获取文本宽度
+$(".zhehe").css("height",155*w+"px")
+$(".shang").css({"height":100*w+"px"})
+$(".zhehe div").css("font-size",21*w+"px")
+
+$(".zhehe .er label").css("font-size",22*w+"px")
+$(".zhehe .san label").css("font-size",22*w+"px")
+$(".zhehe .er").css("left",125*w+"px")
+
+$(".zhehe .san").css("left",250*w+"px")
+$(".zhehe .si").css("font-size",27*w+"px")
+$(".zhehe .yi").css("font-size",25*w+"px")
+$("#jisuan>li>.l").css({"font-size":25*w+"px"}) 
+$("#jisuan>li>.r").css({"font-size":27*w+"px"}) 
+$("#jisuan>#label2 label").css({"font-size":27*w+"px"}) 
+    var textWidth = function(text){ 
+        var sensor = $('<pre>'+ text +'</pre>').css({display: 'none'}); 
+        $('body').append(sensor); 
+        var width = sensor.width();
+        sensor.remove(); 
+        return width;
+    };
+     $("#A").css("width",80*w+"px")
+     // A的输入框的监听
+       $("#A").bind('input propertychange', function(){
+        $("#A").width(textWidth($("#A").val())+70*w);
+        var a=$("#A").val()
+       var nan=(isNaN(a)?1:0)
+        if($("#A").val().length>0&&nan==0){
+           var b=a*data_jj
+           $("#B").html(b.toFixed(2))
+           shangxian(b)
+        //   if($("#nba1").is(':checked')){
+        //           var b=a*1
+        //         $("#B").html(a.toFixed(2))
+        //         // 上限350
+        //         shangxian(b)
+                        
+          
+        // }else if($("#cba1").is(':checked')){
+        //   var b=a*1.03
+        //   d=b.toFixed(2); 
+        //   $("#B").html(d)
+        //   shangxian(b)
+        // }
+
+      }else{
+           var b=300*data_jj
+           $("#B").html(b.toFixed(2))
+           shangxian(b)
+        // if($("#nba1").is(':checked')){
+        //   $("#B").html("300.00")
+        //    shangxian(300)
+        // }else if($("#cba1").is(':checked')){
+        //   var b=300*1.03
+        //   d=b.toFixed(2);
+        //   $("#B").html(d)
+        //    shangxian(b)
+        // }
+      }
+        
+        
+    });
+       // 输入框D的监听
+       $("#D").css("width",120*w+"px")
+      // $("#D").css("border","1px solid red")
+       $("#D").bind('input propertychange', function(){
+        $("#D").width(textWidth($("#D").val())+70*w);
+        
+        // var i=$("#D").val()
+        // var ii=$("#C").html()
+        // if((i-ii)>0) {
+        //    alert("超過貸款上限")
+        //     $("#D").val($("#C").html())
+        // }
+    });
+
+ // 输入框E的监听
+       $("#E").css("width",80*w+"px")
+       $("#E").on('input propertychange', function(){
+        $("#E").width(textWidth($("#E").val())+70*w);
+        var val=$("#E").val()
+        if(val.length>0){
+          $("#F").html(val*12)
+        }else{
+          $("#F").html("120")
+        }
+        
+    });
+
+$("#js").css({"opacity":"1"})
+</script>
+</body>
+</html>

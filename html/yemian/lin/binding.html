@@ -1,0 +1,52 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>綁定手機號</title>
+  <link rel="stylesheet" href="./css/reset.css">
+  <link rel="stylesheet" href="./css/binding.css">
+  <script src="./js/flexible.min.js"></script>
+</head>
+<body>
+  <div id="app" v-cloak>
+    <div class="agent">
+      <p>請選擇身份 (選擇后不可自行變更)</p>
+      <w-radio :data="agentData" @actionclick="agentClick"></w-radio>
+      <div>&emsp;&ensp;&emsp;&ensp;&emsp;&ensp;&emsp;&ensp;(地產行業專用)</div>
+    </div>
+    <div class="mobile">
+      <input type="text" placeholder="請輸入您的手機號碼" v-model="phone">
+    </div>
+    <div class="code">
+      <input type="text" placeholder="請輸入短信驗證碼" v-model="verifycode">
+      <span @click="getCode">獲取驗證碼</span>
+    </div>
+    <div class="passw">
+      <input type="password" placeholder="請輸入密碼" v-model="password">
+    </div>
+    <div class="passw2">
+      <input type="password" placeholder="請再次輸入密碼" v-model="verifyPassword" @input="vpassword">
+      <span v-show="showSpan" :style="bgImg"></span>
+    </div>
+    <div class="name">
+      <input type="text" placeholder="請輸入您的姓氏/名字" v-model="displayname">
+    </div>
+    <ul class="peoples">
+      <li v-for="(item, index) in peoples" @click="peoplesClick(item, index)" :style="peoplesBgimg(item)">{{item.text}}</li>
+    </ul>
+    <div class="footer">
+      <p @click="confirmClick">確認綁定</p>
+    </div>
+  </div>
+  
+    <script src="https://cdn.bootcss.com/vue/2.5.13/vue.min.js"></script>
+    <script src="https://cdn.bootcss.com/axios/0.18.0/axios.min.js"></script>
+  
+    <!-- 配置axios -->
+    <script src="./js/axios.config.js"></script>
+    <script src="./js/temps/rent_radio.js"></script>
+    <script src="./js/temps/rent_checkbox.js"></script>
+    <script src="./js/binding.js"></script>
+</body>
+</html>

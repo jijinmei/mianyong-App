@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>發佈租盤房源</title>
+  <link rel="stylesheet" href="./css/reset.css">
+  <link rel="stylesheet" href="../../static/common.css">
+  <link rel="stylesheet" href="./css/rent_index.css">
+  <link rel="stylesheet" href="../../static/mui.min.css">
+  <script src="./js/flexible.min.js"></script>
+</head>
+
+<body>
+  <div id="app" :class="{'is-Sp': rentobject.type === '商鋪'}" v-cloak>
+    <div class="lei-xing">
+      <p class="title">
+        <span>*</span>類型</p>
+      <div class="main">
+        <div class="item" v-for="(item, index) in typeData" :style="{backgroundImage: `url(${item.state ? item.imgurl1 : item.imgurl2})`}" @click="selectTypeItem(index)">
+          <i :class="{active: item.state ? true : false}">{{item.text}}</i>
+        </div>
+      </div>
+    </div>
+
+    <div class="wu-ye">
+      <p class="title">
+        <span v-if="!(rentobject.type === '商鋪')">*</span>物業名稱</p>
+      <div class="main">
+        <span>{{rentobject.build_name}}</span>
+        <!-- <span>{{}}</span> -->
+        <p class="sel" @click="goto('buildname')">選擇</p>
+      </div>
+    </div>
+
+    <div class="di-qu">
+      <p class="title">
+        <span>*</span>地區</p>
+      <div class="main">
+        <span>{{rentobject.build_area}}</span>
+        <p class="sel" @click="goto('buildarea')">選擇</p>
+      </div>
+    </div>
+
+    <div class="jie-dao">
+      <p class="title">
+        <span v-show="rentobject.type === '商鋪'">*</span>街道</p>
+      <div class="main" :class="{'no-border-bottom' : rentobject.type === '車位'}">
+        <input class="inp" type="text" placeholder="請點擊輸入" v-model="rentobject.build_street">
+      </div>
+    </div>
+
+    <div class="chu-zu" v-show="!(rentobject.type === '車位')">
+      <p class="title">
+        <span>*</span>出租類型</p>
+      <div class="main" :class="{'no-border-bottom' : !(rentobject.type === '商鋪')}">
+        <div class="item" v-for="(item, index) in (rentobject.type === '住宅' ? rentData : rentData2)" :style="{backgroundImage: `url(${item.state ? item.imgurl1 : item.imgurl2})`}" @click="rentobject.type === '住宅' ? selectRentTypeItem(index) : selectRentTypeItem2(index)">
+        <i :class="{active: item.state ? true : false}">{{item.text}}</i>
+      </div>
+      </div>
+    </div>
+
+    <div class="shang-pu" v-show="rentobject.type === '商鋪'">
+      <p class="title">
+        <span>*</span>商鋪類型</p>
+      <div class="main no-border-bottom">
+        <div class="item" v-for="(item, index) in shopTypeData" :style="{backgroundImage: `url(${item.state ? item.imgurl1 : item.imgurl2})`}" @click="selectShopTypeItem(index)">
+          <i :class="{active: item.state}">{{item.text}}</i>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="content">
+        <p @click="refresh">下一步12312123</p>
+      </div>
+    </div>
+  </div>
+  
+  <script src="../../static/vconsole.min.js"></script>
+
+  <script src="https://cdn.bootcss.com/vue/2.5.13/vue.min.js"></script>
+  <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+  <script src="../../static/common.js"></script>
+  <script src="../../static/mui.min.js"></script>
+  <script src="./js/saveObject.js"></script>
+  <script src="./js/rent_index.js"></script>
+</body>
+
+</html>

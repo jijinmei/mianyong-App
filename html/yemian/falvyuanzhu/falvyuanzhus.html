@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <title>詳情</title>
+    <script typet="text/javascript" src="https://cdn.bootcss.com/jquery/2.2.0/jquery.min.js"></script>
+    <script typet="text/javascript" src="../../static/common.js"></script>
+
+    <link href="https://cdn.bootcss.com/Swiper/3.4.2/css/swiper.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/Swiper/3.4.2/js/swiper.jquery.min.js"></script>
+    <link href="../../static/common.css" rel="stylesheet">
+    <link href="../../static/commonS.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../static/mui.min.css">
+
+<style scoped>
+  .mui-table-view-cell:after {
+    left: 0 !important;
+  }
+  
+  .mui-table-view-cell {
+    padding: 0 0.2rem !important;
+  }
+  
+  .mui-table-view-cell {
+    padding: 0.3rem 0.2rem !important;
+  }
+  
+  h4 {
+    margin-top: 0.1rem;
+    line-height: 0.37rem;
+  }
+  
+  p {
+    line-height: 0.35rem;
+  }
+  
+  .zifu {
+    width: 0.2rem;
+    display: inline-block;
+  }
+  
+  .zuobian {
+    display: inline-block;
+    width: 20%
+  }
+  
+  .maohao {
+    display: inline-block;
+    width: 5%
+  }
+  
+  .youbian {
+    display: inline-block;
+    width: 75%
+  }
+  b,p{color:#000000;}
+  /*.img1,.img3,.img4,.img5,.img9{width:5.8rem;}
+  .img2,.img6,.img7,.img8{width:4rem;}*/
+img{width:5.8rem;}
+.img400{width:4rem !important;}
+  
+</style>
+  </head>
+
+  <body>
+
+    <div id="app">
+<div style="padding:0.2rem 0.3rem;" class="fz25">
+    <div class="center">
+      <img :class="{img400:index==1||index==4||index==5||index==6||index==7}" :src="data.url" alt="" style="padding-bottom:0.2rem;" />
+    </div>
+    
+    <div style="border-top:1px solid #666666"></div>
+    <p class="c36c748 fz30 relative" style="left:-0.15rem;margin:0.15rem 0 0.1rem 0;">{{data.name}}</p>
+    
+    
+    <div class="overflow">
+      <div class="zuobian lf">
+        <div class="zifu">
+          <p><b class="c000000">簡</b></p>
+        </div>
+        <div class="zifu">
+          <p><b> </b></p>
+        </div>
+        <div class="zifu">
+          <p><b> </b></p>
+        </div>
+        <div class="zifu">
+          <p><b class="c000000">介</b></p>
+        </div>
+      </div>
+      <div class="maohao lf">
+        <p>：</p>
+      </div>
+      <div class="youbian lf">
+        <p class="c000000">{{data.content}}</p>
+      </div>
+    </div>
+    
+      <div  class="overflow">
+        <div class="zuobian lf">
+            <div class="zifu"><p><b>地</b></p></div>
+            <div class="zifu"><p><b> </b></p></div>
+            <div class="zifu"><p><b> </b></p></div>
+            <div class="zifu"><p><b>址</b></p></div>
+        </div>
+        <div class="maohao lf"><p>：</p></div>
+        <div class="youbian lf">
+            <p>{{data.address}}</p>
+        </div>
+    </div>
+
+    <div  class="overflow">
+        <div class="zuobian lf">
+            <div class="zifu"><p><b>電</b></p></div>
+            <div class="zifu"><p><b> </b></p></div>
+            <div class="zifu"><p><b> </b></p></div>
+            <div class="zifu"><p><b>話</b></p></div>
+        </div>
+        <div class="maohao lf"><p>：</p></div>
+        <div class="youbian lf">
+        <p>{{data.phone}}</p>
+        </div>
+    </div>
+    
+     <div class="overflow">
+        <div class="zuobian lf">
+            <div class="zifu"><p><b>諮</b></p></div>
+            <div class="zifu"><p><b>詢</b></p></div>
+            <div class="zifu"><p><b>時</b></p></div>
+            <div class="zifu"><p><b>間</b></p></div>
+        </div>
+        <div class="maohao lf"><p>：</p></div>
+        <div class="youbian lf">
+        <p v-html="data.time"></p>
+        </div>
+    </div>
+    
+    
+  </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
+ <script src="https://cdn.bootcss.com/vuex/3.0.1/vuex.min.js"></script>
+ <script src="https://cdn.bootcss.com/vue-router/3.0.1/vue-router.min.js"></script>
+    <script src="../../static/vconsole.min.js"></script>
+    <script src="../../static/mui.min.js"></script>
+    <script type="text/javascript">
+      // 初始化previewImage
+      // mui.previewImage();
+      mui.init();
+      // var objectId = '58bd0b8b1b69e6006b274f76' //'587f3b29570c352201193d6e'
+      // var user = '';
+    </script>
+<script>
+    var vm = new Vue({
+        el: '#app',
+        // store,
+        data: {
+     index:-1,
+        data: 'no',
+        datas: [{
+            name: '【政府資訊中心】',
+            content: '政府資訊中心提供政府部門的行政手續資料，為市民提供一站式的政府資訊服務。當未知自己查詢問題由哪個政府部門負責時，可致電政府資訊中心得到答案，或接待員會提供相應部門的聯絡方式。',
+            phone: '（853）8866 8866',
+            time: '星期一至五上午9時至下午6時，中午不休息。',
+            address: '澳門水坑尾街188-198號方圓廣場二樓',
+            url: '../../assets/img/wuyebangzhu/image001.jpg'
+          },
+          {
+            name: '【財政局】',
+            content: '提供便捷、優質、多元的服務，迅速回應公眾訴求，妥善規劃服務發展方向，並可查詢一系列的相關稅務。',
+            phone: '（853）2833 6886',
+            time: '24小時',
+            address: '澳門南灣大馬路575、579及585號',
+            url: '../../assets/img/wuyebangzhu/image002.jpg'
+          },
+          {
+            name: '【房屋局】',
+            content: '協助制定及實施本澳的房屋政策；執行有關公共房屋範疇的措施、方案及工作；對分層建築物的管理作出技術協調及輔助；對樓宇管理仲裁中心提供行政及技術支援等。',
+            phone: '（853）2859 4875',
+            time: '星期一至四9:00~13:00   14:30~17:45<br/>星期五9:00~13:00   14:30~17:30',
+            address: '澳門青洲沙梨頭北巷102號地下',
+            url: '../../assets/img/wuyebangzhu/image003.jpg'
+          },
+          {
+            name: '【民政總署】',
+            content: '促進環境衛生，尤其確保公共地方的清潔及動物的監管，並與行使衛生當局權力的公共部門或實體合作；規劃、促進及執行公民教育的資訊及培訓活動；致力提升居民的生活質素，尤其是推動重整城市區域及更新有關設備、以及改善環境條件。',
+            phone: '（853）2833 7676',
+            time: '星期一至五上午9時至晚上7時 (中午照常辦公，週六、日及公眾假期休息)',
+            address: '澳門南灣大馬路762-804號中華廣場2樓',
+            url: '../../assets/img/wuyebangzhu/image004.jpg'
+          },
+          {
+            name: '【法務局】',
+            content: '法務局提供有樓宇買賣一站式服務，買家和賣家可以通過此服務便捷辦理買賣樓宇各手續。',
+            phone: '（853）2856 4225',
+            time: '星期一至四9:00~13:00   14:30~17:45<br/>星期五9:00~13:00   14:30~17:30',
+            address: '澳門水坑尾街一百六十二號公共行政大樓十五至二十樓',
+            url: '../../assets/img/wuyebangzhu/image005.jpg'
+          },
+          {
+            name: '【物業登記局】',
+            content: '負責澳門特別行政區的物業登記工作，包括：物業登記、取消物業的按揭登記（樓宇按揭銷號）、物業登記的證明。',
+            phone: '（853）2857 1550',
+            time: '週一至週五 上午9時至下午6時',
+            address: '澳門水坑尾街一百六十二號公共行政大樓二樓',
+            url: '../../assets/img/wuyebangzhu/image006.jpg'
+          },
+          {
+            name: '【第一公證署】',
+            content: '負責從事各種公證行為，包括：不動產公證書(簽契)、樓宇買賣一站式服務、不動產抵押註銷一站式服務、書面報告（查屋紙）等。',
+            phone: '（853）2857 4258',
+            time: '週一至週五 上午9時至下午6時',
+            address: '澳門議事亭前地十六號仁慈堂大樓地下',
+            url: '../../assets/img/wuyebangzhu/image007.jpg'
+          },
+          {
+            name: '【第二公證署】',
+            content: '負責從事各種公證行為，包括：不動產公證書(簽契)、樓宇買賣一站式服務、不動產抵押註銷一站式服務、書面報告（查屋紙）等。',
+            phone: '（853）2855 4460',
+            time: '週一至週五 上午9時至下午6時',
+            address: '澳門水坑尾街一百六十二號公共行政大樓三樓',
+            url: '../../assets/img/wuyebangzhu/image008.jpg'
+          },
+          {
+            name: '【海島公證署】',
+            content: '負責從事各種公證行為，包括：不動產公證書(簽契)、樓宇買賣一站式服務、不動產抵押註銷一站式服務、書面報告（查屋紙）等。',
+            phone: '（853）2882 7502',
+            time: '週一至週五 上午9時至下午6時',
+            address: '澳門氹仔布拉干薩街三百一十三號金利達花園地下',
+            url: '../../assets/img/wuyebangzhu/image009.jpg'
+          }
+
+        ]
+
+      },
+   methods: {
+
+    },
+    mounted() {
+      // this.$store.state.name='詳情'
+      $('body').addClass('bodybai')
+      this.index = locations('index')
+      this.data = this.datas[this.index]
+    }
+
+    })
+
+  </script> 
+
+
+
+
+
+  </body>
+
+</html>

@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <title>詳情</title>
+    <script typet="text/javascript" src="https://cdn.bootcss.com/jquery/2.2.0/jquery.min.js"></script>
+    <script typet="text/javascript" src="../../static/common.js"></script>
+
+    <link href="https://cdn.bootcss.com/Swiper/3.4.2/css/swiper.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/Swiper/3.4.2/js/swiper.jquery.min.js"></script>
+    <link href="../../static/common.css" rel="stylesheet">
+    <link href="../../static/commonS.css" rel="stylesheet">
+    <!-- <link href="../../static/imgUp.css" rel="stylesheet"> -->
+    <link rel="stylesheet" href="../../static/mui.min.css">
+<style scoped>
+  #slider {
+    height: 3rem;
+  }
+  
+  /*.mui-slider-indicator .mui-active.mui-indicator {
+    background: #36c748;
+  }
+  
+  .mui-slider-indicator .mui-indicator {
+    background: white;
+    opacity: 0.7;
+    box-shadow: none;
+  }*/
+  
+  .mui-table-view-cell:after {
+    left: 0 !important;
+  }
+  
+  .mui-table-view:before {
+    height: 0 !important;
+  }
+  
+  .sheshi>li {
+    padding:0.21rem 0 !important;
+  }
+  .peitao img,.wuyuan img,.fujing img{width:0.25rem;height:0.25rem;}
+  .peitao ul>li{width: 30%;}
+  .wuyuan ul>li,.fujing ul>li{width: 50%;}
+  .mui-badge{border-radius: 0.1rem !important;}
+
+</style>
+  </head>
+
+  <body>
+
+<div id="app" v-cloak>
+<div id="">
+    <!--1.头部轮播图-->
+      <!--1.头部轮播图-->
+  <div  id="slider"  class="swiper-container swiper6 bai"  style="height:3rem;">
+        <div class="swiper-wrapper"  style="height:3rem;">
+            <div class="swiper-slide" v-for="(item,index) in slideimg" style="width:6.4rem;height:3rem;">
+              <!--租售的详情-->
+              <img  v-if="jianju=='yes'&&datas.templeId==undefined" :src="item.url!=undefined?item.url+imageView2:''" class="jz"  :data-preview-src="item.url+imageView2big" data-preview-group="2" style="min-width: 6.4rem;min-height: 3rem;">
+              <!--8大服务的详情-->
+              <img  v-if="jianju=='yes'&&datas.templeId!=undefined" :src="item+imageView2" class="jz"  :data-preview-src="item+imageView2big" data-preview-group="2" style="min-width: 6.4rem;min-height: 3rem;">
+              <!--预览的详情-->
+              <img v-if="jianju=='no'" :src="item.url!=undefined?item.url:''" class="jz"  :data-preview-src="item.url+imageView2big" data-preview-group="2" style="min-width: 6.4rem;min-height: 3rem;">
+            </div>
+        </div>
+        <!-- Add Pagination -->
+        <div class="swiper-pagination swiper-pagination6"></div>
+    </div>
+    
+  
+    <!--2.信息-->
+    <ul class="mui-table-view after00" v-if="datas!='no'">
+      <li class="mui-table-view-cell" style="padding:0.08rem 0.2rem 0.13rem 0.2rem;">
+        <p class="fz33 c36c748 mui-ellipsis-2">{{returns(datas.build_name||datas.title)}}</p>
+        <p class="c666666 fz21 h20 lh20 mT05">
+          發佈:{{returns(datas.createdAt)}}
+          <span class="c666666 fz21 mui-pull-right" >瀏覽:{{returns(datas.views)}}人</span>
+        </p>
+      </li>
+          <!--a.租售通用-->
+          <li v-if="datas.templeId==undefined" class="mui-table-view-cell cff4d00 fz30" style="padding:0.21rem 0.2rem;">
+            {{datas.category=='rent'?'租金':'售價'}}<span class="c666666 fz25" v-show="datas.type!='車位'&&datas.category=='rent'">({{returns(datas.rent_type)}})</span>
+            <span class="mui-pull-right fz33">{{returns(datas.price)}}<span class="c666666 fz25">{{datas.category=='rent'?'元/月':'萬元'}}</span></span>
+            </p>
+          </li>
+          
+          <!--b.汽车，家私，跳蚤通用-->
+          <li v-if="datas.templeId=='content_02'" class="mui-table-view-cell cff4d00 fz30" style="padding:0.21rem 0.2rem;">
+            價錢
+            <span class="mui-pull-right fz33">{{returns(datas.price)=="-1"?'面議':returns(datas.price)}}<span class="c666666 fz25" v-if="returns(datas.price)!='-1'">元</span></span>
+            </p>
+          </li>
+
+    </ul>
+
+    <!--3.配置设施-->
+    <ul  v-if="datas!='no'&&datas.templeId==undefined" class="after00 left mui-table-view fz27 c666666 sheshi mg10" style="padding:0 0.2rem;">
+      <li class="mui-table-view-cell">
+        <p class="mui-pull-left fz27 c666666" style="width:50%;">
+          類&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 型：<span class="c000000">{{returns(datas.type)}}</span>
+        </p>
+        <p class="mui-pull-right fz27 c666666" style="width:50%;">
+          間&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 隔：<span class="c000000">{{returns(datas.space)}}</span>
+        </p>
+      </li>
+      <li class="mui-table-view-cell">
+        <p class="mui-pull-left fz27 c666666" style="width:50%;">
+          樓層單位：<span class="c000000">{{datas.floor==undefined||datas.floor==''?'':datas.floor}}{{datas.code==undefined?'':datas.code}}{{((datas.floor==undefined||datas.floor=='')&&(datas.code==undefined||datas.code=='')?"--":"")}}</span>
+        </p>
+        <p class="mui-pull-right fz27 c666666" style="width:50%;">
+          建築面積：<span class="c000000">{{returnschi(datas.area)}}</span>
+        </p>
+      </li>
+      <li class="mui-table-view-cell">
+        <p class="mui-pull-left fz27 c666666" style="width:50%;">
+          實用面積：<span class="c000000">{{returnschi(datas.useable_area)}}</span>
+        </p>
+        <p class="mui-pull-right fz27 c666666 relative" style="width:50%;">
+          <span @click="helps"  class="mui-icon mui-icon-help cff4d00 fz30 czjz" style="left:-0.3rem;"></span>平均呎價：<span class="c000000">{{returns(datas.unit)=='--'?'--':returns(datas.unit)+'元/呎'}}</span>
+        </p>
+      </li>
+      <li class="mui-table-view-cell">
+        <p class="mui-pull-left fz27 c666666" style="width:50%;">
+          景&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 觀：<span class="c000000">{{returns(datas.landscape)}}</span>
+        </p>
+        <p class="mui-pull-right fz27 c666666" style="width:50%;">
+          座&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 向：<span class="c000000">{{returns(datas.direct)}}</span>
+        </p>
+      </li>
+      <li v-if="datas.category=='rent'"  class="mui-table-view-cell">
+        <p class="mui-pull-left fz27 c666666" style="width:50%;">
+          明火煮食：<span class="c000000">{{datas.additiaion==undefined||datas.additiaion==''?"":(datas.additiaion.cook=='0'?'不可以':(datas.additiaion.cook=='1'?'可以':'--'))}}</span>
+        </p>
+        <p class="mui-pull-right fz27 c666666" style="width:50%;">
+          飼養寵物：<span class="c000000">{{datas.additiaion==undefined||datas.additiaion==''?"":(datas.additiaion.pet=='0'?'不可以':(datas.additiaion.pet=='1'?'可以':'--'))}}</span>
+        </p>
+      </li>
+      <li class="mui-table-view-cell fz27 c666666">
+        地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 區：<span class="c000000">{{returns(datas.build_area)}}</span>
+      </li>
+      <li class="mui-table-view-cell fz27 c666666">
+        街&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 道：<span class="c000000">{{returns(datas.build_street)}}</span>
+      </li>
+    </ul>
+
+    <ul v-if="datas!='no'&&datas.templeId==undefined" class="after00 left mui-table-view fz27 c666666 sheshi mg10" style="padding:0 0.2rem;">
+      <li class="mui-table-view-cell">
+        <p class="mui-pull-left fz27" style="width:50%;">
+          装修程度：<span class="c000000">{{returns(datas.decoration)}}</span>
+        </p>
+        <p v-if="datas.category=='rent'"  class="mui-pull-right fz27" style="width:50%;">
+          {{datas.type=="住宅"?"可入住時間":"可起租時間"}}：<span class="c000000">{{returns(datas.start_time)}}</span>
+        </p>
+        <p v-if="datas.category=='sell'" class="mui-pull-right fz27" style="width:50%;">
+          物業現況：<span class="c000000">{{returns(datas.build_status)}}</span>
+        </p>
+      </li>
+
+    </ul>
+<!--1.配套设施-->
+    <ul v-if="datas.category=='rent'&&datas.templeId==undefined" class="after00 left mui-table-view fz27 c666666 mg10 peitao" >
+      <li class="mui-table-view-cell overflow" style="padding-left:0.18rem;">
+            <p style="" class="fz27 mui-pull-left">配套設備：</p>
+          <ul class="c000000 mui-pull-left left overflow" style="width: 4.3rem;">
+            <li class="lf red"  :class="{mR21:idxs1==1||idxs1==4,mL21:idxs1==1||idxs1==4}"  v-if="dos1!=''" v-for="(dos1,idxs1) in peitao">
+              <img src="../../assets/img/xiangqing/gouxuan.png" alt="" class="mR07"/>{{dos1}}
+            </li>
+            <li class="lf"  v-if="peitao.length==0">
+              --
+            </li>
+          </ul>
+      </li>
+
+    </ul>
+
+    
+<!--2.屋苑設施-->
+    <ul v-if="datas.templeId==undefined" class="after00 left mui-table-view fz27 c666666 mg10 wuyuan" >
+      <li class="mui-table-view-cell overflow" style="padding-left:0.18rem;">
+            <p style="" class="mui-pull-left fz27">屋苑設施：</p>
+          <ul class="c000000 mui-pull-left left overflow" style="width: 4.3rem;" >
+            <li class="lf" v-for="(dos2,idxs2) in wuyuan" v-if="dos2!=''">
+              <img src="../../assets/img/xiangqing/gouxuan.png" alt="" class="mR07"/>{{dos2}}
+            </li>
+            <li class="lf"  v-if="wuyuan.length==0" >
+              --
+            </li>
+          </ul>
+      </li>
+
+    </ul>   
+    
+
+<!--3.附近設施-->
+    <ul  v-if="datas.templeId==undefined"  class="after00 left mui-table-view fz27 c666666 mg10 fujing" >
+      <li class="mui-table-view-cell overflow" style="padding-left:0.18rem;">
+            <p style="" class="mui-pull-left fz27">附近設施：</p>
+          <ul class="c000000 mui-pull-left left overflow" style="width: 4.3rem;">
+            <li class="lf" v-for="(dos3,idxs3) in fujin" v-if="dos3!=''">
+              <img src="../../assets/img/xiangqing/gouxuan.png" alt="" class="mR07"/>{{dos3}}
+            </li>
+            <li class="lf"  v-if="fujin.length==0" >
+              --
+            </li>
+          </ul>
+      </li>
+
+</ul>   
+
+<!--b1租售模块的通用模板：业主的话-->
+<ul   v-if="datas!='no'&&datas.templeId==undefined"  class="mui-table-view fz27 c666666 mg10 yezhu after00" style="padding:0.2rem;">
+        <li class="mui-table-view-cell" style="padding-left: 0;padding-top: 0;">
+                       業主的話
+        </li>
+        <li class="mui-table-view-cell c000000" style="padding-left: 0;padding-bottom: 0;">
+            {{datas.remark==undefined||datas.remark==''?'這業主很懶甚麼都沒有留下...':datas.remark}}
+        </li>
+      
+    </ul>
+ <!--b2.非租售模块的通用模板：詳細內容-->
+<ul   v-if="datas!='no'&&datas.templeId!=undefined"  class="mui-table-view fz27 c666666 mg10 yezhu" style="padding:0.2rem;">
+        <li class="mui-table-view-cell" style="padding-left: 0;padding-top: 0;">
+                       詳細內容
+        </li>
+        <li class="mui-table-view-cell c000000" style="padding-left: 0;padding-bottom: 0;">
+        <!-- <pre style="margin:0;word-wrap:break-word;"> -->
+           {{datas.content==undefined||datas.content==''?'這業主很懶甚麼都沒有留下...':datas.content}}
+        <!-- </pre> -->
+        </li>
+        
+      
+    </ul>   
+<!--b3.非租售和非汽车，非家私，非跳蚤模块的通用模板：地址-->
+<ul   v-if="datas!='no'&&datas.templeId=='content_01'"  class="mui-table-view fz27 c666666 mg10 yezhu" style="padding:0.2rem;">
+        <li class="mui-table-view-cell" style="padding-left: 0;padding-top: 0;">
+                       地址
+        </li>
+        <li  v-if="datas.remark" class="mui-table-view-cell c000000" style="padding-left: 0;padding-bottom: 0;">
+            {{datas.remark==undefined||datas.remark==''?'這業主很懶甚麼都沒有留下...':datas.remark}}
+        </li>
+         <li v-if="datas.address" class="mui-table-view-cell c000000" style="padding-left: 0;padding-bottom: 0;">
+            {{datas.address==undefined||datas.address==''?'這業主很懶甚麼都沒有留下...':datas.address}}
+        </li>
+      
+    </ul>  
+ <!--發佈者資訊-->
+<ul    class="mui-table-view c666666 mg10 yezhu" style="padding:0.2rem;margin-bottom:1.08rem;">
+        <li class="mui-table-view-cell fz27" style="padding-left: 0;padding-top: 0;">
+                       發佈者資訊
+        </li>
+        <li v-if="datas!='no'" class="after00 mui-table-view-cell c000000 center after0" style="padding-left: 0;">
+            <img style="width: 1.62rem;margin-top: 0.19rem;" src="../../assets/img/xiangqing/logo.png" alt="" />
+            <p class="c000000 fz31 relative" style="margin-top: 0.2rem;">{{returns(datas.user.displayname)}}{{datas.user.call=='miss'?'小姐':(datas.user.call=='mrs'?'太太':'先生')}} <span v-if="datas.from!=''&&datas.templeId==undefined&&datas.from!='轉租客'" class="mui-badge fz17 cffffff czjz" :class="{bg36c748:datas.from=='業主',bgff4d00:datas.from=='中介'}" style="margin-left: 0.05rem;">{{datas.from}}</span></p>
+             <p class="c888888 fz20" ><img src="../../assets/img/xiangqing/phone_gx.png" alt="" style="width:0.17rem;"/>手機號碼已驗證</p>
+        </li>
+      <li v-if="datas!='no'" class="mui-table-view-cell fz25 overflow padding0"  style="padding-top: 0;height:0.4rem;">
+                       <p class="mui-pull-left border-r c888888 center pR20" style="width:50%;height:0.4rem;line-height:0.4rem;">
+                              <img src="../../assets/img/taolunqu/big.png" alt="" style="width:0.31rem;vertical-align: middle;" />
+                              {{datas.user.createdAt}}
+                       </p>
+                        <p class="mui-pull-right cff4d00 center pL20" style="width:50%;height:0.4rem;line-height:0.4rem;">
+                          <img src="../../assets/img/taolunqu/bigs.png" alt="" style="width:0.31rem;vertical-align: middle;"/>
+                          {{datas.user.likes}}
+                        </p>
+        </li>
+    </ul>   
+    
+<!--从租售列表跳过来的并且contactType==1-->
+ <!--1.联系人+在线咨询：左边绿色 右边白色-->
+<div   v-if="datas!='no'&&datas.contactType==1&&isyulan!='no'"  style="position:fixed;left:0;bottom:0;width:6.4rem;height: 0.98rem;" class="bai border-t">
+  <div  @click='tel(datas.phone)'  class="mui-pull-left bg36c748 relative" style="width: 4rem;height:100%;padding:0.1rem 0.2rem;">
+    <p class="fz24 cff4d00 mB01" v-if="datas.from!='中介'"><span v-if="datas.category=='rent'">{{returns(datas.from)}}  </span>聯絡人</p>
+    <p class="fz30 cffffff mui-ellipsis" style="width:2.5rem;">
+      {{datas.contacts}}{{datas.call=='miss'?'小姐':(datas.call=='mrs'?'太太':'先生')}}
+    </p>
+    <img src="../../assets/img/xiangqing/phone.png" @alt="" style="width:0.66rem;right:0.42rem;" class="czjz"/>
+  </div>
+  <div @click='im()' class="mui-pull-right fz30 c333333 relative" style="height:0.98rem;padding-right:0.26rem;line-height:0.98rem;">
+    <img src="../../assets/img/xiangqing/zixun.png" alt="" style="width:0.53rem;right:1.5rem;" class="czjz"/>
+    在線咨詢
+  </div>
+</div>
+
+<!--从租售列表跳过来的并且contactType==0-->
+ <!--2.在线咨询：纯绿色：白色微信图片+在线咨询文字-->
+<div @click='im()' v-if="datas!='no'&&datas.contactType==0&&isyulan!='no'" style="position:fixed;left:0;bottom:0;width:6.4rem;height: 0.98rem;" class="bai">
+  <div class="fz44 cffffff relative center bg36c748"  style="height:0.98rem;padding-right:0.26rem;line-height:0.98rem;">
+    <img src="../../assets/img/xiangqing/zixun2.png" alt="" style="top:0.1rem;width:0.53rem;" class="relative"/>
+    在線咨詢
+  </div>
+</div>
+
+ <!--3.联系人电话：纯绿色：左边联络人文字+右边电话图标-->
+<div   v-if="datas!='no'&&isyulan=='no'"  style="position:fixed;left:0;bottom:0;width:6.4rem;height: 0.98rem;" class="bai">
+  <div  @click='tel(datas.phone)'  class="bg36c748 relative" style="height:100%;padding:0.1rem 0.2rem;">
+    <div style="width:3.12rem;margin:0 auto;height:100%;" class="relative">
+    <p class="fz24 cff4d00" >{{returns(datas.from)}}  聯絡人</p>
+    <p class="fz30 cffffff">
+      {{
+      (datas.contacts==undefined?'':
+    (datas.contacts.length>6?datas.contacts.substring(0,6)+"...":(datas.contacts.length==6?datas.contacts:(datas.contacts.length==5?datas.contacts+(datas.call=='miss'?'小...':
+        (datas.call=='mrs'?'太...':'先...')):(datas.contacts+(datas.call=='miss'?'小姐':
+          (datas.call=='mrs'?'太太':
+            '先生')))))
+      ))}}</p>
+    <img src="../../assets/img/xiangqing/phone.png" alt="" style="width:0.66rem;right:0.42rem;" class="czjz"/>
+  </div>
+  </div>
+</div>
+
+
+  </div>
+  
+
+</div>
+<script type="text/javascript">
+      // var isAPP = false
+      //2.js调用ios原生的方法
+      // function setupWebViewJavascriptBridge(callback) {
+      //   if(window.WebViewJavascriptBridge){
+      //     return callback(WebViewJavascriptBridge);
+      //   }
+      //   if(window.WVJBCallbacks){
+      //     return window.WVJBCallbacks.push(callback);
+      //   }
+      //   window.WVJBCallbacks = [callback];
+      //   var WVJBIframe = document.createElement('iframe');
+      //   WVJBIframe.style.display = 'none';
+      //   WVJBIframe.src = 'wvjbscheme://__BRIDGE_LOADED__';
+      //   document.documentElement.appendChild(WVJBIframe);
+      //   setTimeout(function() {
+      //     document.documentElement.removeChild(WVJBIframe)
+      //   }, 0)
+      // }
+
+      // setupWebViewJavascriptBridge(function(bridge) {
+      //   // 这里注册Native 要调用的js 功能。 ios的方法名字ios_test
+      //   bridge.registerHandler('ios_test', function(data, responseCallback) {
+      //     alert('JS方法被调用:' + data);
+      //     responseCallback('js执行过了');
+      //   })
+      //   // 如果要有其他Native 调用的js 功能，在这里按照上面的格式添加。
+      //   // 这里注册Native 要调用的js 功能。 ios的方法名字ios_test
+      //   bridge.registerHandler('gotoChat', function(data, responseCallback) {
+      //     alert('JS方法被调用:' + data);
+      //     responseCallback('js执行过了');
+      //   })
+      // })
+
+      // function locationClick(urls,special) {
+      //   var url = 'http://192.168.0.104:81/#/' + urls
+      //   WebViewJavascriptBridge.callHandler('ios_test', {'url':url,'title':special}, function(response) {
+      //     //      alert(response);
+      //     document.getElementById("returnValue").value = response;
+      //   });
+      // }
+      // function gotoChat(data) {
+      //   WebViewJavascriptBridge.callHandler('gotoChat', data, function(response) {
+      //     document.getElementById("returnValue").value = response;
+      //   });
+      // }
+    </script>
+ <!-- <script src="https://cdn.bootcss.com/vue/2.5.9/vue.min.js"></script> -->
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+ <script src="https://cdn.bootcss.com/vuex/3.0.1/vuex.min.js"></script>
+ <!-- <script src="https://cdn.bootcss.com/vue-router/3.0.1/vue-router.min.js"></script> -->
+   <!-- <script src="../store.js"></script> -->
+    <script src="../../static/vconsole.min.js"></script>
+    <script src="../../static/mui.min.js"></script>
+    <!-- <script src="../../static/mui.pullToRefresh.js"></script> -->
+    <!-- <script src="../../static/mui.pullToRefresh.material.js"></script> -->
+    <script src="../../static/mui.zoom.js"></script>
+    <script src="../../static/mui.previewimage.js"></script>
+    <!-- <script src="../../static/public.js"></script> -->
+    <script type="text/javascript">
+      // 初始化previewImage
+      mui.previewImage();
+      mui.init();
+      // var objectId = '58bd0b8b1b69e6006b274f76' //'587f3b29570c352201193d6e'
+      // var user = '';
+    </script>
+<script>
+    var vm = new Vue({
+        el: '#app',
+        // store,
+        data: {
+        jianju:'',
+        isyulan:'',//根据id判断是否是预览
+        imageView2:'?imageView2/1/w/'+parseInt(640*w0)+'/h/'+parseInt(300*w0),
+        imageView2big:'?imageView2/2/w/'+parseInt(640*w0),
+        peitao:[],//配套設備：
+        wuyuan:[],//屋苑設施：设施
+        fujin:[],//附近設施：
+        datas:'no',//这个是详情的信息
+        //轮播图图片
+        slideimg:'no'
+
+      },
+      methods: {
+        goback(){
+           goback(1)
+        },
+//在线咨询
+im(){
+  if(sessiontoken){
+    console.log('进来了'+sessiontoken)
+         // 判断是否是发布者 不是则调用手机聊天接口  是则弹出提示框
+    if(sessiontoken==this.datas.user.objectId){ 
+      mui.alert('您是本盤的發佈者，不能進行在線諮詢',' ',['好的']) 
+    }else{
+       // window.webkit.messageHandlers.gotoChat.postMessage(this.datas)
+       console.log(this.datas)
+       gotoChat(this.datas)
+    }
+    
+  }else{
+     console.log('还没进来了'+sessiontoken)
+         mui.toast('請先到【我的】登錄')
+  }
+  
+},
+            //拨打电话
+      tel(phone){
+        if(sessiontoken){
+                  if(phone){
+                  console.log("tel:"+phone)
+                  if(isNaN(phone)){
+                      mui.toast('電話號碼為中文')
+                  }else{
+                   location.href="tel:"+phone
+                  }
+                  
+                }else{
+                  mui.toast('電話號碼為空')
+                  // location.href="tel:13411615134"
+                }
+        }else{
+          mui.toast('請先到【我的】登錄')
+        }
+   
+      },
+    //详情的信息如果是不存在的字段或者说存在但是字段为空的字段显示--，否则显示相应的字段
+    returns(item){
+      if(item==undefined||item==''||item.length==0||item==null){
+        return '--'
+      }else{        
+          return item       
+      }
+    },
+    //详情的信息如果是不存在的字段或者说存在但是字段为空的字段显示--，否则显示相应的字段
+    returnschi(item){
+      if(item==undefined||item==''||item.length==0||item==null||item=='--'){
+        return '--'
+      }else{  
+          return item+'呎'
+      }
+    },
+    
+    //详情的信息
+    xiangqing(){
+      var that=this
+      //如果是预览的则拿缓存的数据
+      if(locations('objectId')=='no'){
+        // alert(2)
+        var aa=JSON.parse(window.localStorage.getItem('xiangqingData'))
+        console.log('aa')
+        console.log(aa)
+        that.datas=aa
+
+        var bb=JSON.parse(window.localStorage.getItem('pics'))
+        if(bb){
+          that.slideimg=bb
+        }
+        
+        console.log(that.slideimg)
+        console.log('that.datas')
+        console.log(that.datas)
+                          //当图片挂载后就初始化获得slider插件对象
+              setTimeout(function(){
+                  var swiper = new Swiper('.swiper6', {
+                      pagination: '.swiper-pagination6',                 
+                      autoplay:3000,
+                      autoplayDisableOnInteraction : false,
+                      observer:true,
+                      loop : true
+                       
+              });
+                },500)
+       return
+      }
+      //否则执行下面的请求
+      //如果是租售页面进来的则用第一个地址请求
+      //否则使用服务的地址请求
+      var url=''
+      var wheres=''
+                      if(locations('name')=='zusou'){
+                        url=Boss + 'agent/'+locations('objectId')
+                        where='agent'
+                      }else{
+                        url=Boss3 + 'article/'+locations('objectId')
+                        where='article'
+                      }
+              mui.ajax(url, {
+                      // data: {
+                      //   sessiontoken: sessiontoken
+                      // },
+                      dataType: 'json', //服务器返回json格式数据
+                      type: 'GET', //HTTP请求类型
+                      timeout: 10000, //超时时间设置为10秒；
+                      //  headers:{'Content-Type':'application/json'},
+                    success: function(data) {
+                        //1.服务器返回响应，根据响应结果，分析是否登录成功；
+                        if(data.status == true) {
+                          console.log(JSON.stringify(data))
+                          that.datas=data.result
+                            // 调用app的方法
+// data_all({'objectId':locations('objectId'),'wheres':wheres})
+                          //0.轮播图片
+                          that.slideimg=data.result.pics
+                          //当图片挂载后就初始化获得slider插件对象
+              setTimeout(function(){
+                  var swiper = new Swiper('.swiper6', {
+                      pagination: '.swiper-pagination6',                 
+                      autoplay:3000,
+                      autoplayDisableOnInteraction : false,
+                      observer:true,
+                      loop : true
+                       
+              });
+                },500)
+                                                     
+                          //1.配套設備：
+                           
+                                                       if(data.result.infrastructure!=undefined&&data.result.infrastructure.length>0){
+                             var peitao=data.result.infrastructure
+                                                      that.peitao=peitao
+                          }
+                                                      //2.屋苑設施：  
+                                                      if(data.result.home_infrastructure!=undefined&&data.result.home_infrastructure.length>0){
+                             var wuyuan=data.result.home_infrastructure.split(",")
+                                                         that.wuyuan=wuyuan
+                          }
+                             
+                          //3.附近設施：：
+                          if(data.result.location_infrastructure!=undefined&&data.result.location_infrastructure.length>0){
+                            var fujin=data.result.location_infrastructure.split(",")
+                                                        that.fujin=fujin
+                          }
+                            
+                          
+                                                
+                        }else{
+                          mui.toast(data.result.message)
+                        }
+                        
+
+                      },
+                      error: function(xhr, type, errorThrown) {
+                        //异常处理；
+                        mui.toast(errorThrown, {
+                          duration: 'long',
+                          type: 'div'
+                        })
+                      }
+                    });
+    },
+         //?帮助问号
+         helps(){
+//        alert(1)
+          mui.alert('平均呎價是按建築面積計算',null,['好的'],null,'div') 
+         }
+         
+        },
+        mounted: function() {
+          this.isyulan=locations('objectId')
+          this.jianju=locations('jianju')
+          this.xiangqing()
+        }
+
+    })
+
+  </script> 
+
+
+
+
+
+  </body>
+
+</html>

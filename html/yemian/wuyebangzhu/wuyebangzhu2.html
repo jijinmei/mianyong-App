@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <title>政府樓宇買賣一站式服務</title>
+    <script typet="text/javascript" src="https://cdn.bootcss.com/jquery/2.2.0/jquery.min.js"></script>
+    <script typet="text/javascript" src="../../static/common.js"></script>
+
+    <link href="https://cdn.bootcss.com/Swiper/3.4.2/css/swiper.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/Swiper/3.4.2/js/swiper.jquery.min.js"></script>
+    <link href="../../static/common.css" rel="stylesheet">
+    <link href="../../static/commonS.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../static/mui.min.css">
+<style scoped>
+img{width:0.08rem;left:0.2rem;}
+.mui-table-view-cell:after{left:0 !important;}
+.mui-table-view-cell{padding:0 !important;}
+.mui-table-view-cell>a{height:0.9rem;line-height:0.9rem;padding:0 0 0 0.4rem !important;}
+.mui-table-view-cell{height:0.9rem;}
+.mui-table-view-cell>a:after{color:#888888;font-size:0.28rem;right:0.2rem !important;}
+</style>
+
+  </head>
+
+  <body>
+
+    <div id="app">
+<ul class="mui-table-view c36c748 fz28 bgebebeb">
+          <li class="mui-table-view-cell bai">
+              <a class="mui-navigate-right padding0 margin0" @click="go(0)">
+                  <img src="../../assets/img/wuyebangzhu/lvdian.png" class="czjz"/>租賃的一般認識
+              </a>
+          </li>
+          <li class="mui-table-view-cell bai">
+              <a class="mui-navigate-right padding0 margin0"  @click="go(1)">
+                  <img src="../../assets/img/wuyebangzhu/lvdian.png" class="czjz"/>業主出租前須知
+              </a>
+          </li>
+          <li class="mui-table-view-cell bai">
+              <a class="mui-navigate-right padding0 margin0"  @click="go(2)">
+                  <img src="../../assets/img/wuyebangzhu/lvdian.png" class="czjz"/>租客租賃前須知
+              </a>
+          </li>
+          <li class="mui-table-view-cell bai">
+              <a class="mui-navigate-right padding0 margin0"  @click="go(3)">
+                  <img src="../../assets/img/wuyebangzhu/lvdian.png" class="czjz"/>簽訂租賃合同須知
+              </a>
+          </li>
+          <li class="mui-table-view-cell bai">
+              <a class="mui-navigate-right padding0 margin0"  @click="go(4)">
+                  <img src="../../assets/img/wuyebangzhu/lvdian.png" class="czjz"/>租賃期間及終止租約時須知
+              </a>
+          </li>
+          <li class="mui-table-view-cell bai">
+              <a class="mui-navigate-right padding0 margin0"  @click="go(5)">
+                  <img src="../../assets/img/wuyebangzhu/lvdian.png" class="czjz"/>如何確定物業業權人的真實性
+              </a>
+          </li>
+          <li class="mui-table-view-cell bai">
+              <a class="mui-navigate-right padding0 margin0"  @click="go(6)">
+                  <img src="../../assets/img/wuyebangzhu/lvdian.png" class="czjz"/>如何確定物業的法定用途
+              </a>
+          </li>
+        
+      </ul>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
+ <script src="https://cdn.bootcss.com/vuex/3.0.1/vuex.min.js"></script>
+ <script src="https://cdn.bootcss.com/vue-router/3.0.1/vue-router.min.js"></script>
+    <script src="../../static/vconsole.min.js"></script>
+    <script src="../../static/mui.min.js"></script>
+    <script type="text/javascript">
+      // 初始化previewImage
+      // mui.previewImage();
+      mui.init();
+      var objectId = '58bd0b8b1b69e6006b274f76' //'587f3b29570c352201193d6e'
+      var user = '';
+    </script>
+<script>
+    var vm = new Vue({
+        el: '#app',
+        // store,
+        data: {
+     
+
+      },
+   methods: {
+              go(index){
+  // this.$router.push({name:'wuyebangzhus',params:{index:index,name:'wuyebangzhu2'}})
+   location.href='wuyebangzhus.html?name=wuyebangzhu2&index='+index+'&sessiontoken='+sessiontoken
+              }
+               
+    },
+    mounted() {
+  // this.$store.state.name='政府樓宇買賣一站式服務'
+    }
+    })
+
+  </script> 
+
+
+
+
+
+  </body>
+
+</html>

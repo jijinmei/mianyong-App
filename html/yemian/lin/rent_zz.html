@@ -1,0 +1,155 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>發佈租盤房源</title>
+  <link rel="stylesheet" href="./css/reset.css">
+  <link rel="stylesheet" href="./css/rent_zz.css">
+  <link rel="stylesheet" href="./css/rent_public.css">
+  <script src="./js/flexible.min.js"></script>
+</head>
+
+<div id="app" v-cloak>
+  <!-- 添加照片 -->
+  <div class="add-pics" :style="setImg">
+    <img :src="setaddImg" @click="addPic">
+    <h2 @click="addPic" v-show="iseditImg">添加照片</h2>
+    <p v-show="iseditImg">色彩明亮的照片可以大幅度提高房屋出租的速度最多可上傳12張照片</p>
+  </div>
+
+  <!-- 租金 -->
+  <div class="price publicCss">
+    <p class="title">
+      <span>*</span>租金</p>
+    <div class="content">
+      <!-- <input type="number" placeholder="0" :value="price" @input="priceEdit($event.target.value)"> -->
+      <input type="number" placeholder="0" v-model="rentobject.price">
+      <span>元/月</span>
+    </div>
+  </div>
+
+  <!-- 間隔 -->
+  <div class="space publicCss">
+    <p class="title">
+      <span>*</span>間隔</p>
+    <div class="content">
+      <div>
+        <span @click="CutRoomClick('f')">-</span>
+        <span>{{fangjian}}&nbsp;(房間)</span>
+        <span @click="AddRoomClick('f')">+</span>
+      </div>
+      <div :class="ketingNum">
+        <span @click="CutRoomClick('k')">-</span>
+        <span>{{keting}}&nbsp;(客廳)</span>
+        <span @click="AddRoomClick('k')">+</span>
+      </div>
+      <div :class="xishoujianNum">
+        <span @click="CutRoomClick('x')">-</span>
+        <span>{{xishoujian}}&nbsp;(洗手間)</span>
+        <span @click="AddRoomClick('x')">+</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 面积 -->
+  <div class="area publicCss">
+    <p class="title">
+      <span>*</span>面積</p>
+    <div class="content">
+      <div>
+        <span>建築面積</span>
+        <!-- <input type="number" placeholder="任填一項即可" :value="area" @input="areaEdit($event.target.value)"> -->
+        <input type="number" placeholder="任填一項即可" v-model="rentobject.area">
+        <span>平方呎</span>
+      </div>
+      <div>
+        <span>實用面積</span>
+        <!-- <input type="number" placeholder="任填一項即可" :value="useableArea" @input="useableAreaEdit($event.target.value)"> -->
+        <input type="number" placeholder="任填一項即可" v-model="rentobject.useable_area">
+        <span>平方呎</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 楼层 -->
+  <div class="floor publicCss">
+    <p class="title">
+      <span>*</span>樓層</p>
+    <div class="content">
+      <div>
+        <span class="item" v-for="(item, index) in floorData" @click="floorClick(item, index)" :class="{active: item.state}">{{item.text}}</span>
+      </div>
+      <div>
+        <span>自定義</span>
+        <input type="text" placeholder="請點擊輸入樓層" @input="floorEdit($event.target.value)" ref="floor">
+        <!-- <input type="text" placeholder="請點擊輸入樓層" v-model="rentobject.floor"> -->
+      </div>
+    </div>
+  </div>
+
+  <!-- 单位/座号 -->
+  <div class="code publicCss">
+    <p class="title">單位/座號</p>
+    <div class="content">
+      <div>
+        <!-- <input type="text" placeholder="點擊輸入4位數字/英文 例如:789A" :value="code" @input="codeEdit($event.target.value)"> -->
+        <input type="text" placeholder="點擊輸入4位數字/英文 例如:789A" v-model="rentobject.code">
+      </div>
+    </div>
+  </div>
+
+  <!-- 座向 -->
+  <div class="direct publicCss">
+    <p class="title">座向</p>
+    <div class="content">
+      <ul>
+        <li v-for="(item, index) in directData" @click="directClick(item, index)" :class="{active: item.state}">{{item.text}}</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 景观 -->
+  <div class="landscape publicCss">
+    <p class="title">
+      <span>*</span>景觀</p>
+    <div class="content">
+      <div class="wrap">
+        <div class="item" v-for="(item, index) in landscapeData" @click="landscapeClick(item, index)" :style="setStyle(item)" :class="{active2: item.state}">{{item.text}}</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 装修程度 -->
+  <div class="decoration publicCss">
+    <p class="title">
+      <span>*</span>裝修程度</p>
+    <div class="content" style="borderBottom: none;">
+      <div class="wrap">
+        <div class="item" v-for="(item, index) in decorationData" @click="decorationClick(item, index)" :style="setStyle(item)" :class="{active2: item.state}">{{item.text}}</div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- 下一步 -->
+  <div class="footer">
+    <div>
+      <button type="button" @click="next">下一步</button>
+    </div>
+  </div>
+
+
+</div>
+
+<script src="https://cdn.bootcss.com/vue/2.5.13/vue.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="../../static/common.js"></script>
+
+<script src="./js/saveObject.js"></script>
+<script src="./js/rent_zz.js"></script>
+<script src="../../static/vconsole.min.js"></script>
+
+
+</html>

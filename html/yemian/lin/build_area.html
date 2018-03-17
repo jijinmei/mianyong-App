@@ -1,0 +1,43 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>地區</title>
+  <link rel="stylesheet" href="./css/reset.css">
+  <link rel="stylesheet" href="./css/build_area.css">
+  <script src="./js/flexible.min.js"></script>
+</head>
+
+<body>
+  <div id="app" v-cloak>
+    <div class="top">
+      <div>
+        <img id="searchicon" src="./imgs/fangzu/search.png" alt="">
+        <input type="text" placeholder="請輸入物業所在地區" @input="inputfunc($event.target.value)">
+        <input type="button" value="確認" @click="searchFunc">
+      </div>
+    </div>
+    <ul class="content" v-show="!showtab">
+      <li v-for="(item, key, index) in result.result" :class="result.result[key].length > 0 ? 'normal' : ''" @click="clickLi(result.result[key], $event, key)">{{key}}
+        <ul>
+          <li v-for="(item2, index2) in result.result[key]" @click="clickLi2(item2, $event)">{{item2}}</li>
+        </ul>
+      </li>
+    </ul>
+    <ul class="content" v-show="showtab">
+      <li v-for="item in retultsub" @click="clickLi2(item, $event)">{{item}}</li>
+    </ul>
+  </div>
+  <script src="https://cdn.bootcss.com/vue/2.5.13/vue.min.js"></script>
+  <!-- <script src="https://cdn.bootcss.com/zepto/1.2.0/zepto.min.js"></script> -->
+  <script src="https://cdn.bootcss.com/axios/0.18.0/axios.min.js"></script>
+  <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+  <script src="../../static/common.js"></script>
+  
+  <script src="./js/axios.config.js"></script>
+  <script src="./js/saveObject.js"></script>
+  <script src="./js/build_area.js"></script>
+</body>
+</html>

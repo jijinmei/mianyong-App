@@ -1,0 +1,122 @@
+body {
+  background-color: #ebebeb;
+}
+#app {
+  padding-bottom: 1.1rem;
+  background-color: #fff;
+}
+.active {
+  color: #36c748;
+}
+.no-border-bottom {
+  border-bottom: none !important;
+}
+.no-border-bottom .item:last-of-type {
+  margin-right: 0;
+}
+.is-Sp {
+  padding-bottom: 1.1rem !important;
+}
+.title {
+  padding: .34rem .2rem;
+  font-size: .25rem;
+  text-align: center;
+}
+.title span {
+  color: #ff4c00;
+}
+.main {
+  padding-bottom: .18rem;
+  margin: 0 .1rem;
+  border-bottom: 1px solid #ebebeb;
+  text-align: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+.main > span {
+  font-size: .25rem;
+  padding: 0.1rem;
+}
+.main .item {
+  width: 1.2rem;
+  padding-top: .94rem;
+  background-repeat: no-repeat;
+  background-position: top;
+  background-size: .78rem .78rem;
+  font-size: 0.25rem;
+}
+.main .item:last-of-type {
+  margin-right: 0;
+}
+.main .sel {
+  width: .8rem;
+  height: .45rem;
+  background-color: #36c748;
+  color: #fff;
+  border-radius: .1rem;
+  line-height: .45rem;
+  font-size: 0.23rem;
+}
+.main .inp {
+  width: 80%;
+  padding: .2rem;
+  text-align: center;
+  border: none;
+  font-size: 0.2rem;
+}
+.main .box {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+.main .box li {
+  font-size: .25rem;
+  line-height: .4rem;
+  height: .4rem;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: right center;
+  padding-right: .5rem;
+  margin-right: 0.5rem;
+}
+.main .box li:last-of-type {
+  margin-right: 0;
+}
+.footer {
+  background-color: #ebebeb;
+  padding-top: .12rem;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+}
+.footer .content {
+  background-color: #fff;
+  height: .98rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+.footer .content p {
+  width: 2.4rem;
+  height: .65rem;
+  line-height: .65rem;
+  text-align: center;
+  background-color: #36c748;
+  color: #fff;
+  border-radius: .1rem;
+  font-size: 0.25rem;
+}

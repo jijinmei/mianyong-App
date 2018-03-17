@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <title>法律援助</title>
+    <script typet="text/javascript" src="https://cdn.bootcss.com/jquery/2.2.0/jquery.min.js"></script>
+    <script typet="text/javascript" src="../../static/common.js"></script>
+
+    <!-- <link href="https://cdn.bootcss.com/Swiper/3.4.2/css/swiper.css" rel="stylesheet"> -->
+    <!-- <script src="https://cdn.bootcss.com/Swiper/3.4.2/js/swiper.jquery.min.js"></script> -->
+    <link href="../../static/common.css" rel="stylesheet">
+    <link href="../../static/commonS.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../static/mui.min.css">
+
+<style scoped>
+
+.mui-table-view-cell:after{left:0 !important;}
+.mui-table-view-cell{padding:0 0.2rem !important;}
+
+.mui-table-view-cell{padding:0.3rem 0.2rem !important;}
+h4{margin-top:0.1rem;line-height:0.37rem;}
+
+</style>
+  </head>
+
+  <body>
+
+    <div id="app">
+<ul class="mui-table-view c36c748 fz28 bgebebeb">
+          <li @click="go(index)"  class="mui-table-view-cell bai relative overflow" v-for="(item,index) in datas">
+             <div class="mui-pull-left" style="width:4.5rem;">
+                 <h3 class="mui-ellipsis fz31 c000000 h40 lh40">{{item.name}}</h3>
+                 <h4 class="mui-ellipsis-2 fz25 c787878">{{item.content}}</h4>
+             </div>
+             <div class="czjz" style="right:0.2rem;">
+         
+                  <!-- <a :href="'tel:'+item.phone"> -->
+                  <img @click.stop='call(item.phone)' src="../../assets/img/wuyebangzhu/phone.png" alt="" style="width:1.15rem;"/>
+                  <!-- </a> -->
+                 
+             </div>
+          </li>
+
+
+      </ul>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
+ <script src="https://cdn.bootcss.com/vuex/3.0.1/vuex.min.js"></script>
+ <!-- <script src="https://cdn.bootcss.com/vue-router/3.0.1/vue-router.min.js"></script> -->
+    <!-- <script src="../../static/vconsole.min.js"></script> -->
+    <script src="../../static/mui.min.js"></script>
+    <script type="text/javascript">
+      // 初始化previewImage
+      // mui.previewImage();
+      mui.init();
+      // var objectId = '58bd0b8b1b69e6006b274f76' //'587f3b29570c352201193d6e'
+      // var user = '';
+    </script>
+<script>
+    var vm = new Vue({
+        el: '#app',
+        // store,
+        data: {
+      datas:[
+             {name:'政府資訊中心',content:'澳門水坑尾街188-198號方圓廣場二樓',phone:'88668866'},
+             {name:'財政局',content:'澳門南灣大馬路575、579及585號',phone:'28336886'},
+             {name:'房屋局',content:'澳門水坑尾街188-198號方圓廣場二樓',phone:'2859 4875'},
+             {name:'民政總署',content:'澳門南灣大馬路762-804號中華廣場2樓',phone:'28337676'},
+             {name:'法務局',content:'澳門水坑尾街一百六十二號公共行政大樓 十五至二十樓',phone:'28564225'},
+             {name:'物業登記局',content:'澳門水坑尾街一百六十二號公共行政大 樓二樓',phone:'28571550'},
+             {name:'第一公證署',content:'澳門議事亭前地十六號仁慈堂大樓地下',phone:'28574258'},
+             {name:'第二公證署',content:'澳門水坑尾街一百六十二號公共行政大 樓三樓',phone:'28554460'},
+             {name:'海島公證署',content:'澳門氹仔布拉干薩街三百一十三號金利 達花園地下',phone:'28827502'}
+  
+        ]
+
+      },
+    methods: {
+            //拨打电话
+      call(phone){
+        if(phone){
+          console.log("tel:"+phone)
+          if(isNaN(phone)){
+              mui.toast('電話號碼為中文')
+          }else{
+           location.href="tel:"+phone
+          }
+          
+        }else{
+          mui.toast('電話號碼為空')
+          // location.href="tel:13411615134"
+        }
+      },
+              go(index){
+                location.href='falvyuanzhus.html?index='+index+'&sessiontoken='+sessiontoken
+                // this.$router.push({name:'falvyuanzhus',params:{index:index}})
+              }
+               
+    },
+    mounted() {
+// this.$store.state.name=''
+    }
+
+    })
+
+  </script> 
+
+
+
+
+
+  </body>
+
+</html>

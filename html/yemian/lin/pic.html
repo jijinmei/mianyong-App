@@ -1,0 +1,63 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>添加照片</title>
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/vant/lib/vant-css/index.css">
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/pic.css">
+    <script src="./js/flexible.min.js"></script>
+</head>
+
+<body>
+    <div id="app" v-cloak>
+      <div ref="temp">
+        <!-- <cp-nav @back="back" title="添加照片"></cp-nav> -->
+        <div class="main">
+          <ul class="ul">
+            <li v-for="(urlstr, index) in imgUrl"><span class="pic-r"></span><img :src="urlstr" alt="" @click="clickImg(index, $event)"><span class="slc-style" @click="cancelSlc(index, $event)"></span></li>
+            <li :style="setStyle" v-if="showAdd">
+              <input type="file" id="input" @change="change" accept="image/*" ref="input" multiple="multiple" capture="capture">
+            </li>
+          </ul>
+        </div>
+
+        <div class="footer" :class="{normalfooter: isnormalfooter}">
+          <div v-if="normalType">
+            <button @click="editImg">編輯</button>
+            <button @click="saveImg">保存</button>
+          </div>
+    
+          <div v-if="delType">
+            <button @click="cancelClick">取消</button>
+            <button @click="delClick">刪除</button>
+          </div>
+    
+          <div v-if="setType">
+            <button @click="setF" style="width: 2.4rem; marginRight: 0; color: white; backgroundColor: #36c748;">設置為封面</button>
+          </div>
+    
+        </div>
+        <div class="warp" v-if="show" @click="notShow" v-cloak>
+          <div class="wrap-box">
+            <p @click="setingImg">設置封面圖</p>
+            <p @click="delImg">刪除照片</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.bootcss.com/vue/2.5.13/vue.min.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+    <script src="../../static/common.js"></script>
+    <!-- 引入组件 -->
+    <script src="https://unpkg.com/vant/lib/vant.min.js"></script>
+    <script src="./js/saveObject.js"></script>
+    <script src="./js/pic.js"></script>
+
+</body>
+
+</html>

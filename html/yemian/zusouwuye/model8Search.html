@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <title>搜索</title>
+    <script typet="text/javascript" src="https://cdn.bootcss.com/jquery/2.2.0/jquery.min.js"></script>
+    <script typet="text/javascript" src="../../static/common.js"></script>
+
+    <!-- <link href="https://cdn.bootcss.com/Swiper/3.4.2/css/swiper.css" rel="stylesheet"> -->
+    <!-- <script src="https://cdn.bootcss.com/Swiper/3.4.2/js/swiper.jquery.min.js"></script> -->
+    <link href="../../static/common.css" rel="stylesheet">
+    <link href="../../static/commonS.css" rel="stylesheet">
+    <!-- <link href="../../static/imgUp.css" rel="stylesheet"> -->
+    <link rel="stylesheet" href="../../static/mui.min.css">
+
+<style scoped>
+/*liebiaos.js*/
+/*左边的图片的样式*/  
+  .tukuang {
+    width: 2.45rem !important;
+    height: 1.7rem !important;
+    max-width: 2.45rem !important;
+    /*插件默认了一个最大宽度，这里要重新定义*/
+  }
+/*列表右边的间距*/ 
+  .mui-table-view-cell:after {
+    right: 0.2rem;left: 0.2rem;
+  }
+.mui-table-view .mui-media-object.mui-pull-left{margin-right:0.2rem !important;}
+.seconds.mui-ellipsis-2{width:2rem;height:0.52rem !important;line-height:0.27rem !important;} 
+.seconds.mui-ellipsis-3{width:2rem;height:0.8rem !important;line-height:0.27rem !important;}
+
+
+
+
+</style>
+<style scoped>
+/*shuaixuans*/
+  .header{height:0.7rem;}
+.header>ul{height:0.7rem;}
+.header>ul:after,.header>ul>li:after{height:0 !important;}
+.liebiao{margin-top:0.1rem;}
+/*箭头重新定位*/
+.tap1:after{color:#666666;}
+.tap2:after{color:#666666;}
+/*由于字数不一样，箭头要贴近文字，所以要区别对待*/
+.tap1.jiantou0:after{right:0.9rem !important;}
+.tap1.jiantou1:after{right:1.15rem !important;}
+.tap1.jiantou2:after{right:1.15rem !important;}
+
+.tap2.jiantou0:after{right:0.9rem !important;}
+.tap2.jiantou1:after{right:1.05rem !important;}
+.tap2.jiantou2:after{right:1.05rem !important;}
+
+.tap1.c36c748:after,.tap2.c36c748:after{color:#36C748;}
+.mui-table-view-cell.mui-collapse.mui-active,.mui-table-view-cell.mui-collapse.mui-active>a:after{color:#36C748;}
+.mui-table-view-cell.mui-active {
+    background-color: white !important;
+}
+/*类型*/
+.mui-table-view-cell.mui-collapse .mui-table-view .mui-table-view-cell{padding-right: 0;padding-left: 0;}
+.tap1.mui-active,.tap2.mui-active{background:white !important;}
+.list>li:after{left:0 !important;}
+.list>li{height: 0.74rem;line-height: 0.74rem;padding:0;color:#333333;}
+.list>li:active{color:#36C748;}
+.list:before{height: 1px !important;}
+
+.mui-table-view-cell.mui-collapse.mui-active{margin-top:0 !important;}
+
+
+</style>
+  </head>
+
+  <body>
+
+    <div id="app">
+
+ <div class="fixbody">
+    <!--搜索-->
+      <!--头部的搜索条-->
+      <form class="mui-input-group after00 before00 border-b fixed model8Searchs" style="padding:0.15rem 0.2rem;width:6.4rem;z-index:999;">
+        <div class="mui-input-row after00" style="height: 0.58rem;">
+          <!--放大镜-->
+          <span class="mui-icon mui-icon-search mui-icon czjz c999999 fz29 bold" style="left:0.2rem;"></span>
+          <input v-model="searchkey" type="text" class="fz24 c999999 radius" style="height: 0.58rem;width:5rem;padding-left:0.6rem;background: #EBEBEB;" placeholder="請輸入內容進行搜索">
+           <!--关联叉子-->
+           <img v-show="searchkey!=''" @click="clears" src="../../assets/img/home/san.png" alt="" class="czjz" style="width:0.32rem;right:1.2rem;"/>
+            <!--搜索按钮-->
+            <button @click="search" type="button" class="padding0 mui-btn mui-btn-green mui-pull-right fz30 radius" style="height:100%;width:0.86rem;">搜索</button>
+        </div>
+      </form>
+    <!--帅选-->
+    <shuaixuans  :datas='datas' :sousuobar='"yes"' :routename='routename' style="height:0.7rem;"></shuaixuans>
+    <!--列表-->
+    <div class="mui-scroll-wrapper" style="margin-top:0.88rem;">
+      <liebiaos   :datas='datas' class="mui-scroll" ></liebiaos>
+    </div>
+    
+  </div>
+
+</div>
+
+ <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
+ <script src="https://cdn.bootcss.com/vuex/3.0.1/vuex.min.js"></script>
+ <script src="https://cdn.bootcss.com/vue-router/3.0.1/vue-router.min.js"></script>
+
+    <script src="../../static/vconsole.min.js"></script>
+    <script src="../../static/mui.min.js"></script>
+    <script src="../../templated/liebiaos.js"></script>
+    <script src="shuaixuans.js"></script>
+    <!-- <script src="../../static/imgUp.js"></script> -->
+    <script src="../../static/mui.pullToRefresh.js"></script>
+    <script src="../../static/mui.pullToRefresh.material.js"></script>
+    <!-- <script src="../../static/mui.zoom.js"></script> -->
+    <!-- <script src="../../static/mui.previewimage.js"></script> -->
+    <!-- <script src="../../static/public.js"></script> -->
+    <script type="text/javascript">
+      // 初始化previewImage
+      // mui.previewImage();
+      mui.init();
+      // var objectId = '58bd0b8b1b69e6006b274f76' //'587f3b29570c352201193d6e'
+      // var user = '';
+    </script>
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data: {
+          routename:'model8Search',
+         name:'no',
+        page:0,
+        count:'',
+        searchkey:'',
+        sort:'默認排序',//排序方式  默认是默认排序
+        tags:'',//分类方式 默认是全部分类
+        datas:[]
+
+      },
+          components:{'liebiaos':liebiaos,'shuaixuans':shuaixuans},
+    methods: {
+        search(){
+                  //发请求关键字
+                  this.page=0
+                  this.datas=[]
+                  this.refresh()
+              },
+              clears(){
+                this.searchkey=""
+              },
+      //刷新和加载
+      //刷新和加载
+   refresh(){
+        var that=this;
+      (function($) {
+        //阻尼系数
+        var deceleration = mui.os.ios?0.003:0.0009;
+        $('.mui-scroll-wrapper').scroll({
+          bounce: false,
+          indicators: true, //是否显示滚动条
+          deceleration:deceleration
+        });
+        $.ready(function() {
+          //循环初始化所有下拉刷新，上拉加载。
+          $.each(document.querySelectorAll('.mui-scroll'), function(index, pullRefreshEl) {
+            $(pullRefreshEl).pullToRefresh({
+              down: {
+                callback: function() {
+//                  alert('刷新')
+                  var self = this;
+                  that.page=0
+                  that.datas=[]
+                  mui.ajax(Boss3 + 'article', {
+                      data:{"page":1,"limit":limit20,'section':that.name,'tags':that.tags,'sort':that.sort,'searchkey':that.searchkey},
+                      dataType: 'json', //服务器返回json格式数据
+                      type: 'GET', //HTTP请求类型
+                      timeout: 10000, //超时时间设置为10秒；
+                    success: function(data) {
+                        //1.服务器返回响应，根据响应结果，分析是否登录成功；
+                        if(data.status == true) {
+                            that.count = data.result.count
+                            that.datas = data.result.data
+                        setTimeout(function(){
+                                                     self.endPullDownToRefresh();//关闭刷新
+                        },1000)
+                                                
+                        }
+                        
+
+                      },
+                      error: function(xhr, type, errorThrown) {
+                        //异常处理；
+                        self.endPullDownToRefresh();//关闭刷新
+                        mui.toast(errorThrown, {
+                          duration: 'long',
+                          type: 'div'
+                        })
+                      }
+                    });
+
+                }
+              },
+              up: {
+                auto: true,//可选,默认false.首次加载自动下拉刷新一次
+                callback: function() {
+//                  alert('加载')
+                  var self = this;
+                  that.page++
+                  mui.ajax(Boss3 + 'article', {
+                      data:{"page":that.page,"limit":limit20,'section':that.name,'tags':that.tags,'sort':that.sort,'searchkey':that.searchkey},
+                      dataType: 'json', //服务器返回json格式数据
+                      type: 'GET', //HTTP请求类型
+                      timeout: 10000, //超时时间设置为10秒；
+                    success: function(data) {
+                        //1.服务器返回响应，根据响应结果，分析是否登录成功；
+                        if(data.status == true) {
+                            that.count=data.result.count  
+                            //如果是切换标签的加载事件也就是现在请求的是第一页，所以则要让页数变为1，下次加载的时候就变成++
+                            if(that.page==1){
+                              that.datas=[]
+                            }
+                            
+                            for (var i = 0; i < data.result.data.length; i++) {
+                            that.datas.push(data.result.data[i])
+                            }
+                            if(that.count == that.datas.length) {
+                              self.endPullUpToRefresh(true);//没有更多数据
+                              
+                            }else{
+                                    self.endPullUpToRefresh();//加载更多数据
+                            }
+                                                
+                        }
+                        
+
+                      },
+                      error: function(xhr, type, errorThrown) {
+                        //异常处理；让当前页数变回减1
+                          that.page--
+                        self.endPullDownToRefresh();//关闭刷新
+                        mui.toast(errorThrown, {
+                          duration: 'long',
+                          type: 'div'
+                        })
+                      }
+                    });
+
+                }
+              }
+            });
+          });
+
+
+        });
+      })(mui);
+      }
+      
+
+    },
+    mounted() {
+     //加载和刷新的插件
+         this.refresh()
+      //判断是哪个模块进来的，有8大模块
+      // 如果地址栏有关键字则获取去请求
+          if(locations('keyword')){
+            this.searchkey=locations('keyword')
+          }
+          this.name=locations('name')
+//        if(this.name=='qiChe'){
+//          this.$store.state.name='汽車交易'
+//        }else if(this.name=='jiaSi'){
+//          this.$store.state.name='傢俬電器'
+//        }else if(this.name=='zhuangXiu'){
+//          this.$store.state.name='裝修設計'
+//        }else if(this.name=='zhaoSheng'){
+//          this.$store.state.name='招生招聘'
+//        }else if(this.name=='tiaoSi'){
+//          this.$store.state.name='跳蚤市場'
+//        }else if(this.name=='jiaZheng'){
+//          this.$store.state.name='家政服務'
+//        }else if(this.name=='banWu'){
+//          this.$store.state.name='搬屋配送'
+//        }else if(this.name=='daiGou'){
+//          this.$store.state.name='代購代收'
+//        }
+//        alert('2'+this.name)
+//        alert(this.name)
+//        console.log(this.name)
+          
+  }
+
+    })
+
+  </script> 
+
+
+
+
+
+  </body>
+
+</html>

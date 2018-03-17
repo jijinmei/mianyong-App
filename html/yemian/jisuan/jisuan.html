@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <title>置業計算器</title>
+    <script typet="text/javascript" src="https://cdn.bootcss.com/jquery/2.2.0/jquery.min.js"></script>
+    <script typet="text/javascript" src="../../static/common.js"></script>
+
+    <link href="https://cdn.bootcss.com/Swiper/3.4.2/css/swiper.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/Swiper/3.4.2/js/swiper.jquery.min.js"></script>
+    <link href="../../static/common.css" rel="stylesheet">
+    <link href="../../static/commonS.css" rel="stylesheet">
+    <link href="../../static/imgUp.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../static/mui.min.css">
+
+<style scoped="">
+.after00:after{font-size:0.2rem;color:#999999;}
+</style>
+  </head>
+
+  <body>
+
+    <div id="app">
+<div class="bai" style="padding-bottom:0.5rem;">
+  <ul class="mui-table-view">
+          <li class="mui-table-view-cell padding0 afterlf0" style="height:1.55rem;">
+              <a class="margin0 relative " style="padding:0.3rem 0.2rem;height:1.55rem;">
+                  <span class="fz25 c666666 absolute" style="left: 0.2rem;top:0.35rem;">物業價格</span>
+                   <p class="fz21 c000000 absolute bold" style="height:0.5rem;line-height:0.5rem;width:1.2rem;padding-left:0.5rem;left:1.5rem;top:0.3rem;">
+                    <img @click="whoitem()" data-js="1" :src="check==false?'../../assets/img/jisuan/yx.png':'../../assets/img/jisuan/wx.png'" alt="" style="width:0.39rem;left:0;" class="czjz"/>
+                    澳門幣
+                   </p>
+                    <p  @click="whoitem()" class="fz21 c000000 absolute bold" style="height:0.5rem;line-height:0.5rem;width:1.2rem;padding-left:0.5rem;left:2.9rem;top:0.3rem;">
+                    <img data-js="1.03" :src="check==true?'../../assets/img/jisuan/yx.png':'../../assets/img/jisuan/wx.png'" alt="" style="width:0.39rem;left:0;"  class="czjz"/>
+                    港幣
+                   </p>
+                   <span class="fz27 c000000 absolute" style="height:0.5rem;width:2rem;right:0.2rem;top:0.3rem;">
+                     <input @keyup="inputA" class="right fz27 c000000 border0 padding0" type="text" onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')"  name="A" id="A" placeholder="300" style="height:0.5rem;width:1.5rem;">
+                       <span class="bold">萬元</span>
+                   </span>
+                    <div class="right c666666 fz21 absolute" style="bottom:0.2rem;right:0.2rem;">折合澳門幣<span id="B">309.00</span>萬元</div>
+              </a>
+          </li>
+          <li class="mui-table-view-cell padding0 afterlf0" style="height:0.69rem;">
+              <a class="margin0"  style="padding:0 0.2rem;height:0.69rem;line-height:0.69rem;">
+                <span class="fz25 c666666">貸款總額(澳門幣)</span>
+                   <span class="fz27 c000000 mui-pull-right" style="height:0.69rem;width:3rem;">
+                   <span class="fz27 c000000 mui-pull-right bold">萬元</span>
+                     <input id="D" @keyup="inputD" class="fz27 c000000  mui-pull-right right border0 padding0 margin0" type="text" onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')" name="D"  placeholder="231" style="height:0.69rem;width:2rem;"> 
+                   </span> 
+              </a>
+          </li>
+         <li class="mui-table-view-cell padding0 afterlf0" style="height:0.69rem;">
+              <a class="margin0"  style="padding:0 0.2rem;height:0.69rem;line-height:0.69rem;">
+                <span class="fz25 c666666" style="letter-spacing: 0.5em;">還款<span  style="letter-spacing:0rem;">期</span></span>
+                   <span class="fz27 c000000 mui-pull-right" style="height:0.69rem;width:3.5rem;">
+                     <span class="fz27 c000000 mui-pull-right bold">年(<span id="F">120</span>期)</span>
+                        <input id="E" @keyup="inputE" class="fz27 c000000  mui-pull-right right border0 padding0 margin0"  type="text" onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')"    name="E"  placeholder="10" style="height:0.69rem;width:2rem;">
+                                         
+                   </span> 
+              </a>
+          </li>
+          <li class="mui-table-view-cell padding0 afterlf0" style="height:0.69rem;">
+              <a class="margin0"  style="padding:0 0.2rem;height:0.69rem;line-height:0.69rem;">
+                <span class="fz25 c666666"  style="letter-spacing: 2em;">年<span style="letter-spacing: 0em;">息</span></span>
+                   <span class="fz27 c000000 mui-pull-right" style="height:0.69rem;width:3.5rem;">
+                      <span class="fz27 c000000 mui-pull-right bold">%</span>
+                      <input id="G" class="fz27 c000000  mui-pull-right right border0 padding0 margin0"   type="text" onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')"    name="G"  placeholder="2.75" style="height:0.69rem;width:2rem;">
+        
+                                         
+                   </span> 
+              </a>
+          </li>
+          <li class="mui-table-view-cell padding0 afterlf0" style="height:0.69rem;">
+              <a class="margin0 relative"   style="padding:0 0.2rem;height:0.69rem;line-height:0.69rem;">
+                <span class="fz25 c666666">首次置業</span>
+                   <p class="fz27 c000000 czjz bold" style="height:0.5rem;line-height:0.5rem;width:0.9rem;padding-left:0.5rem;right:1.2rem;top:0.3rem;">
+                    <img @click="isfirsts(1)" :src="isfirst==true?'../../assets/img/jisuan/yx.png':'../../assets/img/jisuan/wx.png'" alt="" style="width:0.39rem;left:0;" class="czjz"/>
+                    是
+                   </p>
+                    <p  @click="isfirsts(0)" class="fz27 c000000 czjz bold" style="height:0.5rem;line-height:0.5rem;width:0.9rem;padding-left:0.5rem;right:0.2rem;top:0.3rem;">
+                    <img :src="isfirst==false?'../../assets/img/jisuan/yx.png':'../../assets/img/jisuan/wx.png'" alt="" style="width:0.39rem;left:0;"  class="czjz"/>
+                    否
+                   </p>
+              </a>
+          </li>
+      </ul>
+      <p class="center" style="margin:0.3rem 0;">
+      <button type="button" @click="kaishis()"  id='kfl' class="kaishi mui-btn mui-btn-green fz30 cffffff" style="width:2.37rem;height:0.7rem;margin: 0 auto;">開始計算</button>
+      </p>
+      <div class="tp fz21 c888888 center" style="padding:0 0.2rem;">
+                                本計算結果幣值為澳門幣，並只供一般參考及說明用途，實際情況應以相關部門或機構所計算為準。
+        </div>
+        
+<div v-show="begin==true" style="width:4.3rem;margin:0 auto;" class="">
+<div class="a1" style="margin:0 auto;border-bottom: 1px solid #DDDDDD;height:0.69rem;line-height:0.69rem;">
+        <span class="fz29 c000000"  style="letter-spacing:5em;">首<span style="letter-spacing:0;">期</span></span>
+        <span class="fz29 c000000 left"><b style="color:black;text-align: center;">:</b>
+              <span id="M" class="fz29 cff4d00">153.23</span>萬元
+        </span>
+</div>
+<div class="a1" style="margin:0 auto;border-bottom: 1px solid #DDDDDD;height:0.69rem;line-height:0.69rem;">
+        <span  class="fz29 c000000" style="letter-spacing:0;">手續費及印花稅</span>
+        <span class="fz29 c000000 left relative"><b style="color:black;text-align:center;">:</b>
+        <span id="L"  class="fz29 cff4d00">1.23</span>
+        萬元
+        <img @click="frees" :src="free==true?'../../../static/jisuan/sq.png':'../../../static/jisuan/zk.png'"  id='sq' style="width:0.3rem;"> 
+        </span>
+</div>
+     <div style="color: #818181;" id='wuzhi' v-show="free==true">
+           <div class="a2" style="margin:0 auto;border-bottom: 1px solid #DDDDDD;height:0.69rem;line-height:0.69rem;">
+                    <span   class="fz25 c777777" style="letter-spacing:1.34em;">公證費<span style="letter-spacing:0em;">用</span></span>
+                    <span class="fz25 c777777 left"><b class="center">:</b>
+                    <span id="I" class="fz25 c777777">7000</span>元
+                    </span>
+            </div>
+            <div class="a2" style="margin:0 auto;border-bottom: 1px solid #DDDDDD;height:0.69rem;line-height:0.69rem;">
+                    <span  class="fz25 c777777" style="letter-spacing:0em;">不動產轉移印花稅</span>
+                    <span  class="fz25 c777777 left"><b class="center">:</b>
+                    <span id="J"  class="fz25 c777777">500</span>元
+                    </span>
+            </div>
+            <div class="a2" style="margin:0 auto;border-bottom: 1px solid #DDDDDD;height:0.69rem;line-height:0.69rem;">
+               <span  class="fz25 c777777" style="letter-spacing:2.5em;">登記<span style="letter-spacing:0em;">費</span></span>
+                <span  class="fz25 c777777 left"><b class="center">:</b>
+                <span id="K"  class="fz25 c777777">3500</span>元
+                </span>
+            </div>
+        </div>
+        
+<div class="a1 a11" style="margin:0 auto;border-bottom: 1px solid #DDDDDD;height:0.69rem;line-height:0.69rem;">
+        <span  class="fz29 c000000"  style="letter-spacing:1em;">每月供<span style="letter-spacing:0;">款</span></span>
+        <span  class="fz29 c000000" ><b class="center">:</b>
+        <span id="N"  class="fz29 cff4d00" >1.2</span>
+        元</span>
+</div>
+
+<div class="overflow" style="margin-left:1rem;" >
+    <div class="a3" style="padding-top:0.22rem;">
+        <span  class="right c36c748 fz25">貸款總額<b class="left">:</b></span>
+        <span class="left fz25 c000000">
+        <span id="Q" class="c000000 fz25">348</span>
+        萬元</span>
+    </div>
+      
+    <div class="a3"  style="padding-top:0.22rem;">
+        <span class="right c36c748 fz25">貸款比率<b class="left">:</b></span>
+        <span class="left fz25 c000000">
+        <span id="O"  class="left fz25 c000000">69.60
+        </span>%
+        </span>
+    </div>
+    <div class="a3" style="padding-top:0.22rem;" >
+        <span   class="right c36c748 fz25">利息總額<b class="left">:</b></span>
+        <span  class="left fz25 c000000">
+        <span id="P"  class="left fz25 c000000">30</span>
+        萬元</span>
+    </div>
+</div> 
+  
+ </div>
+     </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
+ <script src="https://cdn.bootcss.com/vuex/3.0.1/vuex.min.js"></script>
+ <script src="https://cdn.bootcss.com/vue-router/3.0.1/vue-router.min.js"></script>
+<script src="../store.js"></script>
+    <script src="../../static/vconsole.min.js"></script>
+    <script src="../../static/mui.min.js"></script>
+    <script src="../../templated/liebiao.js"></script>
+    <script src="../../static/imgUp.js"></script>
+    <script src="../../static/public.js"></script>
+    <script type="text/javascript">
+      // 初始化previewImage
+      // mui.previewImage();
+      mui.init();
+      var objectId = '58bd0b8b1b69e6006b274f76' //'587f3b29570c352201193d6e'
+      var user = '';
+    </script>
+<script>
+    var vm = new Vue({
+        el: '#app',
+        // store,
+        data: {
+       show: false,
+        check:true,//物业价格 澳门币还是港币
+        isfirst:false,//首次置业
+        begin:false,//开始计算的弹出框
+        free:false//手续费的展开和收起
+
+      },
+      methods: {
+    //物业价格
+    inputA(){
+      console.log('物业价格')
+       var a=$("#A").val()
+            var nan=(isNaN(a)?1:0)
+        if($("#A").val().length>0&&nan==0){
+           var b=a*data_jj
+           $("#B").html(b.toFixed(2))
+           this.shangxian(b)
+    }else{
+        var b=300*data_jj
+              $("#B").html(b.toFixed(2))
+           this.shangxian(b)
+    }
+        },
+    //贷款总额
+    inputD(){
+      console.log('贷款总额')
+    },
+    //还款期的输入框
+    inputE(){
+      console.log('还款期')
+      var val=$("#E").val()
+        if(val.length>0){
+          $("#F").html(val*12)
+        }else{
+          $("#F").html("120")
+        }
+    },
+    shangxian(b){
+                       if(b>=0&&b<=330){
+                              var c=b*0.9
+                              if(c>=231){
+                                c=231
+                              }
+                              $("#C").html(c.toFixed(2))
+                        }
+                        // 
+                        if(b>330&&b<=600){
+                              var c=b*0.7
+                              if(c>=360){
+                                c=360
+                              }
+                              $("#C").html(c.toFixed(2))
+                      }
+                      // 
+                      if(b>600&&b<=800){
+                              var c=b*0.6
+                              if(c>=400){
+                                c=400
+                              }
+                              $("#C").html(c.toFixed(2))
+                      }
+                      // 
+                      if(b>800){
+                              var c=b*0.5
+                              $("#C").html(c.toFixed(2))
+                      }
+},  
+        whoitem(){
+          //物业价格的按钮点击
+          this.check=!(this.check)
+          if(this.check==true){
+            data_jj=1.03
+          }else{
+            data_jj=1
+          }
+           if($("#A").val()!=false){
+              var a=($("#A").val()*data_jj).toFixed(2);
+              $("#B").html(a)
+              this.shangxian(a)
+         }else{
+              var a=(300*data_jj).toFixed(2);
+              $("#B").html(a)
+              this.shangxian(a)
+         }
+        },
+        isfirsts(){
+          //是否首次置业
+          this.isfirst=!(this.isfirst)
+          if(this.isfirst==true){
+            H=1
+          }else{
+            H=0
+          }
+        },
+        kaishis(){
+          //开始计算
+          this.begin=true
+          this.jisuangongshi()
+//          alert(2)
+
+    
+        },
+        frees(){
+          //是否展开手续费
+          this.free=!(this.free)
+        },
+        jisuangongshi(){
+           var B=$("#B").html()
+       var D=$("#D").val()
+       var G=parseFloat($("#G").val())
+       if(D.length<=0){
+          D=231
+       }
+       if($("#G").val().length<=0){
+        G=2.75
+       }
+       var J
+      var I
+      var I1
+      var I2
+      var K
+      var K1
+      var K2
+      // alert(G)
+      //  alert(D)
+      var D1=D*(1+(G+3)*3/100+0.1)
+      
+       // alert(G+":"+(G+3))
+console.log(H)
+
+console.log(B)
+console.log(D)
+          if(B>=0&&B<=50){
+             I1=100+B*10000*0.005+100+B*10000*0.005*(1-H*0.5)
+          }
+          if(B>50&&B<=100){
+             I1=100+(B-50)*10000*0.004+2500+100+B*10000*0.005*(1-H*0.5)
+          }
+          if(B>100&&B<=200){
+             I1=100+(B-100)*10000*0.003+4500+100+B*10000*0.005*(1-H*0.5)
+          }
+          if(B>200&&B<=300){
+             I1=100+(B-200)*10000*0.002+7500+100+B*10000*0.005*(1-H*0.5)
+            
+          }
+          if(B>300&&B<=500){
+             I1=100+(B-200)*10000*0.002+7500+100+B*10000*0.005-H*7500
+             console.log(I1) 
+             console.log(I1)
+          }
+          if(B>500){
+             I1=100+(B-500)*10000*0.001+13500+100+B*10000*0.005-H*7500
+          }
+
+          if(D>=0&&D<=50){
+            I2=D*10000*0.005
+          }
+          if(D>50&&D<=100){
+            I2=(D-50)*10000*0.004+2500
+          }
+          if(D>100&&D<=200){
+            I2=(D-100)*10000*0.003+4500
+          }
+          if(D>200&&D<=500){
+            I2=(D-200)*10000*0.002+7500
+            console.log(I2)
+          }
+          if(D>500){
+            I2=(D-500)*10000*0.001+13500
+          }
+
+      if(0<D&&D<=3){
+             I=I1+I2-80
+            
+      }else{
+             I=I1+I2
+             
+      }
+      console.log(I1+":"+I2)
+      $("#I").html(I.toFixed(2))
+      // 不动产转移印花税 
+      if(H==0){
+      if(B>=0&&B<=200){
+           J=B*10000*0.01*1.05
+      }
+      if(B>200&&B<=400){
+           J=((B-200)*10000*0.02+20000)*1.05
+      }
+      if(B>400){
+           J=((B-400)*10000*0.03+60000)*1.05
+           
+      }
+    }else{
+      if(B>=0&&B<=200){
+           J=B*10000*0.01*1.05-42000
+           if(J<0){J=0}
+      }
+      if(B>200&&B<=400){
+           J=((B-200)*10000*0.02+20000)*1.05-42000
+            if(J<0){J=0}
+      }
+      if(B>400){
+           J=((B-400)*10000*0.03+60000)*1.05-42000
+            if(J<0){J=0}
+           
+      }
+    }
+     
+        $("#J").html(J.toFixed(2))    
+     // 登记费
+
+    if(B>=0&&B<=50){
+           K1=100+B*10000*0.004   
+      }
+    if(B>50&&B<=100){
+           K1=100+(B-50)*10000*0.003+2000   
+      }
+    if(B>100){
+           K1=100+(B-100)*10000*0.002+3500   
+      }
+// alert(K1)
+   
+   if(D1>=0&&D1<=50){
+           K2=D1*10000*0.004   
+      }
+   if(D1>50&&D1<=100){
+           K2=(D1-50)*10000*0.003+2000   
+      }
+   if(D1>100){
+           K2=(D1-100)*10000*0.002+3500   
+     }
+      if(D!=0){
+       
+        $("#K").html((K1+K2+100).toFixed(2))
+       
+      }else{
+        
+        $("#K").html((K1+K2).toFixed(2))
+    
+      }
+     
+// 手续费及印花税
+var k3=parseFloat($("#K").html())
+console.log('::'+parseFloat($("#K").html()))
+  $("#L").html(((I+J+k3)/10000).toFixed(2))
+    
+// 首期费用
+console.log("费用"+B,D)
+console.log((B-D).toFixed(2))
+     $("#M").html((B-D).toFixed(2)) 
+// 每月供款
+    var F=$("#F").html()
+    var f1=Math.pow((1+G/1200),F)
+     var N=(D*(G/1200)*f1)/(f1-1)
+      $("#N").html((10000*N).toFixed(2))
+// 贷款比率
+$("#O").html((D/B*100).toFixed(2))
+// 利率总额
+$("#P").html((N*F-D).toFixed(2))
+// 贷款总额
+$("#Q").html(D)
+        }
+      
+    },
+    mounted() {
+      // this.$store.state.name = ''
+
+    }
+
+
+    })
+
+  </script> 
+
+
+
+
+
+  </body>
+
+</html>

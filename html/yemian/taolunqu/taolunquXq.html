@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <title>詳情</title>
+    <script typet="text/javascript" src="https://cdn.bootcss.com/jquery/2.2.0/jquery.min.js"></script>
+    <script typet="text/javascript" src="../../static/common.js"></script>
+
+    <link href="https://cdn.bootcss.com/Swiper/3.4.2/css/swiper.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/Swiper/3.4.2/js/swiper.jquery.min.js"></script>
+    <link href="../../static/common.css" rel="stylesheet">
+    <link href="../../static/commonS.css" rel="stylesheet">
+    <link href="../../static/imgUp.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../static/mui.min.css">
+<style scoped>
+
+.mui-pull-bottom-wrapper{background: white;}
+  #scroll1,
+  #scroll2,
+  #scroll1>.mui-scroll,
+  #scroll2>.mui-scroll {
+    position: relative !important;
+  }
+  /*下面列表的下边框线条*/
+  
+  .xian:after {
+    left: 1.1rem !important;
+  }
+  
+  .xian0:after {
+    height: 0 !important;
+  }
+  
+  .mui-table-view:before {
+    height: 0 !important;
+  }
+  
+  .mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active {
+    border-bottom: white;
+  }
+  
+  /*.mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active>span {
+    color: #36C748 !important;
+  }*/
+</style>
+
+  </head>
+
+  <body>
+
+    <div id="app">
+<div id="" class="mui-scroll-wrapper XIANGQING" style="padding-bottom:1rem;">
+    <div class="mui-scroll" @scroll="scrolls($event)">
+      <!--1.讨论区详情的列表描述-->
+      <ul class="mui-table-view" v-if="datas!='no'" v-cloak>
+        <li class="mui-table-view-cell mui-media">
+          <a href="javascript:;">
+            <div class="mui-media-object mui-pull-left radius50 overflow" style="max-width:0.65rem;width:0.65rem;height:0.65rem;">
+              <!--个人头像-->
+              <img @tap="zhezhaoceng=true" :src="datas.user!=undefined&&datas.user.avatar!=undefined?datas.user.avatar.url:'../../assets/img/taolunqu/head.png'" style="width:100%;">
+            </div>
+            <div class="mui-media-body">
+              <span class="cff4d00 fz23">{{datas.user.nickname}}</span>
+              <p class="mui-ellipsis fz17 c666666">發佈時間:{{datas.createdAt}}</p>
+              <p class="fz30 c000000" style="white-space: normal;word-break: break-all;"><button type="button" class="mui-btn mui-btn-green" style="font-size: 0.21rem;margin-right:0.1rem;">{{datas.tag}}</button>{{datas.title}}</p>
+              <div class="fz25 c333333" style="white-space: normal;word-break: break-all;">{{datas.content}}</div>
+              <img :src="item.url" alt="" class="mui-block" style="margin:0.45rem 0;width:100%;" data-preview-src="" :data-preview-group="'1'+index" v-for="(item,index) in datas.pics" />
+            </div>
+          </a>
+        </li>
+
+      </ul>
+      <!--2.讨论区详情的评论区-->
+
+      <div id="sliderSegmentedControl" class="aaa hasscrollbar mg10 mui-slider-indicator mui-segmented-control mui-segmented-control-inverted" style="background:white;height: 0.73rem;">
+        <div class="bai" style="width: 100%;" v-if="datas">
+          <a @tap="titlezan()" href="#item1" style="width:50%;line-height:0.3rem;" class="mui-control-item mg10 border-r center mui-pull-left" data-index='1'>
+            <img :src="datasIdx==1?'../../assets/img/taolunqu/tablv.png':'../../assets/img/taolunqu/tabhui.png'" alt="" style="width:0.36rem;top:0.05rem;" class="relative" />
+            <span class="fz25"  :class="{c666666:datasIdx==2,c36c748:datasIdx==1}">{{datas.goods}}</span>
+
+          </a>
+          <!--留言-->
+          <a @tap="titlereply" href="#item2" style="width:50%;line-height:0.3rem;" class="mg10 mui-control-item center mui-active mui-control-item mui-pull-right" data-index='2'>
+            <img :src="datasIdx==1?'../../assets/img/taolunqu/tabhui2.png':'../../assets/img/taolunqu/tablv2.png'" alt="" style="width:0.36rem;top:0.05rem;" class="relative" />
+            <span class="fz25" :class="{c666666:datasIdx==1,c36c748:datasIdx==2}">{{datas.comments}}</span>
+
+          </a>
+
+        </div>
+        <img v-show="datasIdx==1" src="../../assets/img/taolunqu/zanzuo.png" alt="" style="width:6.4rem;" />
+        <img v-show="datasIdx==2" src="../../assets/img/taolunqu/replyyou.png" alt="" style="width:6.4rem;" />
+
+      </div>
+<!--1.攒区-->
+      <div class="mui-slider-group">
+        <div id="item1" class="mui-slider-item mui-control-content">
+          <div id="scroll1">
+            <div>
+              <ul class="mui-table-view after00">
+                <li class="mui-table-view-cell xian padding0" style="padding-top:0.2rem !important;" v-for="(item,index) in datas1">
+                  <ul class="mui-table-view xian0">
+                    <li class="mui-table-view-cell mui-media xian0">
+                      <a href="javascript:;">
+                        <div class="mui-media-object mui-pull-left radius50 overflow" style="max-width:0.8rem;width:0.8rem;height:0.8rem;">
+                          <!--个人头像-->
+                          <img @tap="zhezhaoceng=true" :src="item.user!=undefined&&item.user.avatar!=undefined?item.user.avatar.url:'../../assets/img/taolunqu/head.png'" style="width:100%;">
+                        </div>
+                        <div class="czjz mui-media-body fz23 c282828" style="left:1.2rem;">
+                          <span class="">
+                            {{(!isNaN(item.nickname)==false?item.nickname:item.nickname.substring(0,2)+'****'+item.nickname.substring(item.nickname.length,item.nickname.length-2))}}
+                          </span>
+                        </div>
+                      </a>
+                    </li>
+
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+<!--2.留言区-->
+        <div id="item2" class="mui-slider-item mui-control-content mui-active">
+          <div id="scroll2">
+            <div>
+              <ul class="mui-table-view after00">
+                <li class="mui-table-view-cell xian padding0" style="padding-top:0.2rem !important;" v-for="(item,index) in datas2">
+                  <ul class="mui-table-view xian0">
+                    <li class="mui-table-view-cell mui-media xian0">
+                      <a href="javascript:;">
+                        <div class="mui-media-object mui-pull-left radius50 overflow relative" style="max-width:0.8rem;width:0.8rem;height:0.8rem;">
+                          <!--个人头像-->
+                          <img class="jz" :src="item.user!=undefined&&item.user.avatar!=undefined?item.user.avatar.url:'../../assets/img/taolunqu/head.png'" style="width:100%;">
+                        </div>
+                        <div class="mui-media-body fz23 ">
+                          <span class="c282828">{{item.user!=undefined&&item.user.nickname!=undefined?item.user.nickname:' '}}</span>
+                          <!--具体的点击某个人回复-->
+                          <button @tap="whoIds(item.user.nickname,item.objectId)" type="button" class="absolute mui-btn-green mui-btn-outlined fz19" style="top:0.2;right:0.2rem;padding:0.04rem 0.08rem;">回復</button>
+                          <p class="mui-ellipsis fz19 c666666">發佈時間:{{item.createdAt}}</p>
+                          <p class="fz25 c333333" style="white-space: normal;">{{item.comment}}</p>
+
+                        </div>
+                      </a>
+                    </li>
+
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div </div>
+
+        </div>
+      </div>
+    </div>
+    
+      <!--2.讨论区详情的评论区-->
+
+      <div id="sliderSegmentedControl" class="sliderSegmentedControlfixed fixed aaa hasscrollbar mg10 mui-slider-indicator mui-segmented-control mui-segmented-control-inverted margin0" style="background:white;height:1rem;z-index:1000;">
+        <div class="bai" style="width: 100%;" v-if="datas!='no'">
+          <a @tap="titlezan()" href="#item1" style="width:50%;line-height:0.3rem;" class="mui-control-item mg10 border-r center mui-pull-left" data-index='1'>
+            <img :src="datasIdx==1?'../../assets/img/taolunqu/tablv.png':'../../assets/img/taolunqu/tabhui.png'" alt="" style="width:0.36rem;top:0.05rem;" class="relative" />
+            <span class="fz25"  :class="{c666666:datasIdx==2,c36c748:datasIdx==1}">{{datas.goods}}</span>
+
+          </a>
+          <!--留言-->
+          <a @tap="titlereply" href="#item2" style="width:50%;line-height:0.3rem;" class="mg10 mui-control-item center mui-active mui-control-item mui-pull-right" data-index='2'>
+            <img :src="datasIdx==1?'../../assets/img/taolunqu/tabhui2.png':'../../assets/img/taolunqu/tablv2.png'" alt="" style="width:0.36rem;top:0.05rem;" class="relative" />
+            <span class="fz25" :class="{c666666:datasIdx==1,c36c748:datasIdx==2}">{{datas.comments}}</span>
+
+          </a>
+
+        </div>
+        <img v-show="datasIdx==1" src="../../assets/img/taolunqu/zanzuo.png" alt="" class="" style="width:6.4rem;" />
+        <img v-show="datasIdx==2" src="../../assets/img/taolunqu/replyyou.png" alt="" class="" style="width:6.4rem;" />
+
+      </div>
+      
+      
+    <!--底部固定的攒好和回复-->
+    <ul class="fixed bai center fz30 c666666" style="z-index:998;bottom:0;left:0;width:100%;height:0.98rem;padding:0.25rem 0;box-shadow: 0 0 0.1rem #EBEBEB;">
+      <li @tap="bottomzan()"  :class="{c666666:datas.isgood==0,c36c748:datas.isgood!=0}" class="mui-pull-left border-r" style="width:50%;">       
+          <img class="relative" :src="datas.isgood==0?'../../assets/img/taolunqu/dilanzan.png':'../../assets/img/taolunqu/dilanzanlv.png'" style="top:0.05rem;width:0.41rem;" alt="" /> 讃好        
+      </li>
+      <li @tap="bottomreply" class="mui-pull-right" style="width:50%;">
+        <img class="relative" src="../../assets/img/taolunqu/dilan.png" style="top:0.08rem;width:0.41rem;" alt="" /> 回復
+      </li>
+    </ul>
+    
+    <!--底部固定的回复输入框-->
+    <ul v-if="shurukuang==true" class="fixed bai fz30 c666666" style="z-index:998;bottom:0;left:0;width:100%;height:0.98rem;padding:0.25rem 0;box-shadow: 0 0 0.1rem #EBEBEB;">
+      <li>
+        <img @tap="shurukuang=false" class="absolute" src="../../assets/img/taolunqu/11.png" style="width:0.62rem;left:0.2rem;" alt="" />
+        <input id="input" type="text" v-model="values" :placeholder="towho" class="fz25 c999999" style="background:#EBEBEB;border:1px solid #BBBBBB;margin-left:1.2rem;margin-right:0.18rem;height:0.6rem;width:3.56rem;padding: 0 0.2rem;">
+        <button @tap="fasongs()" type="button" class="mui-btn mui-btn-green fz30 pT06 pB06 pL20 pR20" style="padding:0.06rem 0.2rem;">發送</button>
+
+      </li>
+    </ul>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
+ <script src="https://cdn.bootcss.com/vuex/3.0.1/vuex.min.js"></script>
+ <script src="https://cdn.bootcss.com/vue-router/3.0.1/vue-router.min.js"></script>
+
+    <script src="../../static/vconsole.min.js"></script>
+    <script src="../../static/mui.min.js"></script>
+    <script src="../../templated/liebiao.js"></script>
+    <script src="../../static/imgUp.js"></script>
+    <script src="../../static/mui.pullToRefresh.js"></script>
+    <script src="../../static/mui.pullToRefresh.material.js"></script>
+    <script src="../../static/mui.zoom.js"></script>
+    <script src="../../static/mui.previewimage.js"></script>
+    <script src="../../static/public.js"></script>
+    <script type="text/javascript">
+      // 初始化previewImage
+      mui.previewImage();
+      mui.init();
+      var objectId = '58bd0b8b1b69e6006b274f76' //'587f3b29570c352201193d6e'
+      var user = '';
+    </script>
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data: {
+         self:'',
+        page1: 0,
+        page2: 0,
+        count1: '',
+        count2: '',
+        towho: '@樓主  |', //输入框的holder
+        values: '', //发送的内容
+        objectId: '', //发送的id
+        datasIdx: 2, //目前位于哪个标题
+        zhezhaoceng: false, //个人头像弹出框
+        datas: 'no', //上面的贴文详情
+        datas1: [], //赞
+        datas2: [], //留言
+        //        datas3:[1,1],//时事
+        text: '点点滴滴呃呃呃滴答滴答滴答滴答的的点点滴滴的点点滴滴呃呃鹅鹅鹅饿饿鹅鹅鹅饿饿的的点点滴滴的点点滴滴的的点点滴滴的点点滴滴搜索事实是搜索事实是搜索搜索事实是搜索事实是',
+        shurukuang: false //回复输入框
+
+      },
+          methods: {
+      scrolls(e){
+        var top=$(".aaa").offset().top
+//               console.log($(".aaa").offset().top)
+                 if(top>0){
+                    $('.sliderSegmentedControlfixed').css({'display':'none'}) 
+                 }else{
+                  $('.sliderSegmentedControlfixed').css({'display':'block'})
+                 }
+
+      },
+      //标题点击赞让输入框消失
+      titlezan() {
+        this.datasIdx = 1
+                $("#item1").addClass('mui-active')
+        $("#item2").removeClass('mui-active')
+        this.shurukuang = false
+                if(this.page1==0){
+                  this.refresh()
+                }
+        
+      },
+      //标题点击回复切换到回复框
+      titlereply() {
+        this.datasIdx = 2
+                $("#item2").addClass('mui-active')
+        $("#item1").removeClass('mui-active')
+        if(this.page2==0){
+                  this.refresh()
+              }
+      
+      },
+      //具体点击的某个人的回复框
+      whoIds(name, id) {
+        if(sessiontoken==''){
+                   mui.toast('請先到【我的】登錄')
+                   return
+                   }
+        //记录下全局的回复人id
+        this.towho = '@' + name + ': ' //列表对应人的名字
+        this.shurukuang = true
+      },
+      //底部的攒好按钮
+      bottomzan() {
+        var that=this
+        this.datasIdx=1
+        $("#item1").addClass('mui-active')
+        $("#item2").removeClass('mui-active')
+          if(sessiontoken==''){
+                   mui.toast('請先到【我的】登錄')
+                   return
+                   }
+          //1.不等于0则代表说已经赞过了，这个时候点击要取消攒
+          if(that.datas.isgood!=0){
+                    //发生攒的请求  路由传过来的id
+            mui.ajax(Boss+'discuss/'+that.objectId+'/good',{
+              data:{
+                sessiontoken:sessiontoken
+              },
+              dataType:'json',//服务器返回json格式数据
+              type:'DELETE',//HTTP请求类型
+              timeout:10000,//超时时间设置为10秒；              
+              success:function(data){
+                //服务器返回响应，根据响应结果，分析是否登录成功；
+                if(data.status==true){
+                  that.datas.isgood=0
+                  that.datas.goods=that.datas.goods-1
+                  that.page1=0
+                  that.refresh()
+                }
+                                
+              },
+              error:function(xhr,type,errorThrown){
+                //异常处理；
+                mui.toast(type,{ duration:'long', type:'div' }) 
+              }
+            });
+          }else{
+            //2.等于0则代表说没有赞过，这个时候点击要攒
+                    //发生攒的请求  路由传过来的id
+            mui.ajax(Boss+'discuss/'+that.objectId+'/good',{
+              data:{
+                sessiontoken:sessiontoken
+              },
+              dataType:'json',//服务器返回json格式数据
+              type:'post',//HTTP请求类型
+              timeout:10000,//超时时间设置为10秒；              
+              success:function(data){
+                //服务器返回响应，根据响应结果，分析是否登录成功；
+                if(data.status==true){
+                  that.datas.isgood=1
+                  that.datas.goods=that.datas.goods+1
+                  that.page1=0
+                  that.refresh()
+                }
+                                
+              },
+              error:function(xhr,type,errorThrown){
+                //异常处理；
+                mui.toast(type,{ duration:'long', type:'div' }) 
+              }
+            });
+          }
+  
+        
+      },
+      //底部的回复按钮
+      bottomreply() {
+        var that=this
+        if(sessiontoken==''){
+                   mui.toast('請先到【我的】登錄')
+                   return
+                   }
+        this.shurukuang = true
+        this.towho = '@樓主  |'
+      },
+      //发送按钮
+      fasongs() {
+
+        var that = this
+        var val=that.values
+        if(that.values.length == 0) {
+          mui.toast('輸入的內容不能為空')
+          return
+        }
+        if(that.towho!='@樓主  |'){
+          val=that.towho+that.values
+        }
+        
+        //根据地址传过来的id去查看具体的信息 这里的是传过来的id
+        mui.ajax(Boss + 'discuss/' + that.objectId + '/comment', {
+          data: {
+            comment: val,
+            sessiontoken: sessiontoken
+          },
+          dataType: 'json', //服务器返回json格式数据
+          type: 'post', //HTTP请求类型
+          timeout: 10000, //超时时间设置为10秒；
+          success: function(data) {
+            //服务器返回响应，根据响应结果，分析是否登录成功；
+            if(data.status == true) {
+              that.shurukuang = false;
+              that.page2=0;
+              that.values='';
+              that.refresh();
+            }else{
+              mui.toast(data.result.message)
+            }
+          },
+          error: function(xhr, type, errorThrown) {
+            //异常处理；
+            mui.toast(errorThrown)
+          }
+        });
+
+      },
+      //刷新和加载
+      refresh() {
+        var that = this;
+        (function($) {
+          //阻尼系数
+          var deceleration = mui.os.ios ? 0.003 : 0.0009;
+          $('.mui-scroll-wrapper').scroll({
+            bounce: false,
+            indicators: true, //是否显示滚动条
+            deceleration: deceleration
+          });
+          $.ready(function() {
+            //循环初始化所有下拉刷新，上拉加载。
+            $.each(document.querySelectorAll('.mui-scroll'), function(index, pullRefreshEl) {
+              $(pullRefreshEl).pullToRefresh({
+                //刷新              
+                down: {     
+                  auto: true, //可选,默认false.首次加载自动下拉刷新一次
+                  callback: function() {
+                    var self = this;
+                    that.self=self
+                    var url = ''
+                    var mask=mui.createMask();//遮罩层
+                    //                  alert('刷新：'+that.objectId)
+                    if(that.datasIdx == 1) {
+                      that.page1 = 1
+                      that.datas1=[]
+                      console.log('当前的是赞1')
+                      url = 'discuss/' + that.objectId + '/good'
+                    } else if(that.datasIdx == 2) {
+                      that.datas2=[]
+                      that.page2 = 1
+                      console.log('当前的是回复2')
+                      url = 'discuss/' + that.objectId + '/comment'
+                    }
+                    mui.ajax(Boss + url, {
+                      data: {
+                        page: 1,
+                        limit: limit20,
+                        sessiontoken: sessiontoken
+                      },
+                      dataType: 'json', //服务器返回json格式数据
+                      type: 'GET', //HTTP请求类型
+                      timeout: 10000, //超时时间设置为10秒；
+                      //  headers:{'Content-Type':'application/json'},
+                    success: function(data) {
+                        //1.服务器返回响应，根据响应结果，分析是否登录成功；
+                        if(data.status == true) {
+                          var count=''
+                          length=''
+                          if(that.datasIdx == 1) {
+                            that.count1 = data.result.count
+                            that.datas1 = data.result.data
+
+                            count=that.count1
+                            length=that.datas1.length
+                        
+                          } else if(that.datasIdx == 2) {
+                            that.count2 = data.result.count
+                            that.datas2 = data.result.data
+                             that.datas.comments=data.result.count
+                            count=that.count2
+                            length=that.datas2.length
+                            
+                          }
+                        setTimeout(function(){
+                                                     self.endPullDownToRefresh();//关闭刷新
+                        },1000)
+                                                
+                        }else{
+                          mui.toast(data.result.message)
+                           self.endPullDownToRefresh();//关闭刷新
+                        }
+                        
+
+                      },
+                      error: function(xhr, type, errorThrown) {
+                        //异常处理；
+                        self.endPullDownToRefresh();//关闭刷新
+                        mui.toast(errorThrown, {
+                          duration: 'long',
+                          type: 'div'
+                        })
+                      }
+                    });
+
+                  }
+                },
+                //滚动加载
+                up: { 
+                  auto: true, //可选,默认false.首次自动加载一次
+                  callback: function() {
+                    var self = this;
+                    that.self=self
+                    var url = ''
+                    var page = ''
+                    var count = ''
+                    //                    alert('加载：'+that.objectId)
+                    if(that.datasIdx == 1) {
+                      that.page1++
+                      url = 'discuss/' + that.objectId + '/good'
+                      page = that.page1
+                      if(that.page1 == 1) {
+                              that.datas1 = []
+                            }
+                      console.log('当前的是赞1')
+                    } else if(that.datasIdx == 2) {
+                      that.page2++
+                      url = 'discuss/' + that.objectId + '/comment'
+                      page = that.page2
+                      if(that.page2 == 1) {
+                              that.datas2 = []
+                            }
+                      console.log('当前的是回复2')
+                    }
+                                         
+                    mui.ajax(Boss + url, {
+                      data: {
+                        page: page,
+                        limit: limit20,
+                        sessiontoken: sessiontoken
+                      },
+                      dataType: 'json', //服务器返回json格式数据
+                      type: 'GET', //HTTP请求类型
+                      timeout: 10000, //超时时间设置为10秒；
+                      //  headers:{'Content-Type':'application/json'},                
+                      success: function(data) {
+                        //服务器返回响应，根据响应结果，分析是否登录成功；
+
+                        if(data.status == true) {
+                          if(that.datasIdx == 1) {
+                            that.count1 = data.result.count
+//                            //1.如果是切换标签的加载事件也就是现在请求的是第一页，所以则要让页数变为1，下次加载的时候就变成++
+                            if(that.page1 == 1) {
+                              that.datas1 = []
+                            }
+                            for(var i = 0; i < data.result.data.length; i++) {
+                              that.datas1.push(data.result.data[i])
+                            }
+                            //2.判断是否停止
+                            if(that.count1 == that.datas1.length) {
+                              self.endPullUpToRefresh(true);//没有更多数据
+                              
+                            }else{
+                                    self.endPullUpToRefresh();//加载更多数据
+                            }
+                          } else if(that.datasIdx == 2) {
+                            //1.alert(22)
+                            that.count2 = data.result.count
+                             that.datas.comments=data.result.count
+                            if(that.page2 == 1) {
+                              that.datas2 = []
+                            }
+                            for(var i = 0; i < data.result.data.length; i++) {
+                              that.datas2.push(data.result.data[i])
+                            }
+                            //2.判断是否停止
+                            if(that.count2 == that.datas2.length) {
+                              self.endPullUpToRefresh(true);//没有更多数据
+                              
+                            }else{
+                                    self.endPullUpToRefresh();//加载更多数据
+                            }
+                          }
+
+                        }else{
+                          mui.toast(data.result.message)
+                          if(that.datasIdx == 1) {
+                             that.page1--
+                          }else if(that.datasIdx == 2) {
+                             that.page2--
+                          }
+                         
+                            self.endPullUpToRefresh();//加载更多数据
+                        }
+                        
+
+                      },
+                      error: function(xhr, type, errorThrown) {
+                        //异常处理；让当前页数变回减1
+                        if(that.datasIdx == 1) {
+                          that.page1--
+                        } else if(that.datasIdx == 2) {
+                          that.page2--
+                        }
+                        mui.toast(errorThrown, {
+                          duration: 'long',
+                          type: 'div'
+                        })
+                        self.endPullUpToRefresh();
+                      }
+                    });
+
+                  }
+                }
+              });
+            });
+
+          });
+        })(mui);
+
+      },
+      //查看讨论区贴文详情
+      discuss() {
+        var that = this
+        //根据地址传过来的id去查看具体的信息
+        mui.ajax(Boss + 'discuss/' + that.objectId, {
+          data: {
+            sessiontoken: sessiontoken
+          },
+          dataType: 'json', //服务器返回json格式数据
+          type: 'get', //HTTP请求类型
+          timeout: 10000, //超时时间设置为10秒；
+//          headers: {
+//            'Content-Type': 'application/json'
+//          },
+          success: function(data) {
+            //服务器返回响应，根据响应结果，分析是否登录成功；
+            if(data.status==true){
+              that.datas = data.result
+            }
+            
+          },
+          error: function(xhr, type, errorThrown) {
+            //异常处理；
+            mui.toast(errorThrown)
+          }
+        });
+      }
+    },
+    mounted() {
+      //全局的id  点击讨论区列表的跳转id
+      this.objectId = locations('objectId')
+      //查看讨论区贴文详情
+      this.discuss()
+      //刷新和加载
+      this.refresh()
+
+    }
+
+    })
+
+  </script> 
+
+
+
+
+
+  </body>
+
+</html>

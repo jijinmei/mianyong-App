@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <title>檢舉</title>
+    <script typet="text/javascript" src="https://cdn.bootcss.com/jquery/2.2.0/jquery.min.js"></script>
+    <script typet="text/javascript" src="../../static/common.js"></script>
+
+    <!-- <link href="https://cdn.bootcss.com/Swiper/3.4.2/css/swiper.css" rel="stylesheet"> -->
+    <!-- <script src="https://cdn.bootcss.com/Swiper/3.4.2/js/swiper.jquery.min.js"></script> -->
+    <link href="../../static/common.css" rel="stylesheet">
+    <link href="../../static/commonS.css" rel="stylesheet">
+    <!-- <link href="../../static/imgUp.css" rel="stylesheet"> -->
+    <link rel="stylesheet" href="../../static/mui.min.css">
+<style scoped>
+/*list的样式*/
+/*左边的图片的样式*/  
+  .tukuang {
+    width: 2.45rem !important;
+    height: 2.15rem !important;
+    max-width: 2.45rem !important;
+    /*插件默认了一个最大宽度，这里要重新定义*/
+  }
+/*分租的样式*/ 
+  .fenzu {
+    padding:0rem 0.04rem 0rem 0.04rem;
+     /* height:0.32rem; */
+     /*line-height:0.3rem;*/ 
+     
+  }
+    .fenzu:active {
+    background-color: white !important;
+  }
+/*列表右边的间距*/ 
+  .mui-table-view-cell:after {
+    right: 0.2rem;left: 0.2rem;
+  }
+</style>
+
+
+  </head>
+
+  <body>
+    <div id="app" v-cloak>
+
+ <div  class="bai relative">
+
+      <list v-if="item!='no'" :item='item'></list>
+
+        <p style="line-height:0.5rem;height:0.5rem;padding: 0 0.2rem;" class="bgebebeb c666666 fz23">檢舉內容</p>
+        <div class="padding20 center relative overflow" style="height:5.5rem;">
+          
+          <textarea @focus='bbb'  @blur='ccc' v-model="content" name="" rows="" cols="" class="fz25  left" placeholder="請輸入檢舉內容..." style="margin-bottom:0.5rem;height:2.16rem;padding:0.2rem;">
+            
+          </textarea>
+ 
+            <button @click="jianjus()" type="button" class="mui-btn mui-btn-green fz30" style="width: 1.75rem;height: 0.7rem;">提交</button>
+       
+          
+       
+        </div>
+  </div>
+
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
+ <script src="https://cdn.bootcss.com/vuex/3.0.1/vuex.min.js"></script>
+
+    <script src="../../static/vconsole.min.js"></script>
+    <script src="../../static/mui.min.js"></script>
+   <script src="list.js"></script>
+   <script src="../store.js"></script>
+    <!-- <script src="../../static/imgUp.js"></script> -->
+    <script src="../../static/mui.pullToRefresh.js"></script>
+    <script src="../../static/mui.pullToRefresh.material.js"></script>
+    <!-- <script src="../../static/mui.zoom.js"></script> -->
+    <!-- <script src="../../static/mui.previewimage.js"></script> -->
+    <!-- <script src="../../static/public.js"></script> -->
+    <script type="text/javascript">
+      // 初始化previewImage
+      // mui.previewImage();
+      mui.init();
+      // var objectId = '58bd0b8b1b69e6006b274f76' //'587f3b29570c352201193d6e'
+      // var user = '';
+    </script>
+<script>
+    var vm = new Vue({
+        el: '#app',
+        store,
+        data: {
+         item:'no',//检举的内容
+         imageView2:'?imageView2/1/w/'+parseInt(640*w0)+'/h/'+parseInt(700*w0),
+         content:''//发布的内容
+      },
+    components:{'list':list},
+    methods: {
+      refresh(){
+        var that=this
+          // 如果是帖子，则 采用帖子的样式Boss + 'agent/'+locations('objectId')
+                    mui.ajax(Boss + locations('type')+'/'+locations('objectId'), {
+                      data:{'adatper':'cell_style'},
+                      dataType: 'json', //服务器返回json格式数据
+                      type: 'GET', //HTTP请求类型
+                      timeout: 10000, //超时时间设置为10秒；
+                    success: function(data) {
+                        //1.服务器返回响应，根据响应结果，分析是否登录成功；
+                        if(data.status == true) {
+                           that.item=data.result                                              
+                        }
+                        
+
+                      },
+                      error: function(xhr, type, errorThrown) {
+                        //异常处理；
+                        self.endPullDownToRefresh();//关闭刷新
+                        mui.toast(errorThrown, {
+                          duration: 'long',
+                          type: 'div'
+                        })
+                      }
+                    });
+          // 如果是租售，则 采用租售的样式
+      },
+      bbb(){
+            $(document.body).animate({ 'scrollTop': 400*w0 }, 100)
+      },
+      ccc(){
+ $(window).scrollTop('0rem')
+      },
+                // 发布楼盘检举
+         jianjus(){
+          
+          if(this.content==''){
+            mui.toast('請輸入檢舉內容')
+            return
+          }
+       
+          $.post(Boss+'agent/'+this.$store.state.jianjuItem.objectId+'/report',{
+            remark:this.content,
+            sessiontoken:sessiontoken
+          },function(data){
+             if(data.status==true){
+              //返回上一步
+              mui.back()
+             }else{
+              mui.toast('網絡問題檢舉失敗')
+             }
+          })
+         }
+    },
+    mounted() {
+      // this.$store.state.name='檢舉';
+      this.refresh()
+      
+    }
+    })
+
+  </script> 
+
+
+
+
+
+  </body>
+
+</html>

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <title>熱門話題</title>
+    <script typet="text/javascript" src="https://cdn.bootcss.com/jquery/2.2.0/jquery.min.js"></script>
+    <script typet="text/javascript" src="../../static/common.js"></script>
+
+    <!-- <link href="https://cdn.bootcss.com/Swiper/3.4.2/css/swiper.css" rel="stylesheet"> -->
+    <!-- <script src="https://cdn.bootcss.com/Swiper/3.4.2/js/swiper.jquery.min.js"></script> -->
+    <link href="../../static/common.css" rel="stylesheet">
+    <link href="../../static/commonS.css" rel="stylesheet">
+    <!-- <link href="../../static/imgUp.css" rel="stylesheet"> -->
+    <link rel="stylesheet" href="../../static/mui.min.css">
+
+
+  </head>
+
+  <body>
+
+    <div id="app">
+<div class="mui-scroll-wrapper">
+    <div class="mui-scroll">
+      <ul class="mui-table-view">
+        <li @tap="xiangqings(item,item.objectId)" class="mui-table-view-cell mui-media padding20 afterlf0" style="height:1.7rem;" v-for="(item,index) in datas">
+            <a href="javascript:;" class="padding0 margin0">
+              <!--判断图片的控制显示和隐藏-->
+                <img v-if="item.pics!=undefined&&item.pics.length>0" class="mui-media-object mui-pull-right" :src="item.pics[0]+imageView2" style="margin-left:0.2rem;max-width:1.9rem;min-width:1.9rem;min-height:1.3rem;">
+                <div class="mui-media-body">
+                 <p class="mui-ellipsis-2 fz27 c333333">{{item.title}}</p> 
+                    <p class="mui-ellipsis fz18 c999999" style="margin-top: 0.35rem;">發佈：{{item.createdAt}}</p>
+                </div>
+            </a>
+        </li>
+     
+    </ul>
+    </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
+ <script src="https://cdn.bootcss.com/vuex/3.0.1/vuex.min.js"></script>
+ <script src="https://cdn.bootcss.com/vue-router/3.0.1/vue-router.min.js"></script>
+<!-- <script src="../store.js"></script> -->
+    <script src="../../static/vconsole.min.js"></script>
+    <script src="../../static/mui.min.js"></script>
+    <!-- <script src="../../templated/liebiao.js"></script> -->
+    <!-- <script src="../../static/imgUp.js"></script> -->
+    <script src="../../static/mui.pullToRefresh.js"></script>
+    <script src="../../static/mui.pullToRefresh.material.js"></script>
+    <!-- <script src="../../static/mui.zoom.js"></script> -->
+    <!-- <script src="../../static/mui.previewimage.js"></script> -->
+    <!-- <script src="../../static/public.js"></script> -->
+    <script type="text/javascript">
+      // 初始化previewImage
+      // mui.previewImage();
+      mui.init();
+      // var objectId = '58bd0b8b1b69e6006b274f76' //'587f3b29570c352201193d6e'
+      // var user = '';
+    </script>
+<script>
+    var vm = new Vue({
+        el: '#app',
+        // store,
+        data: {
+
+         imageView2:'?imageView2/1/w/'+parseInt(190*w0)+'/h/'+parseInt(130*w0), 
+        page:0,
+        count:'',
+          datas:[]
+
+      },
+      methods: {
+      xiangqings(item,objectId){
+         location.href="xiangqings.html?objectId="+objectId+"&sessiontoken="+sessiontoken
+        // if(isAPP){
+        //   locationClick('xiangqings')
+        // }else{
+        //   this.$router.push({name:'xiangqings'})
+        // }
+        
+      },
+     refresh(){
+        var that=this;
+      (function($) {
+        //阻尼系数
+        var deceleration = mui.os.ios?0.003:0.0009;
+        $('.mui-scroll-wrapper').scroll({
+          bounce: false,
+          indicators: true, //是否显示滚动条
+          deceleration:deceleration
+        });
+        $.ready(function() {
+          //循环初始化所有下拉刷新，上拉加载。
+          $.each(document.querySelectorAll('.mui-scroll'), function(index, pullRefreshEl) {
+            $(pullRefreshEl).pullToRefresh({
+              down: {
+                callback: function() {
+//                  alert('刷新')
+                  var self = this;
+                  that.page=0
+                  that.datas=[]
+                  mui.ajax(Boss3 + 'hot_topic', {
+                      data:{"page":1,"limit":limit20,'sessiontoken':sessiontoken},
+                      dataType: 'json', //服务器返回json格式数据
+                      type: 'GET', //HTTP请求类型
+                      timeout: 10000, //超时时间设置为10秒；
+                    success: function(data) {
+                        //1.服务器返回响应，根据响应结果，分析是否登录成功；
+                        if(data.status == true) {
+                            that.count = data.result.count
+                            that.datas = data.result.data
+                        setTimeout(function(){
+                                                     self.endPullDownToRefresh();//关闭刷新
+                        },1000)
+                                                
+                        }
+                        
+
+                      },
+                      error: function(xhr, type, errorThrown) {
+                        //异常处理；
+                        self.endPullDownToRefresh();//关闭刷新
+                        mui.toast(errorThrown, {
+                          duration: 'long',
+                          type: 'div'
+                        })
+                      }
+                    });
+
+                }
+              },
+              up: {
+                auto: true,//可选,默认false.首次加载自动下拉刷新一次
+                callback: function() {
+//                  alert('加载')
+                  var self = this;
+                  that.page++
+                  mui.ajax(Boss3 + 'hot_topic', {
+                      data:{"page":that.page,"limit":limit20,'sessiontoken':sessiontoken},
+                      dataType: 'json', //服务器返回json格式数据
+                      type: 'GET', //HTTP请求类型
+                      timeout: 10000, //超时时间设置为10秒；
+                    success: function(data) {
+                        //1.服务器返回响应，根据响应结果，分析是否登录成功；
+                        if(data.status == true) {
+                            that.count=data.result.count  
+                            //如果是切换标签的加载事件也就是现在请求的是第一页，所以则要让页数变为1，下次加载的时候就变成++
+                            if(that.page==1){
+                              that.datas=[]
+                            }
+                            
+                            for (var i = 0; i < data.result.data.length; i++) {
+                            that.datas.push(data.result.data[i])
+                            }
+                            if(that.count == that.datas.length) {
+                              self.endPullUpToRefresh(true);//没有更多数据
+                              
+                            }else{
+                                    self.endPullUpToRefresh();//加载更多数据
+                            }
+                                                
+                        }
+                        
+
+                      },
+                      error: function(xhr, type, errorThrown) {
+                        //异常处理；让当前页数变回减1
+                          that.page--
+                        self.endPullDownToRefresh();//关闭刷新
+                        mui.toast(errorThrown, {
+                          duration: 'long',
+                          type: 'div'
+                        })
+                      }
+                    });
+
+                }
+              }
+            });
+          });
+
+
+        });
+      })(mui);
+      }
+    },
+    mounted() {
+      
+      this.refresh()
+      // this.$store.state.name = ''
+    }
+
+
+    })
+
+  </script> 
+
+
+
+
+
+  </body>
+
+</html>

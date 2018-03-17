@@ -1,0 +1,352 @@
+body {
+  background-color: #ebebeb;
+}
+.van-swipe__indicators .van-swipe__indicator--active {
+  background-color: #36C748;
+}
+.fixclear::after {
+  content: '';
+  display: block;
+  clear: both;
+}
+.swipe {
+  height: 3rem;
+}
+.swipe img {
+  width: 100%;
+  height: 3rem;
+  -o-object-fit: cover;
+  object-fit: cover;
+  vertical-align: middle;
+}
+.pubStyle {
+  padding: 0.2rem;
+  background-color: white;
+}
+.sectionOne {
+  margin-bottom: 0.1rem;
+}
+.sectionOne .top h2 {
+  color: #36C748;
+  font-weight: normal;
+  font-size: 0.33rem;
+  line-height: 0.33rem;
+}
+.sectionOne .top .top-sub {
+  padding: 0.1rem 0;
+  border-bottom: 1px solid #e6e6e6;
+}
+.sectionOne .top .top-sub::after {
+  content: '';
+  display: block;
+  clear: both;
+}
+.sectionOne .top .top-sub span {
+  color: #666666;
+  font-size: 0.21rem;
+}
+.sectionOne .top .top-sub span:first-child {
+  float: left;
+}
+.sectionOne .top .top-sub span:last-child {
+  float: right;
+}
+.sectionOne .top .buttom-sub {
+  padding-top: 0.2rem;
+}
+.sectionOne .top .buttom-sub::after {
+  content: '';
+  display: block;
+  clear: both;
+}
+.sectionOne .top .buttom-sub span {
+  font-size: 0.3rem;
+  line-height: 0.3rem;
+  color: #ff4d00;
+}
+.sectionOne .top .buttom-sub span:last-child {
+  float: right;
+}
+.sectionOne .top .buttom-sub span i {
+  font-style: normal;
+  font-size: 0.25rem;
+  line-height: 0.25rem;
+  color: #888888;
+}
+.bgimg {
+  background: url('../imgs/fangzu/preview_1.png') no-repeat;
+  background-position: right center;
+  background-size: 0.24rem 0.24rem;
+}
+.span-width {
+  width: inherit!important;
+}
+.sectionTwo {
+  margin-bottom: 0.1rem;
+}
+.sectionTwo .cell {
+  border-bottom: 1px solid #e6e6e6;
+  padding: 0.22rem 0;
+  overflow: hidden;
+}
+.sectionTwo .cell::after {
+  content: '';
+  display: block;
+  clear: both;
+}
+.sectionTwo .cell span {
+  display: block;
+  width: 50%;
+  font-size: 0.27rem;
+  line-height: 0.27rem;
+  height: 0.27rem;
+  color: #666666;
+  float: left;
+  white-space: nowrap;
+}
+.sectionTwo .cell span i {
+  font-size: 0.27rem;
+  line-height: 0.27rem;
+  font-style: normal;
+  color: black;
+  overflow: hidden;
+}
+.sectionTwo .cell:first-child {
+  padding-top: 0;
+}
+.sectionTwo .cell:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+.sectionThree {
+  margin-bottom: 0.1rem;
+}
+.sectionThree .cell::after {
+  content: '';
+  display: block;
+  clear: both;
+}
+.sectionThree .cell span {
+  display: block;
+  font-size: 0.27rem;
+  line-height: 0.27rem;
+  width: 50%;
+  height: 0.27rem;
+  color: #666666;
+  float: left;
+}
+.sectionThree .cell span i {
+  font-style: normal;
+  color: black;
+}
+.sectionFour,
+.sectionFive,
+.sectionSix {
+  margin-bottom: 0.1rem;
+  padding-bottom: 0;
+}
+.sectionFour::after,
+.sectionFive::after,
+.sectionSix::after {
+  content: '';
+  display: block;
+  clear: both;
+}
+.sectionFour .left-div,
+.sectionFive .left-div,
+.sectionSix .left-div {
+  width: 1.23rem;
+  font-size: 0.27rem;
+  line-height: 0.27rem;
+  color: #666666;
+  float: left;
+}
+.sectionFour .right-div,
+.sectionFive .right-div,
+.sectionSix .right-div {
+  width: 4.77rem;
+  float: right;
+}
+.sectionFour .right-div::after,
+.sectionFive .right-div::after,
+.sectionSix .right-div::after {
+  content: '';
+  display: block;
+  clear: both;
+}
+.sectionFour .right-div span,
+.sectionFive .right-div span,
+.sectionSix .right-div span {
+  width: 1.59rem;
+  float: left;
+  font-size: 0.27rem;
+  line-height: 0.27rem;
+  color: black;
+  padding-left: 0.35rem;
+  background: url('../imgs/fangzu/preview_2.png') no-repeat 0 center;
+  background-size: 0.25rem 0.25rem;
+  margin-bottom: 0.2rem;
+}
+.sectionFive,
+.sectionSix {
+  margin-bottom: 0.1rem;
+}
+.sectionFive .right-div span,
+.sectionSix .right-div span {
+  width: 2.385rem;
+}
+.sectionSeven,
+.sectionEight {
+  margin-bottom: 0.1rem;
+}
+.sectionSeven > span,
+.sectionEight > span {
+  display: block;
+  font-size: 0.27rem;
+  line-height: 0.27rem;
+  color: #666666;
+  padding-bottom: 0.2rem;
+  border-bottom: 1px solid #e6e6e6;
+}
+.sectionSeven > p,
+.sectionEight > p {
+  padding-top: 0.2rem;
+  font-size: 0.27rem;
+  line-height: 0.38rem;
+  color: black;
+}
+.showfooter {
+  margin-bottom: 1.1rem;
+}
+.sectionEight .info p {
+  text-align: center;
+}
+.sectionEight .info .icon {
+  vertical-align: middle;
+  padding: 0.3rem;
+}
+.sectionEight .info .icon img {
+  width: 1.64rem;
+}
+.sectionEight .info .username {
+  text-align: center;
+  font-size: 0.31rem;
+  line-height: 0.31rem;
+  vertical-align: middle;
+  color: black;
+}
+.sectionEight .info .username::after {
+  content: '';
+  display: block;
+  clear: both;
+}
+.sectionEight .info .username span {
+  margin-left: 0.09rem;
+  font-size: 0.17rem;
+  vertical-align: middle;
+  position: relative;
+  top: -0.02rem;
+  line-height: 1;
+  padding: 0.06rem 0.1rem;
+  border-radius: 0.1rem;
+  background-color: #36C748;
+  color: white;
+}
+.sectionEight .info .is-verify {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+.sectionEight .info .is-verify span {
+  margin-top: 0.15rem;
+  font-size: 0.2rem;
+  line-height: 0.2rem;
+  padding-left: 0.24rem;
+  background: url('../imgs/fangzu/preview_3.png') no-repeat;
+  background-position: 0 center;
+  background-size: 0.19rem 0.19rem;
+  color: #888888;
+}
+.sectionEight .info .date-time {
+  margin-top: 0.38rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+  justify-content: space-around;
+}
+.sectionEight .info .date-time::after {
+  content: '';
+  display: block;
+  clear: both;
+}
+.sectionEight .info .date-time em {
+  display: inline-block;
+  width: 1px;
+  background-color: #ebebeb;
+}
+.sectionEight .info .date-time span {
+  font-size: 0.25rem;
+  line-height: 0.36rem;
+}
+.sectionEight .info .date-time span:first-child {
+  color: #888888;
+  text-align: right;
+}
+.sectionEight .info .date-time span:first-child i {
+  padding-left: 0.34rem;
+  padding-right: 0.1rem;
+  background: url('../imgs/fangzu/register_time.png') no-repeat;
+  background-position: 0 center;
+  background-size: 0.28rem 0.3rem;
+}
+.sectionEight .info .date-time span:last-child {
+  color: #ff4d00;
+}
+.sectionEight .info .date-time span:last-child i {
+  padding-left: 0.34rem;
+  padding-right: 0.1rem;
+  background: url('../imgs/fangzu/zan.png') no-repeat;
+  background-position: 0 center;
+  background-size: 0.29rem 0.33rem;
+}
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1rem;
+  background-color: #36C748;
+  -webkit-box-shadow: 0 0 0.5rem rgba(235, 235, 235, 0.8);
+  box-shadow: 0 0 0.5rem rgba(235, 235, 235, 0.8);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-line-pack: center;
+  align-content: center;
+}
+.footer::after {
+  content: '';
+  display: block;
+  clear: both;
+}
+.footer .f_cont {
+  padding: 0.16rem 0;
+  padding-right: 0.99rem;
+  background: url('../imgs/fangzu/call.png') no-repeat;
+  background-position: center right;
+  background-size: 0.66rem 0.66rem;
+}
+.footer .f_cont p {
+  padding-left: 1.64rem;
+  font-size: 0.22rem;
+  color: #ff4d00;
+}
+.footer .f_cont p:last-child {
+  margin-top: 0.05rem;
+  font-size: 0.35rem;
+  color: white;
+}
