@@ -393,6 +393,8 @@
                 if (locations('from') == 'wodefabu') {
                     console.log('wodefabu 去后台')
                     var hh = JSON.parse(localStorage.getItem('model8fabu_array'))
+                    console.log("model8fabu_array")
+                    console.log(hh)
                     this.content = hh.content
                     this.objectId=hh.objectId
                     this.title = hh.title //名称
@@ -434,6 +436,8 @@
                     //从8大模块的列表左边的发布跳过来的
                     if (window.localStorage.getItem("huancun") != null) {
                         var hh = JSON.parse(window.localStorage.getItem("huancun"))
+                        console.log('huancun')
+                        console.log(hh)
                         hh.pics = JSON.parse(window.localStorage.getItem("pics"))
                         if (hh.pics) {
                             this.fengmiantu = hh.pics[0]
