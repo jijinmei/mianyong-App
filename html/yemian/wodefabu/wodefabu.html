@@ -205,7 +205,10 @@
     gobianji(){
               //存我的楼盘的对应商品的数量
               window.localStorage.setItem('model8fabu_array',JSON.stringify(this.arrayitem))
-              location.href="../zusouwuye/model8fabu.html?name="+this.arrayitem.section+'&from=wodefabu&sessiontoken='+sessiontoken
+              setTimeout(function(){
+                location.href="../zusouwuye/model8fabu.html?name="+this.arrayitem.section+'&from=wodefabu&sessiontoken='+sessiontoken
+              },1000)
+              
           // this.$router.push({name:'model8fabu',params:{name:this.arrayitem.section,from:'wodefabu'}})      
     },
     //点击全部类型

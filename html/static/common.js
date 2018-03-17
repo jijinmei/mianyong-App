@@ -51,12 +51,16 @@ var H = 0
 				
 				var wheres=(locations('name')=='zusou'?'agent':'article')
 				var objectId=locations('objectId')
+				console.log(objectId)
 				var bb={'objectId':objectId,'wheres':wheres}
 				return bb
 			};
 
 
-
+  // 是否显示检举
+  function isyulan(data){
+            return data
+  }
 
              //返回
 			function goback(data) {
