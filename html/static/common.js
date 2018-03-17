@@ -63,9 +63,9 @@ var H = 0
 			// 聊天
 			function gotoChat(data) {
 				// 苹果
-				WebViewJavascriptBridge.callHandler('gotoChat',data, function(response) {
-					document.getElementById("returnValue").value = response;
-				});
+				// WebViewJavascriptBridge.callHandler('gotoChat',data, function(response) {
+				// 	document.getElementById("returnValue").value = response;
+				// });
 
 
                 // 安卓
