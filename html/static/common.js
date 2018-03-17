@@ -79,18 +79,18 @@ var H = 0
 			// 聊天
 			function gotoChat(data) {
 						// 判斷機型, android / ios
-		    // var ua = navigator.userAgent.toLowerCase();
-		    // if (ua.match(/iPhone\sOS/i) == "iphone os") {
+		    var ua = navigator.userAgent.toLowerCase();
+		    if (ua.match(/iPhone\sOS/i) == "iphone os") {
 		    	// 苹果
 					console.log('苹果')
 					WebViewJavascriptBridge.callHandler('gotoChat',data, function(response) {
 						document.getElementById("returnValue").value = response;
 					});
-		    // }else{
-		    // 	// 安卓
-      //              console.log('安卓')
-	     //           window.mianyong.gotoChat(JSON.stringify(data));  
-		    // }    
+		    }else{
+		    	// 安卓
+                   console.log('安卓')
+	               window.mianyong.gotoChat(JSON.stringify(data));  
+		    }    
 			};
 
            function tixing() {
