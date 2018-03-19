@@ -1,7 +1,9 @@
 'use strict';
 
 function getvals(data) {
+
   if (data) {
+
     vm.rentobject = JSON.parse(data);
   }
 }

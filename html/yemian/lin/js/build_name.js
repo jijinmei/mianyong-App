@@ -42,7 +42,12 @@ var vm = new Vue({
     clickLi: function clickLi(item) {
       this.searchVal = item.name;
     },
-    setdata: function setdata(data) {},
+
+    setdata: function setdata(data) {
+      WebViewJavascriptBridge.callHandler('SetData', data, function (response) {
+        document.getElementById("returnValue").value = response;
+      });
+    },
     goback: function (_goback) {
       function goback() {
         return _goback.apply(this, arguments);

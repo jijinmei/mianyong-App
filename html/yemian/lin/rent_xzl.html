@@ -102,7 +102,7 @@
             <div class="start-time publicCss">
                 <p class="title">可起租時間</p>
                 <div class="content">
-                    <span :style="{backgroundImage: `url(${isRent ? require('../../assets/img/fangzu/checkon.png') : require('../../assets/img/fangzu/checkoff.png')})`}" @click="slcStartTime">隨時</span>
+                    <span :style="setStyle" @click="slcStartTime">隨時</span>
                     <span @click="slcStartTime">{{datetime}}</span>
                 </div>
             </div>
@@ -171,6 +171,23 @@
 
         </div>
     </div>
+
+    <script src="https://cdn.bootcss.com/vue/2.5.13/vue.min.js"></script>
+    <script src="https://cdn.bootcss.com/axios/0.18.0/axios.min.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+    <script src="../../static/common.js"></script>
+  
+    <!-- 配置axios -->
+    <script src="./js/axios.config.js"></script>
+    <!-- 引入组件 -->
+    <script src="https://unpkg.com/vant/lib/vant.min.js"></script>
+    <script src="./js/temps/rent_radio.js"></script>
+    <script src="./js/temps/rent_checkbox.js"></script>
+    <script src="./js/saveObject.js"></script>
+    
+      <!-- 上传功能函数 -->
+      <script src="./js/func.js"></script>
+    <script src="./js/rent_xzl.js"></script>
 
 </body>
 

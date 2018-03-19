@@ -3,11 +3,7 @@
 new Vue({
   el: '#app',
   created: function created() {
-    if (localStorage.getItem('rentobject')) {
-      this.rentobject = JSON.parse(localStorage.getItem('rentobject'));
-    } else {
-      this.rentobject = JSON.parse(JSON.stringify(saveObject));
-    }
+    this.rentobject = JSON.parse(localStorage.getItem('rentobject'));
   },
 
   computed: {
