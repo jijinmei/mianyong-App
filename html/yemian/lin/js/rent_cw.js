@@ -31,7 +31,7 @@ new Vue({
       };
     },
     setStyle: function setStyle() {
-      return { backgroundImage: 'url(' + (isRent ? '../imgs/fangzu/checkon.png' : '../imgs/fangzu/checkoff.png') + ')' };
+      return { backgroundImage: 'url(' + (isRent ? './imgs/fangzu/checkon.png' : './imgs/fangzu/checkoff.png') + ')' };
     },
     contactTypeStyle: function contactTypeStyle() {
       return {
@@ -287,14 +287,14 @@ new Vue({
     },
 
     /**
-     * data : 元数据
+     * data : 數據源
      * saveKey : 需要存的对象 键
      * number : 选项上限数
      */
     saveData: function saveData(index, data, saveKey, number) {
       var _this = this;
 
-      // console.log(data)
+      console.log(this.rentobject.features);
       if (this.rentobject[saveKey]) {
         var arr = this.rentobject[saveKey].split("、");
       } else {
@@ -316,7 +316,11 @@ new Vue({
             _item.state = false;
             if (arr.indexOf(_item.text) > -1) {
               arr.splice(arr.indexOf(_item.text), 1);
-              _this.rentobject[saveKey] = arr.join("、");
+              if (arr.length) {
+                _this.rentobject[saveKey] = arr.join("、");
+              } else {
+                _this.rentobject[saveKey] = '';
+              }
               // console.log(arr)
             }
           }

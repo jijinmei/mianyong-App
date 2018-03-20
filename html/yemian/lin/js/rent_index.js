@@ -1,33 +1,9 @@
 'use strict';
 
-function getvals(data) {
-
-  if (data) {
-
-    vm.rentobject = JSON.parse(data);
-  }
-}
-
 var vm = new Vue({
   el: '#app',
   created: function created() {
-
-    // var obj = getvals()
-
-    // var date = new Date()
-    // console.log('-----------------', obj, date)
-    // if (obj) {
-    //   this.rentobject = obj
-    // } else {
-    //   this.rentobject = JSON.parse(JSON.stringify(saveObject))
-    // }
-
-    // if (localStorage.getItem('rentobject')) {
-    //   this.rentobject = JSON.parse(localStorage.getItem('rentobject'))
-    // } else {
-    //   this.rentobject = JSON.parse(JSON.stringify(saveObject))
-    // }
-
+    // WebViewJavascriptBridge.callHandler('SetData', {content_key: 'xiaolin', content: JSON.stringify(this.rentobject)})
   },
 
   mounted: function mounted() {
@@ -65,7 +41,12 @@ var vm = new Vue({
   watch: {
     rentobject: {
       handler: function handler(newVal) {
-        localStorage.setItem('rentobject', JSON.stringify(newVal));
+        // localStorage.setItem('rentobject', JSON.stringify(newVal))
+        var ua = navigator.userAgent.toLowerCase();
+        if (ua.match(/iPhone\sOS/i) == "iphone os") {
+
+          WebViewJavascriptBridge.callHandler('SetData', { content_key: 'xiaolin', content: JSON.stringify(this.rentobject) });
+        }
       },
       deep: true
     }
@@ -103,44 +84,42 @@ var vm = new Vue({
     // 下一步按鈕運行的方法
     next: function next() {
 
-      console.log('1233123/////////', localStorage.rentobject, window.bb);
-
-      location.reload();
       // console.log('读取-------'+localStorage.bb)
-      // if (this.rentobject.type === '商鋪') { // 商铺
-      //   if (!this.rentobject.rent_type || !this.rentobject.build_street || !this.rentobject.shop_type || !this.rentobject.build_area) {
-      //     alert('帶*號項為必填項')
-      //     return
-      //   }
-      // } else if(this.rentobject.type === '車位') { // 車位
-      //   if (!this.rentobject.build_name || !this.rentobject.build_area) {
-      //     alert('帶*號項為必填項')
-      //     return
-      //   }
-      // } else {
-      //   if (!this.rentobject.rent_type || !this.rentobject.build_name || !this.rentobject.build_area) {
-      //     alert('帶*號項為必填項')
-      //     return
-      //   }
-      // }
+      if (this.rentobject.type === '商鋪') {
+        // 商铺
+        if (!this.rentobject.rent_type || !this.rentobject.build_street || !this.rentobject.shop_type || !this.rentobject.build_area) {
+          alert('帶*號項為必填項');
+          return;
+        }
+      } else if (this.rentobject.type === '車位') {
+        // 車位
+        if (!this.rentobject.build_name || !this.rentobject.build_area) {
+          alert('帶*號項為必填項');
+          return;
+        }
+      } else {
+        if (!this.rentobject.rent_type || !this.rentobject.build_name || !this.rentobject.build_area) {
+          alert('帶*號項為必填項');
+          return;
+        }
+      }
 
-      // if (this.rentobject.type == '住宅') {
+      if (this.rentobject.type == '住宅') {
 
-      //   location.href = 'rent_zz.html'+location.search
-      // } else if (this.rentobject.type == '車位') {
+        location.href = 'rent_zz.html' + location.search;
+      } else if (this.rentobject.type == '車位') {
 
-      //   location.href = 'rent_cw.html'+location.search
-      // } else if (this.rentobject.type == '商鋪') {
+        location.href = 'rent_cw.html' + location.search;
+      } else if (this.rentobject.type == '商鋪') {
 
-      //   location.href = 'rent_sp.html'+location.search
-      // } else if (this.rentobject.type == '寫字樓') {
+        location.href = 'rent_sp.html' + location.search;
+      } else if (this.rentobject.type == '寫字樓') {
 
-      //   location.href = 'rent_xzl.html'+location.search
-      // } else if (this.rentobject.type == '工業大廈') {
+        location.href = 'rent_xzl.html' + location.search;
+      } else if (this.rentobject.type == '工業大廈') {
 
-      //   location.href = 'rent_gyds.html'+location.search
-      // }
-
+        location.href = 'rent_gyds.html' + location.search;
+      }
     },
     // 商铺类型點擊方法
     selectShopTypeItem: function selectShopTypeItem(index) {
@@ -281,3 +260,24 @@ var vm = new Vue({
 
   }
 });
+
+function getAppLocalData(data) {
+
+  if (data) {
+    console.log('有值传过来', data);
+    vm.rentobject = JSON.parse(data);
+  } else {
+    console.log('没有传值过来', data);
+    vm.rentobject = JSON.parse(JSON.stringify(saveObject));
+  }
+}
+
+// 延时一秒
+setTimeout(function () {
+
+  var ua = navigator.userAgent.toLowerCase();
+  if (ua.match(/iPhone\sOS/i) == "iphone os") {
+
+    WebViewJavascriptBridge.callHandler('GetData', { content_key: 'xiaolin' });
+  }
+}, 1000);
