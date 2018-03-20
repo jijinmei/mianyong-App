@@ -1,57 +1,154 @@
-<!DOCTYPE html>
 <html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Box-sizing</title>
-  <style>
-    .test {
-      box-sizing: border-box;
-      border: 5px solid #f00;
-      padding: 5px;
-      width: 100px;
-      height: 100px;
-      position:absolute;
-      /*
-      简写的姿势排序
-      @keyframes name : 动画名
-      duration 持续时间
-      timing-function 动画频率
-      delay 延迟多久开始
-      iteration-count 循环次数
-      direction 动画方式,往返还是正向
-      fill-mode  一般用来处理停留在某一帧
-      play-state running 开始,paused 暂停 ....
-       更多的参数去查文档吧..我就不一一列举了
-      */
-      animation: moveChangeColor  ease-in 2.5s 1  forwards running;
-    }
-
-    @keyframes moveChangeColor {
-       from {
-         top:0%;
-         left:5%;
-         background-color:#f00
-       }
-       to{
-         top:0%;
-         left:50%;
-         background-color:#ced;
-       }
-    }
-
-  </style>
-</head>
-
-<body>
-  <div class="test"></div>
-</body>
-
-</html>
-
-作者：CRPER
-链接：https://juejin.im/post/5a998991f265da237f1dbdf9
-来源：掘金
-著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+  
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="X-UA-Compatible" content="ie=edge">
+      <title>發佈租盤房源</title>
+      <!-- 引入样式 -->
+      <link rel="stylesheet" href="https://unpkg.com/vant/lib/vant-css/index.css">
+      <link rel="stylesheet" href="./css/reset.css">
+      <link rel="stylesheet" href="./css/rent_public.css">
+      <link rel="stylesheet" href="./css/rent_sp.css">
+      <script src="./js/flexible.min.js"></script>
+  </head>
+  
+  <body>
+  
+      <div id="app" v-cloak>
+          <div class="box" style="backgroundColor: #ebebeb; paddingBottom: 1.1rem;">
+              <!-- 添加照片 -->
+              <div class="add-pics" :style="setImg">
+                  <img :src="setaddImg" @click="addPic">
+                  <h2 @click="addPic" v-show="iseditImg">添加照片</h2>
+                  <p v-show="iseditImg">色彩明亮的照片可以大幅度提高房屋出租的速度最多可上傳12張照片</p>
+              </div>
+  
+              <!-- 租金 -->
+              <div class="price publicCss">
+                  <p class="title">
+                      <span>*</span>租金</p>
+                  <div class="content">
+                      <input type="number" placeholder="0" v-model="rentobject.price">
+                      <span>元/月</span>
+                  </div>
+              </div>
+  
+              <!-- 面积 -->
+              <div class="area publicCss">
+                  <p class="title">
+                      <span>*</span>面積</p>
+                  <div class="content">
+                      <div>
+                          <span>建築面積</span>
+                          <input type="number" placeholder="任填一項即可" v-model="rentobject.area">
+                          <span>平方呎</span>
+                      </div>
+                      <div>
+                          <span>實用面積</span>
+                          <input type="number" placeholder="任填一項即可" v-model="rentobject.useable_area">
+                          <span>平方呎</span>
+                      </div>
+                  </div>
+              </div>
+  
+              <!-- 鋪位編號 -->
+              <div class="code publicCss">
+                  <p class="title">鋪位編號</p>
+                  <div class="content">
+                      <div>
+                          <input type="text" placeholder="點擊輸入鋪位編號" v-model="rentobject.code">
+                      </div>
+                  </div>
+              </div>
+              
+            <!-- 装修程度 -->
+            <div class="decoration publicCss">
+              <p class="title">
+                <span>*</span>裝修程度</p>
+              <div class="content" style="borderBottom: none;">
+                <div class="wrap">
+                  <div class="item" v-for="(item, index) in decorationData" @click="decorationClick(item, index)" :style="setStyle(item)" :class="{active2: item.state}">{{item.text}}</div>
+                </div>
+              </div>
+            </div>
+  
+              <!-- 可起租時間 -->
+              <div class="start-time publicCss">
+                  <p class="title">可起租時間</p>
+                  <div class="content">
+                      <span :style="setstyle" @click="slcStartTime">隨時</span>
+                      <span @click="slcStartTime">{{datetime}}</span>
+                  </div>
+              </div>
+  
+              <div class="fabu-model" v-show="DatetimePickerShow">
+                  <van-datetime-picker v-model="currentDate" type="date" :min-date="minDate" @confirm="slcTime" @cancel="cancelTime">
+              </div>
+  
+              <!-- 特色說明 -->
+              <div class="features publicCss">
+                  <p class="title">特色說明</p>
+                  <div class="content">
+                      <w-checkbox :data="featuresData" @actionclick="featuresClick"></w-checkbox>
+                      <p>*此項最多可同時選擇
+                          <span>4</span>個</p>
+                  </div>
+              </div>
+              
+              <!-- 聯絡方式 -->
+              <div class="contact-type publicCss">
+                <p class="title"><span>*</span>聯絡方式</p>
+                <div class="content" :style="contactTypeStyle">
+                  <w-radio :data="contactTypeData" @actionclick="contactTypeClick" isradio="radio"></w-radio>
+                </div>   
+                <div class="show-Box" v-show="rentobject.contactType == '1'">
+                  <div class="box-item-1">
+                    <!-- <span>聯絡人</span><input type="text" :placeholder="contacts" @input="inputContacts($event.target.value)"> -->
+                    <span>聯絡人</span><input type="text" v-model="rentobject.contacts">
+                  </div>
+                  <div class="box-item-2">
+                    <!-- <span>電話</span><input type="number" :placeholder="userphone" @input="inputUserPhone($event.target.value)"> -->
+                    <span>電話</span><input type="number" v-model="rentobject.phone">
+                  </div>
+                </div>
+                <div class="show-Box2" v-show="rentobject.contactType == '1'">
+                  <w-radio :data="contactTypeData2" savestr="call" @actionclick="contactTypeClick2"></w-radio>
+                </div>
+              </div>
+  
+              <!-- 詳細描述 -->
+              <div class="remark publicCss">
+                  <p class="title">詳細描述</p>
+                  <div class="content">
+                      <textarea placeholder="描述一下您的房源獨特之處以及對租客的期望..." v-model="rentobject.remark"></textarea>
+                  </div>
+              </div>
+  
+              <!-- 下一步 -->
+              <div class="footer">
+                  <div>
+                      <button type="button" @click="next('preview.html')">详细预览</button>
+                      <button type="button" @click="publish">立即發佈</button>
+                  </div>
+              </div>
+  
+  
+          </div>
+      </div>
+    
+      <script src="https://cdn.bootcss.com/vue/2.5.13/vue.min.js"></script>
+      <script src="https://cdn.bootcss.com/axios/0.18.0/axios.min.js"></script>
+    
+      <!-- 配置axios -->
+      <script src="./js/axios.config.js"></script>
+      
+      <!-- 引入组件 -->
+      <script src="https://unpkg.com/vant/lib/vant.min.js"></script>
+      <script src="./js/temps/rent_radio.js"></script>
+      <script src="./js/temps/rent_checkbox.js"></script>
+      <script src="./js/sell_sp.js"></script>
+  
+  </body>
+  
+  </html>

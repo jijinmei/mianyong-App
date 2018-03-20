@@ -1,6 +1,5 @@
 'use strict';
 
-function fdsf(a) {}
 var vm = new Vue({
   el: '#app',
   created: function created() {

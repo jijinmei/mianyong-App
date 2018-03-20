@@ -1,396 +1,580 @@
-"use strict";
+'use strict';
 
+Vue.prototype.$axios = axios;
 new Vue({
   el: '#app',
-  data: {
-    // 數據源 --- 樓層
-    floorData: [{
-      text: "低層",
-      state: false
-    }, {
-      text: "中層",
-      state: false
-    }, {
-      text: "高層",
-      state: false
-    }, {
-      text: "極高層",
-      state: false
-    }],
-    // 數據源 --- 座向
-    directData: [{
-      text: "東",
-      state: false
-    }, {
-      text: "南",
-      state: false
-    }, {
-      text: "西",
-      state: false
-    }, {
-      text: "北",
-      state: false
-    }, {
-      text: "東南",
-      state: false
-    }, {
-      text: "西南",
-      state: false
-    }, {
-      text: "東北",
-      state: false
-    }, {
-      text: "西北",
-      state: false
-    }],
-    // 數據源 --- 景觀
-    landscapeData: [{
-      text: "海景",
-      slcImg: "./imgs/fangzu/jingguan/3+.png",
-      normalImg: "./imgs/fangzu/jingguan/3.png",
-      state: false
-    }, {
-      text: "山景",
-      slcImg: "./imgs/fangzu/jingguan/2+.png",
-      normalImg: "./imgs/fangzu/jingguan/2.png",
-      state: false
-    }, {
-      text: "園景",
-      slcImg: "./imgs/fangzu/jingguan/1+.png",
-      normalImg: "./imgs/fangzu/jingguan/1.png",
-      state: false
-    }, {
-      text: "湖景",
-      slcImg: "./imgs/fangzu/jingguan/6+.png",
-      normalImg: "./imgs/fangzu/jingguan/6.png",
-      state: false
-    }, {
-      text: "城市景",
-      slcImg: "./imgs/fangzu/jingguan/5+.png",
-      normalImg: "./imgs/fangzu/jingguan/5.png",
-      state: false
-    }, {
-      text: "樓景",
-      slcImg: "./imgs/fangzu/jingguan/4+.png",
-      normalImg: "./imgs/fangzu/jingguan/4.png",
-      state: false
-    }],
-    // 數據源 --- 裝修程度
-    decorationData: [{
-      text: "未裝修",
-      slcImg: "./imgs/fangzu/zhuangxiuchengdu/4+.png",
-      normalImg: "./imgs/fangzu/zhuangxiuchengdu/4.png",
-      state: false
-    }, {
-      text: "簡單裝修",
-      slcImg: "./imgs/fangzu/zhuangxiuchengdu/3+.png",
-      normalImg: "./imgs/fangzu/zhuangxiuchengdu/3.png",
-      state: false
-    }, {
-      text: "精裝修",
-      slcImg: "./imgs/fangzu/zhuangxiuchengdu/2+.png",
-      normalImg: "./imgs/fangzu/zhuangxiuchengdu/2.png",
-      state: false
-    }, {
-      text: "豪華裝修",
-      slcImg: "./imgs/fangzu/zhuangxiuchengdu/1+.png",
-      normalImg: "./imgs/fangzu/zhuangxiuchengdu/1.png",
-      state: false
-    }],
-    // 數據源 --- 樓層
-    price: '', // 租金 臨時存儲
-    code: '', // 單位/座號 臨時儲存
-    floor: '', // 自定義樓層 臨時儲存
-    useableArea: '', // 實際面積
-    area: '', // 建築面積
-    fangjian: 1,
-    keting: 0,
-    xishoujian: 0,
-    fengmiantu: '',
-    iseditImg: true
+  created: function created() {
+
+    // this.rentobject = JSON.parse(localStorage.getItem('rentobject'))
+
+
+    if (localStorage.getItem('rentobject')) {
+      this.rentobject = JSON.parse(localStorage.getItem('rentobject'));
+    } else {
+      this.rentobject = JSON.parse(JSON.stringify(saveObject));
+    }
+  },
+
+  watch: {
+    rentobject: {
+      handler: function handler(newVal) {
+        localStorage.setItem('rentobject', JSON.stringify(newVal));
+      },
+      deep: true
+    }
+  },
+  computed: {
+    starttime: function starttime() {
+      return {
+        backgroundImage: 'url(' + (this.isRent ? './imgs/fangzu/checkon.png' : './imgs/fangzu/checkoff.png') + ')'
+      };
+    },
+
+    // 聯繫方式 不同選項不用樣式的顯示
+    contactTypeStyle: function contactTypeStyle() {
+      return {
+        borderBottom: this.rentobject.contactType == '1' ? 'none' : '1px solid #e6e6e6',
+        paddingBottom: this.rentobject.contactType == '1' ? '0' : '0.29rem'
+      };
+    }
   },
   mounted: function mounted() {
 
-    // 讀取租金
-    if (localStorage.price) {
-      this.price = localStorage.price;
+    // 讀取明火煮食 狀態
+    this.getRadioPublic(this.cookData, 'cook');
+
+    // 讀取飼養寵物 狀態
+    this.getRadioPublic(this.petData, 'pet');
+
+    // 讀取可起租時間 狀態
+    var starttime = this.rentobject.start_time;
+    if (starttime && starttime === '隨時') {
+      this.isRent = true;
+    } else if (starttime) {
+      this.datetime = starttime;
     }
+    // 讀取配套設備 狀態
+    this.getData(this.infrastructureData, "infrastructure");
 
-    // 讀取間隔 狀態
-    var str = localStorage.space;
-    if (str) {
-      // 判斷改字段是否存在數據, 存在->運行下面循環, 否則跳過循環
-      str.split(',').forEach(function (_item, _index) {
-        var temp = _item.substr(-1, 1);
-        if (_index === 0) {
-          this.fangjian = temp;
-        } else if (_index === 1) {
-          this.keting = temp;
-        } else {
-          this.xishoujian = temp;
-        }
-      }, this);
-    } else {
-      localStorage.space = '房間:1,客廳:0,洗手間:0';
-    }
+    // 讀取屋苑設施 狀態
+    this.getData(this.homeInfrastructureData, "home_infrastructure");
 
-    // 讀取面積 狀態
-    if (localStorage.useableArea) {
+    // 讀取附近設施 狀態
+    this.getData(this.locationInfrastructureData, "location_infrastructure");
 
-      this.useableArea = localStorage.useableArea;
-    }
-    if (localStorage.useableArea) {
+    // 读取特色说明状态
+    this.getData(this.featuresData, "features");
 
-      this.area = localStorage.area;
-    }
-
-    // 讀取樓層 狀態
-    if (localStorage.floor) {
-      this.getData(this.floorData, 'floor');
-
-      // 讀取樓層自定義狀態 狀態
-      var floorStr = localStorage.floor;
-      if (floorStr !== '底層' && floorStr !== '中層' && floorStr !== '高層' && floorStr !== '極高層') {
-        this.floor = floorStr;
+    // 發佈者數據 读取状态
+    var fromRead = this.rentobject.from;
+    this.fromData.forEach(function (_item, _index) {
+      if (fromRead === _item.text) {
+        _item.state = true;
       }
-    }
+    });
 
-    // 讀取單位/座號 狀態
-    if (localStorage.code) {
-      this.code = localStorage.code;
+    // 聯繫方式 读取状态
+    if (this.rentobject.contactType === '1') {
+      var contactRead = '0';
+    } else if (this.rentobject.contactType === '0') {
+      var contactRead = '1';
     }
+    this.contactTypeData.forEach(function (_item, _index) {
+      if (parseInt(contactRead) === _index) {
+        _item.state = true;
+      }
+    }, this);
 
-    // 讀取座向 狀態
-    if (localStorage.direct) {
-      this.getData(this.directData, 'direct');
-    }
-
-    // 讀取景觀 狀態
-    if (localStorage.landscape) {
-      this.getData(this.landscapeData, 'landscape');
-    }
-
-    // 讀取裝修程度 狀態
-    if (localStorage.decoration) {
-      this.getData(this.decorationData, 'decoration');
-    }
+    this.contactTypeData2.forEach(function (_item, _index) {
+      if (this.rentobject.call === _item.eText) {
+        _item.state = true;
+      }
+    }, this);
   },
 
-  computed: {
-    setImg: function setImg() {
-      if (localStorage.fengmian) {
-        return {
-          backgroundImage: "url(" + localStorage.fengmian + ")"
-        };
-      } else {
-        return {
-          backgroundImage: "url(../imgs/fangzu/test.png)"
-        };
-      }
-    },
-    setaddImg: function setaddImg() {
-      if (localStorage.fengmian) {
-        this.iseditImg = false;
-        return '../imgs/fangzu/editPic.png';
-      } else {
-        this.iseditImg = true;
-        return '../imgs/fangzu/addPic.png';
-      }
-    },
-    ketingNum: function ketingNum() {
-      return { 'bordergreen': parseInt(this.keting) > 0 ? true : false };
-    },
-    xishoujianNum: function xishoujianNum() {
-      return { 'bordergreen': parseInt(this.xishoujian) > 0 ? true : false };
-    }
-  },
   methods: {
-    addPic: function addPic() {},
-    priceEdit: function priceEdit(val) {
-      this.price = val;
-      if (val > 0) {
-        localStorage.price = val;
-      } else {
-        localStorage.removeItem('price');
-      }
-    },
+    publish: function publish() {
 
-    // 添加 --- 間隔
-    AddRoomClick: function AddRoomClick(room) {
-      var str = '';
-      if (room === 'f') {
-        this.fangjian++;
-      } else if (room === 'k') {
-        this.keting++;
-      } else {
-        this.xishoujian++;
+      if (!this.rentobject.from || !this.rentobject.contactType) {
+        return alert('帶*號項為必填項');
       }
-      str = '房間:' + this.fangjian + ',客廳:' + this.keting + ',洗手間:' + this.xishoujian;
-      localStorage.space = str;
-    },
 
-    // 減少 --- 間隔
-    CutRoomClick: function CutRoomClick(room) {
-      var str = '';
-      if (room === 'f') {
-        if (this.fangjian <= 1) {
-          return;
+      if (this.rentobject.contactType === '1') {
+
+        if (!this.rentobject.contacts || !this.rentobject.phone || !this.rentobject.call) {
+          return alert('帶*號項為必填項');
         }
-        this.fangjian--;
-      } else if (room === 'k') {
-        if (this.keting <= 0) {
-          return;
+      }
+
+      this.$axios.post('/agent', getFormDataFun(this.rentobject)).then(function (res) {
+
+        if (!res.message) {
+          console.log('发布成功');
+          clearLocalStorages();
+          goback(3);
         }
-        this.keting--;
+      });
+    },
+    next: function next(name) {
+
+      console.log('详情预览');
+      location.href = 'preview.html' + location.search;
+    },
+
+    // 選擇可起租時間
+    slcStartTime: function slcStartTime(e) {
+
+      console.log(e);
+
+      if (e.currentTarget.innerText === '隨時') {
+        if (!this.isRent) {
+          this.isRent = true;
+          this.datetime = '在日曆處選擇';
+          this.rentobject.start_time = '隨時';
+        }
+        this.DatetimePickerShow = false;
       } else {
-        if (this.xishoujian <= 0) {
-          return;
-        }
-        this.xishoujian--;
-      }
-      str = '房間:' + this.fangjian + ',客廳' + this.keting + ',洗手間' + this.xishoujian;
-      localStorage.space = str;
-    },
 
-    // 建築面積 input 輸入方法
-    areaEdit: function areaEdit(value) {
-      localStorage.removeItem('useableArea');
-      this.useableArea = '';
-      this.area = value;
-      localStorage.area = value;
-      if (value <= 0) {
-        localStorage.removeItem('area');
+        console.log(123123);
+
+        this.isRent = false;
+        // 彈出選擇時間框
+        this.DatetimePickerShow = true;
+        // document.body.style.position = 'fixed'
+
+        console.log('彈出選擇時間框');
       }
     },
 
-    // 實用面積 input 輸入方法
-    useableAreaEdit: function useableAreaEdit(value) {
-      localStorage.removeItem('area');
-      this.area = '';
-      this.useableArea = value;
-      localStorage.useableArea = value;
-      if (value <= 0) {
-        localStorage.removeItem('useableArea');
+    // 確定時間
+    slcTime: function slcTime(value) {
+
+      this.datetime = value.getFullYear() + '-' + (value.getMonth() + 1) + '-' + value.getDate();
+      this.rentobject.start_time = this.datetime;
+      console.log(this.datetime);
+
+      this.DatetimePickerShow = false;
+      document.body.style.position = '';
+    },
+
+    // 取消時間
+    cancelTime: function cancelTime() {
+      this.DatetimePickerShow = false;
+      document.body.style.position = '';
+    },
+
+    // 明火煮食
+    cookClick: function cookClick(item, index) {
+      this.rentobject.cook = item.text;
+    },
+
+    // 飼養寵物
+    petClick: function petClick(item, index) {
+      this.rentobject.pet = item.text;
+    },
+
+    // 配套設備
+    infrastructureClick: function infrastructureClick(item, index) {
+      this.saveData(index, this.infrastructureData, "infrastructure");
+    },
+
+    // 屋苑設施
+    homeInfrastructureClick: function homeInfrastructureClick(item, index) {
+      this.saveData(index, this.homeInfrastructureData, "home_infrastructure");
+    },
+
+    // 附近設施
+    locationInfrastructureClick: function locationInfrastructureClick(item, index) {
+      this.saveData(index, this.locationInfrastructureData, "location_infrastructure");
+    },
+
+    // 特色说明
+    featuresClick: function featuresClick(item, index) {
+      this.saveData(index, this.featuresData, "features", 4);
+    },
+
+    // 發佈者身份
+    fromClick: function fromClick(item, index) {
+      this.rentobject.from = item.text;
+    },
+
+    //聯絡方式
+    contactTypeClick: function contactTypeClick(item, index) {
+
+      if (index === 0) {
+        this.rentobject.contactType = '1'; // 电话
+      } else {
+        this.rentobject.contactType = '0'; // 仅在线
       }
-    },
-
-    // 樓層點擊方法
-    floorClick: function floorClick(item, index) {
-      this.floor = '';
-      this.saveData(item, index, this.floorData, 'floor');
-    },
-
-    // 樓層自定義方法
-    floorEdit: function floorEdit(value) {
-
-      if (value.length > 0) {
-
-        this.floorData.forEach(function (_item, _index) {
+      if (index === 1) {
+        this.rentobject.call = '';
+        this.rentobject.phone = '';
+        this.rentobject.contacts = '';
+        this.contactTypeData2.forEach(function (_item) {
           _item.state = false;
         });
-
-        this.floor = value;
-        localStorage.floor = value;
-      } else {
-
-        this.floor = '';
-        localStorage.removeItem('floor');
       }
     },
 
-    // 單位/座號
-    codeEdit: function codeEdit(value) {
-      this.code = value;
-      if (value.length > 0) {
-        localStorage.code = value;
-      } else {
-        localStorage.removeItem('code');
-      }
-    },
+    // 男士 小姐 太太
+    contactTypeClick2: function contactTypeClick2(item, index) {
 
-    // 座向
-    directClick: function directClick(item, index) {
-      this.saveData(item, index, this.directData, 'direct');
-    },
+      this.rentobject.call = item.eText;
 
-    // 景觀
-    landscapeClick: function landscapeClick(item, index) {
-      this.saveData(item, index, this.landscapeData, 'landscape');
-    },
-    setStyle: function setStyle(item) {
-      return {
-        backgroundImage: "url(" + (item.state ? item.slcImg : item.normalImg) + ")"
-      };
-    },
-    decorationClick: function decorationClick(item, index) {
-      this.saveData(item, index, this.decorationData, 'decoration');
-    },
-    next: function next() {
-
-      // let pics = localStorage.pics
-      var price = localStorage.price;
-      var space = localStorage.space;
-      var useableArea = localStorage.useableArea;
-      var area = localStorage.area;
-      var floor = localStorage.floor;
-      var landscape = localStorage.landscape;
-      var decoration = localStorage.decoration;
-
-      // let direct = localStorage.direct
-      // let code = localStorage.code
-
-      console.log(price, space, useableArea, area, floor, landscape, decoration);
-
-      if (!price || !useableArea && !area || !floor || !landscape || !decoration) {
-        alert('帶<span>*</span>號項為必填項');
-        return;
-      }
-
-      location.href = 'rent_zzd.html';
+      this.contactTypeData2.forEach(function (_item, _index) {
+        if (index === _index) {
+          if (item.state) {
+            this.rentobject.call = '';
+          }
+        }
+      }, this);
     },
 
     /**
-     * 存數據 公共方法
-     * item : 存儲的對象
-     * index: 下標
      * data : 數據源
-     * saveName: 字段
+     * getName : 取数据的字段
+     *
      */
-    saveData: function saveData(item, index, data, saveName) {
+    getRadioPublic: function getRadioPublic(data, getName) {
+      var temp = this.rentobject[getName];
       data.forEach(function (_item, _index) {
-        if (index === _index) {
+        if (temp === _item.text) {
+          _item.state = true;
+        }
+      });
+    },
+
+    /**
+     * data : 數據源
+     * saveKey : 需要存的对象 键
+     * number : 选项上限数
+     */
+    saveData: function saveData(index, data, saveKey, number) {
+      var _this = this;
+
+      console.log(this.rentobject.features);
+      if (this.rentobject[saveKey]) {
+        var arr = this.rentobject[saveKey].split("、");
+      } else {
+        var arr = [];
+      }
+      data.forEach(function (_item, _index) {
+        if (_index === index) {
           if (!_item.state) {
+            if (number) {
+              if (arr.length === number) {
+                return;
+              }
+            }
             _item.state = true;
-            localStorage.setItem(saveName, item.text);
+            arr.push(_item.text);
+            _this.rentobject[saveKey] = arr.join("、");
+            // console.log(arr)
           } else {
             _item.state = false;
-            localStorage.removeItem(saveName);
+            if (arr.indexOf(_item.text) > -1) {
+              arr.splice(arr.indexOf(_item.text), 1);
+              if (arr.length) {
+                _this.rentobject[saveKey] = arr.join("、");
+              } else {
+                _this.rentobject[saveKey] = '';
+              }
+              // console.log(arr)
+            }
           }
-        } else {
-          _item.state = false;
         }
       });
     },
 
     /**
-     * 取數據 公共方法
      * data : 數據源
-     * getName: 字段
+     * getKey : 取数据对象 键
+     *
      */
-    getData: function getData(data, getName) {
-      var str = localStorage.getItem(getName);
-      // 判斷是否存在該數據, 否則, 退出後面的循環, 性能優化
-      if (!str) {
-        return;
+    getData: function getData(data, getKey) {
+      if (this.rentobject[getKey] != '' && this.rentobject[getKey] != null) {
+        // console.log(localStorage[getKey])
+        var arr = [];
+        arr = this.rentobject[getKey].split("、");
+        data.forEach(function (_item, _index) {
+          for (var key in arr) {
+            if (_item.text === arr[key]) {
+              _item.state = true;
+            }
+          }
+        });
       }
-      data.forEach(function (_item, _index) {
-        if (str === _item.text) {
-          _item.state = true;
-          return true;
-        } else {
-          return false;
-        }
-      });
     }
+  },
+  data: {
+    DatetimePickerShow: false,
+    minDate: new Date(),
+    currentDate: new Date(),
+    isRent: false, // 控制起租單選按鈕的開關
+    datetime: '在日曆處選擇',
+    rentobject: null,
+    // 明火煮食
+    cookData: [{
+      text: "可以",
+      slcImg: './imgs/fangzu/checkon.png',
+      normalImg: './imgs/fangzu/checkoff.png',
+      state: false
+    }, {
+      text: "不可以",
+      slcImg: './imgs/fangzu/checkon.png',
+      normalImg: './imgs/fangzu/checkoff.png',
+      state: false
+    }],
+    // 飼養寵物
+    petData: [{
+      text: "可以",
+      slcImg: './imgs/fangzu/checkon.png',
+      normalImg: './imgs/fangzu/checkoff.png',
+      state: false
+    }, {
+      text: "不可以",
+      slcImg: './imgs/fangzu/checkon.png',
+      normalImg: './imgs/fangzu/checkoff.png',
+      state: false
+    }],
+    // 配套設備
+    infrastructureData: [{
+      text: "床",
+      bgImg: './imgs/fangzu/petaosheshi/bg_1.png',
+      slcImg: './imgs/fangzu/checkon.png',
+      normalImg: './imgs/fangzu/checkoff.png',
+      state: false
+    }, {
+      text: "衣櫃",
+      bgImg: './imgs/fangzu/petaosheshi/bg_2.png',
+      slcImg: './imgs/fangzu/checkon.png',
+      normalImg: './imgs/fangzu/checkoff.png',
+      state: false
+    }, {
+      text: "梳化",
+      bgImg: './imgs/fangzu/petaosheshi/bg_3.png',
+      slcImg: './imgs/fangzu/checkon.png',
+      normalImg: './imgs/fangzu/checkoff.png',
+      state: false
+    }, {
+      text: "雪櫃",
+      bgImg: './imgs/fangzu/petaosheshi/bg_4.png',
+      slcImg: './imgs/fangzu/checkon.png',
+      normalImg: './imgs/fangzu/checkoff.png',
+      state: false
+    }, {
+      text: "洗衣機",
+      bgImg: './imgs/fangzu/petaosheshi/bg_5.png',
+      slcImg: './imgs/fangzu/checkon.png',
+      normalImg: './imgs/fangzu/checkoff.png',
+      state: false
+    }, {
+      text: "冷氣",
+      bgImg: './imgs/fangzu/petaosheshi/bg_6.png',
+      slcImg: './imgs/fangzu/checkon.png',
+      normalImg: './imgs/fangzu/checkoff.png',
+      state: false
+    }, {
+      text: "電視",
+      bgImg: './imgs/fangzu/petaosheshi/bg_7.png',
+      slcImg: './imgs/fangzu/checkon.png',
+      normalImg: './imgs/fangzu/checkoff.png',
+      state: false
+    }, {
+      text: "焗爐",
+      bgImg: './imgs/fangzu/petaosheshi/bg_8.png',
+      slcImg: './imgs/fangzu/checkon.png',
+      normalImg: './imgs/fangzu/checkoff.png',
+      state: false
+    }, {
+      text: "熱水爐",
+      bgImg: './imgs/fangzu/petaosheshi/bg_9.png',
+      slcImg: './imgs/fangzu/checkon.png',
+      normalImg: './imgs/fangzu/checkoff.png',
+      state: false
+    }],
+    // 屋苑設施
+    homeInfrastructureData: [{
+      text: "電梯",
+      bgImg: './imgs/fangzu/wuyuansheshi/bg_1.png',
+      slcImg: './imgs/fangzu/checkon.png',
+      normalImg: './imgs/fangzu/checkoff.png',
+      state: false
+    }, {
+      text: "屋苑會所",
+      bgImg: './imgs/fangzu/wuyuansheshi/bg_2.png',
+      slcImg: './imgs/fangzu/checkon.png',
+      normalImg: './imgs/fangzu/checkoff.png',
+      state: false
+    }, {
+      text: "游泳池",
+      bgImg: './imgs/fangzu/wuyuansheshi/bg_3.png',
+      slcImg: './imgs/fangzu/checkon.png',
+      normalImg: './imgs/fangzu/checkoff.png',
+      state: false
+    }, {
+      text: "兒童遊樂場",
+      bgImg: './imgs/fangzu/wuyuansheshi/bg_4.png',
+      slcImg: './imgs/fangzu/checkon.png',
+      normalImg: './imgs/fangzu/checkoff.png',
+      state: false
+    }, {
+      text: "籃球場",
+      bgImg: './imgs/fangzu/wuyuansheshi/bg_5.png',
+      slcImg: './imgs/fangzu/checkon.png',
+      normalImg: './imgs/fangzu/checkoff.png',
+      state: false
+    }, {
+      text: "羽毛球場",
+      bgImg: './imgs/fangzu/wuyuansheshi/bg_6.png',
+      slcImg: './imgs/fangzu/checkon.png',
+      normalImg: './imgs/fangzu/checkoff.png',
+      state: false
+    }],
+    // 附近設施
+    locationInfrastructureData: [{
+      text: "巴士站",
+      bgImg: './imgs/fangzu/fujinsheshi/bg_1.png',
+      slcImg: './imgs/fangzu/checkon.png',
+      normalImg: './imgs/fangzu/checkoff.png',
+      state: false
+    }, {
+      text: "便利店",
+      bgImg: './imgs/fangzu/fujinsheshi/bg_2.png',
+      slcImg: './imgs/fangzu/checkon.png',
+      normalImg: './imgs/fangzu/checkoff.png',
+      state: false
+    }, {
+      text: "超級市場",
+      bgImg: './imgs/fangzu/fujinsheshi/bg_3.png',
+      slcImg: './imgs/fangzu/checkon.png',
+      normalImg: './imgs/fangzu/checkoff.png',
+      state: false
+    }, {
+      text: "街市",
+      bgImg: './imgs/fangzu/fujinsheshi/bg_4.png',
+      slcImg: './imgs/fangzu/checkon.png',
+      normalImg: './imgs/fangzu/checkoff.png',
+      state: false
+    }, {
+      text: "銀行",
+      bgImg: './imgs/fangzu/fujinsheshi/bg_5.png',
+      slcImg: './imgs/fangzu/checkon.png',
+      normalImg: './imgs/fangzu/checkoff.png',
+      state: false
+    }, {
+      text: "公共停車場",
+      bgImg: './imgs/fangzu/fujinsheshi/bg_6.png',
+      slcImg: './imgs/fangzu/checkon.png',
+      normalImg: './imgs/fangzu/checkoff.png',
+      state: false
+    }],
+    // 特色說明
+    featuresData: [{
+      text: "活化工廈",
+      bgImg: './imgs/fangzu/teseshuoming/bg_27.png',
+      slcImg: './imgs/fangzu/checkon.png',
+      normalImg: './imgs/fangzu/checkoff.png',
+      state: false
+    }, {
+      text: "新裝修",
+      bgImg: './imgs/fangzu/teseshuoming/bg_28.png',
+      slcImg: './imgs/fangzu/checkon.png',
+      normalImg: './imgs/fangzu/checkoff.png',
+      state: false
+    }, {
+      text: "開揚光猛",
+      bgImg: './imgs/fangzu/teseshuoming/bg_29.png',
+      slcImg: './imgs/fangzu/checkon.png',
+      normalImg: './imgs/fangzu/checkoff.png',
+      state: false
+    }, {
+      text: "特高樓底",
+      bgImg: './imgs/fangzu/teseshuoming/bg_13.png',
+      slcImg: './imgs/fangzu/checkon.png',
+      normalImg: './imgs/fangzu/checkoff.png',
+      state: false
+    }, {
+      text: "有落貨區",
+      bgImg: './imgs/fangzu/teseshuoming/bg_30.png',
+      slcImg: './imgs/fangzu/checkon.png',
+      normalImg: './imgs/fangzu/checkoff.png',
+      state: false
+    }, {
+      text: "有貨物電梯",
+      bgImg: './imgs/fangzu/teseshuoming/bg_31.png',
+      slcImg: './imgs/fangzu/checkon.png',
+      normalImg: './imgs/fangzu/checkoff.png',
+      state: false
+    }, {
+      text: "停泊方便",
+      bgImg: './imgs/fangzu/teseshuoming/bg_20.png',
+      slcImg: './imgs/fangzu/checkon.png',
+      normalImg: './imgs/fangzu/checkoff.png',
+      state: false
+    }, {
+      text: "設備齊全",
+      bgImg: './imgs/fangzu/teseshuoming/bg_32.png',
+      slcImg: './imgs/fangzu/checkon.png',
+      normalImg: './imgs/fangzu/checkoff.png',
+      state: false
+    }, {
+      text: "地點方便",
+      bgImg: './imgs/fangzu/teseshuoming/bg_33.png',
+      slcImg: './imgs/fangzu/checkon.png',
+      normalImg: './imgs/fangzu/checkoff.png',
+      state: false
+    }, {
+      text: "保安嚴密",
+      bgImg: './imgs/fangzu/teseshuoming/bg_34.png',
+      slcImg: './imgs/fangzu/checkon.png',
+      normalImg: './imgs/fangzu/checkoff.png',
+      state: false
+    }],
+    // 發佈者
+    fromData: [{
+      text: "業主",
+      slcImg: './imgs/fangzu/checkon.png',
+      normalImg: './imgs/fangzu/checkoff.png',
+      state: false
+    }, {
+      text: "轉租客",
+      slcImg: './imgs/fangzu/checkon.png',
+      normalImg: './imgs/fangzu/checkoff.png',
+      state: false
+    }],
+    // 聯繫方式
+    contactTypeData: [{
+      text: "電話及在線咨詢",
+      slcImg: './imgs/fangzu/checkon.png',
+      normalImg: './imgs/fangzu/checkoff.png',
+      state: false
+    }, {
+      text: "僅在線咨詢",
+      slcImg: './imgs/fangzu/checkon.png',
+      normalImg: './imgs/fangzu/checkoff.png',
+      state: false
+    }],
+    // 聯繫方式子項, 先生, 小姐, 女士 
+    contactTypeData2: [{
+      text: "先生",
+      slcImg: './imgs/fangzu/checkon.png',
+      normalImg: './imgs/fangzu/checkoff.png',
+      state: false,
+      eText: 'mr'
+    }, {
+      text: "小姐",
+      slcImg: './imgs/fangzu/checkon.png',
+      normalImg: './imgs/fangzu/checkoff.png',
+      state: false,
+      eText: 'miss'
+    }, {
+      text: "太太",
+      slcImg: './imgs/fangzu/checkon.png',
+      normalImg: './imgs/fangzu/checkoff.png',
+      state: false,
+      eText: 'mrs'
+    }]
+
   }
 });
