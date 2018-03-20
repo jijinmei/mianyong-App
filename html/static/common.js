@@ -102,8 +102,12 @@ var H = 0
   			console.log(data)
   			if(data.index==0){
   				// if()
-			    localStorage.removeItem('huancun');
-			     localStorage.removeItem('pics');
+			    // localStorage.removeItem('huancun');
+			    //  localStorage.removeItem('pics');
+			      WebViewJavascriptBridge.callHandler('ClearData', {content_key: 'huancun'})
+                  WebViewJavascriptBridge.callHandler('ClearData', {content_key: 'xiangqingData'})
+                  WebViewJavascriptBridge.callHandler('ClearData', {content_key: 'xiaolin'})
+                  // app的返回
 			    goback(1)
   			}
   		},'div')
