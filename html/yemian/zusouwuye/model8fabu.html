@@ -444,6 +444,7 @@ function getAppLocalData(data) {
                                          console.log(hh1)
                      this.objectId=hh.objectId
                      if(isNaN(hh.type)){
+                        console.log('类型是中文'+hh.type[0])
                             for (var i = 0; i < this.Fenlei.length; i++) {
                             console.log(this.Fenlei[i])
                             if (hh.type[0]) {
@@ -454,6 +455,7 @@ function getAppLocalData(data) {
 
                         }
                     }else{
+                        console.log('类型是数字'+hh.type)
                         this.type=hh.type
                     }
                     
@@ -624,10 +626,10 @@ console.log('共同的执行数据挂载')
                     }
                 }
 
-                // window.localStorage.setItem('xiangqingData', JSON.stringify(xiangqingData))
+                window.localStorage.setItem('xiangqingData', JSON.stringify(xiangqingData))
                 // console.log(window.localStorage.getItem('xiangqingData'))
                 // 跳转到详情页面
-                 WebViewJavascriptBridge.callHandler('SetData', {content_key: 'xiangqingData', content: JSON.stringify(xiangqingData)})
+                 // WebViewJavascriptBridge.callHandler('SetData', {content_key: 'xiangqingData', content: JSON.stringify(xiangqingData)})
                 setTimeout(function(){
                    location.href = '../xiangqing/xiangqing.html?jianju=no&objectId=no&name=' + that.names
                 },1000)
@@ -720,6 +722,9 @@ console.log('共同的执行数据挂载')
                 }
                 console.log(formData)
                 console.log('gerenershouche'+sessiontoken)
+                console.log('id'+this.objectId)
+                console.log(this.huancunPics.pics)
+
                 formData.append("content", this.content); //详细内容
                 setTimeout(function() {
                     jQuery.ajax({

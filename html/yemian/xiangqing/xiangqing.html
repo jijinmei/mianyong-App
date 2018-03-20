@@ -442,18 +442,18 @@ im(){
       //如果是预览的则拿缓存的数据
       if(locations('objectId')=='no'){
         // alert(2)
-        // var aa=JSON.parse(window.localStorage.getItem('xiangqingData'))
+        var aa=JSON.parse(window.localStorage.getItem('xiangqingData'))
          // var aa=JSON.parse(locations('xiangqingData'))
          // var aa= JSON.parse(WebViewJavascriptBridge.callHandler('GetData', {content_key: 'xiangqingData'}))
-         var aa=this.xiangqingData
+         // var aa=this.xiangqingData
         console.log('aa')
         console.log(aa)
         that.datas=aa
 
         // var bb=JSON.parse(window.localStorage.getItem('pics'))
-        // var bb=JSON.parse(window.localStorage.getItem('xiangqingData')).pics
+        var bb=JSON.parse(window.localStorage.getItem('xiangqingData')).pics
         // var bb=JSON.parse(WebViewJavascriptBridge.callHandler('GetData', {content_key: 'xiangqingData'})).pics
-        var bb=this.xiangqingData.pics
+        // var bb=this.xiangqingData.pics
         if(bb){
           that.slideimg=bb
         }
@@ -558,15 +558,19 @@ im(){
          
         },
         mounted: function() {
+          var that=this
           this.isyulan=locations('objectId')
           this.jianju=locations('jianju')
           isyulan(locations('jianju'))
-          // this.xiangqing()
-          if(locations('objectId')=='no'){
-                  setTimeout(function(){
-                WebViewJavascriptBridge.callHandler('GetData', {content_key: 'xiangqingData'})
-              },1000)
-          }
+          setTimeout(function(){
+              that.xiangqing()
+          },1000)
+          
+          // if(locations('objectId')=='no'){
+          //     //     setTimeout(function(){
+          //     //   WebViewJavascriptBridge.callHandler('GetData', {content_key: 'xiangqingData'})
+          //     // },1000)
+          // }
           
           
         }
