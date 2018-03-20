@@ -562,9 +562,12 @@ im(){
           this.jianju=locations('jianju')
           isyulan(locations('jianju'))
           // this.xiangqing()
-          setTimeout(function(){
-            WebViewJavascriptBridge.callHandler('GetData', {content_key: 'xiangqingData'})
-          },1000)
+          if(locations('objectId')=='no'){
+                  setTimeout(function(){
+                WebViewJavascriptBridge.callHandler('GetData', {content_key: 'xiangqingData'})
+              },1000)
+          }
+          
           
         }
 
