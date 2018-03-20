@@ -1,13 +1,13 @@
 'use strict';
 
-new Vue({
+var vm = new Vue({
   el: '#app',
   created: function created() {
-    if (localStorage.getItem('rentobject')) {
-      this.rentobject = JSON.parse(localStorage.getItem('rentobject'));
-    } else {
-      this.rentobject = JSON.parse(JSON.stringify(saveObject));
-    }
+    // if (localStorage.getItem('rentobject')) {
+    //   this.rentobject = JSON.parse(localStorage.getItem('rentobject'))
+    // } else {
+    //   this.rentobject = JSON.parse(JSON.stringify(saveObject))
+    // }
   },
 
   computed: {
@@ -20,7 +20,8 @@ new Vue({
   watch: {
     rentobject: {
       handler: function handler(newVal) {
-        localStorage.setItem('rentobject', JSON.stringify(newVal));
+        // localStorage.setItem('rentobject', JSON.stringify(newVal))
+        WebViewJavascriptBridge.callHandler('SetData', { content_key: 'xiaolin', content: JSON.stringify(this.rentobject) });
       },
       deep: true
     }
@@ -397,3 +398,24 @@ new Vue({
     };
   }
 });
+
+function getAppLocalData(data) {
+
+  if (data) {
+    console.log('有值传过来', data);
+    vm.rentobject = JSON.parse(data);
+  } else {
+    console.log('没有传值过来', data);
+    vm.rentobject = JSON.parse(JSON.stringify(saveObject));
+  }
+}
+
+// 延时一秒
+setTimeout(function () {
+
+  var ua = navigator.userAgent.toLowerCase();
+  if (ua.match(/iPhone\sOS/i) == "iphone os") {
+
+    WebViewJavascriptBridge.callHandler('GetData', { content_key: 'xiaolin' });
+  }
+}, 1000);

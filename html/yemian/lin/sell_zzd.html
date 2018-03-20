@@ -1,57 +1,118 @@
-<!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>發佈租盤房源</title>
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/vant/lib/vant-css/index.css">
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/rent_zzd.css">
+    <link rel="stylesheet" href="./css/rent_public.css">
+    <script src="./js/flexible.min.js"></script>
+  </head>
+  <body>
+  
+    <div id="app" v-cloak>
+      
+            
+            <!-- 屋苑設施 -->
+            <div class="features publicCss">
+              <p class="title">屋苑設施</p>
+              <div class="content">
+                <w-checkbox :data="homeInfrastructureData" @actionclick="homeInfrastructureClick"></w-checkbox>
+              <p>*此項可多選</p>
+              </div>
+            </div>
+  
+        <!-- 配套設備 -->
+        <div class="features publicCss">
+          <p class="title">配套設備</p>
+          <div class="content">
+            <w-checkbox :data="infrastructureData" @actionclick="infrastructureClick"></w-checkbox>
+          <p>*此項可多選</p>
+          </div>
+        </div>
+  
+        
+        <!-- 附近設施 -->
+        <div class="features publicCss">
+          <p class="title">附近設施</p>
+          <div class="content">
+            <w-checkbox :data="locationInfrastructureData" @actionclick="locationInfrastructureClick"></w-checkbox>
+          <p>*此項可多選</p>
+          </div>
+        </div>
+  
+        <!-- 特色說明 -->
+        <div class="features publicCss">
+          <p class="title">特色說明</p>
+          <div class="content">
+            <w-checkbox :data="featuresData" @actionclick="featuresClick" number="4"></w-checkbox>
+          <p>*此項最多可同時選擇<span>4</span>個</p>
+          </div>
+        </div>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Box-sizing</title>
-  <style>
-    .test {
-      box-sizing: border-box;
-      border: 5px solid #f00;
-      padding: 5px;
-      width: 100px;
-      height: 100px;
-      position:absolute;
-      /*
-      简写的姿势排序
-      @keyframes name : 动画名
-      duration 持续时间
-      timing-function 动画频率
-      delay 延迟多久开始
-      iteration-count 循环次数
-      direction 动画方式,往返还是正向
-      fill-mode  一般用来处理停留在某一帧
-      play-state running 开始,paused 暂停 ....
-       更多的参数去查文档吧..我就不一一列举了
-      */
-      animation: moveChangeColor  ease-in 2.5s 1  forwards running;
-    }
-
-    @keyframes moveChangeColor {
-       from {
-         top:0%;
-         left:5%;
-         background-color:#f00
-       }
-       to{
-         top:0%;
-         left:50%;
-         background-color:#ced;
-       }
-    }
-
-  </style>
-</head>
-
-<body>
-  <div class="test"></div>
-</body>
-
-</html>
-
-作者：CRPER
-链接：https://juejin.im/post/5a998991f265da237f1dbdf9
-来源：掘金
-著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+  
+        <!-- 聯絡方式 -->
+        <div class="contact-type publicCss">
+          <p class="title"><span>*</span>聯絡方式</p>
+          <div class="content" :style="contactTypeStyle">
+            <w-radio :data="contactTypeData" @actionclick="contactTypeClick" isradio="radio"></w-radio>
+          </div>   
+          <div class="show-Box" v-show="rentobject.contactType == '1'">
+            <div class="box-item-1">
+              <!-- <span>聯絡人</span><input type="text" :placeholder="contacts" @input="inputContacts($event.target.value)"> -->
+              <span>聯絡人</span><input type="text" v-model="rentobject.contacts">
+            </div>
+            <div class="box-item-2">
+              <!-- <span>電話</span><input type="number" :placeholder="userphone" @input="inputUserPhone($event.target.value)"> -->
+              <span>電話</span><input type="number" v-model="rentobject.phone">
+            </div>
+          </div>
+          <div class="show-Box2" v-show="rentobject.contactType == '1'">
+            <w-radio :data="contactTypeData2" savestr="call" @actionclick="contactTypeClick2"></w-radio>
+          </div>
+        </div>
+  
+        <!-- 詳細描述 -->
+        <div class="remark publicCss">
+          <p class="title">詳細描述</p>
+          <div class="content">
+            <!-- <textarea placeholder="描述一下您的房源獨特之處以及對租客的期望..." :value="remark" @input="remarkEdit($event.target.value)"></textarea> -->
+            <textarea placeholder="描述一下您的房源獨特之處以及對租客的期望..." v-model="rentobject.remark"></textarea>
+          </div>
+        </div>
+  
+        <!-- 下一步 -->
+        <div class="footer">
+          <div>
+            <button type="button" @click="next">详细预览</button>
+            <button type="button" @click="publish">立即發佈</button>
+          </div>
+        </div>
+    </div>
+    
+    <script src="https://cdn.bootcss.com/vue/2.5.13/vue.min.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+    <script src="../../static/common.js"></script>
+    
+    <!-- 引入组件 -->
+    <script src="https://unpkg.com/vant/lib/vant.min.js"></script>
+    <script src="https://cdn.bootcss.com/axios/0.18.0/axios.min.js"></script>
+  
+    <!-- 配置axios -->
+    <script src="./js/axios.config.js"></script>
+  
+    <!-- 组件 -->
+    <script src="./js/temps/rent_radio.js"></script>
+    <script src="./js/temps/rent_checkbox.js"></script>
+    <script src="./js/temps/rent_datetime.js"></script>
+    <script src="./js/saveObject.js"></script>
+  
+    <!-- 上传功能函数 -->
+    <script src="./js/func.js"></script>
+    <script src="./js/sell_zzd.js"></script>
+    <script src="../../static/vconsole.min.js"></script>
+  </body>
+  </html>

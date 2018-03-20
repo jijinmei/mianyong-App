@@ -1,3 +1,6 @@
+body {
+  background-color: #e6e6e6;
+}
 .title {
   font-size: 0.25rem;
   color: black;
@@ -83,6 +86,7 @@
 .shang-pu {
   border-bottom: none;
   border-top: 1px solid #ebebeb;
+  padding-bottom: 1.2rem;
 }
 .wu-ye .main,
 .di-qu .main {
