@@ -305,7 +305,7 @@
 function getAppLocalData(data) {
   if (data){
     console.log('有值传过来')
-            if(JSON.parse(data).start_time){//小林的数组对象
+            if(JSON.parse(data).start_time!=undefined){//小林的数组对象
                    console.log('you小林的')
                    vm.huancunPics = JSON.parse(data)
             }else{//我的数组对象huancun
@@ -315,11 +315,6 @@ function getAppLocalData(data) {
             vm.huancuns()
   } else {
     console.log('没有传值过来')
-            // if(JSON.parse(data).start_time){//小林的数组对象
-            //        vm.huancunPics =[]
-            // }else{//我的数组对象huancun
-            //        vm.huancun =[]
-            // }
           vm.huancuns()
   }
 
@@ -418,7 +413,9 @@ function getAppLocalData(data) {
                 //我的发布点击编辑过来的，这个时候本地有一个model8fabu_array，将这个东西的内容赋给huancun的数组
                 if (locations('from') == 'wodefabu') {
                     console.log('wodefabu 取后台')
+                     console.log('wodefabu 取后台 hh')
                     console.log(hh)
+                    console.log('wodefabu 取后台 hh1')
                      console.log(hh1)
                     this.content = hh.content
                     this.objectId=hh.objectId
@@ -453,8 +450,10 @@ function getAppLocalData(data) {
                     this.contacts = hh.contacts //联络人
 
                 } else if (locations('from') == 'model8') {
-                    console.log('model8 自己的缓存')
+                     console.log('model8 自己的缓存')
+                       console.log('model8 自己的缓存 hh')
                      console.log(hh)
+                     console.log('model8 自己的缓存 hh1')
                      console.log(hh1)
                     //从8大模块的列表左边的发布跳过来的
                     // var hh=JSON.parse(WebViewJavascriptBridge.callHandler('GetData', {content_key: 'huancun'}))
