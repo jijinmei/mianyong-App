@@ -306,8 +306,10 @@ function getAppLocalData(data) {
   if (data){
     console.log('有值传过来')
             if(JSON.parse(data).start_time){//小林的数组对象
+                   console.log('you小林的')
                    vm.huancunPics = JSON.parse(data)
             }else{//我的数组对象huancun
+                 console.log('you我的')
                    vm.huancun = JSON.parse(data)
             }
             vm.huancuns()
@@ -416,6 +418,8 @@ function getAppLocalData(data) {
                 //我的发布点击编辑过来的，这个时候本地有一个model8fabu_array，将这个东西的内容赋给huancun的数组
                 if (locations('from') == 'wodefabu') {
                     console.log('wodefabu 取后台')
+                    console.log(hh)
+                     console.log(hh1)
                     this.content = hh.content
                     this.objectId=hh.objectId
                     this.title = hh.title //名称
@@ -450,6 +454,8 @@ function getAppLocalData(data) {
 
                 } else if (locations('from') == 'model8') {
                     console.log('model8 自己的缓存')
+                     console.log(hh)
+                     console.log(hh1)
                     //从8大模块的列表左边的发布跳过来的
                     // var hh=JSON.parse(WebViewJavascriptBridge.callHandler('GetData', {content_key: 'huancun'}))
                     // var hh1=JSON.parse(WebViewJavascriptBridge.callHandler('GetData', {content_key: 'xiaolin'}))
@@ -520,6 +526,7 @@ function getAppLocalData(data) {
             },
             //防止刷新的时候详情的预览数据消失
             xiangqingyulans() {
+                var that=this
                // var pic = []
                // var pp=JSON.parse(WebViewJavascriptBridge.callHandler('GetData', {content_key: 'xiaolin'})).pics
                var hh=this.huancun
@@ -575,9 +582,9 @@ function getAppLocalData(data) {
                 // console.log(window.localStorage.getItem('xiangqingData'))
                 // 跳转到详情页面
                  WebViewJavascriptBridge.callHandler('SetData', {content_key: 'xiangqingData', content: JSON.stringify(xiangqingData)})
-                // setTimeout(function(){
-                //    location.href = '../xiangqing/xiangqing.html?jianju=no&objectId=no&name=' + this.names
-                // },1000)
+                setTimeout(function(){
+                   location.href = '../xiangqing/xiangqing.html?jianju=no&objectId=no&name=' + that.names
+                },1000)
                
             },
             //点击详情预览的按钮的时候
