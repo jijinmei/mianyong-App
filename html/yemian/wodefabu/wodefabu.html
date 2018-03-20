@@ -231,8 +231,11 @@
                     type: that.arrayitem.tags, //分类  1是二手家私  2是二手电器  3是全新家私  tags
                 }
                 WebViewJavascriptBridge.callHandler('SetData', {content_key: 'huancun', content:JSON.stringify(huancun)})
-                location.href="../zusouwuye/model8fabu.html?name="+that.arrayitem.section+'&from=wodefabu&sessiontoken='+sessiontoken
-              // },1000)
+              setTimeout(function(){
+                 location.href="../zusouwuye/model8fabu.html?name="+that.arrayitem.section+'&from=wodefabu&sessiontoken='+sessiontoken
+              },1000)
+               
+           
               
           // this.$router.push({name:'model8fabu',params:{name:this.arrayitem.section,from:'wodefabu'}})      
     },
