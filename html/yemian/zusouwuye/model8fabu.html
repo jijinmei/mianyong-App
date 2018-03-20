@@ -219,7 +219,7 @@
                             <span class="fz25 c222222">元</span>
                         </li>
                         <li class="mui-pull-right mR80">
-                            <img @click="prices" :src="values==''&&price==1?'../../assets/img/jisuan/yx.png':'../../assets/img/jisuan/wx.png'" alt="" style="width:0.4rem;vertical-align: middle;" class="" />
+                            <img @click="prices" :src="values==''&&price=='-1'?'../../assets/img/jisuan/yx.png':'../../assets/img/jisuan/wx.png'" alt="" style="width:0.4rem;vertical-align: middle;" class="" />
                             <span class="fz25 c222222 mL20">面議</span>
                         </li>
                     </ul>
@@ -420,13 +420,10 @@ function getAppLocalData(data) {
                     this.content = hh.content
                     this.objectId=hh.objectId
                     this.title = hh.title //名称
-                    if (hh.price != '-1') {
-                        this.values = hh.price //输入框的价格
-                        this.price = 0
-                    } else {
-                        this.values = ''
-                        this.price = -1 //面议的变量
-                    }
+
+                        this.values =hh.values
+                        this.price=hh.price
+
                     if (hh1.pics) {
                         this.fengmiantu = hh1.pics[0]
                     }else{
@@ -434,7 +431,7 @@ function getAppLocalData(data) {
                     }
 
 
-                    this.call = (hh.call == '先生' ? 1 : (hh.call == '小姐' ? 2 : (hh.call == '太太' ? 3 : 0))) //先生1 小姐2  太太3 mr miss mrs 
+                    // this.call = (hh.call == '先生' ? 1 : (hh.call == '小姐' ? 2 : (hh.call == '太太' ? 3 : 0))) //先生1 小姐2  太太3 mr miss mrs 
                     this.contactType = hh.contactType //联繁方式, 1=电话; 0= 仅在线 
                     for (var i = 0; i < this.Fenlei.length; i++) {
                         console.log(this.Fenlei[i])
@@ -446,6 +443,7 @@ function getAppLocalData(data) {
 
                     }
                     this.phone = hh.phone //联系电话
+                    this.call=hh.call
                     this.address = hh.address //地址
                     this.contacts = hh.contacts //联络人
 
@@ -476,13 +474,34 @@ function getAppLocalData(data) {
                         this.objectId='no'
 
                         this.values = hh.values //输入框的价格
-                        this.price = hh.price //面议的变量
+                        this.price=hh.price
+                        // this.price = hh.price //面议的变量
+                                // if (hh.price!= '-1'&&hh.price) {//不是面议也不是kong
+                                // this.values = hh.price //输入框的价格
+                                // this.price = 0
+                                // } else if(hh.price== '-1') {
+                                //     this.values =''
+                                //     this.price = -1 //面议的变量
+                                // }else{
+                                //      this.values =''
+                                //     this.price =0 //面议的变量
+                                // }
+                    
                         this.call = hh.call //先生1 小姐2  太太3 mr miss mrs 
                         this.contactType = hh.contactType //联繁方式, 1=电话; 0= 仅在线 
                         this.phone = hh.phone //联系电话
                         this.address = hh.address //地址
                         this.contacts = hh.contacts //联络人
-                        this.type = hh.type //分类  1是二手家私  2是二手电器  3是全新家私  tags
+                        // this.type = hh.type //分类  1是二手家私  2是二手电器  3是全新家私  tags
+                        for (var i = 0; i < this.Fenlei.length; i++) {
+                        console.log(this.Fenlei[i])
+                        if (hh.tags[0]) {
+                            if (this.Fenlei[i] == hh.tags[0]) {
+                                this.type = i + 1
+                            }
+                        }
+
+                    }
                     }
                 }
 
@@ -509,7 +528,7 @@ function getAppLocalData(data) {
                     phone: this.phone, //联系电话
                     address: this.address, //地址
                     contacts: this.contacts, //联络人
-                    type: this.type, //分类  1是二手家私  2是二手电器  3是全新家私  tags
+                    type: this.type //分类  1是二手家私  2是二手电器  3是全新家私  tags
                 }
 
                 // window.localStorage.setItem('huancun', JSON.stringify(huancun))
@@ -521,7 +540,7 @@ function getAppLocalData(data) {
             //价格
             prices() {
                 this.values = ''
-                this.price = 1
+                this.price =-1
             },
             //防止刷新的时候详情的预览数据消失
             xiangqingyulans() {
@@ -588,44 +607,37 @@ function getAppLocalData(data) {
             },
             //点击详情预览的按钮的时候
             savemessage() {
-                //保存model8发布页面的缓存
-                var who = ''
-                if (this.names == '汽車交易' || this.names == '傢俬電器' || this.names == '跳蚤市場') {
-                    who = 'content_02'
-                } else {
-                    who = 'content_01'
-                }
-                var hh=this.huancun
-                if(hh.objectId){
-                   idds=hh.objectId
-                }else{
-                    idds='no'
-                };
-                var huancun = {
-                    objectId:idds,
-                    templeId: who,
-                    content: this.content,
-                    title: this.title, //名称
-                    values: this.values, //输入框的价格
-                    price: this.price, //面议的变量
-                    call: this.call, //先生1 小姐2  太太3
-                    contactType: this.contactType, //联繁方式, 1=电话; 0= 仅在线 
-                    phone: this.phone, //联系电话
-                    address: this.address, //地址
-                    contacts: this.contacts, //联络人
-                    type: this.type, //分类  1是二手家私  2是二手电器  3是全新家私  tags
-                }
-                // 存储model8的数据
-                // window.localStorage.setItem('huancun', JSON.stringify(huancun))
-                WebViewJavascriptBridge.callHandler('SetData', {content_key: 'huancun', content: JSON.stringify(huancun)})
+                // //保存model8发布页面的缓存
+                // var who = ''
+                // if (this.names == '汽車交易' || this.names == '傢俬電器' || this.names == '跳蚤市場') {
+                //     who = 'content_02'
+                // } else {
+                //     who = 'content_01'
+                // }
+                // var hh=this.huancun
+                // if(hh.objectId){
+                //    idds=hh.objectId
+                // }else{
+                //     idds='no'
+                // };
+                // var huancun = {
+                //     objectId:idds,
+                //     templeId: who,
+                //     content: this.content,
+                //     title: this.title, //名称
+                //     values: this.values, //输入框的价格
+                //     price: this.price, //面议的变量
+                //     call: this.call, //先生1 小姐2  太太3
+                //     contactType: this.contactType, //联繁方式, 1=电话; 0= 仅在线 
+                //     phone: this.phone, //联系电话
+                //     address: this.address, //地址
+                //     contacts: this.contacts, //联络人
+                //     type: this.type, //分类  1是二手家私  2是二手电器  3是全新家私  tags
+                // }
+                // // 存储model8的数据
+                // WebViewJavascriptBridge.callHandler('SetData', {content_key: 'huancun', content: JSON.stringify(huancun)})
                 //跳到详情 保存详情页面的数据格式
                 this.xiangqingyulans()
-
-                //         if(isAPP){
-                //   locationClick('xiangqing/no/'+this.names)
-                // }else{
-                //   this.$router.push({name:'xiangqing',params:{objectId:'no',name:this.names}})
-                // }
 
 
             },

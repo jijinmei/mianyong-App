@@ -177,10 +177,10 @@ function checker(who,callback) {
 }
 
 
-setInterval(function() {
-	console.log(locations('sessiontoken'))
-	 // console.log('个人信息')
-},3000)
+// setInterval(function() {
+// 	console.log(locations('sessiontoken'))
+// 	 // console.log('个人信息')
+// },10000)
 
 
 //   	//返回的时候提示将清空我要发布模块的发布数据

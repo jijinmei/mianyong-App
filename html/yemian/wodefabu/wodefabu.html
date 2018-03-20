@@ -207,7 +207,30 @@
               var that=this
               // window.localStorage.setItem('model8fabu_array',JSON.stringify(that.arrayitem))
               // setTimeout(function(){
-                WebViewJavascriptBridge.callHandler('SetData', {content_key: 'huancun', content:JSON.stringify(that.arrayitem)})
+                var price=''
+                var values=''
+                if(that.arrayitem.price=='-1'){
+                   price='-1'
+                   values=''
+                }else{
+                   price='0'
+                   values=that.arrayitem.price
+                }
+
+                var huancun = {
+                    pics: that.arrayitem.pics,
+                    content: that.arrayitem.content,
+                    title:that.arrayitem.title, //名称
+                    values:values, //输入框的价格
+                    price:price, //面议的变量
+                    call: call: (that.arrayitem.call == '先生' ?'1' : (that.arrayitem.call == '太太' ? '3' : (that.arrayitem.call == '小姐' ? '2' : ''))), //先生1 小姐2  太太3
+                    contactType: that.arrayitem.contactType, //联繁方式, 1=电话; 0= 仅在线 
+                    phone: that.arrayitem.phone, //联系电话
+                    address: that.arrayitem.address, //地址
+                    contacts: that.arrayitem.contacts, //联络人
+                    type: that.arrayitem.tags, //分类  1是二手家私  2是二手电器  3是全新家私  tags
+                }
+                WebViewJavascriptBridge.callHandler('SetData', {content_key: 'huancun', content:JSON.stringify(huancun)})
                 location.href="../zusouwuye/model8fabu.html?name="+that.arrayitem.section+'&from=wodefabu&sessiontoken='+sessiontoken
               // },1000)
               
