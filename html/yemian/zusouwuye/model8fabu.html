@@ -305,21 +305,20 @@
 function getAppLocalData(data) {
   if (data){
     console.log('有值传过来')
-    if(JSON.parse(data).start_time){//小林的数组对象
-           vm.huancunPics = JSON.parse(data)
-    }else{//我的数组对象huancun
-           vm.huancun = JSON.parse(data)
-    }
-    
-    vm.huancuns()
+            if(JSON.parse(data).start_time){//小林的数组对象
+                   vm.huancunPics = JSON.parse(data)
+            }else{//我的数组对象huancun
+                   vm.huancun = JSON.parse(data)
+            }
+            vm.huancuns()
   } else {
     console.log('没有传值过来')
-    if(JSON.parse(data).start_time){//小林的数组对象
-           vm.huancunPics =[]
-    }else{//我的数组对象huancun
-           vm.huancun =[]
-    }
-  vm.huancuns()
+            // if(JSON.parse(data).start_time){//小林的数组对象
+            //        vm.huancunPics =[]
+            // }else{//我的数组对象huancun
+            //        vm.huancun =[]
+            // }
+          vm.huancuns()
   }
 
 }
@@ -380,21 +379,6 @@ function getAppLocalData(data) {
 
         },
         computed: {
-            watch(){
-                this.objects.objectId=this.objectId
-                this.objects.fengmiantu=this.fengmiantu
-                this.objects.content=this.content
-                this.objects.title=this.title
-                this.objects.values=this.values
-                this.objects.price=this.price
-                this.objects.call=this.call
-                this.objects.contactType=this.contactType
-                this.objects.phone=this.phone
-                this.objects.address=this.address
-                this.objects.contacts=this.contacts
-                this.objects.price=this.price
-                this.objects.price=this.price
-            },
             setImg() {
                 if (this.fengmiantu) {
                     return {
@@ -590,9 +574,9 @@ function getAppLocalData(data) {
                 // window.localStorage.setItem('xiangqingData', JSON.stringify(xiangqingData))
                 // console.log(window.localStorage.getItem('xiangqingData'))
                 // 跳转到详情页面
+                 WebViewJavascriptBridge.callHandler('SetData', {content_key: 'xiangqingData', content: JSON.stringify(xiangqingData)})
                 // setTimeout(function(){
-                    WebViewJavascriptBridge.callHandler('SetData', {content_key: 'xiangqingData', content: JSON.stringify(xiangqingData)})
-                   location.href = '../xiangqing/xiangqing.html?jianju=no&objectId=no&name=' + this.names
+                //    location.href = '../xiangqing/xiangqing.html?jianju=no&objectId=no&name=' + this.names
                 // },1000)
                
             },
