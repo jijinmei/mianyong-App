@@ -1,6 +1,205 @@
-body div {
-  font-size: 0.26rem;
-  color: red;
-  -webkit-box-shadow: 0 1px 5px black;
-  box-shadow: 0 1px 5px black;
+.title {
+  font-size: 0.25rem;
+  color: black;
+  padding: 0.34rem 0 0.21rem;
+  line-height: 0.25rem;
+  text-align: center;
+}
+.title span {
+  color: #ff4c00;
+}
+.van-dialog .van-dialog__message {
+  text-align: center;
+}
+.active {
+  color: #36c748;
+}
+.lei-xing,
+.wu-ye,
+.di-qu,
+.jie-dao,
+.chu-zu,
+.sp-chu-zu,
+.shang-pu,
+.xzl-chu-zu,
+.gyds-chu-zu {
+  padding-bottom: 0.29rem;
+  border-bottom: 1px solid #ebebeb;
+  background-color: white;
+}
+.lei-xing,
+.chu-zu,
+.sp-chu-zu,
+.shang-pu,
+.xzl-chu-zu,
+.gyds-chu-zu {
+  padding-bottom: 0.29rem;
+  border-bottom: 1px solid #ebebeb;
+}
+.lei-xing .main,
+.chu-zu .main,
+.sp-chu-zu .main,
+.shang-pu .main,
+.xzl-chu-zu .main,
+.gyds-chu-zu .main {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+.lei-xing .item,
+.chu-zu .item,
+.sp-chu-zu .item,
+.shang-pu .item,
+.xzl-chu-zu .item,
+.gyds-chu-zu .item {
+  width: 1.2rem;
+  padding-top: 0.94rem;
+  text-align: center;
+  background-repeat: no-repeat;
+  background-position: top;
+  background-size: 0.78rem 0.78rem;
+  font-size: 0.25rem;
+}
+.lei-xing .item:last-of-type,
+.chu-zu .item:last-of-type,
+.sp-chu-zu .item:last-of-type,
+.shang-pu .item:last-of-type,
+.xzl-chu-zu .item:last-of-type,
+.gyds-chu-zu .item:last-of-type {
+  margin-right: 0;
+}
+.lei-xing .item i,
+.chu-zu .item i,
+.sp-chu-zu .item i,
+.shang-pu .item i,
+.xzl-chu-zu .item i,
+.gyds-chu-zu .item i {
+  font-style: normal;
+  line-height: 0.25rem;
+}
+.shang-pu {
+  border-bottom: none;
+  border-top: 1px solid #ebebeb;
+}
+.wu-ye .main,
+.di-qu .main {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+.wu-ye .main span,
+.di-qu .main span {
+  font-size: 0.23rem;
+  margin-right: 0.12rem;
+}
+.wu-ye .main p,
+.di-qu .main p {
+  border: none;
+  background: #36c748;
+  color: white;
+  font-size: 0.23rem;
+  line-height: normal;
+  padding: 0.105rem 0.175rem;
+  border-radius: 0.1rem;
+}
+.jie-dao .main {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+.jie-dao .main input {
+  border: none;
+  text-align: center;
+}
+.jie-dao .main input::-webkit-input-placeholder,
+.jie-dao .main input textarea::-webkit-input-placeholder {
+  font-size: 0.23rem;
+  line-height: normal;
+}
+.jie-dao .main input:-moz-placeholder,
+.jie-dao .main input textarea:-moz-placeholder {
+  font-size: 0.23rem;
+  line-height: normal;
+}
+.jie-dao .main input::-moz-placeholder,
+.jie-dao .main input textarea::-moz-placeholder {
+  font-size: 0.23rem;
+  line-height: normal;
+}
+.jie-dao .main input:-ms-input-placeholder,
+.jie-dao .main input textarea:-ms-input-placeholder {
+  font-size: 0.23rem;
+  line-height: normal;
+}
+.chu-zu {
+  border: none;
+}
+.chu-zu .main .box {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+.chu-zu .main .box li {
+  font-size: 0.25rem;
+  line-height: 0.4rem;
+  height: 0.4rem;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: right center;
+  margin-right: 0.5rem;
+  padding-right: 0.51rem;
+}
+.chu-zu .main .box li:last-of-type {
+  margin-right: 0;
+}
+.sp-chu-zu .item,
+.xzl-chu-zu .item,
+.gyds-chu-zu .item {
+  margin-right: 0.8rem;
+}
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  margin-top: 0.1rem;
+  -webkit-box-shadow: 0 0 0.5rem rgba(235, 235, 235, 0.8);
+  box-shadow: 0 0 0.5rem rgba(235, 235, 235, 0.8);
+}
+.footer .content {
+  height: 1rem;
+  background: white;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+.footer .content p {
+  border-radius: 0.1rem;
+  padding: 0.175rem 1.05rem;
+  border: none;
+  background: #36c748;
+  color: white;
+  font-size: 0.3rem;
+  line-height: normal;
 }

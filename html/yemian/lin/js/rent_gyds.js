@@ -24,6 +24,17 @@ new Vue({
   },
   mounted: function mounted() {
 
+    // 讀取樓層 狀態
+    if (this.rentobject.floor) {
+      this.getData(this.floorData, 'floor');
+
+      // 讀取樓層自定義狀態 狀態
+      var floorStr = this.rentobject.floor;
+      if (floorStr !== '底層' && floorStr !== '中層' && floorStr !== '高層' && floorStr !== '極高層') {
+        this.$refs.floor.value = floorStr;
+      }
+    }
+
     // 讀取可起租時間 狀態
     var starttime = this.rentobject.start_time;
     if (starttime && starttime === '隨時') {
@@ -76,10 +87,12 @@ new Vue({
         backgroundImage: 'url(' + (this.isRent ? './imgs/fangzu/checkon.png' : './imgs/fangzu/checkoff.png') + ')'
       };
     },
+
+    // 聯繫方式 不同選項不用樣式的顯示
     contactTypeStyle: function contactTypeStyle() {
       return {
-        borderBottom: this.isContact ? 'none' : '1px solid #e6e6e6',
-        paddingBottom: this.isContact ? '0' : '0.29rem'
+        borderBottom: this.rentobject.contactType == '1' ? 'none' : '1px solid #e6e6e6',
+        paddingBottom: this.rentobject.contactType == '1' ? '0' : '0.29rem'
       };
     },
     setStyle: function setStyle() {
@@ -100,17 +113,12 @@ new Vue({
       }
     },
     setaddImg: function setaddImg() {
-      if (this.rentobject.fengmiantu) {
+      if (this.rentobject.pics != '' && this.rentobject.pics != null) {
+        this.iseditImg = false;
         return './imgs/fangzu/editPic.png';
       } else {
+        this.iseditImg = true;
         return './imgs/fangzu/addPic.png';
-      }
-    },
-    iseditImg: function iseditImg() {
-      if (this.rentobject.fengmiantu) {
-        return false;
-      } else {
-        return true;
       }
     },
 
@@ -147,16 +155,12 @@ new Vue({
       };
     },
     publish: function publish() {
-      var _this = this;
+      // this.publishObj.publish(res => {
+      //   if (!res.message) {
+      //     this.$router.push('HOME')
+      //   }
+      // })
 
-      // console.log(this.rentobject)
-
-
-      this.publishObj.publish(function (res) {
-        if (!res.message) {
-          _this.$router.push('HOME');
-        }
-      });
     },
 
     // 添加照片
@@ -165,77 +169,25 @@ new Vue({
       location.href = 'pic.html' + location.search;
     },
     next: function next(name) {
-      // console.log(window.store.state.currentObject);
 
-      // let pics = window.store.state.currentObject.pics
-      // let price = window.store.state.currentObject.price
-      // let useableArea = window.store.state.currentObject.useableArea
-      // let area = window.store.state.currentObject.area
-      // let floor = window.store.state.currentObject.floor
-      // let landscape = window.store.state.currentObject.landscape
-      // let decoration = window.store.state.currentObject.decoration
-      // let from = window.store.state.currentObject.from
-      // let contactType = window.store.state.currentObject.contactType
-
-      // console.log(price, useableArea, area, floor, landscape, decoration)
-
-      // if (!pics.length || !price || (!useableArea && !area) || !floor || !landscape || !decoration || !from || !contactType) {
-      //     Dialog.alert({
-      //         message: '帶<span>*</span>號項為必填項'
-      //     })
-      //     return
-      // }
-
-      // this.$router.push(name);
-    },
-
-    // 建築面積 input 輸入方法
-    areaEdit: function areaEdit(value) {
-      this.area = value;
-      window.store.state.currentObject.area = value;
-      this.useableArea = '';
-      window.store.state.currentObject.useableArea = '';
-    },
-
-    // 實用面積 input 輸入方法
-    useableAreaEdit: function useableAreaEdit(value) {
-      this.area = '';
-      window.store.state.currentObject.area = '';
-      this.useableArea = value;
-      window.store.state.currentObject.useableArea = value;
-    },
-
-    // 租金 input 編輯方法
-    priceEdit: function priceEdit(value) {
-      this.price = value;
-      window.store.state.currentObject.price = value;
+      console.log('详情预览');
+      location.href = 'preview.html' + location.search;
     },
 
     // 樓層點擊方法
     floorClick: function floorClick(item, index) {
-      this.floor = '';
+      this.$refs.floor.value = '';
       this.saveData2(item, index, this.floorData, 'floor');
     },
 
     // 樓層自定義方法
     floorEdit: function floorEdit(value) {
 
-      // 判斷第一次輸入, this.floor還是空值, 只運行一次該循環
-      if (!this.floor && window.store.state.currentObject.floor) {
-        // 如果點擊自定義樓層的話, 選項的樓層失效
-        this.floorData.forEach(function (_item, _index) {
-          _item.state = false;
-        });
-      }
+      this.rentobject.floor = value;
 
-      this.floor = value;
-      window.store.state.currentObject.floor = value;
-    },
-
-    // 單位/座號 編輯方法
-    codeEdit: function codeEdit(value) {
-      this.code = value;
-      window.store.state.currentObject.code = value;
+      this.floorData.forEach(function (_item, _index) {
+        _item.state = false;
+      });
     },
 
     // 景觀
@@ -332,9 +284,9 @@ new Vue({
      * number : 选项上限数
      */
     saveData: function saveData(index, data, saveKey, number) {
-      var _this2 = this;
+      var _this = this;
 
-      console.log(this.rentobject.features);
+      console.log(saveKey);
       if (this.rentobject[saveKey]) {
         var arr = this.rentobject[saveKey].split("、");
       } else {
@@ -350,16 +302,16 @@ new Vue({
             }
             _item.state = true;
             arr.push(_item.text);
-            _this2.rentobject[saveKey] = arr.join("、");
+            _this.rentobject[saveKey] = arr.join("、");
             // console.log(arr)
           } else {
             _item.state = false;
             if (arr.indexOf(_item.text) > -1) {
               arr.splice(arr.indexOf(_item.text), 1);
               if (arr.length) {
-                _this2.rentobject[saveKey] = arr.join("、");
+                _this.rentobject[saveKey] = arr.join("、");
               } else {
-                _this2.rentobject[saveKey] = '';
+                _this.rentobject[saveKey] = '';
               }
               // console.log(arr)
             }
@@ -453,6 +405,12 @@ new Vue({
         state: false
       }],
       featuresData: [{
+        text: "活化工廈",
+        bgImg: './imgs/fangzu/teseshuoming/bg_27.png',
+        slcImg: './imgs/fangzu/checkon.png',
+        normalImg: './imgs/fangzu/checkoff.png',
+        state: false
+      }, {
         text: "新裝修",
         bgImg: './imgs/fangzu/teseshuoming/bg_28.png',
         slcImg: './imgs/fangzu/checkon.png',
@@ -465,56 +423,44 @@ new Vue({
         normalImg: './imgs/fangzu/checkoff.png',
         state: false
       }, {
-        text: "地點方便",
-        bgImg: './imgs/fangzu/teseshuoming/bg_33.png',
-        slcImg: './imgs/fangzu/checkon.png',
-        normalImg: './imgs/fangzu/checkoff.png',
-        state: false
-      }, {
-        text: "山景",
-        bgImg: './imgs/fangzu/teseshuoming/bg_35.png',
-        slcImg: './imgs/fangzu/checkon.png',
-        normalImg: './imgs/fangzu/checkoff.png',
-        state: false
-      }, {
-        text: "園景",
-        bgImg: './imgs/fangzu/teseshuoming/bg_36.png',
-        slcImg: './imgs/fangzu/checkon.png',
-        normalImg: './imgs/fangzu/checkoff.png',
-        state: false
-      }, {
-        text: "湖景",
-        bgImg: './imgs/fangzu/teseshuoming/bg_37.png',
-        slcImg: './imgs/fangzu/checkon.png',
-        normalImg: './imgs/fangzu/checkoff.png',
-        state: false
-      }, {
-        text: "海景",
-        bgImg: './imgs/fangzu/teseshuoming/bg_38.png',
-        slcImg: './imgs/fangzu/checkon.png',
-        normalImg: './imgs/fangzu/checkoff.png',
-        state: false
-      }, {
         text: "特高樓底",
         bgImg: './imgs/fangzu/teseshuoming/bg_13.png',
         slcImg: './imgs/fangzu/checkon.png',
         normalImg: './imgs/fangzu/checkoff.png',
         state: false
       }, {
-        text: "保安嚴密",
-        bgImg: './imgs/fangzu/teseshuoming/bg_34.png',
+        text: "有落貨區",
+        bgImg: './imgs/fangzu/teseshuoming/bg_30.png',
         slcImg: './imgs/fangzu/checkon.png',
         normalImg: './imgs/fangzu/checkoff.png',
         state: false
       }, {
-        text: "豪華大廳",
-        bgImg: './imgs/fangzu/teseshuoming/bg_32.png',
+        text: "有貨物電梯",
+        bgImg: './imgs/fangzu/teseshuoming/bg_31.png',
         slcImg: './imgs/fangzu/checkon.png',
         normalImg: './imgs/fangzu/checkoff.png',
         state: false
       }, {
         text: "停泊方便",
         bgImg: './imgs/fangzu/teseshuoming/bg_20.png',
+        slcImg: './imgs/fangzu/checkon.png',
+        normalImg: './imgs/fangzu/checkoff.png',
+        state: false
+      }, {
+        text: "設備齊全",
+        bgImg: './imgs/fangzu/teseshuoming/bg_32.png',
+        slcImg: './imgs/fangzu/checkon.png',
+        normalImg: './imgs/fangzu/checkoff.png',
+        state: false
+      }, {
+        text: "地點方便",
+        bgImg: './imgs/fangzu/teseshuoming/bg_33.png',
+        slcImg: './imgs/fangzu/checkon.png',
+        normalImg: './imgs/fangzu/checkoff.png',
+        state: false
+      }, {
+        text: "保安嚴密",
+        bgImg: './imgs/fangzu/teseshuoming/bg_34.png',
         slcImg: './imgs/fangzu/checkon.png',
         normalImg: './imgs/fangzu/checkoff.png',
         state: false
@@ -613,12 +559,7 @@ new Vue({
         state: false
       }],
       isContact: false,
-      remark: '',
-      price: '',
-      code: '',
       isRent: false,
-      useableArea: '',
-      area: '',
       floor: '',
       fengmiantu: ''
     };

@@ -3,7 +3,11 @@
 new Vue({
   el: '#app',
   created: function created() {
-    this.rentobject = JSON.parse(localStorage.getItem('rentobject'));
+    if (localStorage.getItem('rentobject')) {
+      this.rentobject = JSON.parse(localStorage.getItem('rentobject'));
+    } else {
+      this.rentobject = JSON.parse(JSON.stringify(saveObject));
+    }
   },
 
   computed: {
@@ -177,11 +181,27 @@ new Vue({
 
         // this.rentobject.pics = JSON.parse(JSON.stringify(this.imgUrl)))
         this.rentobject.pics = [].concat(this.imgUrl);
-        goback(1);
+
+        // goback(1)
+
+
+        WebViewJavascriptBridge.callHandler('SetData', { content_key: 'xiaolin', content: JSON.stringify(this.rentobject) });
+
+        setTimeout(function () {
+
+          WebViewJavascriptBridge.callHandler('goback', { pageNumber: '1', needRefresh: 'YES' });
+        }, 1000);
       } else {
         // localStorage.removeItem('pics')
         this.rentobject.pics = [];
-        goback(1);
+
+        WebViewJavascriptBridge.callHandler('SetData', { content_key: 'xiaolin', content: JSON.stringify(this.rentobject) });
+        // goback(1)
+
+        setTimeout(function () {
+
+          WebViewJavascriptBridge.callHandler('goback', { pageNumber: '1', needRefresh: 'YES' });
+        }, 1000);
       }
 
       // 返回
