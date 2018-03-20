@@ -443,15 +443,15 @@ function getAppLocalData(data) {
                                          console.log('wodefabu 取后台 hh1')
                                          console.log(hh1)
                      this.objectId=hh.objectId
-                     if(isNaN(hh.type)){
+                     if(isNaN(hh.type[0])){
                         console.log('类型是中文'+hh.type[0])
                             for (var i = 0; i < this.Fenlei.length; i++) {
                             console.log(this.Fenlei[i])
-                            if (hh.type[0]) {
-                                if (this.Fenlei[i] == hh.type[0]) {
+                                if (this.Fenlei[i]==hh.type[0]) {
                                     this.type = i + 1
+                                    console.log(this.Fenlei[i],hh.type[0],this.type)
                                 }
-                            }
+                            
 
                         }
                     }else{
