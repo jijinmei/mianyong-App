@@ -40,11 +40,8 @@ var vm = new Vue({
       } else {
         console.log(item);
         this.rentobject.build_area = item;
-
         // localStorage.setItem('buildarea', item)
-        // location.href = 'rent_index.html'
-        setvals(JSON.stringify(this.rentobject));
-        goback(1);
+        location.href = 'rent_index.html';
       }
     },
     clickLi2: function clickLi2(item, e) {
@@ -53,7 +50,6 @@ var vm = new Vue({
       this.rentobject.build_area = item;
       // localStorage.setItem('buildarea', item)
       // location.href = 'rent_index.html'+location.search
-      setvals(JSON.stringify(this.rentobject));
 
       goback(1);
     },
