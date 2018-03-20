@@ -346,6 +346,7 @@
 function getAppLocalData(data) {
   if (data){
     console.log('有值传过来')
+    vm.xiangqingData=JSON.parse(data)
     vm.xiangqing()
   } else {
     console.log('没有传值过来')
