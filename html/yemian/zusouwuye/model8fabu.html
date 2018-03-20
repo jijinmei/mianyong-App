@@ -403,11 +403,15 @@
         methods: {
             //读取原来的缓存
             huancuns() {
-
+                console.log('app存储的huancun')
+console.log(JSON.parse(WebViewJavascriptBridge.callHandler('GetData', {content_key: 'huancun'})))
                 //我的发布点击编辑过来的，这个时候本地有一个model8fabu_array，将这个东西的内容赋给huancun的数组
                 if (locations('from') == 'wodefabu') {
                     console.log('wodefabu 去后台')
-                    var hh = JSON.parse(localStorage.getItem('model8fabu_array'))
+                    // var hh = JSON.parse(localStorage.getItem('model8fabu_array'))
+                      // var hh = JSON.parse(locations('array'))
+                      var hh=JSON.parse(WebViewJavascriptBridge.callHandler('GetData', {content_key: 'huancun'}))
+                      var hh1=JSON.parse(WebViewJavascriptBridge.callHandler('GetData', {content_key: 'xiaolin'}))
                     console.log("model8fabu_array")
                     console.log(hh)
                     this.content = hh.content
@@ -420,7 +424,9 @@
                         this.values = ''
                         this.price = -1 //面议的变量
                     }
-                    if (hh.pics) {
+                    if (hh1.pics) {
+                        this.fengmiantu = hh1.pics[0]
+                    }else{
                         this.fengmiantu = hh.pics[0]
                     }
 
@@ -449,13 +455,19 @@
                 } else if (locations('from') == 'model8') {
                     console.log('model8 自己的缓存')
                     //从8大模块的列表左边的发布跳过来的
-                    if (window.localStorage.getItem("huancun") != null) {
-                        var hh = JSON.parse(window.localStorage.getItem("huancun"))
-                        console.log('huancun')
+                    var hh=JSON.parse(WebViewJavascriptBridge.callHandler('GetData', {content_key: 'huancun'}))
+                    var hh1=JSON.parse(WebViewJavascriptBridge.callHandler('GetData', {content_key: 'xiaolin'}))
+                    // if (window.localStorage.getItem("huancun") != null) {
+                         if (hh) {
+                        // var hh = JSON.parse(window.localStorage.getItem("huancun"))
+
+                        console.log('model8 huancun')
                         console.log(hh)
-                        hh.pics = JSON.parse(window.localStorage.getItem("pics"))
-                        if (hh.pics) {
-                            this.fengmiantu = hh.pics[0]
+                        // hh.pics = JSON.parse(window.localStorage.getItem("pics"))
+                        if (hh1.pics) {
+                            this.fengmiantu = hh1.pics[0]
+                        }else{
+                             this.fengmiantu = hh.pics[0]
                         }
 
                         this.content = hh.content
@@ -490,14 +502,10 @@
                     contacts: this.contacts, //联络人
                     type: this.type, //分类  1是二手家私  2是二手电器  3是全新家私  tags
                 }
-                window.localStorage.setItem('huancun', JSON.stringify(huancun))
-                location.href = "../lin/pic.html"
-                // if(isAPP){
-                //   locationClick('rent_release_pic.html')
-                // }else{
-                //   this.$router.push({name:'rent_detailpage_pic'})
 
-                // }
+                // window.localStorage.setItem('huancun', JSON.stringify(huancun))
+                WebViewJavascriptBridge.callHandler('SetData', {content_key: 'huancun', content: JSON.stringify(huancun)})
+                location.href = "../lin/pic.html"
 
             },
 
@@ -509,13 +517,14 @@
             //防止刷新的时候详情的预览数据消失
             xiangqingyulans() {
                var pic = []
-               var pp=''
-                 if (locations('from') == 'wodefabu') {
-                    console.log('wodefabu')
-                    pp= JSON.parse(localStorage.getItem('model8fabu_array')).pics
-                }else{
-                    pp= JSON.parse(localStorage.getItem('pics'))
-                }
+               var pp=JSON.parse(WebViewJavascriptBridge.callHandler('GetData', {content_key: 'xiaolin'})).pics
+                //  if (locations('from') == 'wodefabu') {
+                //     console.log('wodefabu')
+                //     // pp= JSON.parse(localStorage.getItem('model8fabu_array')).pics
+                //      pp= JSON.parse(locations('array')).pics
+                // }else{
+                //     pp= JSON.parse(localStorage.getItem('pics'))
+                // }
                 
                
                 // var pp=this.$store.state.currentObject.pics
@@ -560,12 +569,13 @@
                     }
                 }
 
-                window.localStorage.setItem('xiangqingData', JSON.stringify(xiangqingData))
-                console.log(window.localStorage.getItem('xiangqingData'))
+                // window.localStorage.setItem('xiangqingData', JSON.stringify(xiangqingData))
+                // console.log(window.localStorage.getItem('xiangqingData'))
                 // 跳转到详情页面
-                setTimeout(function(){
+                // setTimeout(function(){
+                    WebViewJavascriptBridge.callHandler('SetData', {content_key: 'xiangqingData', content: JSON.stringify(xiangqingData)})
                    location.href = '../xiangqing/xiangqing.html?jianju=no&objectId=no&name=' + this.names
-                },1000)
+                // },1000)
                
             },
             //点击详情预览的按钮的时候
@@ -591,7 +601,8 @@
                     type: this.type, //分类  1是二手家私  2是二手电器  3是全新家私  tags
                 }
                 // 存储model8的数据
-                window.localStorage.setItem('huancun', JSON.stringify(huancun))
+                // window.localStorage.setItem('huancun', JSON.stringify(huancun))
+                WebViewJavascriptBridge.callHandler('SetData', {content_key: 'huancun', content: JSON.stringify(huancun)})
                 //跳到详情 保存详情页面的数据格式
                 this.xiangqingyulans()
 
@@ -616,7 +627,8 @@
                 //                  formData.append("channel",'services');//home=主页 discuss=讨论 services= 服务
                 formData.append("title", this.title); //标题或商店名称
                 // 只有调用了上传的插件才传图片去后台修改，否则不传
-                var pics = JSON.parse(localStorage.getItem('pics'))
+                // var pics = JSON.parse(localStorage.getItem('pics'))
+                var pics=JSON.parse(WebViewJavascriptBridge.callHandler('GetData', {content_key: 'xiaolin'})).pics
                 if(pics){
                     var items = 'pics'
                     commonFiles(pics, formData, items)
@@ -671,8 +683,10 @@
                                 //返回到列表页面
                                 //清空8大模块发布的字段缓存
                                 // var hh=JSON.parse(localStorage.getItem('model8fabu_array'))
-                                localStorage.removeItem('huancun');
-                                localStorage.removeItem('pics');
+                                // localStorage.removeItem('huancun');
+                                // localStorage.removeItem('pics');
+                                WebViewJavascriptBridge.callHandler('ClearData', {content_key: 'huancun'})
+                                 WebViewJavascriptBridge.callHandler('ClearData', {content_key: 'xiangqingData'})
                                 // window.store.state.currentObject.pics=[]
                                 that.isending = true //正在发布，请稍后
 

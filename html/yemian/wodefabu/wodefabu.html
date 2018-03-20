@@ -205,10 +205,11 @@
     gobianji(){
               //存我的楼盘的对应商品的数量
               var that=this
-              window.localStorage.setItem('model8fabu_array',JSON.stringify(that.arrayitem))
-              setTimeout(function(){
+              // window.localStorage.setItem('model8fabu_array',JSON.stringify(that.arrayitem))
+              // setTimeout(function(){
+                WebViewJavascriptBridge.callHandler('SetData', {content_key: 'huancun', content:JSON.stringify(that.arrayitem)})
                 location.href="../zusouwuye/model8fabu.html?name="+that.arrayitem.section+'&from=wodefabu&sessiontoken='+sessiontoken
-              },1000)
+              // },1000)
               
           // this.$router.push({name:'model8fabu',params:{name:this.arrayitem.section,from:'wodefabu'}})      
     },

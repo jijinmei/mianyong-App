@@ -473,13 +473,16 @@ im(){
       //如果是预览的则拿缓存的数据
       if(locations('objectId')=='no'){
         // alert(2)
-        var aa=JSON.parse(window.localStorage.getItem('xiangqingData'))
+        // var aa=JSON.parse(window.localStorage.getItem('xiangqingData'))
+         // var aa=JSON.parse(locations('xiangqingData'))
+         var aa= JSON.parse(WebViewJavascriptBridge.callHandler('GetData', {content_key: 'xiangqingData'}))
         console.log('aa')
         console.log(aa)
         that.datas=aa
 
         // var bb=JSON.parse(window.localStorage.getItem('pics'))
-        var bb=JSON.parse(window.localStorage.getItem('xiangqingData')).pics
+        // var bb=JSON.parse(window.localStorage.getItem('xiangqingData')).pics
+        var bb=JSON.parse(WebViewJavascriptBridge.callHandler('GetData', {content_key: 'xiangqingData'})).pics
         if(bb){
           that.slideimg=bb
         }
