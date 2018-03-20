@@ -322,6 +322,17 @@
 
 </div>
 <script type="text/javascript">
+        
+function getAppLocalData(data) {
+  if (data){
+    console.log('有值传过来')
+    vm.xiangqing()
+  } else {
+    console.log('没有传值过来')
+    vm.xiangqing()
+  }
+
+}
       // var isAPP = false
       //2.js调用ios原生的方法
       // function setupWebViewJavascriptBridge(callback) {
@@ -396,6 +407,7 @@
         el: '#app',
         // store,
         data: {
+        xiangqingData:[],
         jianju:'',
         isyulan:'',//根据id判断是否是预览
         imageView2:'?imageView2/1/w/'+parseInt(640*w0)+'/h/'+parseInt(300*w0),
@@ -471,18 +483,20 @@ im(){
     xiangqing(){
       var that=this
       //如果是预览的则拿缓存的数据
-      if(locations('objectId')=='no'){
+      if(locations('objectId')=='no'&&this.xiangqingData){
         // alert(2)
         // var aa=JSON.parse(window.localStorage.getItem('xiangqingData'))
          // var aa=JSON.parse(locations('xiangqingData'))
-         var aa= JSON.parse(WebViewJavascriptBridge.callHandler('GetData', {content_key: 'xiangqingData'}))
+         // var aa= JSON.parse(WebViewJavascriptBridge.callHandler('GetData', {content_key: 'xiangqingData'}))
+         var aa=this.xiangqingData
         console.log('aa')
         console.log(aa)
         that.datas=aa
 
         // var bb=JSON.parse(window.localStorage.getItem('pics'))
         // var bb=JSON.parse(window.localStorage.getItem('xiangqingData')).pics
-        var bb=JSON.parse(WebViewJavascriptBridge.callHandler('GetData', {content_key: 'xiangqingData'})).pics
+        // var bb=JSON.parse(WebViewJavascriptBridge.callHandler('GetData', {content_key: 'xiangqingData'})).pics
+        var bb=this.xiangqingData.pics
         if(bb){
           that.slideimg=bb
         }
@@ -590,7 +604,8 @@ im(){
           this.isyulan=locations('objectId')
           this.jianju=locations('jianju')
           isyulan(locations('jianju'))
-          this.xiangqing()
+          // this.xiangqing()
+          WebViewJavascriptBridge.callHandler('GetData', {content_key: 'xiangqingData'})
         }
 
     })

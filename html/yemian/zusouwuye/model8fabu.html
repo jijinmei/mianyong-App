@@ -302,35 +302,41 @@
     <script src="../../static/public.js"></script>
     <script>
         
-//         function getAppLocalData(data) {
-  
-//   if (data) {
-//     console.log('有值传过来')
-//     var pics= JSON.parse(data).pics
-//   } else {
-//     console.log('没有传值过来')
-//     var pics=[]
-//   }
+function getAppLocalData(data) {
+  if (data){
+    console.log('有值传过来')
+    if(JSON.parse(data).start_time){//小林的数组对象
+           vm.huancunPics = JSON.parse(data)
+    }else{//我的数组对象huancun
+           vm.huancun = JSON.parse(data)
+    }
+    
+    vm.huancuns()
+  } else {
+    console.log('没有传值过来')
+    if(JSON.parse(data).start_time){//小林的数组对象
+           vm.huancunPics =[]
+    }else{//我的数组对象huancun
+           vm.huancun =[]
+    }
+  vm.huancuns()
+  }
 
-// }
-
+}
     </script>
     <script type="text/javascript">
-    // 初始化previewImage
-    // mui.previewImage();
     mui.init();
-    // var objectId = '58bd0b8b1b69e6006b274f76' //'587f3b29570c352201193d6e'
-    // var user = '';
     </script>
     <script>
     var vm = new Vue({
         el: '#app',
         store,
         data: {
+            huancun:[],
+            huancunPics:[],
             objectId:'no',
             fengmiantu: '',
             isending: true, //是否结束了请求
-            //        prending:true,//是否开始请求了，默认是可以请求的
             content: '',
             names: 'no', //跳转过来的模块名字
             title: '', //名称
@@ -374,6 +380,21 @@
 
         },
         computed: {
+            watch(){
+                this.objects.objectId=this.objectId
+                this.objects.fengmiantu=this.fengmiantu
+                this.objects.content=this.content
+                this.objects.title=this.title
+                this.objects.values=this.values
+                this.objects.price=this.price
+                this.objects.call=this.call
+                this.objects.contactType=this.contactType
+                this.objects.phone=this.phone
+                this.objects.address=this.address
+                this.objects.contacts=this.contacts
+                this.objects.price=this.price
+                this.objects.price=this.price
+            },
             setImg() {
                 if (this.fengmiantu) {
                     return {
@@ -404,16 +425,13 @@
             //读取原来的缓存
             huancuns() {
                 console.log('app存储的huancun')
-console.log(JSON.parse(WebViewJavascriptBridge.callHandler('GetData', {content_key: 'huancun'})))
+                console.log(this.huancun)
+                console.log(this.huancunPics)
+                var hh=this.huancun
+                var hh1=this.huancunPics
                 //我的发布点击编辑过来的，这个时候本地有一个model8fabu_array，将这个东西的内容赋给huancun的数组
                 if (locations('from') == 'wodefabu') {
-                    console.log('wodefabu 去后台')
-                    // var hh = JSON.parse(localStorage.getItem('model8fabu_array'))
-                      // var hh = JSON.parse(locations('array'))
-                      var hh=JSON.parse(WebViewJavascriptBridge.callHandler('GetData', {content_key: 'huancun'}))
-                      var hh1=JSON.parse(WebViewJavascriptBridge.callHandler('GetData', {content_key: 'xiaolin'}))
-                    console.log("model8fabu_array")
-                    console.log(hh)
+                    console.log('wodefabu 取后台')
                     this.content = hh.content
                     this.objectId=hh.objectId
                     this.title = hh.title //名称
@@ -433,9 +451,6 @@ console.log(JSON.parse(WebViewJavascriptBridge.callHandler('GetData', {content_k
 
                     this.call = (hh.call == '先生' ? 1 : (hh.call == '小姐' ? 2 : (hh.call == '太太' ? 3 : 0))) //先生1 小姐2  太太3 mr miss mrs 
                     this.contactType = hh.contactType //联繁方式, 1=电话; 0= 仅在线 
-                    console.log("二维数组")
-                    console.log(this.Fenlei)
-                    console.log('changdu' + this.Fenlei.length)
                     for (var i = 0; i < this.Fenlei.length; i++) {
                         console.log(this.Fenlei[i])
                         if (hh.tags[0]) {
@@ -448,21 +463,18 @@ console.log(JSON.parse(WebViewJavascriptBridge.callHandler('GetData', {content_k
                     this.phone = hh.phone //联系电话
                     this.address = hh.address //地址
                     this.contacts = hh.contacts //联络人
-                    //          if(hh.tags){
-                    //            this.type=hh.tags[0]//分类  1是二手家私  2是二手电器  3是全新家私  tags
-                    //          }
 
                 } else if (locations('from') == 'model8') {
                     console.log('model8 自己的缓存')
                     //从8大模块的列表左边的发布跳过来的
-                    var hh=JSON.parse(WebViewJavascriptBridge.callHandler('GetData', {content_key: 'huancun'}))
-                    var hh1=JSON.parse(WebViewJavascriptBridge.callHandler('GetData', {content_key: 'xiaolin'}))
+                    // var hh=JSON.parse(WebViewJavascriptBridge.callHandler('GetData', {content_key: 'huancun'}))
+                    // var hh1=JSON.parse(WebViewJavascriptBridge.callHandler('GetData', {content_key: 'xiaolin'}))
                     // if (window.localStorage.getItem("huancun") != null) {
                          if (hh) {
                         // var hh = JSON.parse(window.localStorage.getItem("huancun"))
 
                         console.log('model8 huancun')
-                        console.log(hh)
+                        // console.log(hh)
                         // hh.pics = JSON.parse(window.localStorage.getItem("pics"))
                         if (hh1.pics) {
                             this.fengmiantu = hh1.pics[0]
@@ -489,8 +501,16 @@ console.log(JSON.parse(WebViewJavascriptBridge.callHandler('GetData', {content_k
             //跳转到图片
             // 添加照片
             addPic() {
+                var hh=this.huancun
+                var hh1=this.huancunPics
+                var pics=[]
+                if(hh1.pics){
+                    pics=hh1.pics
+                }else{
+                    pics=hh.pics
+                }
                 var huancun = {
-                    pics: [],
+                    pics: pics,
                     content: this.content,
                     title: this.title, //名称
                     values: this.values, //输入框的价格
@@ -516,24 +536,22 @@ console.log(JSON.parse(WebViewJavascriptBridge.callHandler('GetData', {content_k
             },
             //防止刷新的时候详情的预览数据消失
             xiangqingyulans() {
-               var pic = []
-               var pp=JSON.parse(WebViewJavascriptBridge.callHandler('GetData', {content_key: 'xiaolin'})).pics
-                //  if (locations('from') == 'wodefabu') {
-                //     console.log('wodefabu')
-                //     // pp= JSON.parse(localStorage.getItem('model8fabu_array')).pics
-                //      pp= JSON.parse(locations('array')).pics
-                // }else{
-                //     pp= JSON.parse(localStorage.getItem('pics'))
-                // }
-                
-               
-                // var pp=this.$store.state.currentObject.pics
-                if (pp) {
-                    for (var i = 0; i < pp.length; i++) {
-                        pic.push({ "objectId": "000", "url": pp[i] })
+               // var pic = []
+               // var pp=JSON.parse(WebViewJavascriptBridge.callHandler('GetData', {content_key: 'xiaolin'})).pics
+               var hh=this.huancun
+                var hh1=this.huancunPics
+                var pics=[]
+                if(hh1.pics){
+                    pics=hh1.pics
+                }else{
+                    pics=hh.pics
+                }
+                if (pics) {
+                    for (var i = 0; i < pics.length; i++) {
+                        pics.push({ "objectId": "000", "url": pics[i] })
                     }
                 }
-                console.log(pic)
+                console.log(pics)
                 var id=''
                 if (this.names == '汽車交易' || this.names == '傢俬電器' || this.names == '跳蚤市場') {
                     id = 'content_02'
@@ -541,14 +559,14 @@ console.log(JSON.parse(WebViewJavascriptBridge.callHandler('GetData', {content_k
                     id = 'content_01'
                 }
                 var idds=''
-                if(pp.objectId){
-                   idds=pp.objectId
+                if(hh.objectId){
+                   idds=hh.objectId
                 }else{
                     idds='no'
                 };
                 var xiangqingData = {
                     objectId:idds,
-                    pics:pic, 
+                    pics:pics, 
                     title: this.title,
                     createdAt: '',
                     views: '',
@@ -587,7 +605,14 @@ console.log(JSON.parse(WebViewJavascriptBridge.callHandler('GetData', {content_k
                 } else {
                     who = 'content_01'
                 }
+                var hh=this.huancun
+                if(hh.objectId){
+                   idds=hh.objectId
+                }else{
+                    idds='no'
+                };
                 var huancun = {
+                    objectId:idds,
                     templeId: who,
                     content: this.content,
                     title: this.title, //名称
@@ -628,10 +653,11 @@ console.log(JSON.parse(WebViewJavascriptBridge.callHandler('GetData', {content_k
                 formData.append("title", this.title); //标题或商店名称
                 // 只有调用了上传的插件才传图片去后台修改，否则不传
                 // var pics = JSON.parse(localStorage.getItem('pics'))
-                var pics=JSON.parse(WebViewJavascriptBridge.callHandler('GetData', {content_key: 'xiaolin'})).pics
+                // var pics=JSON.parse(WebViewJavascriptBridge.callHandler('GetData', {content_key: 'xiaolin'})).pics
+                var pics=this.huancunPics
                 if(pics){
                     var items = 'pics'
-                    commonFiles(pics, formData, items)
+                    commonFiles(pics, formData,items)
                 }
                 
 
@@ -775,6 +801,7 @@ console.log(JSON.parse(WebViewJavascriptBridge.callHandler('GetData', {content_k
             }
         },
         mounted() {
+
             var that = this
             this.names = locations('name')
             // // 查看个人资料
@@ -800,7 +827,10 @@ console.log(JSON.parse(WebViewJavascriptBridge.callHandler('GetData', {content_k
 
             })
             //获取填写的东西
-            that.huancuns()
+            // 一个是字段数据，一个是小林的图片
+            WebViewJavascriptBridge.callHandler('GetData', {content_key: 'huancun'})
+            WebViewJavascriptBridge.callHandler('GetData', {content_key: 'xiaolin'})
+            // that.huancuns()
         }
     })
     </script>
