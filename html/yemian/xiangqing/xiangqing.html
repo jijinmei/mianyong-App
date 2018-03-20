@@ -440,7 +440,7 @@ im(){
     xiangqing(){
       var that=this
       //如果是预览的则拿缓存的数据
-      if(locations('objectId')=='no'&&this.xiangqingData){
+      if(locations('objectId')=='no'){
         // alert(2)
         // var aa=JSON.parse(window.localStorage.getItem('xiangqingData'))
          // var aa=JSON.parse(locations('xiangqingData'))
@@ -562,7 +562,10 @@ im(){
           this.jianju=locations('jianju')
           isyulan(locations('jianju'))
           // this.xiangqing()
-          WebViewJavascriptBridge.callHandler('GetData', {content_key: 'xiangqingData'})
+          setTimeout(function(){
+            WebViewJavascriptBridge.callHandler('GetData', {content_key: 'xiangqingData'})
+          },1000)
+          
         }
 
     })

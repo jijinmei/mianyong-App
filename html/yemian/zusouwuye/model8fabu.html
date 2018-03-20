@@ -446,8 +446,8 @@ function getAppLocalData(data) {
                      if(isNaN(hh.type)){
                             for (var i = 0; i < this.Fenlei.length; i++) {
                             console.log(this.Fenlei[i])
-                            if (hh.tags[0]) {
-                                if (this.Fenlei[i] == hh.tags[0]) {
+                            if (hh.type[0]) {
+                                if (this.Fenlei[i] == hh.type[0]) {
                                     this.type = i + 1
                                 }
                             }
@@ -719,6 +719,7 @@ console.log('共同的执行数据挂载')
                     formData.append("call", calls); //呼称
                 }
                 console.log(formData)
+                console.log('gerenershouche'+sessiontoken)
                 formData.append("content", this.content); //详细内容
                 setTimeout(function() {
                     jQuery.ajax({
@@ -752,7 +753,7 @@ console.log('共同的执行数据挂载')
 
 
                             } else {
-                                mui.toast('失败')
+                                mui.toast(data.err.rawMessage)
                             }
 
                         })
