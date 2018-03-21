@@ -63,11 +63,11 @@
         <div class="swiper-wrapper"  style="height:3rem;">
             <div class="swiper-slide" v-for="(item,index) in slideimg" style="width:6.4rem;height:3rem;">
               <!--租售的详情-->
-              <img  v-if="jianju=='yes'&&datas.templeId==undefined" :src="item.url!=undefined?item.url+imageView2:''" class="jz"  :data-preview-src="item.url+imageView2big" data-preview-group="2" style="min-width: 6.4rem;min-height: 3rem;">
+              <img  v-if="jianju=='yes'&&datas.templeId==undefined" :src="item.url!=undefined?item.url+imageView2:''" class="jz"  :data-preview-src="item.url+imageView2big" data-preview-group="index1" style="min-width: 6.4rem;min-height: 3rem;">
               <!--8大服务的详情-->
-              <img  v-if="jianju=='yes'&&datas.templeId!=undefined" :src="item+imageView2" class="jz"  :data-preview-src="item+imageView2big" data-preview-group="2" style="min-width: 6.4rem;min-height: 3rem;">
+              <img  v-if="jianju=='yes'&&datas.templeId!=undefined" :src="item+imageView2" class="jz"  :data-preview-src="item+imageView2big" data-preview-group="index2" style="min-width: 6.4rem;min-height: 3rem;">
               <!--预览的详情-->
-              <img v-if="jianju=='no'" :src="item.url!=undefined?item.url:''" class="jz"  :data-preview-src="item.url+imageView2big" data-preview-group="2" style="min-width: 6.4rem;min-height: 3rem;">
+              <img v-if="jianju=='no'" :src="item.url!=undefined?item.url:''" class="jz"  :data-preview-src="item.url+imageView2big" data-preview-group="index3" style="min-width: 6.4rem;min-height: 3rem;">
             </div>
         </div>
         <!-- Add Pagination -->
