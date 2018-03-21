@@ -670,7 +670,7 @@ console.log('共同的执行数据挂载')
             //发布接口，每个模块对应应该传什么东西
 
             fabus() {
-                this.isending=true
+                // this.isending=true
                 var that = this
                 //进入这里代表要发请求了，要把prending设置为false，代表不能再点击那个发布按钮              
                 var formData = new FormData();
@@ -762,8 +762,9 @@ console.log('共同的执行数据挂载')
             fabu() {
                 var that = this
                 console.log('ok')
-
-                if (this.title == '' || this.contactType == -1||(!this.huancun.pics)||(!this.huancunPics)) {
+                console.log(this.huancun.pics)
+                 console.log(this.huancunPics.pics)
+                if (this.title == '' || this.contactType == -1) {
                     mui.toast('带星号为必填，請填写完整')
                     return
                 }
