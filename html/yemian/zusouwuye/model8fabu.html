@@ -437,6 +437,11 @@ function getAppLocalData(data) {
                 // console.log(this.huancunPics)
                 var hh=this.huancun
                 var hh1=this.huancunPics
+                if(hh1.pics){
+
+                }else{
+                    getBase64(this.huancun.pics[0],1)
+                }
                 //我的发布点击编辑过来的，这个时候本地有一个model8fabu_array，将这个东西的内容赋给huancun的数组
                 if (locations('from') == 'wodefabu') {//肯定有数据，一定会执行这个
                                          // console.log('wodefabu 取后台')
@@ -540,6 +545,42 @@ console.log('共同的执行数据挂载')
                     // this.contacts = hh.contacts //联络人
 
             },
+            getBase64(img,index){
+                var that=this
+                                  //传入图片路径，返回base64
+                        function getBase64Image(img,width,height) {//width、height调用时传入具体像素值，控制大小 ,不传则默认图像大小
+                          var canvas = document.createElement("canvas");
+                          canvas.width = width ? width : img.width;
+                          canvas.height = height ? height : img.height;
+                 
+                          var ctx = canvas.getContext("2d");
+                          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                          var dataURL = canvas.toDataURL();
+
+                          // 
+                          console.log('转换为base64'+dataURL)
+                          if(index==1){
+                            that.huancuns.pics=[dataURL]
+                          }else{
+                              var aa={'pics':[dataURL]}
+                              WebViewJavascriptBridge.callHandler('SetData', {content_key: 'xiaolin', content: JSON.stringify(aa)})
+                              location.href = "../lin/pic.html"
+                          }
+                          // return dataURL;
+                        }
+                    var image = new Image();
+                    image.crossOrigin = '';
+                    image.src = img;
+                    var deferred=$.Deferred();
+                    if(img){
+                      image.onload =function (){
+                        deferred.resolve(getBase64Image(image));//将base64传给done上传处理
+                      }
+                      return deferred.promise();//问题要让onload完成后再return sessionStorage['imgTest']
+                    }
+      
+
+            },
             //跳转到图片
             // 添加照片
             addPic() {
@@ -568,7 +609,16 @@ console.log('共同的执行数据挂载')
 
                 // window.localStorage.setItem('huancun', JSON.stringify(huancun))
                 WebViewJavascriptBridge.callHandler('SetData', {content_key: 'huancun', content: JSON.stringify(huancun)})
-                location.href = "../lin/pic.html"
+                // 如果hh1是空，则代表当前是http的图片路径，这个时候要转64存在小林的数组
+                if(hh1.pics){
+                      location.href = "../lin/pic.html"
+                }else{
+                     getBase64(hh.pics)
+                }
+
+               
+
+                
 
             },
 
