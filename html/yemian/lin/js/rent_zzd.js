@@ -8,21 +8,13 @@ new Vue({
     // this.rentobject = JSON.parse(localStorage.getItem('rentobject'))
 
 
-    if (localStorage.getItem('rentobject')) {
-      this.rentobject = JSON.parse(localStorage.getItem('rentobject'));
-    } else {
-      this.rentobject = JSON.parse(JSON.stringify(saveObject));
-    }
+    // if (localStorage.getItem('rentobject')) {
+    //   this.rentobject = JSON.parse(localStorage.getItem('rentobject'))
+    // } else {
+    //   this.rentobject = JSON.parse(JSON.stringify(saveObject))
+    // }
   },
 
-  watch: {
-    rentobject: {
-      handler: function handler(newVal) {
-        localStorage.setItem('rentobject', JSON.stringify(newVal));
-      },
-      deep: true
-    }
-  },
   computed: {
     starttime: function starttime() {
       return {

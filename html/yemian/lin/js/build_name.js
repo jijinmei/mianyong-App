@@ -22,19 +22,6 @@ var vm = new Vue({
   mounted: function mounted() {
     this.searchVal = this.rentobject.build_name;
   },
-  watch: {
-    rentobject: {
-      handler: function handler(newVal) {
-        // localStorage.setItem('rentobject', JSON.stringify(newVal))
-        var ua = navigator.userAgent.toLowerCase();
-        if (ua.match(/iPhone\sOS/i) == "iphone os") {
-
-          WebViewJavascriptBridge.callHandler('SetData', { content_key: 'xiaolin', content: JSON.stringify(this.rentobject) });
-        }
-      },
-      deep: true
-    }
-  },
   methods: {
     start: function start(value) {
       this.searchVal = value;
@@ -59,9 +46,15 @@ var vm = new Vue({
       console.log(this.searchVal);
       this.rentobject.build_name = this.searchVal;
 
-      WebViewJavascriptBridge.callHandler('SetData', { content_key: 'xiaolin', content: JSON.stringify(this.rentobject) });
+      WebViewJavascriptBridge.callHandler('SetData', {
+        content_key: 'xiaolin',
+        content: JSON.stringify(this.rentobject)
+      });
 
-      WebViewJavascriptBridge.callHandler('goback', { pageNumber: '1', needRefresh: 'YES' });
+      WebViewJavascriptBridge.callHandler('goback', {
+        pageNumber: '1',
+        needRefresh: 'YES'
+      });
     }
   },
   data: {
@@ -78,7 +71,7 @@ function getAppLocalData(data) {
     console.log('有值传过来', data);
     vm.rentobject = JSON.parse(data);
   } else {
-    console.log('没有传值过来', data);
+    console.log('没有传值过来');
     vm.rentobject = JSON.parse(JSON.stringify(saveObject));
   }
 }
@@ -86,9 +79,18 @@ function getAppLocalData(data) {
 // 延时一秒
 setTimeout(function () {
 
-  var ua = navigator.userAgent.toLowerCase();
-  if (ua.match(/iPhone\sOS/i) == "iphone os") {
-
-    WebViewJavascriptBridge.callHandler('GetData', { content_key: 'xiaolin' });
-  }
+  WebViewJavascriptBridge.callHandler('GetData', {
+    content_key: 'xiaolin'
+  });
 }, 1000);
+
+// vm.$watch('rentobject', function () {
+
+//   console.log('保存数据...', newVal)
+//   WebViewJavascriptBridge.callHandler('SetData', {
+//     content_key: 'xiaolin',
+//     content: JSON.stringify(this.rentobject)
+//   })
+// }, {
+//   deep: true
+// })
