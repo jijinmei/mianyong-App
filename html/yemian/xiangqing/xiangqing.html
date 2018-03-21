@@ -343,17 +343,17 @@
     </script>
 <script type="text/javascript">
         
-// function getAppLocalData(data) {
-//   if (data){
-//     console.log('有值传过来')
-//     vm.xiangqingData=JSON.parse(data)
-//     vm.xiangqing()
-//   } else {
-//     console.log('没有传值过来')
-//     vm.xiangqing()
-//   }
+function getAppLocalData(data) {
+  if (data){
+    console.log('有值传过来')
+    vm.xiangqingData=JSON.parse(data)
+    vm.xiangqing()
+  } else {
+    console.log('没有传值过来')
+    vm.xiangqing()
+  }
 
-// }
+}
 </script>
 <script>
 
@@ -445,7 +445,8 @@ im(){
         //var aa=JSON.parse(window.localStorage.getItem('xiangqingData'))
          // var aa=JSON.parse(locations('xiangqingData'))
           // var aa= JSON.parse(WebViewJavascriptBridge.callHandler('GetData', {content_key: 'xiangqingData'}))
-         var aa=JSON.parse(locations('xiangqingData'))
+         // var aa=JSON.parse(locations('xiangqingData'))
+         var aa=this.xiangqingData
         console.log('aa')
         console.log(aa)
         that.datas=aa
@@ -453,7 +454,8 @@ im(){
         // var bb=JSON.parse(window.localStorage.getItem('pics'))
         // var bb=JSON.parse(window.localStorage.getItem('xiangqingData')).pics
         // var bb=JSON.parse(WebViewJavascriptBridge.callHandler('GetData', {content_key: 'xiangqingData'})).pics
-        var bb=JSON.parse(locations('xiangqingData')).pics
+        // var bb=JSON.parse(locations('xiangqingData')).pics
+         var bb=this.xiangqingData.pics
         if(bb){
           that.slideimg=bb
         }
@@ -562,13 +564,13 @@ im(){
           this.isyulan=locations('objectId')
           this.jianju=locations('jianju')
           isyulan(locations('jianju'))
-          this.xiangqing()
+          // this.xiangqing()
           
           // if(locations('xiangqingData')){
           //         this.xiangqingData=JSON.parse(locations('xiangqingData'))
           //         this.xiangqing()
           //     //     setTimeout(function(){
-          //     //   WebViewJavascriptBridge.callHandler('GetData', {content_key: 'xiangqingData'})
+                WebViewJavascriptBridge.callHandler('GetData', {content_key: 'xiangqingData'})
           //     // },1000)
           // }else{
           //   this.xiangqing()
