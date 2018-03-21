@@ -7,7 +7,7 @@ var Boss3 = 'http://boss-macaucf-beta.leanapp.cn/api/v1/' //测试接口
 var limit20 = 20
 var data_jj = 1.03
 var H = 0     
-
+var httplu='http://stg-static-macaucf.leanapp.cn/html/yemian/'
 
 
 
