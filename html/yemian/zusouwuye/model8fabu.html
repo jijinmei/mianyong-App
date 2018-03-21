@@ -440,7 +440,7 @@ function getAppLocalData(data) {
                 if(hh1.pics){
 
                 }else{
-                    getBase64(this.huancun.pics[0],1)
+                    this.getBase64(this.huancun.pics[0],1)
                 }
                 //我的发布点击编辑过来的，这个时候本地有一个model8fabu_array，将这个东西的内容赋给huancun的数组
                 if (locations('from') == 'wodefabu') {//肯定有数据，一定会执行这个
@@ -491,8 +491,10 @@ function getAppLocalData(data) {
 console.log('共同的执行数据挂载')
                         if (hh1.pics) {
                             this.fengmiantu = hh1.pics[0]
+                            console.log('封面图取小林的')
                         }else{
                              this.fengmiantu = hh.pics[0]
+                             console.log('封面图取我的的')
                         }
 
                         this.content = hh.content
@@ -613,7 +615,7 @@ console.log('共同的执行数据挂载')
                 if(hh1.pics){
                       location.href = "../lin/pic.html"
                 }else{
-                     getBase64(hh.pics)
+                     this.getBase64(hh.pics)
                 }
 
                
