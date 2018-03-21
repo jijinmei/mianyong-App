@@ -580,17 +580,18 @@ console.log('共同的执行数据挂载')
             //防止刷新的时候详情的预览数据消失
             xiangqingyulans() {
                 var that=this
-               var hh=this.huancun
+                var hh=this.huancun
                 var hh1=this.huancunPics
+                var pics1=[]
                 var pics=[]
                 if(hh1.pics){
-                    pics=hh1.pics
+                    pics1=hh1.pics
                 }else{
-                    pics=hh.pics
+                    pics1=hh.pics
                 }
-                if (pics) {
-                    for (var i = 0; i < pics.length; i++) {
-                        pics.push({ "objectId": "000", "url": pics[i] })
+                if (pics1) {
+                    for (var i = 0; i < pics1.length; i++) {
+                        pics.push({ "objectId": "000", "url": pics1[i] })
                     }
                 }
                 console.log(pics)
@@ -600,12 +601,6 @@ console.log('共同的执行数据挂载')
                 } else {
                     id = 'content_01'
                 }
-                // var idds=''
-                // if(hh.objectId){
-                //    idds=hh.objectId
-                // }else{
-                //     idds='no'
-                // };
                 var xiangqingData = {
                     objectId:this.objectId,
                     pics:pics, 
@@ -630,14 +625,15 @@ console.log('共同的执行数据挂载')
                 }
 
                 console.log(xiangqingData)
+                console.log(httplu+'xiangqing/xiangqing.html?jianju=no&objectId=no&name=' + that.names+'&xiangqingData='+JSON.stringify(xiangqingData))
                 // window.localStorage.setItem('xiangqingData', JSON.stringify(xiangqingData))
                 // console.log(window.localStorage.getItem('xiangqingData'))
                 // 跳转到详情页面
                  // WebViewJavascriptBridge.callHandler('SetData', {content_key: 'xiangqingData', content:JSON.stringify(xiangqingData)})
                  // location.href = 'http://stg-static-macaucf.leanapp.cn/html/yemian/more/mztk.html'
-                // setTimeout(function(){
+                setTimeout(function(){
                    location.href =httplu+'xiangqing/xiangqing.html?jianju=no&objectId=no&name=' + that.names+'&xiangqingData='+JSON.stringify(xiangqingData)
-                // },1000)
+                },11000)
                
             },
             //点击详情预览的按钮的时候
