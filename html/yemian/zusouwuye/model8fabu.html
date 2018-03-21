@@ -600,14 +600,14 @@ console.log('共同的执行数据挂载')
                 } else {
                     id = 'content_01'
                 }
-                var idds=''
-                if(hh.objectId){
-                   idds=hh.objectId
-                }else{
-                    idds='no'
-                };
+                // var idds=''
+                // if(hh.objectId){
+                //    idds=hh.objectId
+                // }else{
+                //     idds='no'
+                // };
                 var xiangqingData = {
-                    objectId:idds,
+                    objectId:this.objectId,
                     pics:pics, 
                     title: this.title,
                     createdAt: '',
@@ -621,7 +621,7 @@ console.log('共同的执行数据挂载')
                     remark:this.content,
                     contactType: this.contactType,
                     from:this.contacts ,
-                    user: {
+                    user:{
                         likes: '1',
                         call: (this.call == '先生' ? 'mr' : (this.call == '太太' ? 'mrs' : (this.call == '小姐' ? 'miss' : ''))),
                         displayname: this.contacts,
@@ -629,14 +629,15 @@ console.log('共同的执行数据挂载')
                     }
                 }
 
+                console.log(xiangqingData)
                 // window.localStorage.setItem('xiangqingData', JSON.stringify(xiangqingData))
                 // console.log(window.localStorage.getItem('xiangqingData'))
                 // 跳转到详情页面
-                 WebViewJavascriptBridge.callHandler('SetData', {content_key: 'xiangqingData', content:JSON.stringify(xiangqingData)})
+                 // WebViewJavascriptBridge.callHandler('SetData', {content_key: 'xiangqingData', content:JSON.stringify(xiangqingData)})
                  // location.href = 'http://stg-static-macaucf.leanapp.cn/html/yemian/more/mztk.html'
-                setTimeout(function(){
-                   location.href =httplu+'xiangqing/xiangqing.html?jianju=no&objectId=no&name=' + that.names
-                },1000)
+                // setTimeout(function(){
+                   location.href =httplu+'xiangqing/xiangqing.html?jianju=no&objectId=no&name=' + that.names+'&xiangqingData='+JSON.stringify(xiangqingData)
+                // },1000)
                
             },
             //点击详情预览的按钮的时候
@@ -776,6 +777,7 @@ console.log('共同的执行数据挂载')
             //发布按钮为填完必填项目的时候將提示弹出框
             fabu() {
                 var that = this
+                console.log('ok')
                 // console.log('111111111111')
                 //      if(this.prending==false){
                 //        mui.toast('你已经发了请求，暂时不能发请求')

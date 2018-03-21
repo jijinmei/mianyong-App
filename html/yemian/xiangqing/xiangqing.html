@@ -343,17 +343,17 @@
     </script>
 <script type="text/javascript">
         
-function getAppLocalData(data) {
-  if (data){
-    console.log('有值传过来')
-    vm.xiangqingData=JSON.parse(data)
-    vm.xiangqing()
-  } else {
-    console.log('没有传值过来')
-    vm.xiangqing()
-  }
+// function getAppLocalData(data) {
+//   if (data){
+//     console.log('有值传过来')
+//     vm.xiangqingData=JSON.parse(data)
+//     vm.xiangqing()
+//   } else {
+//     console.log('没有传值过来')
+//     vm.xiangqing()
+//   }
 
-}
+// }
 </script>
 <script>
 
@@ -566,10 +566,14 @@ im(){
           //     that.xiangqing()
           // },1000)
           
-          if(locations('objectId')=='no'){
-                  setTimeout(function(){
-                WebViewJavascriptBridge.callHandler('GetData', {content_key: 'xiangqingData'})
-              },1000)
+          if(locations('xiangqingData')){
+                  this.xiangqingData=JSON.parse(locations('xiangqingData'))
+                  this.xiangqing()
+              //     setTimeout(function(){
+              //   WebViewJavascriptBridge.callHandler('GetData', {content_key: 'xiangqingData'})
+              // },1000)
+          }else{
+            this.xiangqing()
           }
           
           
