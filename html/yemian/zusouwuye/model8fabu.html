@@ -443,8 +443,10 @@ function getAppLocalData(data) {
                                          console.log('wodefabu 取后台 hh1')
                                          console.log(hh1)
                      this.objectId=hh.objectId
-                     if(isNaN(hh.type[0])){
+                     if(hh.type[0]!=undefined&&isNaN(hh.type[0])){
                         console.log('类型是中文'+hh.type[0])
+                        console.log(this.Fenlei)
+                        console.log('长度：'+this.Fenlei.length)
                             for (var i = 0; i < this.Fenlei.length; i++) {
                             console.log(this.Fenlei[i])
                                 if (this.Fenlei[i]==hh.type[0]) {
@@ -548,6 +550,7 @@ console.log('共同的执行数据挂载')
                     pics=hh.pics
                 }
                 var huancun = {
+                    objectId:this.objectId,
                     pics: pics,
                     content: this.content,
                     title: this.title, //名称
