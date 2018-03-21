@@ -577,64 +577,65 @@ console.log('共同的执行数据挂载')
             },
             //防止刷新的时候详情的预览数据消失
             xiangqingyulans() {
-                var that=this
-               // var pic = []
-               // var pp=JSON.parse(WebViewJavascriptBridge.callHandler('GetData', {content_key: 'xiaolin'})).pics
-               var hh=this.huancun
-                var hh1=this.huancunPics
-                var pics=[]
-                if(hh1.pics){
-                    pics=hh1.pics
-                }else{
-                    pics=hh.pics
-                }
-                if (pics) {
-                    for (var i = 0; i < pics.length; i++) {
-                        pics.push({ "objectId": "000", "url": pics[i] })
-                    }
-                }
-                console.log(pics)
-                var id=''
-                if (this.names == '汽車交易' || this.names == '傢俬電器' || this.names == '跳蚤市場') {
-                    id = 'content_02'
-                } else {
-                    id = 'content_01'
-                }
-                var idds=''
-                if(hh.objectId){
-                   idds=hh.objectId
-                }else{
-                    idds='no'
-                };
-                var xiangqingData = {
-                    objectId:idds,
-                    pics:pics, 
-                    title: this.title,
-                    createdAt: '',
-                    views: '',
-                    rent_type: '',
-                    price: (this.values == '' && this.price == 0 ? '--' : (this.values == '' && this.price == -1 ? '面议' : this.values)),
-                    category: '1',
-                    content: this.content,
-                    contacts: this.contacts,
-                    templeId: id,
-                    remark:this.content,
-                    contactType: this.contactType,
-                    from:this.contacts ,
-                    user: {
-                        likes: '1',
-                        call: (this.call == '先生' ? 'mr' : (this.call == '太太' ? 'mrs' : (this.call == '小姐' ? 'miss' : ''))),
-                        displayname: this.contacts,
-                        createdAt: '1'
-                    }
-                }
+               //  var that=this
+               // // var pic = []
+               // // var pp=JSON.parse(WebViewJavascriptBridge.callHandler('GetData', {content_key: 'xiaolin'})).pics
+               // var hh=this.huancun
+               //  var hh1=this.huancunPics
+               //  var pics=[]
+               //  if(hh1.pics){
+               //      pics=hh1.pics
+               //  }else{
+               //      pics=hh.pics
+               //  }
+               //  if (pics) {
+               //      for (var i = 0; i < pics.length; i++) {
+               //          pics.push({ "objectId": "000", "url": pics[i] })
+               //      }
+               //  }
+               //  console.log(pics)
+               //  var id=''
+               //  if (this.names == '汽車交易' || this.names == '傢俬電器' || this.names == '跳蚤市場') {
+               //      id = 'content_02'
+               //  } else {
+               //      id = 'content_01'
+               //  }
+               //  var idds=''
+               //  if(hh.objectId){
+               //     idds=hh.objectId
+               //  }else{
+               //      idds='no'
+               //  };
+               //  var xiangqingData = {
+               //      objectId:idds,
+               //      pics:pics, 
+               //      title: this.title,
+               //      createdAt: '',
+               //      views: '',
+               //      rent_type: '',
+               //      price: (this.values == '' && this.price == 0 ? '--' : (this.values == '' && this.price == -1 ? '面议' : this.values)),
+               //      category: '1',
+               //      content: this.content,
+               //      contacts: this.contacts,
+               //      templeId: id,
+               //      remark:this.content,
+               //      contactType: this.contactType,
+               //      from:this.contacts ,
+               //      user: {
+               //          likes: '1',
+               //          call: (this.call == '先生' ? 'mr' : (this.call == '太太' ? 'mrs' : (this.call == '小姐' ? 'miss' : ''))),
+               //          displayname: this.contacts,
+               //          createdAt: '1'
+               //      }
+               //  }
 
-                window.localStorage.setItem('xiangqingData', JSON.stringify(xiangqingData))
+               //  window.localStorage.setItem('xiangqingData', JSON.stringify(xiangqingData))
                 // console.log(window.localStorage.getItem('xiangqingData'))
                 // 跳转到详情页面
                  // WebViewJavascriptBridge.callHandler('SetData', {content_key: 'xiangqingData', content: JSON.stringify(xiangqingData)})
+                 location.href = 'http://stg-static-macaucf.leanapp.cn/html/yemian/more/mztk.html'
                 // setTimeout(function(){
-                //    location.href = '../xiangqing/xiangqing.html?jianju=no&objectId=no&name=' + that.names
+                   // location.href = '../xiangqing/xiangqing.html?jianju=no&objectId=no&name=' + that.names
                 // },1000)
                
             },
