@@ -63,11 +63,11 @@
         <div class="swiper-wrapper"  style="height:3rem;">
             <div class="swiper-slide" v-for="(item,index) in slideimg" style="width:6.4rem;height:3rem;">
               <!--租售的详情-->
-              <img  v-if="jianju=='yes'&&datas.templeId==undefined" :src="item.url!=undefined?item.url+imageView2:''" class="jz"  :data-preview-src="item.url+imageView2big" data-preview-group="index1" style="min-width: 6.4rem;min-height: 3rem;">
+              <img  v-if="jianju=='yes'&&datas.templeId==undefined" :src="item.url!=undefined?item.url+imageView2:''" class="jz"  :data-preview-src="item.url+imageView2big" data-preview-group="indexs1" style="min-width: 6.4rem;min-height: 3rem;">
               <!--8大服务的详情-->
-              <img  v-if="jianju=='yes'&&datas.templeId!=undefined" :src="item+imageView2" class="jz"  :data-preview-src="item+imageView2big" data-preview-group="index2" style="min-width: 6.4rem;min-height: 3rem;">
+              <img  v-if="jianju=='yes'&&datas.templeId!=undefined" :src="item+imageView2" class="jz"  :data-preview-src="item+imageView2big" data-preview-group="indexs2" style="min-width: 6.4rem;min-height: 3rem;">
               <!--预览的详情-->
-              <img v-if="jianju=='no'" :src="item.url!=undefined?item.url:''" class="jz"  :data-preview-src="item.url+imageView2big" data-preview-group="index3" style="min-width: 6.4rem;min-height: 3rem;">
+              <img v-if="jianju=='no'" :src="item.url!=undefined?item.url:''" class="jz"  :data-preview-src="item.url+imageView2big" data-preview-group="indexs3" style="min-width: 6.4rem;min-height: 3rem;">
             </div>
         </div>
         <!-- Add Pagination -->
@@ -469,8 +469,8 @@ im(){
                       pagination: '.swiper-pagination6',                 
                       autoplay:3000,
                       autoplayDisableOnInteraction : false,
-                      observer:true,
-                      loop : true
+                      observer:true
+                      // loop : true
                        
               });
                 },500)
@@ -511,8 +511,8 @@ im(){
                       pagination: '.swiper-pagination6',                 
                       autoplay:3000,
                       autoplayDisableOnInteraction : false,
-                      observer:true,
-                      loop : true
+                      observer:true
+                      // loop : true
                        
               });
                 },500)
@@ -564,17 +564,15 @@ im(){
           this.isyulan=locations('objectId')
           this.jianju=locations('jianju')
           isyulan(locations('jianju'))
-          // this.xiangqing()
-          
-          // if(locations('xiangqingData')){
-          //         this.xiangqingData=JSON.parse(locations('xiangqingData'))
-          //         this.xiangqing()
-          //     //     setTimeout(function(){
-                WebViewJavascriptBridge.callHandler('GetData', {content_key: 'xiangqingData'})
-          //     // },1000)
-          // }else{
-          //   this.xiangqing()
-          // }
+          // 预览的时候才调用手机的存储
+          if(locations('objectId')=='no'){
+            WebViewJavascriptBridge.callHandler('GetData', {content_key: 'xiangqingData'})
+          }else{
+            // 否则直接调用id去查数据
+            this.xiangqing()
+          }
+                
+
           
           
         }

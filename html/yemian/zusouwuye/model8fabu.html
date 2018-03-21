@@ -437,10 +437,17 @@ function getAppLocalData(data) {
                 // console.log(this.huancunPics)
                 var hh=this.huancun
                 var hh1=this.huancunPics
+                // 如果小林的拿不到图片缓存，则代表现在是我的发布进来的，或者是模块进来的新页面
                 if(hh1.pics){
 
                 }else{
-                    this.getBase64(this.huancun.pics[0],1)
+                    // 如果是我的发布进来的则要转64，然后保存到app缓存
+                    if(locations('from') == 'wodefabu'){
+                             this.getBase64(this.huancun.pics[0],1)
+                     }else{
+                    // 如果是新页面进来的，则现在是没有数据的，不需要转
+
+                     }
                 }
                 //我的发布点击编辑过来的，这个时候本地有一个model8fabu_array，将这个东西的内容赋给huancun的数组
                 if (locations('from') == 'wodefabu') {//肯定有数据，一定会执行这个
@@ -508,43 +515,6 @@ console.log('共同的执行数据挂载')
                         this.phone =hh.phone //联系电话
                         this.address=hh.address //地址
                         this.contacts=hh.contacts //联络人
-                        // mui.toast(this.contacts)
-                        // console.log('联系人:'+hh.contacts)
-                        // this.type = hh.type //分类  1是二手家私  2是二手电器  3是全新家私  tags
-                        
-
-
-
-
-                    // this.content = hh.content
-                    // // this.objectId=hh.objectId
-                    // this.title = hh.title //名称
-
-                    //     this.values =hh.values
-                    //     this.price=hh.price
-
-                    // if (hh1.pics) {
-                    //     this.fengmiantu = hh1.pics[0]
-                    // }else{
-                    //     this.fengmiantu = hh.pics[0]
-                    // }
-
-
-                    // // this.call = (hh.call == '先生' ? 1 : (hh.call == '小姐' ? 2 : (hh.call == '太太' ? 3 : 0))) //先生1 小姐2  太太3 mr miss mrs 
-                    // this.contactType = hh.contactType //联繁方式, 1=电话; 0= 仅在线 
-                    // for (var i = 0; i < this.Fenlei.length; i++) {
-                    //     console.log(this.Fenlei[i])
-                    //     if (hh.tags[0]) {
-                    //         if (this.Fenlei[i] == hh.tags[0]) {
-                    //             this.type = i + 1
-                    //         }
-                    //     }
-
-                    // }
-                    // this.phone = hh.phone //联系电话
-                    // this.call=hh.call
-                    // this.address = hh.address //地址
-                    // this.contacts = hh.contacts //联络人
 
             },
             getBase64(img,index){
@@ -561,14 +531,12 @@ console.log('共同的执行数据挂载')
 
                           // 
                           console.log('转换为base64'+dataURL)
-                          if(index==1){
+                          // if(index==1){
                             that.huancuns.pics=[dataURL]
-                          }else{
+                            // 转完后要存储去app
                               var aa={'pics':[dataURL]}
                               WebViewJavascriptBridge.callHandler('SetData', {content_key: 'xiaolin', content: JSON.stringify(aa)})
-                              location.href = "../lin/pic.html"
-                          }
-                          // return dataURL;
+                         
                         }
                     var image = new Image();
                     image.crossOrigin = '';
@@ -611,12 +579,18 @@ console.log('共同的执行数据挂载')
 
                 // window.localStorage.setItem('huancun', JSON.stringify(huancun))
                 WebViewJavascriptBridge.callHandler('SetData', {content_key: 'huancun', content: JSON.stringify(huancun)})
-                // 如果hh1是空，则代表当前是http的图片路径，这个时候要转64存在小林的数组
-                if(hh1.pics){
-                      location.href = "../lin/pic.html"
-                }else{
-                     this.getBase64(hh.pics)
-                }
+                // 如果hh1是空，则代表当前是http的图片路径或者还没选择图片，这个时候要转64存在小林的数组
+                // 自己的缓存没有图片并且小林的也没有，则当前是全新进入的页面
+                location.href = "../lin/pic.html"
+                // if((!hh.pics)&&(!hh1.pics)){
+                //     location.href = "../lin/pic.html"
+                // }else if(hh.pics&&(!hh1.pics)){
+                // // 自己的缓存有图片并且小林的没有图片，则要转base64
+                //        this.getBase64(hh.pics) 
+                // }else{
+                //  // 自己的缓存没有图片并且小林的有，则直接跳去
+                //     location.href = "../lin/pic.html"
+                // }
 
                
 
@@ -690,43 +664,13 @@ console.log('共同的执行数据挂载')
             },
             //点击详情预览的按钮的时候
             savemessage() {
-                // //保存model8发布页面的缓存
-                // var who = ''
-                // if (this.names == '汽車交易' || this.names == '傢俬電器' || this.names == '跳蚤市場') {
-                //     who = 'content_02'
-                // } else {
-                //     who = 'content_01'
-                // }
-                // var hh=this.huancun
-                // if(hh.objectId){
-                //    idds=hh.objectId
-                // }else{
-                //     idds='no'
-                // };
-                // var huancun = {
-                //     objectId:idds,
-                //     templeId: who,
-                //     content: this.content,
-                //     title: this.title, //名称
-                //     values: this.values, //输入框的价格
-                //     price: this.price, //面议的变量
-                //     call: this.call, //先生1 小姐2  太太3
-                //     contactType: this.contactType, //联繁方式, 1=电话; 0= 仅在线 
-                //     phone: this.phone, //联系电话
-                //     address: this.address, //地址
-                //     contacts: this.contacts, //联络人
-                //     type: this.type, //分类  1是二手家私  2是二手电器  3是全新家私  tags
-                // }
-                // // 存储model8的数据
-                // WebViewJavascriptBridge.callHandler('SetData', {content_key: 'huancun', content: JSON.stringify(huancun)})
-                //跳到详情 保存详情页面的数据格式
                 this.xiangqingyulans()
-
 
             },
             //发布接口，每个模块对应应该传什么东西
 
             fabus() {
+                this.isending=true
                 var that = this
                 //进入这里代表要发请求了，要把prending设置为false，代表不能再点击那个发布按钮              
                 var formData = new FormData();
@@ -737,9 +681,13 @@ console.log('共同的执行数据挂载')
                 // var pics = JSON.parse(localStorage.getItem('pics'))
                 // var pics=JSON.parse(WebViewJavascriptBridge.callHandler('GetData', {content_key: 'xiaolin'})).pics
                 var pics=this.huancunPics.pics
+
                 if(pics){
                     var items = 'pics'
                     commonFiles(pics, formData,items)
+                }else{
+                    var items = 'pics'
+                    commonFiles(this.huancuns.pics, formData,items)
                 }
                 
 
@@ -777,6 +725,7 @@ console.log('共同的执行数据挂载')
                 console.log('gerenershouche'+sessiontoken)
                 console.log('id'+this.objectId)
                 console.log(this.huancunPics.pics)
+                 console.log(this.huancun.pics)
 
                 formData.append("content", this.content); //详细内容
                 setTimeout(function() {
@@ -791,22 +740,9 @@ console.log('共同的执行数据挂载')
                         .done(function(data, textStatus, jqXHR) {
                             //                      alert('发布好了')
                             if (data.status == 1) {
-                                //                        that.prending=true
-                                //返回到列表页面
-                                //清空8大模块发布的字段缓存
-                                // var hh=JSON.parse(localStorage.getItem('model8fabu_array'))
-                                // localStorage.removeItem('huancun');
-                                // localStorage.removeItem('pics');
                                 WebViewJavascriptBridge.callHandler('ClearData', {content_key: 'huancun'})
                                  WebViewJavascriptBridge.callHandler('ClearData', {content_key: 'xiangqingData'})
-                                // window.store.state.currentObject.pics=[]
                                 that.isending = true //正在发布，请稍后
-
-                                //         if(isAPP){
-                                //   locationClick('model8/no/'+that.names,'1')
-                                // }else{
-                                //   that.$router.push({name:'model8',params:{objectId:'no',name:that.names}})
-                                // }
                                 location.href = '../zusouwuye/model8.html?objectId=no&name=' + that.names + '&sessiontoken=' + sessiontoken
 
 
@@ -819,19 +755,15 @@ console.log('共同的执行数据挂载')
                             console.log("HTTP Request Failed");
                         })
                         .always(function() {});
-                }, 500)
+                }, 10000)
 
             },
             //发布按钮为填完必填项目的时候將提示弹出框
             fabu() {
                 var that = this
                 console.log('ok')
-                // console.log('111111111111')
-                //      if(this.prending==false){
-                //        mui.toast('你已经发了请求，暂时不能发请求')
-                //        return
-                //      }
-                if (this.title == '' || this.contactType == -1) {
+
+                if (this.title == '' || this.contactType == -1||(!this.huancun.pics)||(!this.huancunPics)) {
                     mui.toast('带星号为必填，請填写完整')
                     return
                 }
