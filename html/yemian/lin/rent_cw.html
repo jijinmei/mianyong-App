@@ -72,7 +72,8 @@
     <div class="start-time publicCss">
       <p class="title">可起租時間</p>
       <div class="content">
-        <span :style="starttime" @click="slcStartTime">隨時</span><span @click="slcStartTime">{{datetime}}</span>
+        <span :style="starttime" @click="slcStartTime">隨時</span>
+        <span @click="slcStartTime">{{datetime}}</span>
       </div>
     </div>
 
@@ -110,7 +111,7 @@
         <div class="box-item-1">
           <span>聯絡人</span>
           <!-- <input type="text" :placeholder="contacts" @input="inputContacts($event.target.value)"> -->
-          <input type="text" v-model="rentobject.contacts">          
+          <input type="text" v-model="rentobject.contacts">
         </div>
         <div class="box-item-2">
           <span>電話</span>
@@ -143,6 +144,23 @@
 
 
   </div>
+
+  <script>
+    function getAppLocalData(data) {
+
+      if (data) {
+        console.log('有值传过来', data)
+        vm.rentobject = JSON.parse(data)
+        initdata()
+      } else {
+        console.log('没有传值过来')
+        vm.rentobject = JSON.parse(JSON.stringify(saveObject))
+        initdata()
+      }
+
+    }
+  </script>
+
   <script src="../../static/vconsole.min.js"></script>
 
   <script src="https://cdn.bootcss.com/vue/2.5.13/vue.min.js"></script>
@@ -157,9 +175,9 @@
   <script src="./js/temps/rent_radio.js"></script>
   <script src="./js/temps/rent_checkbox.js"></script>
   <script src="./js/saveObject.js"></script>
-  
-    <!-- 上传功能函数 -->
-    <script src="./js/func.js"></script>
+
+  <!-- 上传功能函数 -->
+  <script src="./js/func.js"></script>
   <script src="./js/rent_cw.js"></script>
 
 

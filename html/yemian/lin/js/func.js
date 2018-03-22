@@ -1,7 +1,7 @@
 'use strict';
 
 // 简单的声明一个发布对象
-var publishObj = {};
+// var publishObj = {}
 
 //base64转文件对象
 function commonFiles(files, formData, items) {
@@ -73,6 +73,8 @@ function getFormDataFun(obj) {
   // formData.append("call", obj.call)
   // formData.append("remark", obj.remark)
   // formData.append("from", obj.from)
+
+
   return formData;
 }
 
@@ -84,6 +86,7 @@ function getFormDataFun(obj) {
 // }
 
 
+// 这个方法原本是用来Localstorage
 function clearLocalStorages() {
 
   if (localStorage.rentobject) {

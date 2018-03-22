@@ -1,6 +1,7 @@
 'use strict';
 
 Vue.prototype.$axios = axios;
+
 new Vue({
   el: '#app',
   created: function created() {
@@ -85,6 +86,8 @@ new Vue({
   },
 
   methods: {
+
+    // 点击发布按钮, 发布
     publish: function publish() {
 
       if (!this.rentobject.from || !this.rentobject.contactType) {

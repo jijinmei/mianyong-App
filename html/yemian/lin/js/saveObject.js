@@ -1,5 +1,6 @@
 'use strict';
 
+// 租,,售发布所有字段
 var saveObject = {
     category: '',
     type: '住宅',

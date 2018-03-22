@@ -73,7 +73,12 @@ var vm = new Vue({
       // }
     }
   },
-  mounted: function mounted() {},
+  mounted: function mounted() {
+
+    WebViewJavascriptBridge.callHandler('GetData', {
+      content_key: 'xiaolin'
+    });
+  },
 
   methods: {
     // 下一步
@@ -447,26 +452,12 @@ var vm = new Vue({
   }
 });
 
-function getAppLocalData(data) {
-
-  if (data) {
-    console.log('有值传过来', data);
-    vm.rentobject = JSON.parse(data);
-    initdata();
-  } else {
-    console.log('没有传值过来');
-    vm.rentobject = JSON.parse(JSON.stringify(saveObject));
-    initdata();
-  }
-}
-
 // 延时一秒
-setTimeout(function () {
+// setTimeout(function () {
 
-  WebViewJavascriptBridge.callHandler('GetData', {
-    content_key: 'xiaolin'
-  });
-}, 50);
+
+// }, 50)
+
 
 function initdata() {
   // 讀取可起租時間 狀態

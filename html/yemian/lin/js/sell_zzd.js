@@ -1,7 +1,7 @@
 'use strict';
 
 Vue.prototype.$axios = axios;
-new Vue({
+var vm = new Vue({
   el: '#app',
   created: function created() {
 
