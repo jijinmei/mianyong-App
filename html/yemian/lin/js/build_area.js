@@ -23,16 +23,6 @@ var vm = new Vue({
       self.result = res;
     });
   },
-  watch: {
-    rentobject: {
-      handler: function handler(newVal) {
-        // localStorage.setItem('rentobject', JSON.stringify(newVal))
-
-        WebViewJavascriptBridge.callHandler('SetData', { content_key: 'xiaolin', content: JSON.stringify(this.rentobject) });
-      },
-      deep: true
-    }
-  },
   methods: {
     clickLi: function clickLi(items, e, item) {
       if (items.length > 0) {
@@ -50,9 +40,15 @@ var vm = new Vue({
         // setvals(JSON.stringify(this.rentobject))
         // goback(1)
 
-        WebViewJavascriptBridge.callHandler('SetData', { content_key: 'xiaolin', content: JSON.stringify(this.rentobject) });
+        WebViewJavascriptBridge.callHandler('SetData', {
+          content_key: 'xiaolin',
+          content: JSON.stringify(this.rentobject)
+        });
 
-        WebViewJavascriptBridge.callHandler('goback', { pageNumber: '1', needRefresh: 'YES' });
+        WebViewJavascriptBridge.callHandler('goback', {
+          pageNumber: '1',
+          needRefresh: 'YES'
+        });
       }
     },
     clickLi2: function clickLi2(item, e) {
@@ -64,9 +60,15 @@ var vm = new Vue({
       // setvals(JSON.stringify(this.rentobject))
 
 
-      WebViewJavascriptBridge.callHandler('SetData', { content_key: 'xiaolin', content: JSON.stringify(this.rentobject) });
+      WebViewJavascriptBridge.callHandler('SetData', {
+        content_key: 'xiaolin',
+        content: JSON.stringify(this.rentobject)
+      });
 
-      WebViewJavascriptBridge.callHandler('goback', { pageNumber: '1', needRefresh: 'YES' });
+      WebViewJavascriptBridge.callHandler('goback', {
+        pageNumber: '1',
+        needRefresh: 'YES'
+      });
     },
     searchFunc: function searchFunc() {
 
@@ -128,9 +130,18 @@ function getAppLocalData(data) {
 // 延时一秒
 setTimeout(function () {
 
-  var ua = navigator.userAgent.toLowerCase();
-  if (ua.match(/iPhone\sOS/i) == "iphone os") {
-
-    WebViewJavascriptBridge.callHandler('GetData', { content_key: 'xiaolin' });
-  }
+  WebViewJavascriptBridge.callHandler('GetData', {
+    content_key: 'xiaolin'
+  });
 }, 1000);
+
+// vm.$watch('rentobject', function () {
+
+//   console.log('保存数据...', newVal)
+//   WebViewJavascriptBridge.callHandler('SetData', {
+//     content_key: 'xiaolin',
+//     content: JSON.stringify(this.rentobject)
+//   })
+// }, {
+//   deep: true
+// })

@@ -2,28 +2,12 @@
 
 Vue.prototype.$axios = axios;
 
-new Vue({
+var vm = new Vue({
   el: '#app',
   created: function created() {
-
-    // this.rentobject = JSON.parse(localStorage.getItem('rentobject'))
-
-
-    if (localStorage.getItem('rentobject')) {
-      this.rentobject = JSON.parse(localStorage.getItem('rentobject'));
-    } else {
-      this.rentobject = JSON.parse(JSON.stringify(saveObject));
-    }
+    this.rentobject = JSON.parse(JSON.stringify(saveObject));
   },
 
-  watch: {
-    rentobject: {
-      handler: function handler(newVal) {
-        localStorage.setItem('rentobject', JSON.stringify(newVal));
-      },
-      deep: true
-    }
-  },
   computed: {
     starttime: function starttime() {
       return {
@@ -31,7 +15,9 @@ new Vue({
       };
     },
     setStyle: function setStyle() {
-      return { backgroundImage: 'url(' + (isRent ? './imgs/fangzu/checkon.png' : './imgs/fangzu/checkoff.png') + ')' };
+      return {
+        backgroundImage: 'url(' + (isRent ? './imgs/fangzu/checkon.png' : './imgs/fangzu/checkoff.png') + ')'
+      };
     },
     contactTypeStyle: function contactTypeStyle() {
       return {
@@ -87,56 +73,26 @@ new Vue({
       // }
     }
   },
-  mounted: function mounted() {
-
-    // 讀取可起租時間 狀態
-    var starttime = this.rentobject.start_time;
-    if (starttime && starttime === '隨時') {
-      this.isRent = true;
-    } else if (starttime) {
-      this.datetime = starttime;
-    }
-
-    // 读取特色说明状态
-    this.getData(this.featuresData, "features");
-
-    // 發佈者數據 读取状态
-    var fromRead = this.rentobject.from;
-    this.fromData.forEach(function (_item, _index) {
-      if (fromRead === _item.text) {
-        _item.state = true;
-      }
-    });
-
-    // 聯繫方式 读取状态
-    if (this.rentobject.contactType === '1') {
-      var contactRead = '0';
-    } else if (this.rentobject.contactType === '0') {
-      var contactRead = '1';
-    }
-
-    this.contactTypeData.forEach(function (_item, _index) {
-      if (parseInt(contactRead) === _index) {
-        this.isContact = _index === 0 ? true : false;
-        _item.state = true;
-      }
-    }, this);
-
-    this.contactTypeData2.forEach(function (_item, _index) {
-      if (this.rentobject.call === _item.eText) {
-        _item.state = true;
-      }
-    }, this);
-  },
+  mounted: function mounted() {},
 
   methods: {
     // 下一步
     next: function next(name) {
 
+      WebViewJavascriptBridge.callHandler('SetData', {
+        content_key: 'xiaolin',
+        content: JSON.stringify(this.rentobject)
+      });
+
       console.log('详情预览');
       location.href = 'preview.html' + location.search;
     },
     publish: function publish() {
+
+      WebViewJavascriptBridge.callHandler('SetData', {
+        content_key: 'xiaolin',
+        content: JSON.stringify(this.rentobject)
+      });
 
       // 照片
       if (this.rentobject.pics == '' || this.rentobject.pics == null) {
@@ -490,3 +446,75 @@ new Vue({
     };
   }
 });
+
+function getAppLocalData(data) {
+
+  if (data) {
+    console.log('有值传过来', data);
+    vm.rentobject = JSON.parse(data);
+    initdata();
+  } else {
+    console.log('没有传值过来');
+    vm.rentobject = JSON.parse(JSON.stringify(saveObject));
+    initdata();
+  }
+}
+
+// 延时一秒
+setTimeout(function () {
+
+  WebViewJavascriptBridge.callHandler('GetData', {
+    content_key: 'xiaolin'
+  });
+}, 50);
+
+function initdata() {
+  // 讀取可起租時間 狀態
+  var starttime = vm.rentobject.start_time;
+  if (starttime && starttime === '隨時') {
+    vm.isRent = true;
+  } else if (starttime) {
+    vm.datetime = starttime;
+  }
+
+  // 读取特色说明状态
+  vm.getData(vm.featuresData, "features");
+
+  // 發佈者數據 读取状态
+  var fromRead = vm.rentobject.from;
+  vm.fromData.forEach(function (_item, _index) {
+    if (fromRead === _item.text) {
+      _item.state = true;
+    }
+  });
+
+  // 聯繫方式 读取状态
+  if (vm.rentobject.contactType === '1') {
+    var contactRead = '0';
+  } else if (vm.rentobject.contactType === '0') {
+    var contactRead = '1';
+  }
+
+  vm.contactTypeData.forEach(function (_item, _index) {
+    if (parseInt(contactRead) === _index) {
+      vm.isContact = _index === 0 ? true : false;
+      _item.state = true;
+    }
+  }, vm);
+
+  vm.contactTypeData2.forEach(function (_item, _index) {
+    if (vm.rentobject.call === _item.eText) {
+      _item.state = true;
+    }
+  });
+}
+
+// vm.$watch('rentobject', function() {      
+//   console.log('保存数据...', newVal)
+//   WebViewJavascriptBridge.callHandler('SetData', {
+//     content_key: 'xiaolin',
+//     content: JSON.stringify(this.rentobject)
+//   })
+// }, {
+//   deep: true
+// })

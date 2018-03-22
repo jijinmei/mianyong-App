@@ -21,49 +21,15 @@ var vm = new Vue({
     rentobject: {
       handler: function handler(newVal) {
         // localStorage.setItem('rentobject', JSON.stringify(newVal))
-        WebViewJavascriptBridge.callHandler('SetData', { content_key: 'xiaolin', content: JSON.stringify(this.rentobject) });
+        WebViewJavascriptBridge.callHandler('SetData', {
+          content_key: 'xiaolin',
+          content: JSON.stringify(this.rentobject)
+        });
       },
       deep: true
     }
   },
-  mounted: function mounted() {
-
-    // 判斷機型, android / ios
-    var ua = navigator.userAgent.toLowerCase();
-    // alert(ua)
-    if (ua.match(/iPhone\sOS/i) == "iphone os") {
-      this.$refs.input.removeAttribute('capture');
-    }
-
-    console.log('window.innerHeight: ' + window.innerHeight + 'px');
-    // 设置高度
-    this.$refs.temp.style.height = window.innerHeight + 'px';
-    // 设置相对定位
-    this.$refs.temp.style.position = 'relative';
-
-    if (this.rentobject.pics != '' && this.rentobject.pics != null) {
-      // (负面信息, 引用bug)
-      // this.imgUrl = localStorage.pics
-      this.imgUrl = [].concat(this.rentobject.pics);
-    }
-    // else if (window.store.state.fengmiantu) {
-    //   this.imgUrl.push(window.store.state.fengmiantu)
-    // }
-
-    // 读取编辑 / 保存按钮的位置
-    if (this.imgUrl.length <= 9) {
-      this.isnormalfooter = true;
-    } else {
-      this.isnormalfooter = false;
-    }
-
-    // 读取 + 是否显示
-    if (this.imgUrl.length >= 12) {
-      this.showAdd = false;
-    } else {
-      this.showAdd = true;
-    }
-  },
+  mounted: function mounted() {},
 
   methods: {
     back: function back() {
@@ -186,22 +152,34 @@ var vm = new Vue({
         // goback(1)
 
 
-        WebViewJavascriptBridge.callHandler('SetData', { content_key: 'xiaolin', content: JSON.stringify(this.rentobject) });
+        WebViewJavascriptBridge.callHandler('SetData', {
+          content_key: 'xiaolin',
+          content: JSON.stringify(this.rentobject)
+        });
 
         setTimeout(function () {
 
-          WebViewJavascriptBridge.callHandler('goback', { pageNumber: '1', needRefresh: 'YES' });
+          WebViewJavascriptBridge.callHandler('goback', {
+            pageNumber: '1',
+            needRefresh: 'YES'
+          });
         }, 1000);
       } else {
         // localStorage.removeItem('pics')
         this.rentobject.pics = [];
 
-        WebViewJavascriptBridge.callHandler('SetData', { content_key: 'xiaolin', content: JSON.stringify(this.rentobject) });
+        WebViewJavascriptBridge.callHandler('SetData', {
+          content_key: 'xiaolin',
+          content: JSON.stringify(this.rentobject)
+        });
         // goback(1)
 
         setTimeout(function () {
 
-          WebViewJavascriptBridge.callHandler('goback', { pageNumber: '1', needRefresh: 'YES' });
+          WebViewJavascriptBridge.callHandler('goback', {
+            pageNumber: '1',
+            needRefresh: 'YES'
+          });
         }, 1000);
       }
 
@@ -404,9 +382,11 @@ function getAppLocalData(data) {
   if (data) {
     console.log('有值传过来', data);
     vm.rentobject = JSON.parse(data);
+    initdata();
   } else {
     console.log('没有传值过来', data);
     vm.rentobject = JSON.parse(JSON.stringify(saveObject));
+    initdata();
   }
 }
 
@@ -416,6 +396,46 @@ setTimeout(function () {
   var ua = navigator.userAgent.toLowerCase();
   if (ua.match(/iPhone\sOS/i) == "iphone os") {
 
-    WebViewJavascriptBridge.callHandler('GetData', { content_key: 'xiaolin' });
+    WebViewJavascriptBridge.callHandler('GetData', {
+      content_key: 'xiaolin'
+    });
   }
 }, 1000);
+
+function initdata() {
+  // 判斷機型, android / ios
+  var ua = navigator.userAgent.toLowerCase();
+  // alert(ua)
+  if (ua.match(/iPhone\sOS/i) == "iphone os") {
+    vm.$refs.input.removeAttribute('capture');
+  }
+
+  console.log('window.innerHeight: ' + window.innerHeight + 'px');
+  // 设置高度
+  vm.$refs.temp.style.height = window.innerHeight + 'px';
+  // 设置相对定位
+  vm.$refs.temp.style.position = 'relative';
+
+  if (vm.rentobject.pics != '' && vm.rentobject.pics != null) {
+    // (负面信息, 引用bug)
+    // vm.imgUrl = localStorage.pics
+    vm.imgUrl = [].concat(vm.rentobject.pics);
+  }
+  // else if (window.store.state.fengmiantu) {
+  //   vm.imgUrl.push(window.store.state.fengmiantu)
+  // }
+
+  // 读取编辑 / 保存按钮的位置
+  if (vm.imgUrl.length <= 9) {
+    vm.isnormalfooter = true;
+  } else {
+    vm.isnormalfooter = false;
+  }
+
+  // 读取 + 是否显示
+  if (vm.imgUrl.length >= 12) {
+    vm.showAdd = false;
+  } else {
+    vm.showAdd = true;
+  }
+}
