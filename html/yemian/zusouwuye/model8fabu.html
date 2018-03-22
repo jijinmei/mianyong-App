@@ -335,6 +335,7 @@ function getAppLocalData(data) {
         store,
         data: {
             huancun:[],
+            xiaolin:[],//
             huancunPics:[],
             objectId:'no',
             fengmiantu: '',
@@ -437,25 +438,26 @@ function getAppLocalData(data) {
                 // console.log(this.huancunPics)
                 var hh=this.huancun
                 var hh1=this.huancunPics
-                // 如果小林的拿不到图片缓存，则代表现在是我的发布进来的，或者是模块进来的新页面
+                // 小林有则图片取小林的
                 if(hh1.pics){
 
                 }else{
-                    // 如果是我的发布进来的则要转64，然后保存到app缓存
+                    // 我的图片有，小林无，我的图片转64存到小林，我的图片转64赋值给大数组
                     if(locations('from') == 'wodefabu'){
-                             this.getBase64(this.huancun.pics[0],1)
+                        for (var i = 0; i < this.huancun.pics.length; i++) {
+                            this.getBase64(this.huancun.pics[i],this.huancun.pics.length,i)
+                        }
+                             // this.getBase64(this.huancun.pics[0],1)
                      }else{
-                    // 如果是新页面进来的，则现在是没有数据的，不需要转
+                    // 小林无，我无，不需要执行图片操作，如果是新页面进来的
 
                      }
                 }
                 //我的发布点击编辑过来的，这个时候本地有一个model8fabu_array，将这个东西的内容赋给huancun的数组
                 if (locations('from') == 'wodefabu') {//肯定有数据，一定会执行这个
-                                         // console.log('wodefabu 取后台')
-                                         console.log('wodefabu 取后台 hh')
-                                         console.log(hh)
-                                         console.log('wodefabu 取后台 hh1')
-                                         console.log(hh1)
+                     console.log('wodefabu从app取得的数据')
+                     console.log(hh)
+                     console.log(hh1)
                      this.objectId=hh.objectId
                      if(hh.type[0]!=undefined&&isNaN(hh.type[0])){
                         console.log('类型是中文'+hh.type[0])
@@ -478,9 +480,8 @@ function getAppLocalData(data) {
 
                 } else if (locations('from') == 'model8') {
                                          // console.log('model8 自己的缓存')
-                                         console.log('model8 自己的缓存 hh')
+                                         console.log('model8')
                                          console.log(hh)
-                                         console.log('model8 自己的缓存 hh1')
                                          console.log(hh1)
                     //从8大模块的列表左边的发布跳过来的 只有存在数据才执行这一个
                     if (!hh) {
@@ -517,7 +518,7 @@ console.log('共同的执行数据挂载')
                         this.contacts=hh.contacts //联络人
 
             },
-            getBase64(img,index){
+            getBase64(img,lengths,i){
                 var that=this
                                   //传入图片路径，返回base64
                         function getBase64Image(img,width,height) {//width、height调用时传入具体像素值，控制大小 ,不传则默认图像大小
@@ -531,11 +532,15 @@ console.log('共同的执行数据挂载')
 
                           // 
                           console.log('转换为base64'+dataURL)
-                          // if(index==1){
-                            that.huancuns.pics=[dataURL]
-                            // 转完后要存储去app
-                              var aa={'pics':[dataURL]}
+                          that.xiaolin.push(dataURL)
+                          if(i==lengths-1){
+                             // 转完后要存储去app
+                              var aa={'pics':that.xiaolin}
                               WebViewJavascriptBridge.callHandler('SetData', {content_key: 'xiaolin', content: JSON.stringify(aa)})
+                              that.huancuns.pics=that.xiaolin
+                          }
+                           
+                            
                          
                         }
                     var image = new Image();
@@ -738,9 +743,9 @@ console.log('共同的执行数据挂载')
                             data: formData,
                         })
                         .done(function(data, textStatus, jqXHR) {
-                            //                      alert('发布好了')
                             if (data.status == 1) {
-                                WebViewJavascriptBridge.callHandler('ClearData', {content_key: 'huancun'})
+                                 WebViewJavascriptBridge.callHandler('ClearData', {content_key: 'huancun'})
+                                 WebViewJavascriptBridge.callHandler('ClearData', {content_key: 'xiaolin'})
                                  WebViewJavascriptBridge.callHandler('ClearData', {content_key: 'xiangqingData'})
                                 that.isending = true //正在发布，请稍后
                                 location.href = '../zusouwuye/model8.html?objectId=no&name=' + that.names + '&sessiontoken=' + sessiontoken
@@ -755,7 +760,7 @@ console.log('共同的执行数据挂载')
                             console.log("HTTP Request Failed");
                         })
                         .always(function() {});
-                }, 10000)
+                }, 1000)
 
             },
             //发布按钮为填完必填项目的时候將提示弹出框
