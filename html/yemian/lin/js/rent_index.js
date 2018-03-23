@@ -239,6 +239,8 @@ function getAppLocalData(data) {
     initdata();
   }
 }
+
+
 if(window.WebViewJavascriptBridge){
   WebViewJavascriptBridge.callHandler('GetData', {
     content_key: 'xiaolin'

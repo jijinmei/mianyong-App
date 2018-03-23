@@ -1,73 +1,22 @@
 'use strict';
 
-new Vue({
+Vue.prototype.$axios = axios;
+var vm = new Vue({
   el: '#app',
-  created: function created() {
-
-    // this.rentobject = JSON.parse(localStorage.getItem('rentobject'))
-
-
-    if (localStorage.getItem('rentobject')) {
-      this.rentobject = JSON.parse(localStorage.getItem('rentobject'));
-    } else {
-      this.rentobject = JSON.parse(JSON.stringify(saveObject));
-    }
-  },
-
-  watch: {
-    rentobject: {
-      handler: function handler(newVal) {
-        localStorage.setItem('rentobject', JSON.stringify(newVal));
-      },
-      deep: true
-    }
-  },
   mounted: function mounted() {
 
-    // 讀取可起租時間 狀態
-    var starttime = this.rentobject.start_time;
-    if (starttime && starttime === '隨時') {
-      this.isRent = true;
-    } else if (starttime) {
-      this.datetime = starttime;
+    if(window.WebViewJavascriptBridge){
+      WebViewJavascriptBridge.callHandler('GetData', {
+        content_key: 'xiaolin'
+      });
+    }else{
+      // 延时一秒
+    setTimeout(function () {
+      WebViewJavascriptBridge.callHandler('GetData', {
+        content_key: 'xiaolin'
+      });
+    }, 1000);
     }
-
-    // 读取特色说明状态
-    this.getData(this.featuresData, "features");
-
-    // 發佈者數據 读取状态
-    var fromRead = this.rentobject.from;
-    this.fromData.forEach(function (_item, _index) {
-      if (fromRead === _item.text) {
-        _item.state = true;
-      }
-    });
-
-    // 聯繫方式 读取状态
-    if (this.rentobject.contactType === '1') {
-      var contactRead = '0';
-    } else if (this.rentobject.contactType === '0') {
-      var contactRead = '1';
-    }
-
-    this.contactTypeData.forEach(function (_item, _index) {
-      if (parseInt(contactRead) === _index) {
-        this.isContact = _index === 0 ? true : false;
-        _item.state = true;
-      }
-    }, this);
-
-    this.contactTypeData2.forEach(function (_item, _index) {
-      if (this.rentobject.call === _item.eText) {
-        _item.state = true;
-      }
-    }, this);
-
-    // 讀取景觀 狀態
-    this.getData(this.landscapeData, 'landscape');
-
-    // 讀取裝修程度 狀態
-    this.getData(this.decorationData, 'decoration');
   },
 
   computed: {
@@ -100,45 +49,50 @@ new Vue({
       }
     },
     setaddImg: function setaddImg() {
-      if (this.rentobject.fengmiantu) {
-        return './imgs/fangzu/editPic.png';
-      } else {
-        return './imgs/fangzu/addPic.png';
+      if (this.rentobject) {
+
+        if (this.rentobject.pics != '' && this.rentobject.pics != null) {
+          this.iseditImg = false;
+          return './imgs/fangzu/editPic.png';
+        } else {
+          this.iseditImg = true;
+          return './imgs/fangzu/addPic.png';
+        }
       }
     },
-    iseditImg: function iseditImg() {
-      if (this.rentobject.fengmiantu) {
-        return false;
-      } else {
-        return true;
-      }
-    },
+    // iseditImg: function iseditImg() {
+    //   if (this.rentobject.fengmiantu) {
+    //     return false;
+    //   } else {
+    //     return true;
+    //   }
+    // },
 
     // 用戶的電話號碼
-    userphone: function userphone() {
+    // userphone: function userphone() {
 
-      var phone = this.rentobject.phone;
+    //   var phone = this.rentobject.phone;
 
-      if (phone) {
-        return phone;
-      } else {
-        var userdata = JSON.parse(localStorage.userData);
-        return userdata.phone;
-      }
-    },
+    //   if (phone) {
+    //     return phone;
+    //   } else {
+    //     var userdata = JSON.parse(localStorage.userData);
+    //     return userdata.phone;
+    //   }
+    // },
 
-    // 联系人
-    contacts: function contacts() {
+    // // 联系人
+    // contacts: function contacts() {
 
-      var contacts = this.rentobject.contacts;
+    //   var contacts = this.rentobject.contacts;
 
-      if (contacts) {
-        return contacts;
-      } else {
-        var userdata = JSON.parse(localStorage.userData);
-        return userdata.displayname;
-      }
-    }
+    //   if (contacts) {
+    //     return contacts;
+    //   } else {
+    //     var userdata = JSON.parse(localStorage.userData);
+    //     return userdata.displayname;
+    //   }
+    // }
   },
   methods: {
     setStyles: function setStyles(item) {
@@ -435,6 +389,7 @@ new Vue({
   data: function data() {
     return {
       rentobject: null,
+      iseditImg: true,
       DatetimePickerShow: false,
       minDate: new Date(),
       currentDate: new Date(),
@@ -624,3 +579,64 @@ new Vue({
     };
   }
 });
+
+function getAppLocalData(data) {
+
+  if (data) {
+    console.log('有值传过来', data)
+    vm.rentobject = JSON.parse(data)
+    initdata()
+  } else {
+    console.log('没有传值过来')
+    vm.rentobject = JSON.parse(JSON.stringify(saveObject))
+    initdata()
+  }
+
+}
+
+function initdata() {
+ // 讀取可起租時間 狀態
+ var starttime = this.rentobject.start_time;
+ if (starttime && starttime === '隨時') {
+   this.isRent = true;
+ } else if (starttime) {
+   this.datetime = starttime;
+ }
+
+ // 读取特色说明状态
+ this.getData(this.featuresData, "features");
+
+ // 發佈者數據 读取状态
+ var fromRead = this.rentobject.from;
+ this.fromData.forEach(function (_item, _index) {
+   if (fromRead === _item.text) {
+     _item.state = true;
+   }
+ });
+
+ // 聯繫方式 读取状态
+ if (this.rentobject.contactType === '1') {
+   var contactRead = '0';
+ } else if (this.rentobject.contactType === '0') {
+   var contactRead = '1';
+ }
+
+ this.contactTypeData.forEach(function (_item, _index) {
+   if (parseInt(contactRead) === _index) {
+     this.isContact = _index === 0 ? true : false;
+     _item.state = true;
+   }
+ }, this);
+
+ this.contactTypeData2.forEach(function (_item, _index) {
+   if (this.rentobject.call === _item.eText) {
+     _item.state = true;
+   }
+ }, this);
+
+ // 讀取景觀 狀態
+ this.getData(this.landscapeData, 'landscape');
+
+ // 讀取裝修程度 狀態
+ this.getData(this.decorationData, 'decoration');
+}
