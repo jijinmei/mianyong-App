@@ -185,6 +185,22 @@
   
       </div>
     </div>
+
+    <script>
+      function getAppLocalData(data) {
+  
+        if (data) {
+          console.log('有值传过来', data)
+          vm.rentobject = JSON.parse(data)
+          initdata()
+        } else {
+          console.log('没有传值过来')
+          vm.rentobject = JSON.parse(JSON.stringify(saveObject))
+          initdata()
+        }
+  
+      }
+    </script>
   
     <script src="https://cdn.bootcss.com/vue/2.5.13/vue.min.js"></script>
     <script src="https://cdn.bootcss.com/axios/0.18.0/axios.min.js"></script>

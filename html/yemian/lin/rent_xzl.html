@@ -104,22 +104,24 @@
           <span>*</span>裝修程度</p>
         <div class="content">
           <div class="wrap">
-            <div class="item" v-for="(item, index) in decorationData" @click="decorationClick(item, index)" :style="setStyles(item)" :class="{active2: item.state}">{{item.text}}</div>
+            <div class="item" v-for="(item, index) in decorationData" @click="decorationClick(item, index)" :style="setStyles(item)"
+              :class="{active2: item.state}">{{item.text}}</div>
           </div>
         </div>
       </div>
-      
-          <!-- 可起租時間 -->
-          <div class="start-time publicCss">
-            <p class="title">可起租時間</p>
-            <div class="content">
-              <span :style="starttime" @click="slcStartTime">隨時</span><span @click="slcStartTime">{{datetime}}</span>
-            </div>
-          </div>
-      
-          <div class="fabu-model" v-show="DatetimePickerShow">
-            <van-datetime-picker v-model="currentDate" type="date" :min-hour="minDate" @confirm="slcTime" @cancel="cancelTime">
-          </div>
+
+      <!-- 可起租時間 -->
+      <div class="start-time publicCss">
+        <p class="title">可起租時間</p>
+        <div class="content">
+          <span :style="starttime" @click="slcStartTime">隨時</span>
+          <span @click="slcStartTime">{{datetime}}</span>
+        </div>
+      </div>
+
+      <div class="fabu-model" v-show="DatetimePickerShow">
+        <van-datetime-picker v-model="currentDate" type="date" :min-hour="minDate" @confirm="slcTime" @cancel="cancelTime">
+      </div>
 
       <!-- 特色說明 -->
       <div class="features publicCss">
@@ -183,6 +185,23 @@
 
     </div>
   </div>
+
+  <script>
+
+    function getAppLocalData(data) {
+
+      if (data) {
+        console.log('有值传过来', data)
+        vm.rentobject = JSON.parse(data)
+        initdata()
+      } else {
+        console.log('没有传值过来')
+        vm.rentobject = JSON.parse(JSON.stringify(saveObject))
+        initdata()
+      }
+
+    }
+  </script>
 
   <script src="https://cdn.bootcss.com/vue/2.5.13/vue.min.js"></script>
   <script src="https://cdn.bootcss.com/axios/0.18.0/axios.min.js"></script>

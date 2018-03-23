@@ -1,31 +1,10 @@
 'use strict';
 
-function getAppLocalData(data) {
-  
-    if (data) {
-      console.log('有值传过来', data);
-      vm.rentobject = JSON.parse(data);
-      initdata();
-    } else {
-      console.log('没有传值过来');
-      vm.rentobject = JSON.parse(JSON.stringify(saveObject));
-      initdata();
-    }
-  };
 Vue.prototype.$axios = axios;
 var vm=new Vue({
   el: '#app',
   created: function created() {
 
-  },
-
-  watch: {
-    rentobject: {
-      handler: function handler(newVal) {
-        localStorage.setItem('rentobject', JSON.stringify(newVal));
-      },
-      deep: true
-    }
   },
   computed: {
     setstyle: function setstyle() {
@@ -40,9 +19,9 @@ var vm=new Vue({
       };
     },
     setImg: function setImg() {
-      if (localStorage.fengmiantu) {
+      if (this.rentobject.fengmiantu) {
         return {
-          'backgroundImage': 'url(' + localStorage.fengmiantu + ')'
+          'backgroundImage': 'url(' + this.rentobject.fengmiantu + ')'
         };
       } else {
         return {
@@ -51,14 +30,14 @@ var vm=new Vue({
       }
     },
     setaddImg: function setaddImg() {
-      if (localStorage.fengmiantu) {
+      if (this.rentobject.fengmiantu) {
         return './imgs/fangzu/editPic.png';
       } else {
         return './imgs/fangzu/addPic.png';
       }
     },
     iseditImg: function iseditImg() {
-      if (localStorage.fengmiantu) {
+      if (this.rentobject.fengmiantu) {
         return false;
       } else {
         return true;
@@ -73,7 +52,7 @@ var vm=new Vue({
       //   if(phone) {
       //     return phone
       //   } else {
-      //     let userdata = JSON.parse(localStorage.userData)
+      //     let userdata = JSON.parse(this.rentobject.userData)
       //     return userdata.phone
       //   }
     },
@@ -86,7 +65,7 @@ var vm=new Vue({
       //   if (contacts) {
       //     return contacts
       //   } else {    
-      //     let userdata = JSON.parse(localStorage.userData)
+      //     let userdata = JSON.parse(this.rentobject.userData)
       //     return userdata.displayname
       //   }
     }
@@ -124,7 +103,7 @@ var vm=new Vue({
     this.getData(this.featuresData, "features");
 
     // 發佈者數據 读取状态
-    var fromRead = localStorage.from;
+    var fromRead = this.rentobject.from;
     this.fromData.forEach(function (_item, _index) {
       if (fromRead === _item.text) {
         _item.state = true;
@@ -174,7 +153,7 @@ var that=this;
 
         if (!res.message) {
           console.log('发布成功');
-          // clearLocalStorages();
+          // clearthis.rentobjects();
           WebViewJavascriptBridge.callHandler('ClearData', {
             content_key: 'huancun'
           })
@@ -292,7 +271,7 @@ var that=this;
      * number : 选项上限数
      */
     saveData: function saveData(index, data, saveKey, number) {
-      var _this = this;
+      var this = this;
 
       if (this.rentobject[saveKey]) {
         var arr = this.rentobject[saveKey].split("、");
@@ -309,13 +288,13 @@ var that=this;
             }
             _item.state = true;
             arr.push(_item.text);
-            _this.rentobject[saveKey] = arr.join("、");
+            this.rentobject[saveKey] = arr.join("、");
             // console.log(arr)
           } else {
             _item.state = false;
             if (arr.indexOf(_item.text) > -1) {
               arr.splice(arr.indexOf(_item.text), 1);
-              _this.rentobject[saveKey] = arr.join("、");
+              this.rentobject[saveKey] = arr.join("、");
               // console.log(arr)
             }
           }
@@ -389,6 +368,7 @@ var that=this;
   },
   data: function data() {
     return {
+      rentobject: null,
       alerts:false,
       isending:true,
       rentobject: null,
