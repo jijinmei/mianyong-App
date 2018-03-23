@@ -1,6 +1,6 @@
 'use strict';
 
-new Vue({
+var vm = new Vue({
   el: '#app',
   mounted: function mounted() {
 
@@ -60,30 +60,30 @@ new Vue({
     },
 
     // 用戶的電話號碼
-    userphone: function userphone() {
+    // userphone: function userphone() {
 
-      var phone = this.rentobject.phone;
+    //   var phone = this.rentobject.phone;
 
-      if (phone) {
-        return phone;
-      } else {
-        var userdata = JSON.parse(localStorage.userData);
-        return userdata.phone;
-      }
-    },
+    //   if (phone) {
+    //     return phone;
+    //   } else {
+    //     var userdata = JSON.parse(localStorage.userData);
+    //     return userdata.phone;
+    //   }
+    // },
 
-    // 联系人
-    contacts: function contacts() {
+    // // 联系人
+    // contacts: function contacts() {
 
-      var contacts = this.rentobject.contacts;
+    //   var contacts = this.rentobject.contacts;
 
-      if (contacts) {
-        return contacts;
-      } else {
-        var userdata = JSON.parse(localStorage.userData);
-        return userdata.displayname;
-      }
-    }
+    //   if (contacts) {
+    //     return contacts;
+    //   } else {
+    //     var userdata = JSON.parse(localStorage.userData);
+    //     return userdata.displayname;
+    //   }
+    // }
   },
   methods: {
     setStyles: function setStyles(item) {

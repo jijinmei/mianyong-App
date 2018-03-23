@@ -1,6 +1,6 @@
 'use strict';
 
-new Vue({
+var vm = new Vue({
   el: '#app',
   mounted: function mounted() {
     if(window.WebViewJavascriptBridge){
