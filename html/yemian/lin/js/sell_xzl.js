@@ -5,17 +5,17 @@ var vm = new Vue({
   el: '#app',
   mounted: function mounted() {
 
-    if(window.WebViewJavascriptBridge){
+    if (window.WebViewJavascriptBridge) {
       WebViewJavascriptBridge.callHandler('GetData', {
         content_key: 'xiaolin'
       });
-    }else{
+    } else {
       // 延时一秒
-    setTimeout(function () {
-      WebViewJavascriptBridge.callHandler('GetData', {
-        content_key: 'xiaolin'
-      });
-    }, 1000);
+      setTimeout(function () {
+        WebViewJavascriptBridge.callHandler('GetData', {
+          content_key: 'xiaolin'
+        });
+      }, 1000);
     }
   },
 
@@ -37,15 +37,17 @@ var vm = new Vue({
       };
     },
     setImg: function setImg() {
-      if (this.rentobject.pics != '' && this.rentobject.pics != null) {
-        var str = this.rentobject.pics[0];
-        return {
-          'backgroundImage': 'url(' + str + ')'
-        };
-      } else {
-        return {
-          'backgroundImage': 'url(./imgs/fangzu/test.png)'
-        };
+      if (this.rentobject) {
+        if (this.rentobject.pics != '' && this.rentobject.pics != null) {
+          var str = this.rentobject.pics[0];
+          return {
+            'backgroundImage': 'url(' + str + ')'
+          };
+        } else {
+          return {
+            'backgroundImage': 'url(./imgs/fangzu/test.png)'
+          };
+        }
       }
     },
     setaddImg: function setaddImg() {
@@ -595,48 +597,48 @@ function getAppLocalData(data) {
 }
 
 function initdata() {
- // 讀取可起租時間 狀態
- var starttime = this.rentobject.start_time;
- if (starttime && starttime === '隨時') {
-   this.isRent = true;
- } else if (starttime) {
-   this.datetime = starttime;
- }
+  // 讀取可起租時間 狀態
+  var starttime = this.rentobject.start_time;
+  if (starttime && starttime === '隨時') {
+    this.isRent = true;
+  } else if (starttime) {
+    this.datetime = starttime;
+  }
 
- // 读取特色说明状态
- this.getData(this.featuresData, "features");
+  // 读取特色说明状态
+  this.getData(this.featuresData, "features");
 
- // 發佈者數據 读取状态
- var fromRead = this.rentobject.from;
- this.fromData.forEach(function (_item, _index) {
-   if (fromRead === _item.text) {
-     _item.state = true;
-   }
- });
+  // 發佈者數據 读取状态
+  var fromRead = this.rentobject.from;
+  this.fromData.forEach(function (_item, _index) {
+    if (fromRead === _item.text) {
+      _item.state = true;
+    }
+  });
 
- // 聯繫方式 读取状态
- if (this.rentobject.contactType === '1') {
-   var contactRead = '0';
- } else if (this.rentobject.contactType === '0') {
-   var contactRead = '1';
- }
+  // 聯繫方式 读取状态
+  if (this.rentobject.contactType === '1') {
+    var contactRead = '0';
+  } else if (this.rentobject.contactType === '0') {
+    var contactRead = '1';
+  }
 
- this.contactTypeData.forEach(function (_item, _index) {
-   if (parseInt(contactRead) === _index) {
-     this.isContact = _index === 0 ? true : false;
-     _item.state = true;
-   }
- }, this);
+  this.contactTypeData.forEach(function (_item, _index) {
+    if (parseInt(contactRead) === _index) {
+      this.isContact = _index === 0 ? true : false;
+      _item.state = true;
+    }
+  }, this);
 
- this.contactTypeData2.forEach(function (_item, _index) {
-   if (this.rentobject.call === _item.eText) {
-     _item.state = true;
-   }
- }, this);
+  this.contactTypeData2.forEach(function (_item, _index) {
+    if (this.rentobject.call === _item.eText) {
+      _item.state = true;
+    }
+  }, this);
 
- // 讀取景觀 狀態
- this.getData(this.landscapeData, 'landscape');
+  // 讀取景觀 狀態
+  this.getData(this.landscapeData, 'landscape');
 
- // 讀取裝修程度 狀態
- this.getData(this.decorationData, 'decoration');
+  // 讀取裝修程度 狀態
+  this.getData(this.decorationData, 'decoration');
 }

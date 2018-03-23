@@ -2,17 +2,17 @@
 var vm = new Vue({
   el: '#app',
   mounted: function mounted() {
-    if(window.WebViewJavascriptBridge){
+    if (window.WebViewJavascriptBridge) {
       WebViewJavascriptBridge.callHandler('GetData', {
         content_key: 'xiaolin'
       });
-    }else{
+    } else {
       // 延时一秒
-    setTimeout(function () {
-      WebViewJavascriptBridge.callHandler('GetData', {
-        content_key: 'xiaolin'
-      });
-    }, 1000);
+      setTimeout(function () {
+        WebViewJavascriptBridge.callHandler('GetData', {
+          content_key: 'xiaolin'
+        });
+      }, 1000);
     }
   },
 
@@ -34,46 +34,30 @@ var vm = new Vue({
       };
     },
     setImg: function setImg() {
-      if(this.rentobject){
-      if (this.rentobject.pics != '' && this.rentobject.pics != null) {
-        var str = this.rentobject.pics[0];
-        return {
-          'backgroundImage': 'url(' + str + ')'
-        };
-      } else {
-        return {
-          'backgroundImage': 'url(./imgs/fangzu/test.png)'
-        };
+      if (this.rentobject) {
+        if (this.rentobject.pics != '' && this.rentobject.pics != null) {
+          var str = this.rentobject.pics[0];
+          return {
+            'backgroundImage': 'url(' + str + ')'
+          };
+        } else {
+          return {
+            'backgroundImage': 'url(./imgs/fangzu/test.png)'
+          };
+        }
       }
-    }
     },
     setaddImg: function setaddImg() {
       if (this.rentobject) {
-        
-                if (this.rentobject.pics != '' && this.rentobject.pics != null) {
-                  this.iseditImg = false;
-                  return './imgs/fangzu/editPic.png';
-                } else {
-                  this.iseditImg = true;
-                  return './imgs/fangzu/addPic.png';
-                }
-              }
-    //   if(this.rentobject){
-    //   if (this.rentobject.fengmiantu) {
-    //     return './imgs/fangzu/editPic.png';
-    //   } else {
-    //     return './imgs/fangzu/addPic.png';
-    //   }
-    // }
-    },
-    iseditImg: function iseditImg() {
-      if(this.rentobject){
-      if (this.rentobject.fengmiantu) {
-        return false;
-      } else {
-        return true;
+
+        if (this.rentobject.pics != '' && this.rentobject.pics != null) {
+          this.iseditImg = false;
+          return './imgs/fangzu/editPic.png';
+        } else {
+          this.iseditImg = true;
+          return './imgs/fangzu/addPic.png';
+        }
       }
-    }
     },
 
     // 用戶的電話號碼
@@ -104,60 +88,60 @@ var vm = new Vue({
   },
   methods: {
     publish: function publish() {
-      var that=this
-       WebViewJavascriptBridge.callHandler('SetData', {
-         content_key: 'xiaolin',
-         content: JSON.stringify(this.rentobject)
-       });
- 
-       // 照片
-       if (this.rentobject.pics == '' || this.rentobject.pics == null) {
-         // alert('照片不能為空');
-         this.alerts=true;
-         setTimeout(function(){
-          that.alerts=false;
-         },2000)
-         return;
-       }
- 
-       // 租金    楼层       发布者身份    联繁方式
-       if (!this.rentobject.price || !this.rentobject.floor || !this.rentobject.from || !this.rentobject.contactType) {
-         this.alerts=true;
-         setTimeout(function(){
-          that.alerts=false;
-         },2000)
-         return 
-       }
- 
-       if (this.rentobject.contactType === '1') {
-         // 联繁人     联繁电话       呼称
-         if (!this.rentobject.contacts || !this.rentobject.phone || !this.rentobject.call) {
-           this.alerts=true;
-           setTimeout(function(){
-            that.alerts=false;
-           },2000)
-           return
-         }
-       }
-       this.isending=false;
-       this.$axios.post('/agent', getFormDataFun(this.rentobject)).then(function (res) {
- 
-         if (!res.message) {
-           console.log('发布成功');
-           WebViewJavascriptBridge.callHandler('ClearData', {
-             content_key: 'huancun'
-           })
-           WebViewJavascriptBridge.callHandler('ClearData', {
-             content_key: 'xiaolin'
-           })
-           WebViewJavascriptBridge.callHandler('ClearData', {
-             content_key: 'xiangqingData'
-           })
-           goback(2);
-         }
-       });
-     },
- 
+      var that = this
+      WebViewJavascriptBridge.callHandler('SetData', {
+        content_key: 'xiaolin',
+        content: JSON.stringify(this.rentobject)
+      });
+
+      // 照片
+      if (this.rentobject.pics == '' || this.rentobject.pics == null) {
+        // alert('照片不能為空');
+        this.alerts = true;
+        setTimeout(function () {
+          that.alerts = false;
+        }, 2000)
+        return;
+      }
+
+      // 租金    楼层       发布者身份    联繁方式
+      if (!this.rentobject.price || !this.rentobject.floor || !this.rentobject.from || !this.rentobject.contactType) {
+        this.alerts = true;
+        setTimeout(function () {
+          that.alerts = false;
+        }, 2000)
+        return
+      }
+
+      if (this.rentobject.contactType === '1') {
+        // 联繁人     联繁电话       呼称
+        if (!this.rentobject.contacts || !this.rentobject.phone || !this.rentobject.call) {
+          this.alerts = true;
+          setTimeout(function () {
+            that.alerts = false;
+          }, 2000)
+          return
+        }
+      }
+      this.isending = false;
+      this.$axios.post('/agent', getFormDataFun(this.rentobject)).then(function (res) {
+
+        if (!res.message) {
+          console.log('发布成功');
+          WebViewJavascriptBridge.callHandler('ClearData', {
+            content_key: 'huancun'
+          })
+          WebViewJavascriptBridge.callHandler('ClearData', {
+            content_key: 'xiaolin'
+          })
+          WebViewJavascriptBridge.callHandler('ClearData', {
+            content_key: 'xiangqingData'
+          })
+          goback(2);
+        }
+      });
+    },
+
     setStyles: function setStyles(item) {
       return {
         backgroundImage: 'url(' + (item.state ? item.slcImg : item.normalImg) + ')'
@@ -451,8 +435,9 @@ var vm = new Vue({
   },
   data: function data() {
     return {
-      alerts:false,
-      isending:true,
+      iseditImg: true,
+      alerts: false,
+      isending: true,
       fangjian: 1,
       rentobject: null,
       DatetimePickerShow: false,
@@ -651,48 +636,48 @@ var vm = new Vue({
 
 function initdata() {
 
-    // 讀取可起租時間 狀態
-    var starttime = vm.rentobject.start_time;
-    if (starttime && starttime === '隨時') {
-      vm.isRent = true;
-    } else if (starttime) {
-      vm.datetime = starttime;
+  // 讀取可起租時間 狀態
+  var starttime = vm.rentobject.start_time;
+  if (starttime && starttime === '隨時') {
+    vm.isRent = true;
+  } else if (starttime) {
+    vm.datetime = starttime;
+  }
+
+  // 读取特色说明状态
+  vm.getData(vm.featuresData, "features");
+
+  // 發佈者數據 读取状态
+  var fromRead = vm.rentobject.from;
+  vm.fromData.forEach(function (_item, _index) {
+    if (fromRead === _item.text) {
+      _item.state = true;
     }
+  });
 
-    // 读取特色说明状态
-    vm.getData(vm.featuresData, "features");
+  // 聯繫方式 读取状态
+  if (vm.rentobject.contactType === '1') {
+    var contactRead = '0';
+  } else if (vm.rentobject.contactType === '0') {
+    var contactRead = '1';
+  }
 
-    // 發佈者數據 读取状态
-    var fromRead = vm.rentobject.from;
-    vm.fromData.forEach(function (_item, _index) {
-      if (fromRead === _item.text) {
-        _item.state = true;
-      }
-    });
-
-    // 聯繫方式 读取状态
-    if (vm.rentobject.contactType === '1') {
-      var contactRead = '0';
-    } else if (vm.rentobject.contactType === '0') {
-      var contactRead = '1';
+  vm.contactTypeData.forEach(function (_item, _index) {
+    if (parseInt(contactRead) === _index) {
+      vm.isContact = _index === 0 ? true : false;
+      _item.state = true;
     }
+  }, this);
 
-    vm.contactTypeData.forEach(function (_item, _index) {
-      if (parseInt(contactRead) === _index) {
-        vm.isContact = _index === 0 ? true : false;
-        _item.state = true;
-      }
-    }, this);
+  vm.contactTypeData2.forEach(function (_item, _index) {
+    if (vm.rentobject.call === _item.eText) {
+      _item.state = true;
+    }
+  }, vm);
 
-    vm.contactTypeData2.forEach(function (_item, _index) {
-      if (vm.rentobject.call === _item.eText) {
-        _item.state = true;
-      }
-    }, vm);
+  // 讀取景觀 狀態
+  vm.getData(vm.landscapeData, 'landscape');
 
-    // 讀取景觀 狀態
-    vm.getData(vm.landscapeData, 'landscape');
-
-    // 讀取裝修程度 狀態
-    vm.getData(vm.decorationData, 'decoration');
+  // 讀取裝修程度 狀態
+  vm.getData(vm.decorationData, 'decoration');
 }
