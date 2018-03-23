@@ -19,7 +19,7 @@ var vm=new Vue({
       };
     },
     setImg: function setImg() {
-      if (this.rentobject.fengmiantu) {
+      if (this.rentobject.pics) {
         return {
           'backgroundImage': 'url(' + this.rentobject.fengmiantu + ')'
         };
