@@ -16,14 +16,17 @@ var vm = new Vue({
       };
     },
     setImg: function setImg() {
-      if (localStorage.fengmiantu) {
-        return {
-          'backgroundImage': 'url(' + localStorage.fengmiantu + ')'
-        };
-      } else {
-        return {
-          'backgroundImage': 'url(\'./imgs/fangzu/test.png\')'
-        };
+      if (this.rentobject) {
+        if (this.rentobject.pics != '' && this.rentobject.pics != null) {
+          var str = this.rentobject.pics[0];
+          return {
+            'backgroundImage': 'url(' + str + ')'
+          };
+        } else {
+          return {
+            'backgroundImage': 'url(./imgs/fangzu/test.png)'
+          };
+        }
       }
     },
     setaddImg: function setaddImg() {
@@ -74,17 +77,17 @@ var vm = new Vue({
   },
   mounted: function mounted() {
 
-    if(window.WebViewJavascriptBridge){
+    if (window.WebViewJavascriptBridge) {
       WebViewJavascriptBridge.callHandler('GetData', {
         content_key: 'xiaolin'
       });
-    }else{
+    } else {
       // 延时一秒
-    setTimeout(function () {
-      WebViewJavascriptBridge.callHandler('GetData', {
-        content_key: 'xiaolin'
-      });
-    }, 1000);
+      setTimeout(function () {
+        WebViewJavascriptBridge.callHandler('GetData', {
+          content_key: 'xiaolin'
+        });
+      }, 1000);
     }
   },
 
@@ -113,7 +116,7 @@ var vm = new Vue({
     },
 
     // 添加照片
-    addPic: function addPic() {},
+    addPic: function addPic() { },
 
     // 下一步
     next: function next(name) {

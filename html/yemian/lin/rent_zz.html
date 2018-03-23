@@ -157,11 +157,11 @@
     if (data) {
       console.log('有值传过来', data)
       vm.rentobject = JSON.parse(data)
-      vm.initdata()
+      initdata()
     } else {
       console.log('没有传值过来')
       vm.rentobject = JSON.parse(JSON.stringify(saveObject))
-      vm.initdata()
+      initdata()
     }
 
 

@@ -5,7 +5,7 @@ var vm = new Vue({
   el: '#app',
   mounted: function mounted() {
 
-    
+
   },
 
   computed: {
@@ -29,7 +29,6 @@ var vm = new Vue({
     },
     setImg: function setImg() {
       if (this.rentobject) {
-        
         if (this.rentobject.pics != '' && this.rentobject.pics != null) {
           var str = this.rentobject.pics[0];
           return {
@@ -43,7 +42,6 @@ var vm = new Vue({
       }
     },
     setaddImg: function setaddImg() {
-
       if (this.rentobject) {
 
         if (this.rentobject.pics != '' && this.rentobject.pics != null) {

@@ -26,70 +26,47 @@ var vm = new Vue({
       };
     },
     setImg: function setImg() {
-      if(this.rentobject){
-      if (this.rentobject.pics != '' && this.rentobject.pics != null) {
-        var str = this.rentobject.pics[0];
-        return {
-          'backgroundImage': 'url(' + str + ')'
-        };
-      } else {
-        return {
-          'backgroundImage': 'url(./imgs/fangzu/test.png)'
-        };
+      if (this.rentobject) {
+        if (this.rentobject.pics != '' && this.rentobject.pics != null) {
+          var str = this.rentobject.pics[0];
+          return {
+            'backgroundImage': 'url(' + str + ')'
+          };
+        } else {
+          return {
+            'backgroundImage': 'url(./imgs/fangzu/test.png)'
+          };
+        }
       }
     }
-    },
+    ,
     setaddImg: function setaddImg() {
-      if(this.rentobject){
-      if (this.rentobject.pics != '' && this.rentobject.pics != null) {
-        this.iseditImg = false;
-        return './imgs/fangzu/editPic.png';
-      } else {
-        this.iseditImg = true;
-        return './imgs/fangzu/addPic.png';
+      if (this.rentobject) {
+
+        if (this.rentobject.pics != '' && this.rentobject.pics != null) {
+          this.iseditImg = false;
+          return './imgs/fangzu/editPic.png';
+        } else {
+          this.iseditImg = true;
+          return './imgs/fangzu/addPic.png';
+        }
       }
     }
-    },
-
-    // 用戶的電話號碼
-    userphone: function userphone() {
-
-      // let phone = window.store.state.userData.phone
-
-      // if(phone) {
-      //   return phone
-      // } else {
-      //   let userdata = JSON.parse(localStorage.userData)
-      //   return userdata.phone
-      // }
-    },
-
-    // 联系人
-    contacts: function contacts() {
-
-      // let contacts = localStorage.contacts
-
-      // if (contacts) {
-      //   return contacts
-      // } else {    
-      //   let userdata = JSON.parse(localStorage.userData)
-      //   return userdata.displayname
-      // }
-    }
+    
   },
   mounted: function mounted() {
 
-    if(window.WebViewJavascriptBridge){
+    if (window.WebViewJavascriptBridge) {
       WebViewJavascriptBridge.callHandler('GetData', {
         content_key: 'xiaolin'
       });
-    }else{
+    } else {
       // 延时一秒
-    setTimeout(function () {
-      WebViewJavascriptBridge.callHandler('GetData', {
-        content_key: 'xiaolin'
-      });
-    }, 1000);
+      setTimeout(function () {
+        WebViewJavascriptBridge.callHandler('GetData', {
+          content_key: 'xiaolin'
+        });
+      }, 1000);
     }
     // WebViewJavascriptBridge.callHandler('GetData', {
     //   content_key: 'xiaolin'
@@ -109,7 +86,7 @@ var vm = new Vue({
       location.href = 'preview.html' + location.search;
     },
     publish: function publish() {
-     var that=this
+      var that = this
       WebViewJavascriptBridge.callHandler('SetData', {
         content_key: 'xiaolin',
         content: JSON.stringify(this.rentobject)
@@ -118,33 +95,33 @@ var vm = new Vue({
       // 照片
       if (this.rentobject.pics == '' || this.rentobject.pics == null) {
         // alert('照片不能為空');
-        this.alerts=true;
-        setTimeout(function(){
-         that.alerts=false;
-        },2000)
+        this.alerts = true;
+        setTimeout(function () {
+          that.alerts = false;
+        }, 2000)
         return;
       }
 
       // 租金    楼层       发布者身份    联繁方式
       if (!this.rentobject.price || !this.rentobject.floor || !this.rentobject.from || !this.rentobject.contactType) {
-        this.alerts=true;
-        setTimeout(function(){
-         that.alerts=false;
-        },2000)
-        return 
+        this.alerts = true;
+        setTimeout(function () {
+          that.alerts = false;
+        }, 2000)
+        return
       }
 
       if (this.rentobject.contactType === '1') {
         // 联繁人     联繁电话       呼称
         if (!this.rentobject.contacts || !this.rentobject.phone || !this.rentobject.call) {
-          this.alerts=true;
-          setTimeout(function(){
-           that.alerts=false;
-          },2000)
+          this.alerts = true;
+          setTimeout(function () {
+            that.alerts = false;
+          }, 2000)
           return
         }
       }
-      this.isending=false;
+      this.isending = false;
       this.$axios.post('/agent', getFormDataFun(this.rentobject)).then(function (res) {
 
         if (!res.message) {
@@ -165,6 +142,10 @@ var vm = new Vue({
 
     // 添加照片
     addPic: function addPic() {
+      WebViewJavascriptBridge.callHandler('SetData', {
+        content_key: 'xiaolin',
+        content: JSON.stringify(this.rentobject)
+      });
       location.href = 'pic.html' + location.search;
     },
 
@@ -347,8 +328,8 @@ var vm = new Vue({
   },
   data: function data() {
     return {
-      alerts:false,
-      isending:true,
+      alerts: false,
+      isending: true,
       DatetimePickerShow: false,
       minDate: new Date(),
       currentDate: new Date(),

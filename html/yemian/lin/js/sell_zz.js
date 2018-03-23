@@ -2,92 +2,46 @@
 
 var vm = new Vue({
   el: '#app',
-  created: function created() {
-
-    // this.sellobject = JSON.parse(localStorage.getItem('sellobject'))
-
-    if (localStorage.getItem('sellobject')) {
-      this.sellobject = JSON.parse(localStorage.getItem('sellobject'));
-    } else {
-      this.sellobject = JSON.parse(JSON.stringify(saveObject));
-    }
-  },
   mounted: function mounted() {
 
-    // 讀取樓層 狀態
-    if (this.sellobject.floor) {
-      this.getData(this.floorData, 'floor');
-
-      // 讀取樓層自定義狀態 狀態
-      var floorStr = this.sellobject.floor;
-      if (floorStr !== '底層' && floorStr !== '中層' && floorStr !== '高層' && floorStr !== '極高層') {
-        this.$refs.floor.value = floorStr;
-      }
-    }
-
-    // 讀取間隔 狀態
-    var str = this.sellobject.space;
-    if (str) {
-      // 判斷改字段是否存在數據, 存在->運行下面循環, 否則跳過循環
-      str.split(',').forEach(function (_item, _index) {
-        var temp = _item.substr(-1, 1);
-        if (_index === 0) {
-          this.fangjian = temp;
-        } else if (_index === 1) {
-          this.keting = temp;
-        } else {
-          this.xishoujian = temp;
-        }
-      }, this);
-    } else {
-      this.sellobject.space = '房間:1,客廳:0,洗手間:0';
-    }
-
-    // 讀取座向 狀態
-    if (this.sellobject.direct) {
-      this.getData(this.directData, 'direct');
-    }
-
-    // 讀取景觀 狀態
-    if (this.sellobject.landscape) {
-      this.getData(this.landscapeData, 'landscape');
-    }
-
-    // 讀取裝修程度 狀態
-    if (this.sellobject.decoration) {
-      this.getData(this.decorationData, 'decoration');
-    }
-  },
-
-  watch: {
-    sellobject: {
-      handler: function handler(newVal) {
-        localStorage.setItem('sellobject', JSON.stringify(newVal));
-      },
-      deep: true
+    if(window.WebViewJavascriptBridge){
+      WebViewJavascriptBridge.callHandler('GetData', {
+        content_key: 'xiaolin'
+      });
+    }else{
+      // 延时一秒
+    setTimeout(function () {
+      WebViewJavascriptBridge.callHandler('GetData', {
+        content_key: 'xiaolin'
+      });
+    }, 1000);
     }
   },
   computed: {
     setImg: function setImg() {
-      console.log(this.sellobject.pics);
-      if (this.sellobject.pics != '' && this.sellobject.pics != null) {
-        var str = this.sellobject.pics[0];
-        return {
-          'backgroundImage': 'url(' + str + ')'
-        };
-      } else {
-        return {
-          'backgroundImage': 'url(./imgs/fangzu/test.png)'
-        };
+      if (this.rentobject) {
+        if (this.rentobject.pics != '' && this.rentobject.pics != null) {
+          var str = this.rentobject.pics[0];
+          return {
+            'backgroundImage': 'url(' + str + ')'
+          };
+        } else {
+          return {
+            'backgroundImage': 'url(./imgs/fangzu/test.png)'
+          };
+        }
       }
     },
     setaddImg: function setaddImg() {
-      if (this.sellobject.pics != '' && this.sellobject.pics != null) {
-        this.iseditImg = false;
-        return './imgs/fangzu/editPic.png';
-      } else {
-        this.iseditImg = true;
-        return './imgs/fangzu/addPic.png';
+      if (this.rentobject) {
+
+        if (this.rentobject.pics != '' && this.rentobject.pics != null) {
+          this.iseditImg = false;
+          return './imgs/fangzu/editPic.png';
+        } else {
+          this.iseditImg = true;
+          return './imgs/fangzu/addPic.png';
+        }
       }
     },
     ketingNum: function ketingNum() {
@@ -336,3 +290,65 @@ var vm = new Vue({
     }]
   }
 });
+
+
+function getAppLocalData(data) {
+
+  if (data) {
+    console.log('有值传过来', data)
+    vm.rentobject = JSON.parse(data)
+    initdata()
+  } else {
+    console.log('没有传值过来')
+    vm.rentobject = JSON.parse(JSON.stringify(saveObject))
+    initdata()
+  }
+
+}
+
+
+function initdata() {
+  // 讀取樓層 狀態
+  if (vm.sellobject.floor) {
+    vm.getData(vm.floorData, 'floor');
+
+    // 讀取樓層自定義狀態 狀態
+    var floorStr = vm.sellobject.floor;
+    if (floorStr !== '底層' && floorStr !== '中層' && floorStr !== '高層' && floorStr !== '極高層') {
+      vm.$refs.floor.value = floorStr;
+    }
+  }
+
+  // 讀取間隔 狀態
+  var str = vm.sellobject.space;
+  if (str) {
+    // 判斷改字段是否存在數據, 存在->運行下面循環, 否則跳過循環
+    str.split(',').forEach(function (_item, _index) {
+      var temp = _item.substr(-1, 1);
+      if (_index === 0) {
+        vm.fangjian = temp;
+      } else if (_index === 1) {
+        vm.keting = temp;
+      } else {
+        vm.xishoujian = temp;
+      }
+    });
+  } else {
+    vm.sellobject.space = '房間:1,客廳:0,洗手間:0';
+  }
+
+  // 讀取座向 狀態
+  if (vm.sellobject.direct) {
+    vm.getData(vm.directData, 'direct');
+  }
+
+  // 讀取景觀 狀態
+  if (vm.sellobject.landscape) {
+    vm.getData(vm.landscapeData, 'landscape');
+  }
+
+  // 讀取裝修程度 狀態
+  if (vm.sellobject.decoration) {
+    vm.getData(vm.decorationData, 'decoration');
+  }
+}

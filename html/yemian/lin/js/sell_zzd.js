@@ -3,26 +3,6 @@
 Vue.prototype.$axios = axios;
 var vm = new Vue({
   el: '#app',
-  created: function created() {
-
-    // this.rentobject = JSON.parse(localStorage.getItem('rentobject'))
-
-
-    if (localStorage.getItem('rentobject')) {
-      this.rentobject = JSON.parse(localStorage.getItem('rentobject'));
-    } else {
-      this.rentobject = JSON.parse(JSON.stringify(saveObject));
-    }
-  },
-
-  watch: {
-    rentobject: {
-      handler: function handler(newVal) {
-        localStorage.setItem('rentobject', JSON.stringify(newVal));
-      },
-      deep: true
-    }
-  },
   computed: {
     starttime: function starttime() {
       return {
@@ -40,56 +20,20 @@ var vm = new Vue({
   },
   mounted: function mounted() {
 
-    // 讀取明火煮食 狀態
-    this.getRadioPublic(this.cookData, 'cook');
-
-    // 讀取飼養寵物 狀態
-    this.getRadioPublic(this.petData, 'pet');
-
-    // 讀取可起租時間 狀態
-    var starttime = this.rentobject.start_time;
-    if (starttime && starttime === '隨時') {
-      this.isRent = true;
-    } else if (starttime) {
-      this.datetime = starttime;
+    if(window.WebViewJavascriptBridge){
+      WebViewJavascriptBridge.callHandler('GetData', {
+        content_key: 'xiaolin'
+      });
+    }else{
+      // 延时一秒
+    setTimeout(function () {
+      WebViewJavascriptBridge.callHandler('GetData', {
+        content_key: 'xiaolin'
+      });
+    }, 1000);
     }
-    // 讀取配套設備 狀態
-    this.getData(this.infrastructureData, "infrastructure");
 
-    // 讀取屋苑設施 狀態
-    this.getData(this.homeInfrastructureData, "home_infrastructure");
-
-    // 讀取附近設施 狀態
-    this.getData(this.locationInfrastructureData, "location_infrastructure");
-
-    // 读取特色说明状态
-    this.getData(this.featuresData, "features");
-
-    // 發佈者數據 读取状态
-    var fromRead = this.rentobject.from;
-    this.fromData.forEach(function (_item, _index) {
-      if (fromRead === _item.text) {
-        _item.state = true;
-      }
-    });
-
-    // 聯繫方式 读取状态
-    if (this.rentobject.contactType === '1') {
-      var contactRead = '0';
-    } else if (this.rentobject.contactType === '0') {
-      var contactRead = '1';
-    }
-    this.contactTypeData.forEach(function (_item, _index) {
-      if (parseInt(contactRead) === _index) {
-        _item.state = true;
-      }
-    }, this);
-
-    this.contactTypeData2.forEach(function (_item, _index) {
-      if (this.rentobject.call === _item.eText) {
-        _item.state = true;
-      }
-    }, this);
+    
   },
 
   methods: {
@@ -578,3 +522,73 @@ var vm = new Vue({
 
   }
 });
+
+function getAppLocalData(data) {
+
+  if (data) {
+    console.log('有值传过来', data)
+    vm.rentobject = JSON.parse(data)
+    initdata()
+  } else {
+    console.log('没有传值过来')
+    vm.rentobject = JSON.parse(JSON.stringify(saveObject))
+    initdata()
+  }
+
+}
+
+
+
+
+function initdata() {
+  // 讀取明火煮食 狀態
+  vm.getRadioPublic(vm.cookData, 'cook');
+
+  // 讀取飼養寵物 狀態
+  vm.getRadioPublic(vm.petData, 'pet');
+
+  // 讀取可起租時間 狀態
+  var starttime = vm.rentobject.start_time;
+  if (starttime && starttime === '隨時') {
+    vm.isRent = true;
+  } else if (starttime) {
+    vm.datetime = starttime;
+  }
+  // 讀取配套設備 狀態
+  vm.getData(vm.infrastructureData, "infrastructure");
+
+  // 讀取屋苑設施 狀態
+  vm.getData(vm.homeInfrastructureData, "home_infrastructure");
+
+  // 讀取附近設施 狀態
+  vm.getData(vm.locationInfrastructureData, "location_infrastructure");
+
+  // 读取特色说明状态
+  vm.getData(vm.featuresData, "features");
+
+  // 發佈者數據 读取状态
+  var fromRead = vm.rentobject.from;
+  vm.fromData.forEach(function (_item, _index) {
+    if (fromRead === _item.text) {
+      _item.state = true;
+    }
+  });
+
+  // 聯繫方式 读取状态
+  if (vm.rentobject.contactType === '1') {
+    var contactRead = '0';
+  } else if (vm.rentobject.contactType === '0') {
+    var contactRead = '1';
+  }
+  vm.contactTypeData.forEach(function (_item, _index) {
+    if (parseInt(contactRead) === _index) {
+      _item.state = true;
+    }
+  });
+
+  vm.contactTypeData2.forEach(function (_item, _index) {
+    if (vm.rentobject.call === _item.eText) {
+      _item.state = true;
+    }
+  });
+}

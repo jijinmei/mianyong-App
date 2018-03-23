@@ -4,17 +4,17 @@ var vm = new Vue({
   el: '#app',
   mounted: function mounted() {
 
-    if(window.WebViewJavascriptBridge){
+    if (window.WebViewJavascriptBridge) {
       WebViewJavascriptBridge.callHandler('GetData', {
         content_key: 'xiaolin'
       });
-    }else{
+    } else {
       // 延时一秒
-    setTimeout(function () {
-      WebViewJavascriptBridge.callHandler('GetData', {
-        content_key: 'xiaolin'
-      });
-    }, 1000);
+      setTimeout(function () {
+        WebViewJavascriptBridge.callHandler('GetData', {
+          content_key: 'xiaolin'
+        });
+      }, 1000);
     }
   },
 
@@ -38,24 +38,29 @@ var vm = new Vue({
       };
     },
     setImg: function setImg() {
-      if (this.rentobject.pics != '' && this.rentobject.pics != null) {
-        var str = this.rentobject.pics[0];
-        return {
-          'backgroundImage': 'url(' + str + ')'
-        };
-      } else {
-        return {
-          'backgroundImage': 'url(./imgs/fangzu/test.png)'
-        };
+      if (this.rentobject) {
+        if (this.rentobject.pics != '' && this.rentobject.pics != null) {
+          var str = this.rentobject.pics[0];
+          return {
+            'backgroundImage': 'url(' + str + ')'
+          };
+        } else {
+          return {
+            'backgroundImage': 'url(./imgs/fangzu/test.png)'
+          };
+        }
       }
     },
     setaddImg: function setaddImg() {
-      if (this.rentobject.pics != '' && this.rentobject.pics != null) {
-        this.iseditImg = false;
-        return './imgs/fangzu/editPic.png';
-      } else {
-        this.iseditImg = true;
-        return './imgs/fangzu/addPic.png';
+      if (this.rentobject) {
+
+        if (this.rentobject.pics != '' && this.rentobject.pics != null) {
+          this.iseditImg = false;
+          return './imgs/fangzu/editPic.png';
+        } else {
+          this.iseditImg = true;
+          return './imgs/fangzu/addPic.png';
+        }
       }
     },
 

@@ -1,7 +1,6 @@
 'use strict';
-
 Vue.prototype.$axios = axios;
-var vm=new Vue({
+var vm = new Vue({
   el: '#app',
   created: function created() {
 
@@ -19,30 +18,39 @@ var vm=new Vue({
       };
     },
     setImg: function setImg() {
-      if (this.rentobject.pics) {
-        return {
-          'backgroundImage': 'url(' + this.rentobject.fengmiantu + ')'
-        };
-      } else {
-        return {
-          'backgroundImage': 'url(\'./imgs/fangzu/test.png\')'
-        };
+      if (this.rentobject) {
+
+        if (this.rentobject.pics != '' && this.rentobject.pics != null) {
+          var str = this.rentobject.pics[0];
+          return {
+            'backgroundImage': 'url(' + str + ')'
+          };
+        } else {
+          return {
+            'backgroundImage': 'url(./imgs/fangzu/test.png)'
+          };
+        }
       }
     },
     setaddImg: function setaddImg() {
-      if (this.rentobject.fengmiantu) {
-        return './imgs/fangzu/editPic.png';
-      } else {
-        return './imgs/fangzu/addPic.png';
+      if (this.rentobject) {
+
+        if (this.rentobject.pics != '' && this.rentobject.pics != null) {
+          this.iseditImg = false;
+          return './imgs/fangzu/editPic.png';
+        } else {
+          this.iseditImg = true;
+          return './imgs/fangzu/addPic.png';
+        }
       }
     },
-    iseditImg: function iseditImg() {
-      if (this.rentobject.fengmiantu) {
-        return false;
-      } else {
-        return true;
-      }
-    },
+    // iseditImg: function iseditImg() {
+    //   if (this.rentobject.fengmiantu) {
+    //     return false;
+    //   } else {
+    //     return true;
+    //   }
+    // },
 
     // 用戶的電話號碼
     userphone: function userphone() {
@@ -71,84 +79,84 @@ var vm=new Vue({
     }
   },
   mounted: function mounted() {
-    if(window.WebViewJavascriptBridge){
+    if (window.WebViewJavascriptBridge) {
       WebViewJavascriptBridge.callHandler('GetData', {
         content_key: 'xiaolin'
       });
-    }else{
+    } else {
       // 延时一秒
-    setTimeout(function () {
-      WebViewJavascriptBridge.callHandler('GetData', {
-        content_key: 'xiaolin'
-      });
-    }, 1000);
+      setTimeout(function () {
+        WebViewJavascriptBridge.callHandler('GetData', {
+          content_key: 'xiaolin'
+        });
+      }, 1000);
     }
-  
+
   },
 
   methods: {
-    gets(){
-          // 讀取可起租時間 狀態
-    var starttime = this.rentobject.start_time;
-    if (starttime && starttime === '隨時') {
-      this.isRent = true;
-    } else if (starttime) {
-      this.datetime = starttime;
-    }
-
-    // 裝修程度 讀取狀態
-    this.getData2(this.decorationData, "decoration");
-
-    // 读取特色说明状态
-    this.getData(this.featuresData, "features");
-
-    // 發佈者數據 读取状态
-    var fromRead = this.rentobject.from;
-    this.fromData.forEach(function (_item, _index) {
-      if (fromRead === _item.text) {
-        _item.state = true;
+    gets() {
+      // 讀取可起租時間 狀態
+      var starttime = this.rentobject.start_time;
+      if (starttime && starttime === '隨時') {
+        this.isRent = true;
+      } else if (starttime) {
+        this.datetime = starttime;
       }
-    });
 
-    // 聯繫方式 读取状态
-    if (this.rentobject.contactType === '1') {
-      var contactRead = '0';
-    } else if (this.rentobject.contactType === '0') {
-      var contactRead = '1';
-    }
-    this.contactTypeData.forEach(function (_item, _index) {
-      if (parseInt(contactRead) === _index) {
-        _item.state = true;
-      }
-    }, this);
+      // 裝修程度 讀取狀態
+      this.getData2(this.decorationData, "decoration");
 
-    this.contactTypeData2.forEach(function (_item, _index) {
-      if (this.rentobject.call === _item.eText) {
-        _item.state = true;
+      // 读取特色说明状态
+      this.getData(this.featuresData, "features");
+
+      // 發佈者數據 读取状态
+      var fromRead = this.rentobject.from;
+      this.fromData.forEach(function (_item, _index) {
+        if (fromRead === _item.text) {
+          _item.state = true;
+        }
+      });
+
+      // 聯繫方式 读取状态
+      if (this.rentobject.contactType === '1') {
+        var contactRead = '0';
+      } else if (this.rentobject.contactType === '0') {
+        var contactRead = '1';
       }
-    }, this);
+      this.contactTypeData.forEach(function (_item, _index) {
+        if (parseInt(contactRead) === _index) {
+          _item.state = true;
+        }
+      }, this);
+
+      this.contactTypeData2.forEach(function (_item, _index) {
+        if (this.rentobject.call === _item.eText) {
+          _item.state = true;
+        }
+      }, this);
     },
     publish: function publish() {
-var that=this;
+      var that = this;
       if (!this.rentobject.from || !this.rentobject.contactType) {
-        this.alerts=true;
-        setTimeout(function(){
-         that.alerts=false;
-        },2000)
-        return 
+        this.alerts = true;
+        setTimeout(function () {
+          that.alerts = false;
+        }, 2000)
+        return
       }
 
       if (this.rentobject.contactType === '1') {
 
         if (!this.rentobject.contacts || !this.rentobject.phone || !this.rentobject.call) {
-          this.alerts=true;
-          setTimeout(function(){
-           that.alerts=false;
-          },2000)
-          return 
+          this.alerts = true;
+          setTimeout(function () {
+            that.alerts = false;
+          }, 2000)
+          return
         }
       }
-      this.isending=false;
+      this.isending = false;
       this.$axios.post('/agent', getFormDataFun(this.rentobject)).then(function (res) {
 
         if (!res.message) {
@@ -169,7 +177,7 @@ var that=this;
     },
 
     // 添加照片
-    addPic: function addPic() {},
+    addPic: function addPic() { },
 
     // 下一步
     next: function next(name) {
@@ -368,9 +376,11 @@ var that=this;
   },
   data: function data() {
     return {
+
+      iseditImg: true,
       rentobject: null,
-      alerts:false,
-      isending:true,
+      alerts: false,
+      isending: true,
       rentobject: null,
       isContact: false,
       remark: '',
@@ -379,7 +389,6 @@ var that=this;
       isRent: false,
       area: '',
       useableArea: '',
-      fengmiantu: '',
       DatetimePickerShow: false,
       minDate: new Date(),
       currentDate: new Date(),
