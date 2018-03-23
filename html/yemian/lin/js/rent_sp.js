@@ -271,7 +271,7 @@ var that=this;
      * number : 选项上限数
      */
     saveData: function saveData(index, data, saveKey, number) {
-      var this = this;
+      var that = this;
 
       if (this.rentobject[saveKey]) {
         var arr = this.rentobject[saveKey].split("、");
