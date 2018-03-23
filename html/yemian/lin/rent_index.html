@@ -6,6 +6,8 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>發佈租盤房源</title>
+  <link rel="stylesheet" href="../../static/mui.min.css">
+  <script src="../../static/mui.min.js"></script>
   <link rel="stylesheet" href="./css/reset.css">
   <link rel="stylesheet" href="../../static/common.css">
   <link rel="stylesheet" href="./css/rent_index.css">
@@ -75,7 +77,7 @@
 
     <div class="footer">
       <div class="content">
-        <p @click="next">下一步</p>
+        <p @click.stop="nexts">下一步</p>
       </div>
     </div>
   </div>

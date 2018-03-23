@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>發佈租盤房源</title>
     <!-- 引入样式 -->
+    <link rel="stylesheet" href="./css/lincommon.css">
     <link rel="stylesheet" href="https://unpkg.com/vant/lib/vant-css/index.css">
     <link rel="stylesheet" href="./css/reset.css">
     <link rel="stylesheet" href="./css/rent_public.css">
@@ -16,6 +17,13 @@
 <body>
 
     <div id="app" v-cloak>
+        <div  v-if="alerts==true" class="alertss">
+            帶*號項為必填項
+        </div>
+            <!--正在發佈-->
+            <div class="wai_kuangs" v-if="isending==false">
+                <div class="nei_kuang fabuing">正在發佈,請稍後...</div>
+              </div>
         <div class="box" style="backgroundColor: #ebebeb; paddingBottom: 1.1rem;">
             <!-- 添加照片 -->
             <div class="add-pics" :style="setImg">
@@ -145,7 +153,23 @@
 
         </div>
     </div>
+
+  <script>
+      function getAppLocalData(data) {
   
+        if (data) {
+          console.log('有值传过来', data)
+          vm.rentobject = JSON.parse(data)
+          initdata()
+        } else {
+          console.log('没有传值过来')
+          vm.rentobject = JSON.parse(JSON.stringify(saveObject))
+          initdata()
+        }
+  
+      }
+    </script>
+    <script src="../../static/vconsole.min.js"></script>
     <script src="https://cdn.bootcss.com/vue/2.5.13/vue.min.js"></script>
     <script src="https://cdn.bootcss.com/axios/0.18.0/axios.min.js"></script>
   

@@ -1,58 +1,61 @@
 'use strict';
-
 var vm = new Vue({
   el: '#app',
-  created: function created() {
-
-    // this.rentobject = JSON.parse(localStorage.getItem('rentobject'))
-
-    // if (localStorage.getItem('rentobject')) {
-    //   this.rentobject = JSON.parse(localStorage.getItem('rentobject'))
-    // } else {
-    //   this.rentobject = JSON.parse(JSON.stringify(saveObject))
-    // }
-  },
   mounted: function mounted() {
 
-    console.log('111111');
-
-    WebViewJavascriptBridge.callHandler('GetData', {
-      content_key: 'xiaolin'
-    });
+    if(window.WebViewJavascriptBridge){
+      WebViewJavascriptBridge.callHandler('GetData', {
+        content_key: 'xiaolin'
+      });
+    }else{
+      // 延时一秒
+    setTimeout(function () {
+      WebViewJavascriptBridge.callHandler('GetData', {
+        content_key: 'xiaolin'
+      });
+    }, 1000);
+    }
   },
-
+ computed:{
+  setImg: function setImg() {
+    if(this.rentobject){
+    if (this.rentobject.pics != '' && this.rentobject.pics != null) {
+      var str = this.rentobject.pics[0];
+      
+      return {
+        'backgroundImage': 'url(' + str + ')'
+      };
+    } else { 
+      return {
+        'backgroundImage': 'url(./imgs/fangzu/test.png)'
+      };
+    }
+  }
+  },
+  setaddImg: function setaddImg() {
+    if(this.rentobject){
+    if (this.rentobject.pics != '' && this.rentobject.pics != null) {
+      this.iseditImg = false;
+      return './imgs/fangzu/editPic.png';
+    } else {
+      this.iseditImg = true;
+      return './imgs/fangzu/addPic.png';
+    }
+  }
+  },
+  ketingNum: function ketingNum() {
+    return {
+      'bordergreen': parseInt(this.keting) > 0 ? true : false
+    };
+  },
+  xishoujianNum: function xishoujianNum() {
+    return {
+      'bordergreen': parseInt(this.xishoujian) > 0 ? true : false
+    };
+  },
+ },
   methods: {
-    setImg: function setImg() {
-      if (this.rentobject.pics != '' && this.rentobject.pics != null) {
-        var str = this.rentobject.pics[0];
-        return {
-          'backgroundImage': 'url(' + str + ')'
-        };
-      } else {
-        return {
-          'backgroundImage': 'url(./imgs/fangzu/test.png)'
-        };
-      }
-    },
-    setaddImg: function setaddImg() {
-      if (this.rentobject.pics != '' && this.rentobject.pics != null) {
-        this.iseditImg = false;
-        return './imgs/fangzu/editPic.png';
-      } else {
-        this.iseditImg = true;
-        return './imgs/fangzu/addPic.png';
-      }
-    },
-    ketingNum: function ketingNum() {
-      return {
-        'bordergreen': parseInt(this.keting) > 0 ? true : false
-      };
-    },
-    xishoujianNum: function xishoujianNum() {
-      return {
-        'bordergreen': parseInt(this.xishoujian) > 0 ? true : false
-      };
-    },
+   
     addPic: function addPic() {
       console.log('添加照片');
       location.href = 'pic.html' + location.search;
@@ -130,18 +133,25 @@ var vm = new Vue({
       this.saveData(item, index, this.decorationData, 'decoration');
     },
     next: function next() {
-
+var that=this
       WebViewJavascriptBridge.callHandler('SetData', {
         content_key: 'xiaolin',
         content: JSON.stringify(this.rentobject)
       });
 
       if (this.rentobject.pics == '' || this.rentobject.pics == null) {
-        alert('照片不能為空');
+        // mui.toast('照片不能為空');
+        this.alerts=true;
+        setTimeout(function(){
+         that.alerts=false;
+        },2000)
         return;
       }
       if (!this.rentobject.price || !this.rentobject.useable_area && !this.rentobject.area || !this.rentobject.floor || !this.rentobject.landscape || !this.rentobject.decoration) {
-        alert('帶*號項為必填項');
+       this.alerts=true;
+       setTimeout(function(){
+        that.alerts=false;
+       },2000)
         return;
       }
 
@@ -238,14 +248,15 @@ var vm = new Vue({
         this.getData(this.decorationData, 'decoration');
       }
 
-      this.setImg();
-      this.addPic();
-      this.setaddImg();
-      this.ketingNum();
-      this.xishoujianNum();
+      // this.setImg();
+      // this.addPic();
+      // this.setaddImg();
+      // this.ketingNum();
+      // this.xishoujianNum();
     }
   },
   data: {
+    alerts:false,//
     fangjian: 1,
     keting: 0,
     xishoujian: 0,

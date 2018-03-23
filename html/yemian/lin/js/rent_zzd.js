@@ -1,19 +1,22 @@
 'use strict';
-
+function getAppLocalData(data) {
+  
+    if (data) {
+      // console.log('有值传过来', data);
+      vm.rentobject = JSON.parse(data);
+      vm.gets();
+    } else {
+      console.log('没有传值过来');
+      vm.rentobject = JSON.parse(JSON.stringify(saveObject));
+      vm.gets();
+    }
+  }
 Vue.prototype.$axios = axios;
 
-new Vue({
+var vm=new Vue({
   el: '#app',
   created: function created() {
 
-    // this.rentobject = JSON.parse(localStorage.getItem('rentobject'))
-
-
-    // if (localStorage.getItem('rentobject')) {
-    //   this.rentobject = JSON.parse(localStorage.getItem('rentobject'))
-    // } else {
-    //   this.rentobject = JSON.parse(JSON.stringify(saveObject))
-    // }
   },
 
   computed: {
@@ -25,87 +28,120 @@ new Vue({
 
     // 聯繫方式 不同選項不用樣式的顯示
     contactTypeStyle: function contactTypeStyle() {
+      if(this.rentobject){
       return {
         borderBottom: this.rentobject.contactType == '1' ? 'none' : '1px solid #e6e6e6',
         paddingBottom: this.rentobject.contactType == '1' ? '0' : '0.29rem'
       };
     }
+  }
   },
   mounted: function mounted() {
 
-    // 讀取明火煮食 狀態
-    this.getRadioPublic(this.cookData, 'cook');
-
-    // 讀取飼養寵物 狀態
-    this.getRadioPublic(this.petData, 'pet');
-
-    // 讀取可起租時間 狀態
-    var starttime = this.rentobject.start_time;
-    if (starttime && starttime === '隨時') {
-      this.isRent = true;
-    } else if (starttime) {
-      this.datetime = starttime;
+    if(window.WebViewJavascriptBridge){
+      WebViewJavascriptBridge.callHandler('GetData', {
+        content_key: 'xiaolin'
+      });
+    }else{
+      // 延时一秒
+    setTimeout(function () {
+      WebViewJavascriptBridge.callHandler('GetData', {
+        content_key: 'xiaolin'
+      });
+    }, 1000);
     }
-    // 讀取配套設備 狀態
-    this.getData(this.infrastructureData, "infrastructure");
 
-    // 讀取屋苑設施 狀態
-    this.getData(this.homeInfrastructureData, "home_infrastructure");
-
-    // 讀取附近設施 狀態
-    this.getData(this.locationInfrastructureData, "location_infrastructure");
-
-    // 读取特色说明状态
-    this.getData(this.featuresData, "features");
-
-    // 發佈者數據 读取状态
-    var fromRead = this.rentobject.from;
-    this.fromData.forEach(function (_item, _index) {
-      if (fromRead === _item.text) {
-        _item.state = true;
-      }
-    });
-
-    // 聯繫方式 读取状态
-    if (this.rentobject.contactType === '1') {
-      var contactRead = '0';
-    } else if (this.rentobject.contactType === '0') {
-      var contactRead = '1';
-    }
-    this.contactTypeData.forEach(function (_item, _index) {
-      if (parseInt(contactRead) === _index) {
-        _item.state = true;
-      }
-    }, this);
-
-    this.contactTypeData2.forEach(function (_item, _index) {
-      if (this.rentobject.call === _item.eText) {
-        _item.state = true;
-      }
-    }, this);
   },
 
   methods: {
-
+    gets(){
+          // 讀取明火煮食 狀態
+    this.getRadioPublic(this.cookData, 'cook');
+    
+        // 讀取飼養寵物 狀態
+        this.getRadioPublic(this.petData, 'pet');
+    
+        // 讀取可起租時間 狀態
+        var starttime = this.rentobject.start_time;
+        if (starttime && starttime === '隨時') {
+          this.isRent = true;
+        } else if (starttime) {
+          this.datetime = starttime;
+        }
+        // 讀取配套設備 狀態
+        this.getData(this.infrastructureData, "infrastructure");
+    
+        // 讀取屋苑設施 狀態
+        this.getData(this.homeInfrastructureData, "home_infrastructure");
+    
+        // 讀取附近設施 狀態
+        this.getData(this.locationInfrastructureData, "location_infrastructure");
+    
+        // 读取特色说明状态
+        this.getData(this.featuresData, "features");
+    
+        // 發佈者數據 读取状态
+        var fromRead = this.rentobject.from;
+        this.fromData.forEach(function (_item, _index) {
+          if (fromRead === _item.text) {
+            _item.state = true;
+          }
+        });
+    
+        // 聯繫方式 读取状态
+        if (this.rentobject.contactType === '1') {
+          var contactRead = '0';
+        } else if (this.rentobject.contactType === '0') {
+          var contactRead = '1';
+        }
+        this.contactTypeData.forEach(function (_item, _index) {
+          if (parseInt(contactRead) === _index) {
+            _item.state = true;
+          }
+        }, this);
+    
+        this.contactTypeData2.forEach(function (_item, _index) {
+          if (this.rentobject.call === _item.eText) {
+            _item.state = true;
+          }
+        }, this);
+    },
     // 点击发布按钮, 发布
     publish: function publish() {
-
+var that=this;
       if (!this.rentobject.from || !this.rentobject.contactType) {
-        return alert('帶*號項為必填項');
+        this.alerts=true;
+        setTimeout(function(){
+         that.alerts=false;
+        },2000)
+        return 
       }
 
       if (this.rentobject.contactType === '1') {
 
         if (!this.rentobject.contacts || !this.rentobject.phone || !this.rentobject.call) {
-          return alert('帶*號項為必填項');
+          this.alerts=true;
+          setTimeout(function(){
+           that.alerts=false;
+          },2000)
+          return 
         }
       }
-
+      this.isending=false
       this.$axios.post('/agent', getFormDataFun(this.rentobject)).then(function (res) {
 
         if (!res.message) {
           console.log('发布成功');
-          clearLocalStorages();
+          // clearLocalStorages();
+          WebViewJavascriptBridge.callHandler('ClearData', {
+            content_key: 'huancun'
+          })
+          WebViewJavascriptBridge.callHandler('ClearData', {
+            content_key: 'xiaolin'
+          })
+          WebViewJavascriptBridge.callHandler('ClearData', {
+            content_key: 'xiangqingData'
+          })
           goback(3);
         }
       });
@@ -302,6 +338,8 @@ new Vue({
     }
   },
   data: {
+    alerts:false,
+    isending:true,
     DatetimePickerShow: false,
     minDate: new Date(),
     currentDate: new Date(),

@@ -8,6 +8,7 @@
   <!-- 引入样式 -->
   <link rel="stylesheet" href="https://unpkg.com/vant/lib/vant-css/index.css">
   <link rel="stylesheet" href="./css/reset.css">
+  <link rel="stylesheet" href="./css/lincommon.css">
   <link rel="stylesheet" href="./css/rent_cw.css">
   <link rel="stylesheet" href="./css/rent_public.css">
   <script src="./js/flexible.min.js"></script>
@@ -16,6 +17,13 @@
 <body>
 
   <div id="app" v-cloak>
+      <div  v-if="alerts==true" class="alertss">
+          帶*號項為必填項
+      </div>
+          <!--正在發佈-->
+          <div class="wai_kuangs" v-if="isending==false">
+              <div class="nei_kuang fabuing">正在發佈,請稍後...</div>
+            </div>
     <!-- 添加照片 -->
     <div class="add-pics" :style="setImg">
       <img :src="setaddImg" @click="addPic">

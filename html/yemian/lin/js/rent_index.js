@@ -44,8 +44,8 @@ var vm = new Vue({
       });
     },
     // 下一步按鈕運行的方法
-    next: function next() {
-
+    nexts: function next() {
+console.log('next')
       WebViewJavascriptBridge.callHandler('SetData', {
         content_key: 'xiaolin',
         content: JSON.stringify(this.rentobject)
@@ -54,18 +54,18 @@ var vm = new Vue({
       if (this.rentobject.type === '商鋪') {
         // 商铺
         if (!this.rentobject.rent_type || !this.rentobject.build_street || !this.rentobject.shop_type || !this.rentobject.build_area) {
-          alert('帶*號項為必填項');
+          mui.toast('帶*號項為必填項');
           return;
         }
       } else if (this.rentobject.type === '車位') {
         // 車位
         if (!this.rentobject.build_name || !this.rentobject.build_area) {
-          alert('帶*號項為必填項');
+          mui.toast('帶*號項為必填項');
           return;
         }
       } else {
         if (!this.rentobject.rent_type || !this.rentobject.build_name || !this.rentobject.build_area) {
-          alert('帶*號項為必填項');
+          mui.toast('帶*號項為必填項');
           return;
         }
       }
@@ -239,22 +239,19 @@ function getAppLocalData(data) {
     initdata();
   }
 }
-
-// 延时一秒
-setTimeout(function () {
-
+if(window.WebViewJavascriptBridge){
   WebViewJavascriptBridge.callHandler('GetData', {
     content_key: 'xiaolin'
   });
-
-  // var ua = navigator.userAgent.toLowerCase()
-  // if (ua.match(/iPhone\sOS/i) == "iphone os") {
-
-  //   WebViewJavascriptBridge.callHandler('GetData', {
-  //     content_key: 'xiaolin'
-  //   })
-  // }
+}else{
+  // 延时一秒
+setTimeout(function () {
+  WebViewJavascriptBridge.callHandler('GetData', {
+    content_key: 'xiaolin'
+  });
 }, 1000);
+}
+
 
 function initdata() {
 

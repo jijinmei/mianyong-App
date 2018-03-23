@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>發佈租盤房源</title>
+  <!-- <link rel="stylesheet" href="../../static/mui.min.css"> -->
+  <!-- <script src="../../static/mui.min.js"></script> -->
+  <link rel="stylesheet" href="./css/lincommon.css">
   <link rel="stylesheet" href="./css/reset.css">
   <link rel="stylesheet" href="./css/rent_zz.css">
   <link rel="stylesheet" href="./css/rent_public.css">
@@ -12,6 +15,9 @@
 </head>
 
 <div id="app" v-cloak>
+    <div  v-if="alerts==true" class="alertss">
+        帶*號項為必填項
+    </div>
   <!-- 添加照片 -->
   <div class="add-pics" :style="setImg">
     <img :src="setaddImg" @click="addPic">

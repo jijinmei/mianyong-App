@@ -566,7 +566,17 @@ im(){
           isyulan(locations('jianju'))
           // 预览的时候才调用手机的存储
           if(locations('objectId')=='no'){
-            WebViewJavascriptBridge.callHandler('GetData', {content_key: 'xiangqingData'})
+            if(window.WebViewJavascriptBridge){
+              // mui.toast('yes1')
+              WebViewJavascriptBridge.callHandler('GetData', {content_key: 'xiangqingData'})
+            }else{
+              // mui.toast('no1')
+               setTimeout(function(){
+               WebViewJavascriptBridge.callHandler('GetData', {content_key: 'xiangqingData'})
+            },1000)
+            }
+           
+           
           }else{
             // 否则直接调用id去查数据
             this.xiangqing()

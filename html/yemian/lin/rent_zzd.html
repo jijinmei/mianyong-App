@@ -4,6 +4,11 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>發佈租盤房源</title>
+  <!-- <link rel="stylesheet" href="../../static/mui.min.css">
+  <script src="../../static/mui.min.js"></script>-->
+  <!-- <link rel="stylesheet" href="../../static/common.css"> -->
+  <!-- <link rel="stylesheet" href="../../static/commonS.css">  -->
+  <link rel="stylesheet" href="./css/lincommon.css">
   <!-- 引入样式 -->
   <link rel="stylesheet" href="https://unpkg.com/vant/lib/vant-css/index.css">
   <link rel="stylesheet" href="./css/reset.css">
@@ -14,6 +19,13 @@
 <body>
 
   <div id="app" v-cloak>
+      <div  v-if="alerts==true" class="alertss">
+          帶*號項為必填項
+      </div>
+          <!--正在發佈-->
+          <div class="wai_kuangs" v-if="isending==false">
+              <div class="nei_kuang fabuing">正在發佈,請稍後...</div>
+            </div>
     <!-- 明火煮食 -->
     <div class="cook publicCss">
         <p class="title">明火煮食</p>

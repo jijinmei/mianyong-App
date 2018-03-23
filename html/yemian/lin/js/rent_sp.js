@@ -1,18 +1,22 @@
 'use strict';
 
+function getAppLocalData(data) {
+  
+    if (data) {
+      console.log('有值传过来', data);
+      vm.rentobject = JSON.parse(data);
+      initdata();
+    } else {
+      console.log('没有传值过来');
+      vm.rentobject = JSON.parse(JSON.stringify(saveObject));
+      initdata();
+    }
+  };
 Vue.prototype.$axios = axios;
-new Vue({
+var vm=new Vue({
   el: '#app',
   created: function created() {
 
-    // this.rentobject = JSON.parse(localStorage.getItem('rentobject'))
-
-
-    if (localStorage.getItem('rentobject')) {
-      this.rentobject = JSON.parse(localStorage.getItem('rentobject'));
-    } else {
-      this.rentobject = JSON.parse(JSON.stringify(saveObject));
-    }
   },
 
   watch: {
@@ -88,8 +92,24 @@ new Vue({
     }
   },
   mounted: function mounted() {
+    if(window.WebViewJavascriptBridge){
+      WebViewJavascriptBridge.callHandler('GetData', {
+        content_key: 'xiaolin'
+      });
+    }else{
+      // 延时一秒
+    setTimeout(function () {
+      WebViewJavascriptBridge.callHandler('GetData', {
+        content_key: 'xiaolin'
+      });
+    }, 1000);
+    }
+  
+  },
 
-    // 讀取可起租時間 狀態
+  methods: {
+    gets(){
+          // 讀取可起租時間 狀態
     var starttime = this.rentobject.start_time;
     if (starttime && starttime === '隨時') {
       this.isRent = true;
@@ -128,27 +148,42 @@ new Vue({
         _item.state = true;
       }
     }, this);
-  },
-
-  methods: {
+    },
     publish: function publish() {
-
+var that=this;
       if (!this.rentobject.from || !this.rentobject.contactType) {
-        return alert('帶*號項為必填項');
+        this.alerts=true;
+        setTimeout(function(){
+         that.alerts=false;
+        },2000)
+        return 
       }
 
       if (this.rentobject.contactType === '1') {
 
         if (!this.rentobject.contacts || !this.rentobject.phone || !this.rentobject.call) {
-          return alert('帶*號項為必填項');
+          this.alerts=true;
+          setTimeout(function(){
+           that.alerts=false;
+          },2000)
+          return 
         }
       }
-
+      this.isending=false;
       this.$axios.post('/agent', getFormDataFun(this.rentobject)).then(function (res) {
 
         if (!res.message) {
           console.log('发布成功');
-          clearLocalStorages();
+          // clearLocalStorages();
+          WebViewJavascriptBridge.callHandler('ClearData', {
+            content_key: 'huancun'
+          })
+          WebViewJavascriptBridge.callHandler('ClearData', {
+            content_key: 'xiaolin'
+          })
+          WebViewJavascriptBridge.callHandler('ClearData', {
+            content_key: 'xiangqingData'
+          })
           goback(3);
         }
       });
@@ -354,6 +389,8 @@ new Vue({
   },
   data: function data() {
     return {
+      alerts:false,
+      isending:true,
       rentobject: null,
       isContact: false,
       remark: '',

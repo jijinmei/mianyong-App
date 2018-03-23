@@ -2,852 +2,963 @@
 <html>
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta content="yes" name="apple-mobile-web-app-capable" />
-    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
-    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
-    <title>發佈</title>
-    <script typet="text/javascript" src="https://cdn.bootcss.com/jquery/2.2.0/jquery.min.js"></script>
-    <script typet="text/javascript" src="../../static/common.js"></script>
-    <!-- <link href="https://cdn.bootcss.com/Swiper/3.4.2/css/swiper.css" rel="stylesheet"> -->
-    <!-- <script src="https://cdn.bootcss.com/Swiper/3.4.2/js/swiper.jquery.min.js"></script> -->
-    <link href="../../static/common.css" rel="stylesheet">
-    <link href="../../static/commonS.css" rel="stylesheet">
-    <link href="../../static/imgUp.css" rel="stylesheet">
-    <link rel="stylesheet" href="../../static/mui.min.css">
-    <style scoped>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta content="yes" name="apple-mobile-web-app-capable" />
+  <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+  <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+  <title>發佈</title>
+  <script typet="text/javascript" src="https://cdn.bootcss.com/jquery/2.2.0/jquery.min.js"></script>
+  <script typet="text/javascript" src="../../static/common.js"></script>
+  <!-- <link href="https://cdn.bootcss.com/Swiper/3.4.2/css/swiper.css" rel="stylesheet"> -->
+  <!-- <script src="https://cdn.bootcss.com/Swiper/3.4.2/js/swiper.jquery.min.js"></script> -->
+  <link href="../../static/common.css" rel="stylesheet">
+  <link href="../../static/commonS.css" rel="stylesheet">
+  <link href="../../static/imgUp.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../static/mui.min.css">
+  <style scoped>
     #model8fabu-add {
-        background: url('../../assets/img/home/zujian.png') no-repeat;
-        background-size: 100% 3.1rem;
+      background: url('../../assets/img/home/zujian.png') no-repeat;
+      background-size: 100% 3.1rem;
     }
 
     .inputwho {
-        border-top: none !important;
-        border-left: none !important;
-        border-right: none !important;
-        height: 0.5rem;
-        width: 1.8rem !important;
-        border-radius: 0;
+      border-top: none !important;
+      border-left: none !important;
+      border-right: none !important;
+      height: 0.5rem;
+      width: 1.8rem !important;
+      border-radius: 0;
     }
 
     .img0,
     .img1 {
-        width: 0.52rem;
+      width: 0.52rem;
     }
 
     .img2 {
-        width: 0.43rem;
+      width: 0.43rem;
     }
 
     .img3 {
-        width: 0.46rem;
+      width: 0.46rem;
     }
 
     .img4 {
-        width: 0.37rem;
+      width: 0.37rem;
     }
 
     .img5,
     .img6 {
-        width: 0.35rem;
+      width: 0.35rem;
     }
 
     .img7 {
-        width: 0.31rem;
+      width: 0.31rem;
     }
 
     .li1,
     .li3,
     .li5,
     .li7 {
-        margin-left: 0.65rem;
-        width: 44%;
+      margin-left: 0.65rem;
+      width: 44%;
     }
 
     .li0,
     .li2,
     .li4,
     .li6 {
-        width: 44%;
+      width: 44%;
     }
 
     .jiaSi .img0 {
-        width: 0.41rem;
+      width: 0.41rem;
     }
 
     .jiaSi .img1 {
-        width: 0.37rem;
+      width: 0.37rem;
     }
 
     .jiaSi .img2 {
-        width: 0.32rem;
+      width: 0.32rem;
     }
 
     .zhaoSheng .img0 {
-        width: 0.40rem;
+      width: 0.40rem;
     }
 
     .zhaoSheng .img1 {
-        width: 0.36rem;
+      width: 0.36rem;
     }
 
     .jiaZheng .img0 {
-        width: 0.30rem;
+      width: 0.30rem;
     }
 
     .jiaZheng .img1 {
-        width: 0.38rem;
+      width: 0.38rem;
     }
 
     .jiaZheng .img2 {
-        width: 0.35rem;
+      width: 0.35rem;
     }
 
     .jiaZheng .img3 {
-        width: 0.35rem;
+      width: 0.35rem;
     }
 
     .jiaZheng .img4 {
-        width: 0.31rem;
+      width: 0.31rem;
     }
 
 
 
     .add-pics {
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: cover;
-        height: 3.1rem;
-        padding: 0 0.9rem 0.34rem;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+      height: 3.1rem;
+      padding: 0 0.9rem 0.34rem;
     }
-    </style>
+  </style>
 </head>
 
 <body>
-    <div id="app" v-cloak>
-        <div>
-            <!--<div style="display: none;">{{watch}}</div>-->
-            <!-- 添加照片 -->
-            <div class="add-pics center" :style="setImg">
-                <img :src="fengmiantu!=''?'../../assets/img/home/editPic.png':'../../assets/img/home/addPic.png'" @click="addPic" class="h120 mT30 mB15">
-                <h2 @click="addPic" v-show="iseditImg" class="fz28 mB30 c36c748">添加照片</h2>
-                <p v-show="iseditImg&&(names=='汽車交易'||names=='傢俬電器'||names=='跳蚤市場')" class="fz21 cffffff lh28 bold">色彩明亮的照片可以大幅度提高物件出售的速度最多可上傳9張照片</p>
-                <p v-show="iseditImg&&(names!='汽車交易'&&names!='傢俬電器'&&names!='跳蚤市場')" class="fz21 cffffff lh28 bold">最多可上傳9張照片</p>
-            </div>
-            <h1 class="h10 bgebebeb"></h1>
-            <div id="model8fabu-all" class="bgebebeb bai pL20 pR20 mB112" style="">
-                <!--1.标题:汽车，家私，跳蚤-->
-                <div class=" bai border-b h141" v-if="names!='no'&&(names=='汽車交易'||names=='傢俬電器'||names=='跳蚤市場')">
-                    <p class="fz25 c222222 center h70 lh70 pT10">
-                        <span class="mui-inline h70 lh70 relative T05 mR05" style="color:red;">*</span>
-                        <span>標<span class="opacity0">錢錢</span>題</span>
-                    </p>
-                    <div class="mui-input-row">
-                        <input v-model="title" type="text" placeholder="請簡述你的產品名稱、狀況等，讓買家更容易搜到…" class="center border0 fz25 padding0 margin0 h50 lh50">
-                    </div>
-                </div>
-                <!--1.商店名稱:装修，搬屋，代购代收，招生招聘，家政服务-->
-                <div class=" bai border-b h141" v-if="names!='no'&&(names!='汽車交易'&&names!='傢俬電器'&&names!='跳蚤市場')">
-                    <p class="fz25 c222222 center h70 lh70 pT10">
-                        <span class="mui-inline h70 lh70 relative T05 mR05" style="color:red;">*</span>
-                        <span>商店名稱</span>
-                    </p>
-                    <div class="mui-input-row">
-                        <input v-model="title" type="text" placeholder="請點擊輸入你的商店名稱" class="center border0 fz25 padding0 margin0 h50 lh50">
-                    </div>
-                </div>
-                <!--2.分类-->
-                <div class=" bai border-b" v-if="names!='no'&&(names=='汽車交易'||names=='傢俬電器'||names=='招生招聘'||names=='家政服務')">
-                    <p class="fz25 c222222 center h75 lh75">
-                        <span class="mui-inline h75 lh75 relative T05 mR05" style="color:red;">*</span>
-                        <span>分<span class="opacity0">錢錢</span>類</span>
-                    </p>
-                    <!--家私特有-->
-                    <ul class="relative mT05 overflow pL20 pB30 jiaSi" v-if="names!='no'&&(names=='傢俬電器')">
-                        <li :class="'li'+index" class="mui-pull-left mB25 relative" v-for="(item,index) in Fenlei">
-                            <span class="mR10 czjz absolute mui-inline h60 L00 w60">
-               <img :class="'img'+index"  :src="jiaSiFenlei[index].src" alt="" style="vertical-align: middle;" class="jz"/>
-            </span>
-                            <span class="fz25 c222222 pL70">{{item}} </span>
-                            <img @click="type=index+1" :src="type==index+1?'../../assets/img/jisuan/yx.png':'../../assets/img/jisuan/wx.png'" alt="" style="width:0.4rem;vertical-align: middle;" class="czjz R00" />
-                        </li>
-                    </ul>
-                    <!--汽车特有-->
-                    <ul class="relative mT05 overflow pL20 pB30 qiChe" v-if="names!='no'&&(names=='汽車交易')">
-                        <li :class="'li'+index" class="mui-pull-left mB25 relative" v-for="(item,index) in Fenlei">
-                            <span class="mR10 czjz absolute mui-inline h60 L00 w60">
-               <img :class="'img'+index"  :src="qiCheFenlei[index].src" alt="" style="vertical-align: middle;" class="jz"/>
-            </span>
-                            <span class="fz25 c222222 pL70">{{item}} </span>
-                            <img @click="type=index+1" :src="type==index+1?'../../assets/img/jisuan/yx.png':'../../assets/img/jisuan/wx.png'" alt="" style="width:0.4rem;vertical-align: middle;" class="czjz R00" />
-                        </li>
-                    </ul>
-                    <!--跳蚤，装修，搬屋，代购代收没有-->
-                    <!--招生招聘特有-->
-                    <ul class="relative mT05 overflow pL20 pB30 zhaoSheng" v-if="names!='no'&&(names=='招生招聘')">
-                        <li :class="'li'+index" class="mui-pull-left mB25 relative" v-for="(item,index) in zhaoShengFenlei">
-                            <span class="mR10 czjz absolute mui-inline h60 L00 w60">
-               <img :class="'img'+index"  :src="item.src" alt="" style="vertical-align: middle;" class="jz"/>
-            </span>
-                            <span class="fz25 c222222 pL70">{{item.name}} </span>
-                            <img @click="type=index+1" :src="type==index+1?'../../assets/img/jisuan/yx.png':'../../assets/img/jisuan/wx.png'" alt="" style="width:0.4rem;vertical-align: middle;" class="czjz R00" />
-                        </li>
-                    </ul>
-                    <!--家政特有-->
-                    <ul class="relative mT05 overflow pL20 pB30 jiaZheng" v-if="names!='no'&&(names=='家政服務')">
-                        <li :class="'li'+index" class="mui-pull-left mB25 relative" v-for="(item,index) in jiaZhengFenlei">
-                            <span class="mR10 czjz absolute mui-inline h60 L00 w60">
-               <img :class="'img'+index"  :src="item.src" alt="" style="vertical-align: middle;" class="jz"/>
-            </span>
-                            <span class="fz25 c222222 pL70">{{item.name}} </span>
-                            <img @click="type=index+1" :src="type==index+1?'../../assets/img/jisuan/yx.png':'../../assets/img/jisuan/wx.png'" alt="" style="width:0.4rem;vertical-align: middle;" class="czjz R00" />
-                        </li>
-                    </ul>
-                </div>
-                <!--3.價錢-->
-                <div class=" bai border-b h141" v-if="names!='no'&&(names=='汽車交易'||names=='傢俬電器'||names=='跳蚤市場')">
-                    <p class="fz25 c222222 center h70 lh70 pT10">
-                        <span class="mui-inline h70 lh70 relative T05 mR05" style="color:red;">*</span>
-                        <span>價<span class="opacity0">錢錢</span>錢</span>
-                    </p>
-                    <ul class="relative overflow">
-                        <li class="mui-pull-left mL35">
-                            <input v-model="values" class="left fz25 c222222  padding0 border0" type="text" onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')" placeholder="請點擊輸入" style="height:0.5rem;width:1.8rem;">
-                            <span class="fz25 c222222">元</span>
-                        </li>
-                        <li class="mui-pull-right mR80">
-                            <img @click="prices" :src="values==''&&price=='-1'?'../../assets/img/jisuan/yx.png':'../../assets/img/jisuan/wx.png'" alt="" style="width:0.4rem;vertical-align: middle;" class="" />
-                            <span class="fz25 c222222 mL20">面議</span>
-                        </li>
-                    </ul>
-                </div>
-                <!--7.地址:装修，搬屋，代购代收，招生招聘，家政服务-->
-                <div class=" bai border-b h141" v-if="names!='no'&&(names!='汽車交易'&&names!='傢俬電器'&&names!='跳蚤市場')">
-                    <p class="fz25 c222222 center h70 lh70 pT10">
-                        <span class="mui-inline h70 lh70 relative T05 mR05" style="color:red;">*</span>
-                        <span>地<span class="opacity0">錢錢</span>址</span>
-                    </p>
-                    <div class="mui-input-row">
-                        <input v-model="address" type="text" placeholder="請點擊輸入" class="center border0 fz25 padding0 margin0 h50 lh50">
-                    </div>
-                </div>
-                <!--4.聯絡方式:8大板块都有 v-if="names!='no'&&(names=='qiChe'||names=='jiaSi'||names=='tiaoSi'||names=='zhaoSheng'||names=='banWu'||names=='zhuangXiu'||names=='daiGou')"-->
-                <div class=" bai border-b pB30">
-                    <p class="fz25 c222222 center h70 lh70 pT10">
-                        <span class="mui-inline h70 lh70 relative T05 mR05" style="color:red;">*</span>
-                        <span>聯絡方式</span>
-                    </p>
-                    <p class="relative pL35 mT05">
-                        <span class="fz25 c222222 mR10">電話及在線咨詢</span>
-                        <img @click="contactType=1" :src="contactType==1?'../../assets/img/jisuan/yx.png':'../../assets/img/jisuan/wx.png'" alt="" style="width:0.4rem;vertical-align: middle;" class="" />
-                        <span class="fz25 c222222 mL50 mR10">僅在線咨詢</span>
-                        <img @click="contactType=0" :src="contactType==0?'../../assets/img/jisuan/yx.png':'../../assets/img/jisuan/wx.png'" alt="" style="width:0.4rem;vertical-align: middle;" class="" />
-                    </p>
-                    <ul class="relative overflow mT60 pL35" v-if="contactType==1">
-                        <li class="mui-pull-left w50s">
-                            <span class="fz25 c222222">聯絡人</span>
-                            <input v-model="contacts" class="right fz25 c222222  padding0  border-b inputwho" type="text">
-                            <b style="border-right:1px solid #36C748;" class="mL03"></b>
-                        </li>
-                        <li class="mui-pull-right w50s">
-                            <span class="fz25 c222222">電話</span>
-                            <input v-model="phone" autofocus="false" class="right fz25 c222222  padding0  border-b inputwho" type="number" onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')">
-                            <b style="border-right:1px solid #36C748;" class="mL03"></b>
-                        </li>
-                    </ul>
-                    <p class="relative pL35 mT05" v-if="contactType==1">
-                        <span class="fz23 c333333 mR02">先生</span>
-                        <img @click="call=1" :src="call==1?'../../assets/img/jisuan/yx.png':'../../assets/img/jisuan/wx.png'" alt="" style="width:0.3rem;vertical-align: middle;" class="mR15" />
-                        <span class="fz23 c333333 mR02">小姐</span>
-                        <img @click="call=2" :src="call==2?'../../assets/img/jisuan/yx.png':'../../assets/img/jisuan/wx.png'" alt="" style="width:0.3rem;vertical-align: middle;" class="mR15" />
-                        <span class="fz23 c333333 mR02">太太</span>
-                        <img @click="call=3" :src="call==3?'../../assets/img/jisuan/yx.png':'../../assets/img/jisuan/wx.png'" alt="" style="width:0.3rem;vertical-align: middle;" class="mR15" />
-                    </p>
-                </div>
-                <!--5.詳細內容：8大板块都有 -->
-                <div class=" bai h264">
-                    <p class="fz25 c222222 center h70 lh70 pT10">
-                        <span class="mui-inline h70 lh70 relative T05 mR05 opacity0" style="color:red;">*</span>
-                        <span>詳細內容</span>
-                    </p>
-                    <textarea v-model="content" name="" rows="" cols="" placeholder="請詳細描述你的產品，可大幅提高售出速度" class="h165 fz25 padding20 border mT07"></textarea>
-                </div>
-            </div>
-            <div id="" class="fixed h98 w640 B00 L00 bai center pT15 pB15 shadow">
-                <button @click="savemessage" type="button" class="mui-btn mui-btn-green mui-btn-outlined fz30 h68 lh68 pL25 pR25 mR63">詳情預覽</button>
-                <button @click="fabu" type="button" class="mui-btn mui-btn-green fz30 h68 pL25 pR25 lh68">立即發布</button>
-            </div>
-            <!--正在發佈-->
-            <div class="wai_kuangs" v-if="isending==false">
-                <div class="nei_kuang fz32 bai w497 h200 lh200 center radius">正在發佈,請稍後...</div>
-            </div>
+  <div id="app" v-cloak>
+    <div>
+      <!--<div style="display: none;">{{watch}}</div>-->
+      <!-- 添加照片 -->
+      <div class="add-pics center" :style="setImg">
+        <img :src="fengmiantu!=''?'../../assets/img/home/editPic.png':'../../assets/img/home/addPic.png'" @click="addPic" class="h120 mT30 mB15">
+        <h2 @click="addPic" v-show="iseditImg" class="fz28 mB30 c36c748">添加照片</h2>
+        <p v-show="iseditImg&&(names=='汽車交易'||names=='傢俬電器'||names=='跳蚤市場')" class="fz21 cffffff lh28 bold">色彩明亮的照片可以大幅度提高物件出售的速度最多可上傳9張照片</p>
+        <p v-show="iseditImg&&(names!='汽車交易'&&names!='傢俬電器'&&names!='跳蚤市場')" class="fz21 cffffff lh28 bold">最多可上傳9張照片</p>
+      </div>
+      <h1 class="h10 bgebebeb"></h1>
+      <div id="model8fabu-all" class="bgebebeb bai pL20 pR20 mB112" style="">
+        <!--1.标题:汽车，家私，跳蚤-->
+        <div class=" bai border-b h141" v-if="names!='no'&&(names=='汽車交易'||names=='傢俬電器'||names=='跳蚤市場')">
+          <p class="fz25 c222222 center h70 lh70 pT10">
+            <span class="mui-inline h70 lh70 relative T05 mR05" style="color:red;">*</span>
+            <span>標
+              <span class="opacity0">錢錢</span>題</span>
+          </p>
+          <div class="mui-input-row">
+            <input v-model="title" type="text" placeholder="請簡述你的產品名稱、狀況等，讓買家更容易搜到…" class="center border0 fz25 padding0 margin0 h50 lh50">
+          </div>
         </div>
+        <!--1.商店名稱:装修，搬屋，代购代收，招生招聘，家政服务-->
+        <div class=" bai border-b h141" v-if="names!='no'&&(names!='汽車交易'&&names!='傢俬電器'&&names!='跳蚤市場')">
+          <p class="fz25 c222222 center h70 lh70 pT10">
+            <span class="mui-inline h70 lh70 relative T05 mR05" style="color:red;">*</span>
+            <span>商店名稱</span>
+          </p>
+          <div class="mui-input-row">
+            <input v-model="title" type="text" placeholder="請點擊輸入你的商店名稱" class="center border0 fz25 padding0 margin0 h50 lh50">
+          </div>
+        </div>
+        <!--2.分类-->
+        <div class=" bai border-b" v-if="names!='no'&&(names=='汽車交易'||names=='傢俬電器'||names=='招生招聘'||names=='家政服務')">
+          <p class="fz25 c222222 center h75 lh75">
+            <span class="mui-inline h75 lh75 relative T05 mR05" style="color:red;">*</span>
+            <span>分
+              <span class="opacity0">錢錢</span>類</span>
+          </p>
+          <!--家私特有-->
+          <ul class="relative mT05 overflow pL20 pB30 jiaSi" v-if="names!='no'&&(names=='傢俬電器')">
+            <li :class="'li'+index" class="mui-pull-left mB25 relative" v-for="(item,index) in Fenlei">
+              <span class="mR10 czjz absolute mui-inline h60 L00 w60">
+                <img :class="'img'+index" :src="jiaSiFenlei[index].src" alt="" style="vertical-align: middle;" class="jz" />
+              </span>
+              <span class="fz25 c222222 pL70">{{item}} </span>
+              <img @click="type=index+1" :src="type==index+1?'../../assets/img/jisuan/yx.png':'../../assets/img/jisuan/wx.png'" alt=""
+                style="width:0.4rem;vertical-align: middle;" class="czjz R00" />
+            </li>
+          </ul>
+          <!--汽车特有-->
+          <ul class="relative mT05 overflow pL20 pB30 qiChe" v-if="names!='no'&&(names=='汽車交易')">
+            <li :class="'li'+index" class="mui-pull-left mB25 relative" v-for="(item,index) in Fenlei">
+              <span class="mR10 czjz absolute mui-inline h60 L00 w60">
+                <img :class="'img'+index" :src="qiCheFenlei[index].src" alt="" style="vertical-align: middle;" class="jz" />
+              </span>
+              <span class="fz25 c222222 pL70">{{item}} </span>
+              <img @click="type=index+1" :src="type==index+1?'../../assets/img/jisuan/yx.png':'../../assets/img/jisuan/wx.png'" alt=""
+                style="width:0.4rem;vertical-align: middle;" class="czjz R00" />
+            </li>
+          </ul>
+          <!--跳蚤，装修，搬屋，代购代收没有-->
+          <!--招生招聘特有-->
+          <ul class="relative mT05 overflow pL20 pB30 zhaoSheng" v-if="names!='no'&&(names=='招生招聘')">
+            <li :class="'li'+index" class="mui-pull-left mB25 relative" v-for="(item,index) in zhaoShengFenlei">
+              <span class="mR10 czjz absolute mui-inline h60 L00 w60">
+                <img :class="'img'+index" :src="item.src" alt="" style="vertical-align: middle;" class="jz" />
+              </span>
+              <span class="fz25 c222222 pL70">{{item.name}} </span>
+              <img @click="type=index+1" :src="type==index+1?'../../assets/img/jisuan/yx.png':'../../assets/img/jisuan/wx.png'" alt=""
+                style="width:0.4rem;vertical-align: middle;" class="czjz R00" />
+            </li>
+          </ul>
+          <!--家政特有-->
+          <ul class="relative mT05 overflow pL20 pB30 jiaZheng" v-if="names!='no'&&(names=='家政服務')">
+            <li :class="'li'+index" class="mui-pull-left mB25 relative" v-for="(item,index) in jiaZhengFenlei">
+              <span class="mR10 czjz absolute mui-inline h60 L00 w60">
+                <img :class="'img'+index" :src="item.src" alt="" style="vertical-align: middle;" class="jz" />
+              </span>
+              <span class="fz25 c222222 pL70">{{item.name}} </span>
+              <img @click="type=index+1" :src="type==index+1?'../../assets/img/jisuan/yx.png':'../../assets/img/jisuan/wx.png'" alt=""
+                style="width:0.4rem;vertical-align: middle;" class="czjz R00" />
+            </li>
+          </ul>
+        </div>
+        <!--3.價錢-->
+        <div class=" bai border-b h141" v-if="names!='no'&&(names=='汽車交易'||names=='傢俬電器'||names=='跳蚤市場')">
+          <p class="fz25 c222222 center h70 lh70 pT10">
+            <span class="mui-inline h70 lh70 relative T05 mR05" style="color:red;">*</span>
+            <span>價
+              <span class="opacity0">錢錢</span>錢</span>
+          </p>
+          <ul class="relative overflow">
+            <li class="mui-pull-left mL35">
+              <input v-model="values" class="left fz25 c222222  padding0 border0" type="text" onkeyup="if(isNaN(value))execCommand('undo')"
+                onafterpaste="if(isNaN(value))execCommand('undo')" placeholder="請點擊輸入" style="height:0.5rem;width:1.8rem;">
+              <span class="fz25 c222222">元</span>
+            </li>
+            <li class="mui-pull-right mR80">
+              <img @click="prices" :src="values==''&&price=='-1'?'../../assets/img/jisuan/yx.png':'../../assets/img/jisuan/wx.png'" alt=""
+                style="width:0.4rem;vertical-align: middle;" class="" />
+              <span class="fz25 c222222 mL20">面議</span>
+            </li>
+          </ul>
+        </div>
+        <!--7.地址:装修，搬屋，代购代收，招生招聘，家政服务-->
+        <div class=" bai border-b h141" v-if="names!='no'&&(names!='汽車交易'&&names!='傢俬電器'&&names!='跳蚤市場')">
+          <p class="fz25 c222222 center h70 lh70 pT10">
+            <span class="mui-inline h70 lh70 relative T05 mR05" style="color:red;">*</span>
+            <span>地
+              <span class="opacity0">錢錢</span>址</span>
+          </p>
+          <div class="mui-input-row">
+            <input v-model="address" type="text" placeholder="請點擊輸入" class="center border0 fz25 padding0 margin0 h50 lh50">
+          </div>
+        </div>
+        <!--4.聯絡方式:8大板块都有 v-if="names!='no'&&(names=='qiChe'||names=='jiaSi'||names=='tiaoSi'||names=='zhaoSheng'||names=='banWu'||names=='zhuangXiu'||names=='daiGou')"-->
+        <div class=" bai border-b pB30">
+          <p class="fz25 c222222 center h70 lh70 pT10">
+            <span class="mui-inline h70 lh70 relative T05 mR05" style="color:red;">*</span>
+            <span>聯絡方式</span>
+          </p>
+          <p class="relative pL35 mT05">
+            <span class="fz25 c222222 mR10">電話及在線咨詢</span>
+            <img @click="contactType=1" :src="contactType==1?'../../assets/img/jisuan/yx.png':'../../assets/img/jisuan/wx.png'" alt=""
+              style="width:0.4rem;vertical-align: middle;" class="" />
+            <span class="fz25 c222222 mL50 mR10">僅在線咨詢</span>
+            <img @click="contactType=0" :src="contactType==0?'../../assets/img/jisuan/yx.png':'../../assets/img/jisuan/wx.png'" alt=""
+              style="width:0.4rem;vertical-align: middle;" class="" />
+          </p>
+          <ul class="relative overflow mT60 pL35" v-if="contactType==1">
+            <li class="mui-pull-left w50s">
+              <span class="fz25 c222222">聯絡人</span>
+              <input v-model="contacts" class="right fz25 c222222  padding0  border-b inputwho" type="text">
+              <b style="border-right:1px solid #36C748;" class="mL03"></b>
+            </li>
+            <li class="mui-pull-right w50s">
+              <span class="fz25 c222222">電話</span>
+              <input v-model="phone" autofocus="false" class="right fz25 c222222  padding0  border-b inputwho" type="number" onkeyup="if(isNaN(value))execCommand('undo')"
+                onafterpaste="if(isNaN(value))execCommand('undo')">
+              <b style="border-right:1px solid #36C748;" class="mL03"></b>
+            </li>
+          </ul>
+          <p class="relative pL35 mT05" v-if="contactType==1">
+            <span class="fz23 c333333 mR02">先生</span>
+            <img @click="call=1" :src="call==1?'../../assets/img/jisuan/yx.png':'../../assets/img/jisuan/wx.png'" alt="" style="width:0.3rem;vertical-align: middle;"
+              class="mR15" />
+            <span class="fz23 c333333 mR02">小姐</span>
+            <img @click="call=2" :src="call==2?'../../assets/img/jisuan/yx.png':'../../assets/img/jisuan/wx.png'" alt="" style="width:0.3rem;vertical-align: middle;"
+              class="mR15" />
+            <span class="fz23 c333333 mR02">太太</span>
+            <img @click="call=3" :src="call==3?'../../assets/img/jisuan/yx.png':'../../assets/img/jisuan/wx.png'" alt="" style="width:0.3rem;vertical-align: middle;"
+              class="mR15" />
+          </p>
+        </div>
+        <!--5.詳細內容：8大板块都有 -->
+        <div class=" bai h264">
+          <p class="fz25 c222222 center h70 lh70 pT10">
+            <span class="mui-inline h70 lh70 relative T05 mR05 opacity0" style="color:red;">*</span>
+            <span>詳細內容</span>
+          </p>
+          <textarea v-model="content" name="" rows="" cols="" placeholder="請詳細描述你的產品，可大幅提高售出速度" class="h165 fz25 padding20 border mT07"></textarea>
+        </div>
+      </div>
+      <div id="" class="fixed h98 w640 B00 L00 bai center pT15 pB15 shadow">
+        <button @click="savemessage" type="button" class="mui-btn mui-btn-green mui-btn-outlined fz30 h68 lh68 pL25 pR25 mR63">詳情預覽</button>
+        <button @click="fabu" type="button" class="mui-btn mui-btn-green fz30 h68 pL25 pR25 lh68">立即發布</button>
+      </div>
+      <!--正在發佈-->
+      <div class="wai_kuangs" v-if="isending==false">
+        <div class="nei_kuang fz32 bai w497 h200 lh200 center radius">正在發佈,請稍後...</div>
+      </div>
     </div>
-    <!-- <script src="https://cdn.bootcss.com/vue/2.5.9/vue.min.js"></script> -->
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
-    <script src="https://cdn.bootcss.com/vuex/3.0.1/vuex.min.js"></script>
-    <script src="../store.js"></script>
-    <script src="https://cdn.bootcss.com/vue-router/3.0.1/vue-router.min.js"></script>
-    <script src="../../static/vconsole.min.js"></script>
-    <script src="../../static/mui.min.js"></script>
-    <!-- <script src="../../templated/liebiao.js"></script> -->
-    <script src="../../static/imgUp.js"></script>
-    <!-- <script src="../../static/mui.pullToRefresh.js"></script> -->
-    <!-- <script src="../../static/mui.pullToRefresh.material.js"></script> -->
-    <script src="../../static/mui.zoom.js"></script>
-    <!-- <script src="../../static/mui.previewimage.js"></script> -->
-    <script src="../../static/public.js"></script>
-    <script>
-        
-function getAppLocalData(data) {
-  if (data){
-    console.log('有值传过来')
-            if(JSON.parse(data).start_time!=undefined){//小林的数组对象
-                   console.log('you小林的')
-                   vm.huancunPics = JSON.parse(data)
-            }else{//我的数组对象huancun
-                 console.log('you我的')
-                   vm.huancun = JSON.parse(data)
-                   if(JSON.parse(data).call&&JSON.parse(data).contacts&&JSON.parse(data).phone){
+  </div>
+  <!-- <script src="https://cdn.bootcss.com/vue/2.5.9/vue.min.js"></script> -->
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
+  <script src="https://cdn.bootcss.com/vuex/3.0.1/vuex.min.js"></script>
+  <script src="../store.js"></script>
+  <script src="https://cdn.bootcss.com/vue-router/3.0.1/vue-router.min.js"></script>
+  <script src="../../static/vconsole.min.js"></script>
+  <script src="../../static/mui.min.js"></script>
+  <!-- <script src="../../templated/liebiao.js"></script> -->
+  <script src="../../static/imgUp.js"></script>
+  <!-- <script src="../../static/mui.pullToRefresh.js"></script> -->
+  <!-- <script src="../../static/mui.pullToRefresh.material.js"></script> -->
+  <script src="../../static/mui.zoom.js"></script>
+  <!-- <script src="../../static/mui.previewimage.js"></script> -->
+  <script src="../../static/public.js"></script>
+  <script>
+    function getAppLocalData(data) {
+      if (data) {
+        console.log('有值传过来')
+        if (JSON.parse(data).start_time != undefined) { //小林的数组对象
+          console.log('you小林的')
+          vm.huancunPics = JSON.parse(data)
+        } else { //我的数组对象huancun
+          console.log('you我的')
+          vm.huancun = JSON.parse(data)
+          if (JSON.parse(data).call && JSON.parse(data).contacts && JSON.parse(data).phone) {
 
-                   }else{
-                     vm.users()
-                   }
-            }
-            vm.huancuns()
-  } else {
-    console.log('没有传值过来')
-          vm.huancuns()
-          vm.users()
-  }
-
-}
-    </script>
-    <script type="text/javascript">
-    mui.init();
-    </script>
-    <script>
-    var vm = new Vue({
-        el: '#app',
-        store,
-        data: {
-            huancun:[],
-            xiaolin:[],//
-            huancunPics:[],
-            objectId:'no',
-            fengmiantu: '',
-            isending: true, //是否结束了请求
-            content: '',
-            names: 'no', //跳转过来的模块名字
-            title: '', //名称
-            values: '', //输入框的价格
-            price: 0, //面议的变量
-            call: '', //先生1 小姐2  太太3
-            contactType: -1, //联繁方式, 1=电话; 0= 仅在线 
-            call: 0, //呼称
-            phone: '', //联系电话
-            address: '', //地址
-            contacts: '', //联络人
-            type: 0, //分类  1是二手家私  2是二手电器  3是全新家私  tags
-            Fenlei: '',
-            jiaSiFenlei: [
-                { name: '二手傢俬', src: '../../assets/img/home/ershou1.png' },
-                { name: '二手電器', src: '../../assets/img/home/ershou2.png' },
-                { name: '全新傢電', src: '../../assets/img/home/ershou3.png' }
-            ],
-            qiCheFenlei: [
-                { name: '個人二手車', src: '../../assets/img/home/a.png' },
-                { name: '中介二手車', src: '../../assets/img/home/b.png' },
-                { name: '全新車', src: '../../assets/img/home/c.png' },
-                { name: '車牌交易', src: '../../assets/img/home/d.png' },
-                { name: '零件交易', src: '../../assets/img/home/e.png' },
-                { name: '維修改裝', src: '../../assets/img/home/f.png' },
-                { name: '洗車美容', src: '../../assets/img/home/g.png' },
-                { name: '其他', src: '../../assets/img/home/h.png' }
-            ],
-            jiaZhengFenlei: [
-                { name: '開鎖配匙', src: '../../assets/img/home/21.png' },
-                { name: '家傭鐘點', src: '../../assets/img/home/22.png' },
-                { name: '傢電維修', src: '../../assets/img/home/23.png' },
-                { name: '疏通補漏', src: '../../assets/img/home/24.png' },
-                { name: '其他', src: '../../assets/img/home/h.png' }
-            ],
-            zhaoShengFenlei: [
-                { name: '招生', src: '../../assets/img/home/11.png' },
-                { name: '招聘', src: '../../assets/img/home/12.png' }
-            ],
-            datas: [1, 1, 1, 1, 2, 2, 2, 2, 2]
-
-        },
-        computed: {
-            setImg() {
-                if (this.fengmiantu) {
-                    return {
-                        backgroundImage: `url(${this.fengmiantu})`
-                    }
-                } else {
-                    return {
-                        backgroundImage: `url(${'../../assets/img/home/test.png'})`
-                    }
-                }
-            },
-            setaddImg() {
-                if (this.fengmiantu) {
-                    return '../../assets/img/home/editPic.png'
-                } else {
-                    return '../../assets/img/home/addPic.png'
-                }
-            },
-            iseditImg() {
-                if (this.fengmiantu) {
-                    return false
-                } else {
-                    return true
-                }
-            }
-        },
-        methods: {
-            users(){
-                var that=this
-                 // // 查看个人资料
-            var id = localStorage.getItem('userId')
-            // alert(id)
-            if (id) {
-                $.get(Boss + 'user/' + id, function(data, status) {
-                    if (!data.result.message) {
-                        // userData 个人信息
-                        // that.userIn=data.result
-                        that.phone = data.result.phone
-                        that.contacts = data.result.displayname
-                        that.call = (data.result.call == 'mr' ? '1' : (data.result.call == 'miss' ? '2' : (data.result.call == 'mrs' ? '3' : '')))
-
-                    }
-                })
-            }
-
-        },
-            //读取原来的缓存
-            huancuns() {
-                console.log('huancuns:this.Fenlei')
-                console.log(this.Fenlei,this.Fenlei.length)
-                // console.log('app存储的huancun')
-                // console.log(this.huancun)
-                // console.log(this.huancunPics)
-                var hh=this.huancun
-                var hh1=this.huancunPics
-                // 小林有则图片取小林的
-                if(hh1.pics){
-
-                }else{
-                    // 我的图片有，小林无，我的图片转64存到小林，我的图片转64赋值给大数组
-                    if(locations('from') == 'wodefabu'){
-                        for (var i = 0; i < this.huancun.pics.length; i++) {
-                            this.getBase64(this.huancun.pics[i],this.huancun.pics.length,i)
-                        }
-                             // this.getBase64(this.huancun.pics[0],1)
-                     }else{
-                    // 小林无，我无，不需要执行图片操作，如果是新页面进来的
-
-                     }
-                }
-                //我的发布点击编辑过来的，这个时候本地有一个model8fabu_array，将这个东西的内容赋给huancun的数组
-                if (locations('from') == 'wodefabu') {//肯定有数据，一定会执行这个
-                     console.log('wodefabu从app取得的数据')
-                     console.log(hh)
-                     console.log(hh1)
-                     this.objectId=hh.objectId
-                     if(hh.type[0]!=undefined&&isNaN(hh.type[0])){
-                        console.log('类型是中文'+hh.type[0])
-                        console.log(this.Fenlei)
-                        console.log('长度：'+this.Fenlei.length)
-                            for (var i = 0; i < this.Fenlei.length; i++) {
-                            console.log(this.Fenlei[i])
-                                if (this.Fenlei[i]==hh.type[0]) {
-                                    this.type = i + 1
-                                    console.log(this.Fenlei[i],hh.type[0],this.type)
-                                }
-                            
-
-                        }
-                    }else{
-                        console.log('类型是数字'+hh.type)
-                        this.type=hh.type
-                    }
-                    
-
-                } else if (locations('from') == 'model8') {
-                                         // console.log('model8 自己的缓存')
-                                         console.log('model8')
-                                         console.log(hh)
-                                         console.log(hh1)
-                    //从8大模块的列表左边的发布跳过来的 只有存在数据才执行这一个
-                    if (!hh) {
-                         return
-                    }else{
-                        // console.log('model8 huancun')
-                        this.objectId='no'
-                        this.type=hh.type
-                    }
-                }
-
-
-                        
-// 共同的获取数据
-console.log('共同的执行数据挂载')
-                        if (hh1.pics) {
-                            this.fengmiantu = hh1.pics[0]
-                            console.log('封面图取小林的')
-                        }else{
-                             this.fengmiantu = hh.pics[0]
-                             console.log('封面图取我的的')
-                        }
-
-                        this.content = hh.content
-                        this.title = hh.title //名称
-                        // this.objectId='no'
-
-                        this.values = hh.values //输入框的价格
-                        this.price=hh.price                   
-                        this.call =hh.call //先生1 小姐2  太太3 mr miss mrs 
-                        this.contactType = hh.contactType //联繁方式, 1=电话; 0= 仅在线 
-                        this.phone =hh.phone //联系电话
-                        this.address=hh.address //地址
-                        this.contacts=hh.contacts //联络人
-
-            },
-            getBase64(img,lengths,i){
-                var that=this
-                                  //传入图片路径，返回base64
-                        function getBase64Image(img,width,height) {//width、height调用时传入具体像素值，控制大小 ,不传则默认图像大小
-                          var canvas = document.createElement("canvas");
-                          canvas.width = width ? width : img.width;
-                          canvas.height = height ? height : img.height;
-                 
-                          var ctx = canvas.getContext("2d");
-                          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-                          var dataURL = canvas.toDataURL();
-
-                          // 
-                          console.log('转换为base64'+dataURL)
-                          that.xiaolin.push(dataURL)
-                          if(i==lengths-1){
-                             // 转完后要存储去app
-                              var aa={'pics':that.xiaolin}
-                              WebViewJavascriptBridge.callHandler('SetData', {content_key: 'xiaolin', content: JSON.stringify(aa)})
-                              that.huancuns.pics=that.xiaolin
-                          }
-                           
-                            
-                         
-                        }
-                    var image = new Image();
-                    image.crossOrigin = '';
-                    image.src = img;
-                    var deferred=$.Deferred();
-                    if(img){
-                      image.onload =function (){
-                        deferred.resolve(getBase64Image(image));//将base64传给done上传处理
-                      }
-                      return deferred.promise();//问题要让onload完成后再return sessionStorage['imgTest']
-                    }
-      
-
-            },
-            //跳转到图片
-            // 添加照片
-            addPic() {
-                var hh=this.huancun
-                var hh1=this.huancunPics
-                var pics=[]
-                if(hh1.pics){
-                    pics=hh1.pics
-                }else{
-                    pics=hh.pics
-                }
-                var huancun = {
-                    objectId:this.objectId,
-                    pics: pics,
-                    content: this.content,
-                    title: this.title, //名称
-                    values: this.values, //输入框的价格
-                    price: this.price, //面议的变量
-                    call: this.call, //先生1 小姐2  太太3
-                    contactType: this.contactType, //联繁方式, 1=电话; 0= 仅在线 
-                    phone: this.phone, //联系电话
-                    address: this.address, //地址
-                    contacts: this.contacts, //联络人
-                    type: this.type //分类  1是二手家私  2是二手电器  3是全新家私  tags
-                }
-
-                // window.localStorage.setItem('huancun', JSON.stringify(huancun))
-                WebViewJavascriptBridge.callHandler('SetData', {content_key: 'huancun', content: JSON.stringify(huancun)})
-                // 如果hh1是空，则代表当前是http的图片路径或者还没选择图片，这个时候要转64存在小林的数组
-                // 自己的缓存没有图片并且小林的也没有，则当前是全新进入的页面
-                location.href = "../lin/pic.html"
-                // if((!hh.pics)&&(!hh1.pics)){
-                //     location.href = "../lin/pic.html"
-                // }else if(hh.pics&&(!hh1.pics)){
-                // // 自己的缓存有图片并且小林的没有图片，则要转base64
-                //        this.getBase64(hh.pics) 
-                // }else{
-                //  // 自己的缓存没有图片并且小林的有，则直接跳去
-                //     location.href = "../lin/pic.html"
-                // }
-
-               
-
-                
-
-            },
-
-            //价格
-            prices() {
-                this.values = ''
-                this.price =-1
-            },
-            //防止刷新的时候详情的预览数据消失
-            xiangqingyulans() {
-                var that=this
-                var hh=this.huancun
-                var hh1=this.huancunPics
-                var pics1=[]
-                var pics=[]
-                if(hh1.pics){
-                    pics1=hh1.pics
-                }else{
-                    pics1=hh.pics
-                }
-                if (pics1) {
-                    for (var i = 0; i < pics1.length; i++) {
-                        pics.push({ "objectId": "000", "url": pics1[i] })
-                    }
-                }
-                console.log(pics)
-                var id=''
-                if (this.names == '汽車交易' || this.names == '傢俬電器' || this.names == '跳蚤市場') {
-                    id = 'content_02'
-                } else {
-                    id = 'content_01'
-                }
-                var xiangqingData = {
-                    objectId:this.objectId,
-                    pics:pics, 
-                    title: this.title,
-                    createdAt: '',
-                    views: '',
-                    rent_type: '',
-                    price: (this.values == '' && this.price == 0 ? '--' : (this.values == '' && this.price == -1 ? '面议' : this.values)),
-                    category: '1',
-                    content: this.content,
-                    contacts: this.contacts,
-                    templeId: id,
-                    remark:this.content,
-                    contactType: this.contactType,
-                    from:this.contacts ,
-                    user:{
-                        likes: '1',
-                        call: (this.call == '先生' ? 'mr' : (this.call == '太太' ? 'mrs' : (this.call == '小姐' ? 'miss' : ''))),
-                        displayname: this.contacts,
-                        createdAt: '1'
-                    }
-                }
-
-                console.log(xiangqingData)
-                // console.log(httplu+'xiangqing/xiangqing.html?jianju=no&objectId=no&name=' + that.names+'&xiangqingData='+JSON.stringify(xiangqingData))
-                // window.localStorage.setItem('xiangqingData', JSON.stringify(xiangqingData))
-                // console.log(window.localStorage.getItem('xiangqingData'))
-                // 跳转到详情页面
-                 WebViewJavascriptBridge.callHandler('SetData', {content_key: 'xiangqingData', content:JSON.stringify(xiangqingData)})
-                 // location.href = 'http://stg-static-macaucf.leanapp.cn/html/yemian/more/mztk.html'
-                // setTimeout(function(){
-                   location.href =httplu+'xiangqing/xiangqing.html?jianju=no&objectId=no&name=' + that.names
-                // },11000)
-               
-            },
-            //点击详情预览的按钮的时候
-            savemessage() {
-                this.xiangqingyulans()
-
-            },
-            //发布接口，每个模块对应应该传什么东西
-
-            fabus() {
-                // this.isending=true
-                var that = this
-                //进入这里代表要发请求了，要把prending设置为false，代表不能再点击那个发布按钮              
-                var formData = new FormData();
-                formData.append("sessiontoken",sessiontoken);
-                //                  formData.append("channel",'services');//home=主页 discuss=讨论 services= 服务
-                formData.append("title", this.title); //标题或商店名称
-                // 只有调用了上传的插件才传图片去后台修改，否则不传
-                // var pics = JSON.parse(localStorage.getItem('pics'))
-                // var pics=JSON.parse(WebViewJavascriptBridge.callHandler('GetData', {content_key: 'xiaolin'})).pics
-                var pics=this.huancunPics.pics
-
-                if(pics){
-                    var items = 'pics'
-                    commonFiles(pics, formData,items)
-                }else{
-                    var items = 'pics'
-                    commonFiles(this.huancuns.pics, formData,items)
-                }
-                
-
-                if (this.names == '裝修設計' || this.names == '代購代收' || this.names == '搬屋配送' || this.names == '招生招聘' || this.names == '家政服務') {
-                    formData.append("address", this.address); //版块名称
-                }
-                formData.append("section", this.names); //版块名称
-                formData.append("tags", this.Fenlei[this.type - 1]); //分类标题，多个以','分隔
-                if (this.names == '汽車交易' || this.names == '傢俬電器' || this.names == '跳蚤市場') {
-                    if (this.values == '' && this.price == -1) {
-                        formData.append("price", -1); //价格，当-1时为面议
-                    } else {
-                        formData.append("price", this.price); //价格，当-1时为面议
-                    }
-                }
-                // 判断是修改还是新的发布
-                if(this.objectId!='no'){
-                    formData.append("objectId", this.objectId);
-                }
-                formData.append("contactType", this.contactType); //联繁方式, 1=电话; 0= 仅在线
-                if (this.contactType == 1) {
-                    formData.append("contacts", this.contacts); //联繁人
-                    formData.append("phone", this.phone); //联繁电话
-                    var calls = ''
-                    if (this.call == 1) {
-                        calls = '先生'
-                    } else if (this.call == 2) {
-                        calls = '小姐'
-                    } else if (this.call == 3) {
-                        calls = '太太'
-                    }
-                    formData.append("call", calls); //呼称
-                }
-                console.log(formData)
-                console.log('gerenershouche'+sessiontoken)
-                console.log('id'+this.objectId)
-                console.log(this.huancunPics.pics)
-                 console.log(this.huancun.pics)
-
-                formData.append("content", this.content); //详细内容
-                setTimeout(function() {
-                    jQuery.ajax({
-                            url: Boss3 + "article",
-                            type: "POST",
-                            async: false,
-                            processData: false,
-                            contentType: false,
-                            data: formData,
-                        })
-                        .done(function(data, textStatus, jqXHR) {
-                            if (data.status == 1) {
-                                 WebViewJavascriptBridge.callHandler('ClearData', {content_key: 'huancun'})
-                                 WebViewJavascriptBridge.callHandler('ClearData', {content_key: 'xiaolin'})
-                                 WebViewJavascriptBridge.callHandler('ClearData', {content_key: 'xiangqingData'})
-                                that.isending = true //正在发布，请稍后
-                                location.href = '../zusouwuye/model8.html?objectId=no&name=' + that.names + '&sessiontoken=' + sessiontoken
-
-
-                            } else {
-                                mui.toast(data.err.rawMessage)
-                            }
-
-                        })
-                        .fail(function(jqXHR, textStatus, errorThrown) {
-                            console.log("HTTP Request Failed");
-                        })
-                        .always(function() {});
-                }, 1000)
-
-            },
-            //发布按钮为填完必填项目的时候將提示弹出框
-            fabu() {
-                var that = this
-                console.log('ok')
-                console.log(this.huancun.pics)
-                 console.log(this.huancunPics.pics)
-                if (this.title == '' || this.contactType == -1) {
-                    mui.toast('带星号为必填，請填写完整')
-                    return
-                }
-
-                if (this.names == '汽車交易' || this.names == '傢俬電器') {
-                    if (this.type == 0 || (this.price == 0 && this.values == '')) {
-                        mui.toast('带星号为必填，請填写完整')
-
-                        return
-
-                    } else {
-                        that.isending = false //正在发布，请稍后
-                        console.log('0000000000')
-                        this.fabus()
-                    }
-                } else if (this.names == '裝修設計' || this.names == '代購代收' || this.names == '搬屋配送') {
-                    if (this.address == '') {
-                        mui.toast('带星号为必填，請填写完整')
-
-                        return
-
-                    } else {
-                        that.isending = false //正在发布，请稍后
-                        console.log('0000000000')
-                        this.fabus()
-                    }
-                } else if (this.names == '招生招聘' || this.names == '家政服務') {
-                    if (this.type == 0 || this.address == '') {
-                        mui.toast('带星号为必填，請填写完整')
-
-                        return
-
-                    } else {
-                        that.isending = false //正在发布，请稍后
-                        console.log('0000000000')
-                        this.fabus()
-                    }
-                } else if (this.names == '跳蚤市場') {
-                    if ((this.price == 0 && this.values == '')) {
-                        mui.toast('带星号为必填，請填写完整')
-
-                        return
-                    } else {
-                        that.isending = false //正在发布，请稍后
-                        console.log('0000000000')
-                        this.fabus()
-                    }
-                }
-
-
-
-
-
-            }
-        },
-        mounted() {
-
-            var that = this
-            this.names = locations('name')
-
-            $.get(Boss3 + 'section/tagItems', { 'title': this.names, 'sessiontoken': sessiontoken }, function(data) {
-                console.log(data.result.tags)
-                that.Fenlei = data.result.tags
-                console.log('that.Fenlei'+that.Fenlei.length)
-                console.log(that.Fenlei)
-            //获取填写的东西，必须等请求完后才调用获取方法
-            // 一个是字段数据，一个是小林的图片
-                WebViewJavascriptBridge.callHandler('GetData', {content_key: 'huancun'})
-                WebViewJavascriptBridge.callHandler('GetData', {content_key: 'xiaolin'})
-
-            })
-
-
-            
-            // that.huancuns()
+          } else {
+            vm.users()
+          }
         }
+        vm.huancuns()
+      } else {
+        console.log('没有传值过来')
+        vm.huancuns()
+        vm.users()
+      }
+
+    }
+  </script>
+  <script type="text/javascript">
+    mui.init();
+  </script>
+  <script>
+    var vm = new Vue({
+      el: '#app',
+      store,
+      data: {
+        huancun: [],
+        xiaolin: [], //
+        huancunPics: [],
+        objectId: 'no',
+        fengmiantu: '',
+        isending: true, //是否结束了请求
+        content: '',
+        names: 'no', //跳转过来的模块名字
+        title: '', //名称
+        values: '', //输入框的价格
+        price: 0, //面议的变量
+        call: '', //先生1 小姐2  太太3
+        contactType: -1, //联繁方式, 1=电话; 0= 仅在线 
+        call: 0, //呼称
+        phone: '', //联系电话
+        address: '', //地址
+        contacts: '', //联络人
+        type: 0, //分类  1是二手家私  2是二手电器  3是全新家私  tags
+        Fenlei: '',
+        jiaSiFenlei: [{
+            name: '二手傢俬',
+            src: '../../assets/img/home/ershou1.png'
+          },
+          {
+            name: '二手電器',
+            src: '../../assets/img/home/ershou2.png'
+          },
+          {
+            name: '全新傢電',
+            src: '../../assets/img/home/ershou3.png'
+          }
+        ],
+        qiCheFenlei: [{
+            name: '個人二手車',
+            src: '../../assets/img/home/a.png'
+          },
+          {
+            name: '中介二手車',
+            src: '../../assets/img/home/b.png'
+          },
+          {
+            name: '全新車',
+            src: '../../assets/img/home/c.png'
+          },
+          {
+            name: '車牌交易',
+            src: '../../assets/img/home/d.png'
+          },
+          {
+            name: '零件交易',
+            src: '../../assets/img/home/e.png'
+          },
+          {
+            name: '維修改裝',
+            src: '../../assets/img/home/f.png'
+          },
+          {
+            name: '洗車美容',
+            src: '../../assets/img/home/g.png'
+          },
+          {
+            name: '其他',
+            src: '../../assets/img/home/h.png'
+          }
+        ],
+        jiaZhengFenlei: [{
+            name: '開鎖配匙',
+            src: '../../assets/img/home/21.png'
+          },
+          {
+            name: '家傭鐘點',
+            src: '../../assets/img/home/22.png'
+          },
+          {
+            name: '傢電維修',
+            src: '../../assets/img/home/23.png'
+          },
+          {
+            name: '疏通補漏',
+            src: '../../assets/img/home/24.png'
+          },
+          {
+            name: '其他',
+            src: '../../assets/img/home/h.png'
+          }
+        ],
+        zhaoShengFenlei: [{
+            name: '招生',
+            src: '../../assets/img/home/11.png'
+          },
+          {
+            name: '招聘',
+            src: '../../assets/img/home/12.png'
+          }
+        ],
+        datas: [1, 1, 1, 1, 2, 2, 2, 2, 2]
+
+      },
+      computed: {
+        setImg() {
+          if (this.fengmiantu) {
+            return {
+              backgroundImage: `url(${this.fengmiantu})`
+            }
+          } else {
+            return {
+              backgroundImage: `url(${'../../assets/img/home/test.png'})`
+            }
+          }
+        },
+        setaddImg() {
+          if (this.fengmiantu) {
+            return '../../assets/img/home/editPic.png'
+          } else {
+            return '../../assets/img/home/addPic.png'
+          }
+        },
+        iseditImg() {
+          if (this.fengmiantu) {
+            return false
+          } else {
+            return true
+          }
+        }
+      },
+      methods: {
+        users() {
+          var that = this
+          // // 查看个人资料
+          var id = localStorage.getItem('userId')
+          // alert(id)
+          if (id) {
+            $.get(Boss + 'user/' + id, function (data, status) {
+              if (!data.result.message) {
+                // userData 个人信息
+                // that.userIn=data.result
+                that.phone = data.result.phone
+                that.contacts = data.result.displayname
+                that.call = (data.result.call == 'mr' ? '1' : (data.result.call == 'miss' ? '2' : (data.result.call ==
+                  'mrs' ? '3' : '')))
+
+              }
+            })
+          }
+
+        },
+        //读取原来的缓存
+        huancuns() {
+          console.log('huancuns:this.Fenlei')
+          console.log(this.Fenlei, this.Fenlei.length)
+          // console.log('app存储的huancun')
+          // console.log(this.huancun)
+          // console.log(this.huancunPics)
+          var hh = this.huancun
+          var hh1 = this.huancunPics
+          // 小林有则图片取小林的
+          if (hh1.pics) {
+
+          } else {
+            // 我的图片有，小林无，我的图片转64存到小林，我的图片转64赋值给大数组
+            if (locations('from') == 'wodefabu') {
+              for (var i = 0; i < this.huancun.pics.length; i++) {
+                this.getBase64(this.huancun.pics[i], this.huancun.pics.length, i)
+              }
+              // this.getBase64(this.huancun.pics[0],1)
+            } else {
+              // 小林无，我无，不需要执行图片操作，如果是新页面进来的
+
+            }
+          }
+          //我的发布点击编辑过来的，这个时候本地有一个model8fabu_array，将这个东西的内容赋给huancun的数组
+          if (locations('from') == 'wodefabu') { //肯定有数据，一定会执行这个
+            console.log('wodefabu从app取得的数据')
+            console.log(hh)
+            console.log(hh1)
+            this.objectId = hh.objectId
+            if (hh.type[0] != undefined && isNaN(hh.type[0])) {
+              console.log('类型是中文' + hh.type[0])
+              console.log(this.Fenlei)
+              console.log('长度：' + this.Fenlei.length)
+              for (var i = 0; i < this.Fenlei.length; i++) {
+                console.log(this.Fenlei[i])
+                if (this.Fenlei[i] == hh.type[0]) {
+                  this.type = i + 1
+                  console.log(this.Fenlei[i], hh.type[0], this.type)
+                }
+
+
+              }
+            } else {
+              console.log('类型是数字' + hh.type)
+              this.type = hh.type
+            }
+
+
+          } else if (locations('from') == 'model8') {
+            // console.log('model8 自己的缓存')
+            console.log('model8')
+            console.log(hh)
+            console.log(hh1)
+            //从8大模块的列表左边的发布跳过来的 只有存在数据才执行这一个
+            if (!hh) {
+              return
+            } else {
+              // console.log('model8 huancun')
+              this.objectId = 'no'
+              this.type = hh.type
+            }
+          }
+
+
+
+          // 共同的获取数据
+          console.log('共同的执行数据挂载')
+          if (hh1.pics) {
+            this.fengmiantu = hh1.pics[0]
+            console.log('封面图取小林的')
+          } else if (hh.pics) {
+            this.fengmiantu = hh.pics[0]
+            console.log('封面图取我的的')
+          }
+
+          this.content = hh.content
+          this.title = hh.title //名称
+          // this.objectId='no'
+
+          this.values = hh.values //输入框的价格
+          this.price = hh.price
+          this.call = hh.call //先生1 小姐2  太太3 mr miss mrs 
+          this.contactType = hh.contactType //联繁方式, 1=电话; 0= 仅在线 
+          this.phone = hh.phone //联系电话
+          this.address = hh.address //地址
+          this.contacts = hh.contacts //联络人
+
+        },
+        getBase64(img, lengths, i) {
+          var that = this
+          //传入图片路径，返回base64
+          function getBase64Image(img, width, height) { //width、height调用时传入具体像素值，控制大小 ,不传则默认图像大小
+            var canvas = document.createElement("canvas");
+            canvas.width = width ? width : img.width;
+            canvas.height = height ? height : img.height;
+
+            var ctx = canvas.getContext("2d");
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+            var dataURL = canvas.toDataURL();
+
+            // 
+            console.log('转换为base64' + dataURL)
+            that.xiaolin.push(dataURL)
+            if (i == lengths - 1) {
+              // 转完后要存储去app
+              var aa = {
+                'pics': that.xiaolin
+              }
+              WebViewJavascriptBridge.callHandler('SetData', {
+                content_key: 'xiaolin',
+                content: JSON.stringify(aa)
+              })
+              that.huancuns.pics = that.xiaolin
+            }
+
+
+
+          }
+          var image = new Image();
+          image.crossOrigin = '';
+          image.src = img;
+          var deferred = $.Deferred();
+          if (img) {
+            image.onload = function () {
+              deferred.resolve(getBase64Image(image)); //将base64传给done上传处理
+            }
+            return deferred.promise(); //问题要让onload完成后再return sessionStorage['imgTest']
+          }
+
+
+        },
+        //跳转到图片
+        // 添加照片
+        addPic() {
+          var hh = this.huancun
+          var hh1 = this.huancunPics
+          var pics = []
+          if (hh1.pics) {
+            pics = hh1.pics
+          } else {
+            pics = hh.pics
+          }
+          var huancun = {
+            objectId: this.objectId,
+            pics: pics,
+            content: this.content,
+            title: this.title, //名称
+            values: this.values, //输入框的价格
+            price: this.price, //面议的变量
+            call: this.call, //先生1 小姐2  太太3
+            contactType: this.contactType, //联繁方式, 1=电话; 0= 仅在线 
+            phone: this.phone, //联系电话
+            address: this.address, //地址
+            contacts: this.contacts, //联络人
+            type: this.type //分类  1是二手家私  2是二手电器  3是全新家私  tags
+          }
+
+          // window.localStorage.setItem('huancun', JSON.stringify(huancun))
+          WebViewJavascriptBridge.callHandler('SetData', {
+            content_key: 'huancun',
+            content: JSON.stringify(huancun)
+          })
+          // 如果hh1是空，则代表当前是http的图片路径或者还没选择图片，这个时候要转64存在小林的数组
+          // 自己的缓存没有图片并且小林的也没有，则当前是全新进入的页面
+          location.href = "../lin/pic.html"
+          // if((!hh.pics)&&(!hh1.pics)){
+          //     location.href = "../lin/pic.html"
+          // }else if(hh.pics&&(!hh1.pics)){
+          // // 自己的缓存有图片并且小林的没有图片，则要转base64
+          //        this.getBase64(hh.pics) 
+          // }else{
+          //  // 自己的缓存没有图片并且小林的有，则直接跳去
+          //     location.href = "../lin/pic.html"
+          // }
+
+
+
+
+
+        },
+
+        //价格
+        prices() {
+          this.values = ''
+          this.price = -1
+        },
+        //防止刷新的时候详情的预览数据消失
+        xiangqingyulans() {
+          var that = this
+          var hh = this.huancun
+          var hh1 = this.huancunPics
+          var pics1 = []
+          var pics = []
+          if (hh1.pics) {
+            pics1 = hh1.pics
+          } else {
+            pics1 = hh.pics
+          }
+          if (pics1) {
+            for (var i = 0; i < pics1.length; i++) {
+              pics.push({
+                "objectId": "000",
+                "url": pics1[i]
+              })
+            }
+          }
+          console.log(pics)
+          var id = ''
+          if (this.names == '汽車交易' || this.names == '傢俬電器' || this.names == '跳蚤市場') {
+            id = 'content_02'
+          } else {
+            id = 'content_01'
+          }
+          var xiangqingData = {
+            objectId: this.objectId,
+            pics: pics,
+            title: this.title,
+            address: this.address,
+            createdAt: '',
+            views: '',
+            rent_type: '',
+            price: (this.values == '' && this.price == 0 ? '--' : (this.values == '' && this.price == -1 ? '面议' :
+              this.values)),
+            category: '1',
+            content: this.content,
+            contacts: this.contacts,
+            templeId: id,
+            // remark:this.content,
+            contactType: this.contactType,
+            from: this.contacts,
+            user: {
+              likes: '1',
+              call: (this.call == '先生' ? 'mr' : (this.call == '太太' ? 'mrs' : (this.call == '小姐' ? 'miss' : ''))),
+              displayname: this.contacts,
+              createdAt: '1'
+            }
+          }
+
+          console.log(xiangqingData)
+          // console.log(httplu+'xiangqing/xiangqing.html?jianju=no&objectId=no&name=' + that.names+'&xiangqingData='+JSON.stringify(xiangqingData))
+          // window.localStorage.setItem('xiangqingData', JSON.stringify(xiangqingData))
+          // console.log(window.localStorage.getItem('xiangqingData'))
+          // 跳转到详情页面
+          WebViewJavascriptBridge.callHandler('SetData', {
+            content_key: 'xiangqingData',
+            content: JSON.stringify(xiangqingData)
+          })
+          // location.href = 'http://stg-static-macaucf.leanapp.cn/html/yemian/more/mztk.html'
+          // setTimeout(function(){
+          location.href = httplu + 'xiangqing/xiangqing.html?jianju=no&objectId=no&name=' + that.names
+          // },11000)
+
+        },
+        //点击详情预览的按钮的时候
+        savemessage() {
+          this.xiangqingyulans()
+
+        },
+        //发布接口，每个模块对应应该传什么东西
+
+        fabus() {
+          console.log('okok')
+          // this.isending=true
+          var that = this
+          //进入这里代表要发请求了，要把prending设置为false，代表不能再点击那个发布按钮              
+          var formData = new FormData();
+          formData.append("sessiontoken", sessiontoken);
+          //                  formData.append("channel",'services');//home=主页 discuss=讨论 services= 服务
+          formData.append("title", this.title); //标题或商店名称
+          // 只有调用了上传的插件才传图片去后台修改，否则不传
+          // var pics = JSON.parse(localStorage.getItem('pics'))
+          // var pics=JSON.parse(WebViewJavascriptBridge.callHandler('GetData', {content_key: 'xiaolin'})).pics
+          var pics = this.huancunPics.pics
+
+          if (pics) {
+            var items = 'pics'
+            commonFiles(pics, formData, items)
+          } else {
+            var items = 'pics'
+            commonFiles(this.huancuns.pics, formData, items)
+          }
+
+
+          if (this.names == '裝修設計' || this.names == '代購代收' || this.names == '搬屋配送' || this.names == '招生招聘' || this.names ==
+            '家政服務') {
+            formData.append("address", this.address); //版块名称
+          }
+          formData.append("section", this.names); //版块名称
+          formData.append("tags", this.Fenlei[this.type - 1]); //分类标题，多个以','分隔
+          if (this.names == '汽車交易' || this.names == '傢俬電器' || this.names == '跳蚤市場') {
+            if (this.values == '' && this.price == -1) {
+              formData.append("price", -1); //价格，当-1时为面议
+            } else {
+              formData.append("price", this.price); //价格，当-1时为面议
+            }
+          }
+          // 判断是修改还是新的发布
+          if (this.objectId != 'no') {
+            formData.append("objectId", this.objectId);
+          }
+          formData.append("contactType", this.contactType); //联繁方式, 1=电话; 0= 仅在线
+          if (this.contactType == 1) {
+            formData.append("contacts", this.contacts); //联繁人
+            formData.append("phone", this.phone); //联繁电话
+            var calls = ''
+            if (this.call == 1) {
+              calls = '先生'
+            } else if (this.call == 2) {
+              calls = '小姐'
+            } else if (this.call == 3) {
+              calls = '太太'
+            }
+            formData.append("call", calls); //呼称
+          }
+          console.log(formData)
+          console.log('gerenershouche' + sessiontoken)
+          console.log('id' + this.objectId)
+          console.log(this.huancunPics.pics)
+          console.log(this.huancun.pics)
+
+          formData.append("content", this.content); //详细内容
+          // console.log('okok')
+          setTimeout(function () {
+            jQuery.ajax({
+                url: Boss3 + "article",
+                type: "POST",
+                async: false,
+                processData: false,
+                contentType: false,
+                data: formData,
+              })
+              .done(function (data, textStatus, jqXHR) {
+                if (data.status == 1) {
+                  WebViewJavascriptBridge.callHandler('ClearData', {
+                    content_key: 'huancun'
+                  })
+                  WebViewJavascriptBridge.callHandler('ClearData', {
+                    content_key: 'xiaolin'
+                  })
+                  WebViewJavascriptBridge.callHandler('ClearData', {
+                    content_key: 'xiangqingData'
+                  })
+                  that.isending = true //正在发布，请稍后
+                  location.href = '../zusouwuye/model8.html?objectId=no&name=' + that.names +
+                    '&sessiontoken=' + sessiontoken
+
+
+                } else {
+                  mui.toast(data.err.rawMessage)
+                }
+
+              })
+              .fail(function (jqXHR, textStatus, errorThrown) {
+                console.log("HTTP Request Failed");
+              })
+              .always(function () {});
+          }, 1000)
+
+        },
+        //发布按钮为填完必填项目的时候將提示弹出框
+        fabu() {
+          var that = this
+          console.log('ok')
+          console.log(this.huancun.pics)
+          console.log(this.huancunPics.pics)
+          console.log(':::::'+this.names)
+          if (this.huancun || this.huancunPics) {
+
+            if (this.huancun.pics == undefined && this.huancunPics.pics == undefined) {
+              mui.toast('图片为必填，請填写完整')
+              return
+            }
+
+
+          }
+
+
+          if (this.title == '' || this.contactType == -1) {
+            mui.toast('带星号为必填，請填写完整')
+            return
+          }
+
+          if (this.names == '汽車交易' || this.names == '傢俬電器') {
+            if (this.type == 0 || (this.price == 0 && this.values == '')) {
+              mui.toast('带星号为必填，請填写完整')
+
+              return
+
+            } else {
+              that.isending = false //正在发布，请稍后
+              console.log('汽車交易')
+              this.fabus()
+            }
+          } else if (this.names == '裝修設計' || this.names == '代購代收' || this.names == '搬屋配送') {
+            if (this.address == '') {
+              mui.toast('带星号为必填，請填写完整')
+
+              return
+
+            } else {
+              that.isending = false //正在发布，请稍后
+              console.log('裝修設計')
+              this.fabus()
+            }
+          } else if (this.names == '招生招聘' || this.names == '家政服務') {
+            if (this.type == 0 || this.address == '') {
+              mui.toast('带星号为必填，請填写完整')
+
+              return
+
+            } else {
+              that.isending = false //正在发布，请稍后
+              console.log('招生招聘')
+              this.fabus()
+            }
+          } else if (this.names == '跳蚤市場') {
+            if ((this.price == 0 && this.values == '')) {
+              mui.toast('带星号为必填，請填写完整')
+
+              return
+            } else {
+              that.isending = false //正在发布，请稍后
+              console.log('跳蚤市場')
+              this.fabus()
+            }
+          }
+
+         
+
+
+
+        }
+      },
+      mounted() {
+
+        var that = this
+        this.names = locations('name')
+
+        $.get(Boss3 + 'section/tagItems', {
+          'title': this.names,
+          'sessiontoken': sessiontoken
+        }, function (data) {
+          console.log(data.result.tags)
+          that.Fenlei = data.result.tags
+          console.log('that.Fenlei' + that.Fenlei.length)
+          console.log(that.Fenlei)
+          //获取填写的东西，必须等请求完后才调用获取方法
+          // 一个是字段数据，一个是小林的图片
+          WebViewJavascriptBridge.callHandler('GetData', {
+            content_key: 'huancun'
+          })
+          WebViewJavascriptBridge.callHandler('GetData', {
+            content_key: 'xiaolin'
+          })
+
+        })
+
+
+
+        // that.huancuns()
+      }
     })
-    </script>
+  </script>
 </body>
 
 </html>

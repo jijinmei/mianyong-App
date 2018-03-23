@@ -5,7 +5,7 @@ Vue.prototype.$axios = axios;
 var vm = new Vue({
   el: '#app',
   created: function created() {
-    this.rentobject = JSON.parse(JSON.stringify(saveObject));
+    // this.rentobject = JSON.parse(JSON.stringify(saveObject));
   },
 
   computed: {
@@ -75,9 +75,21 @@ var vm = new Vue({
   },
   mounted: function mounted() {
 
-    WebViewJavascriptBridge.callHandler('GetData', {
-      content_key: 'xiaolin'
-    });
+    if(window.WebViewJavascriptBridge){
+      WebViewJavascriptBridge.callHandler('GetData', {
+        content_key: 'xiaolin'
+      });
+    }else{
+      // 延时一秒
+    setTimeout(function () {
+      WebViewJavascriptBridge.callHandler('GetData', {
+        content_key: 'xiaolin'
+      });
+    }, 1000);
+    }
+    // WebViewJavascriptBridge.callHandler('GetData', {
+    //   content_key: 'xiaolin'
+    // });
   },
 
   methods: {
@@ -93,7 +105,7 @@ var vm = new Vue({
       location.href = 'preview.html' + location.search;
     },
     publish: function publish() {
-
+     var that=this
       WebViewJavascriptBridge.callHandler('SetData', {
         content_key: 'xiaolin',
         content: JSON.stringify(this.rentobject)
@@ -101,27 +113,47 @@ var vm = new Vue({
 
       // 照片
       if (this.rentobject.pics == '' || this.rentobject.pics == null) {
-        alert('照片不能為空');
+        // alert('照片不能為空');
+        this.alerts=true;
+        setTimeout(function(){
+         that.alerts=false;
+        },2000)
         return;
       }
 
       // 租金    楼层       发布者身份    联繁方式
       if (!this.rentobject.price || !this.rentobject.floor || !this.rentobject.from || !this.rentobject.contactType) {
-        return alert('帶*號項為必填項');
+        this.alerts=true;
+        setTimeout(function(){
+         that.alerts=false;
+        },2000)
+        return 
       }
 
       if (this.rentobject.contactType === '1') {
         // 联繁人     联繁电话       呼称
         if (!this.rentobject.contacts || !this.rentobject.phone || !this.rentobject.call) {
-          return alert('帶*號項為必填項');
+          this.alerts=true;
+          setTimeout(function(){
+           that.alerts=false;
+          },2000)
+          return
         }
       }
-
+      this.isending=false;
       this.$axios.post('/agent', getFormDataFun(this.rentobject)).then(function (res) {
 
         if (!res.message) {
           console.log('发布成功');
-          clearLocalStorages();
+          WebViewJavascriptBridge.callHandler('ClearData', {
+            content_key: 'huancun'
+          })
+          WebViewJavascriptBridge.callHandler('ClearData', {
+            content_key: 'xiaolin'
+          })
+          WebViewJavascriptBridge.callHandler('ClearData', {
+            content_key: 'xiangqingData'
+          })
           goback(2);
         }
       });
@@ -311,6 +343,8 @@ var vm = new Vue({
   },
   data: function data() {
     return {
+      alerts:false,
+      isending:true,
       DatetimePickerShow: false,
       minDate: new Date(),
       currentDate: new Date(),
