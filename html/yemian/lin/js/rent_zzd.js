@@ -109,6 +109,8 @@ var vm=new Vue({
     // 点击发布按钮, 发布
     publish: function publish() {
 var that=this;
+// 3.当前是放租的 住宅第三个页面的内容
+// 必填: 发布者身份 联络方式
       if (!this.rentobject.from || !this.rentobject.contactType) {
         this.alerts=true;
         setTimeout(function(){
@@ -116,7 +118,7 @@ var that=this;
         },2000)
         return 
       }
-
+// 如果是电话及在线咨询,则下面的3个详细的东西不能少
       if (this.rentobject.contactType === '1') {
 
         if (!this.rentobject.contacts || !this.rentobject.phone || !this.rentobject.call) {

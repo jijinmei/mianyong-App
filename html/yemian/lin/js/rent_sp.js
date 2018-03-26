@@ -95,56 +95,32 @@ var vm = new Vue({
   },
 
   methods: {
-    gets() {
-      // 讀取可起租時間 狀態
-      var starttime = this.rentobject.start_time;
-      if (starttime && starttime === '隨時') {
-        this.isRent = true;
-      } else if (starttime) {
-        this.datetime = starttime;
-      }
-
-      // 裝修程度 讀取狀態
-      this.getData2(this.decorationData, "decoration");
-
-      // 读取特色说明状态
-      this.getData(this.featuresData, "features");
-
-      // 發佈者數據 读取状态
-      var fromRead = this.rentobject.from;
-      this.fromData.forEach(function (_item, _index) {
-        if (fromRead === _item.text) {
-          _item.state = true;
-        }
-      });
-
-      // 聯繫方式 读取状态
-      if (this.rentobject.contactType === '1') {
-        var contactRead = '0';
-      } else if (this.rentobject.contactType === '0') {
-        var contactRead = '1';
-      }
-      this.contactTypeData.forEach(function (_item, _index) {
-        if (parseInt(contactRead) === _index) {
-          _item.state = true;
-        }
-      }, this);
-
-      this.contactTypeData2.forEach(function (_item, _index) {
-        if (this.rentobject.call === _item.eText) {
-          _item.state = true;
-        }
-      }, this);
-    },
     publish: function publish() {
       var that = this;
-      if (!this.rentobject.from || !this.rentobject.contactType) {
-        this.alerts = true;
-        setTimeout(function () {
-          that.alerts = false;
-        }, 2000)
-        return
-      }
+// 放租的商铺发布 必填为 图片 租金 建筑面积 实际面积 装修程度 发布者身份 联络方式
+if (this.rentobject.pics == '' || this.rentobject.pics == null) {
+  // alert('照片不能為空');
+  this.alerts = true;
+  setTimeout(function () {
+    that.alerts = false;
+  }, 2000)
+  return;
+}   
+  // 租金 建筑面积 实际面积 装修程度 发布者身份 联络方式
+  if (!this.rentobject.price ||!this.rentobject.area ||!this.rentobject.useable_area || !this.rentobject.decoration || !this.rentobject.from || !this.rentobject.contactType) {
+    this.alerts = true;
+    setTimeout(function () {
+      that.alerts = false;
+    }, 2000)
+    return
+  }
+      // if (!this.rentobject.from || !this.rentobject.contactType) {
+      //   this.alerts = true;
+      //   setTimeout(function () {
+      //     that.alerts = false;
+      //   }, 2000)
+      //   return
+      // }
 
       if (this.rentobject.contactType === '1') {
 
@@ -171,13 +147,19 @@ var vm = new Vue({
           WebViewJavascriptBridge.callHandler('ClearData', {
             content_key: 'xiangqingData'
           })
-          goback(3);
+          goback(2);
         }
       });
     },
 
     // 添加照片
-    addPic: function addPic() { },
+    addPic: function addPic() {
+      WebViewJavascriptBridge.callHandler('SetData', {
+        content_key: 'xiaolin',
+        content: JSON.stringify(this.rentobject)
+      });
+      location.href = 'pic.html' + location.search;
+    },
 
     // 下一步
     next: function next(name) {
@@ -376,11 +358,10 @@ var vm = new Vue({
   },
   data: function data() {
     return {
-
+     alerts: false,
+      isending: true,
       iseditImg: true,
       rentobject: null,
-      alerts: false,
-      isending: true,
       rentobject: null,
       isContact: false,
       remark: '',
@@ -573,3 +554,46 @@ var vm = new Vue({
     };
   }
 });
+
+
+function initdata() {
+  // 讀取可起租時間 狀態
+  var starttime = vm.rentobject.start_time;
+  if (starttime && starttime === '隨時') {
+    vm.isRent = true;
+  } else if (starttime) {
+    vm.datetime = starttime;
+  }
+
+  // 裝修程度 讀取狀態
+  vm.getData2(vm.decorationData, "decoration");
+
+  // 读取特色说明状态
+  vm.getData(vm.featuresData, "features");
+
+  // 發佈者數據 读取状态
+  var fromRead = vm.rentobject.from;
+  vm.fromData.forEach(function (_item, _index) {
+    if (fromRead === _item.text) {
+      _item.state = true;
+    }
+  });
+
+  // 聯繫方式 读取状态
+  if (vm.rentobject.contactType === '1') {
+    var contactRead = '0';
+  } else if (vm.rentobject.contactType === '0') {
+    var contactRead = '1';
+  }
+  vm.contactTypeData.forEach(function (_item, _index) {
+    if (parseInt(contactRead) === _index) {
+      _item.state = true;
+    }
+  }, vm);
+
+  vm.contactTypeData2.forEach(function (_item, _index) {
+    if (vm.rentobject.call === _item.eText) {
+      _item.state = true;
+    }
+  }, vm);
+}

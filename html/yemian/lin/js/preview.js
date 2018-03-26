@@ -1,7 +1,7 @@
 'use strict';
 
 Vue.prototype.$axios = axios;
-new Vue({
+var vm=new Vue({
   el: '#app',
   created: function created() {
     var _this = this;
@@ -9,11 +9,11 @@ new Vue({
     // this.rentobject = JSON.parse(localStorage.getItem('rentobject'))
 
 
-    if (localStorage.getItem('rentobject')) {
-      this.rentobject = JSON.parse(localStorage.getItem('rentobject'));
-    } else {
-      this.rentobject = JSON.parse(JSON.stringify(saveObject));
-    }
+    // if (localStorage.getItem('rentobject')) {
+    //   this.rentobject = JSON.parse(localStorage.getItem('rentobject'));
+    // } else {
+    //   this.rentobject = JSON.parse(JSON.stringify(saveObject));
+    // }
 
     if (localStorage.userId) {
       this.$axios.get('/user/' + localStorage.userId).then(function (res) {
@@ -36,22 +36,19 @@ new Vue({
     }
   },
   mounted: function mounted() {
-
-    if (this.rentobject.infrastructure) {
-
-      // 配套設備
-      this.infrastructureData = this.rentobject.infrastructure.split('、');
+    if (window.WebViewJavascriptBridge) {
+      WebViewJavascriptBridge.callHandler('GetData', {
+        content_key: 'xiaolin'
+      });
+    } else {
+      // 延时一秒
+      setTimeout(function () {
+        WebViewJavascriptBridge.callHandler('GetData', {
+          content_key: 'xiaolin'
+        });
+      }, 1000);
     }
-    if (this.rentobject.home_infrastructure) {
 
-      // 屋苑設施
-      this.homeInfrastructureData = this.rentobject.home_infrastructure.split('、');
-    }
-    if (this.rentobject.location_infrastructure) {
-
-      // 附近設施
-      this.locationInfrastructureData = this.rentobject.location_infrastructure.split('、');
-    }
   },
 
   computed: {
@@ -189,6 +186,23 @@ new Vue({
     }
   },
   methods: {
+    initdata(){
+      if (this.rentobject.infrastructure) {
+        
+              // 配套設備
+              this.infrastructureData = this.rentobject.infrastructure.split('、');
+            }
+            if (this.rentobject.home_infrastructure) {
+        
+              // 屋苑設施
+              this.homeInfrastructureData = this.rentobject.home_infrastructure.split('、');
+            }
+            if (this.rentobject.location_infrastructure) {
+        
+              // 附近設施
+              this.locationInfrastructureData = this.rentobject.location_infrastructure.split('、');
+            }
+    },
     // 平均價格
     average: function average() {
       Dialog.alert({

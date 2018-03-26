@@ -1,187 +1,210 @@
 <html lang="en">
-  
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>發佈售盤房源</title>
-    <!-- 引入样式 -->
-    <link rel="stylesheet" href="https://unpkg.com/vant/lib/vant-css/index.css">
-    <link rel="stylesheet" href="./css/reset.css">
-    <link rel="stylesheet" href="./css/rent_xzl.css">
-    <link rel="stylesheet" href="./css/rent_public.css">
-    <script src="./js/flexible.min.js"></script>
-  </head>
-  
-  <body>
-  
-    <div id="app">
-      <div class="box" style="background: #ebebeb; padding-bottom: 1.1rem;">
-        <!-- 添加照片 -->
-        <div class="add-pics" :style="setImg">
-          <img :src="setaddImg" @click="addPic">
-          <h2 @click="addPic" v-show="iseditImg">添加照片</h2>
-          <p v-show="iseditImg">色彩明亮的照片可以大幅度提高房屋出租的速度最多可上傳12張照片</p>
-        </div>
-  
-        <!-- 租金 -->
-        <div class="price publicCss">
-          <p class="title">
-            <span>*</span>租金</p>
-          <div class="content">
-            <!-- <input type="number" placeholder="0" :value="price" @input="priceEdit($event.target.value)"> -->
-            <input type="number" placeholder="0" v-model="rentobject.price">
-            <span>元/月</span>
+    
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="X-UA-Compatible" content="ie=edge">
+      <title>發佈售盤房源</title>
+      <!-- 引入样式 -->
+      <link rel="stylesheet" href="./css/lincommon.css">
+      <link rel="stylesheet" href="https://unpkg.com/vant/lib/vant-css/index.css">
+      <link rel="stylesheet" href="./css/reset.css">
+      <link rel="stylesheet" href="./css/rent_xzl.css">
+      <link rel="stylesheet" href="./css/rent_public.css">
+      <script src="./js/flexible.min.js"></script>
+    </head>
+    
+    <body>
+    
+      <div id="app">
+          <div  v-if="alerts==true" class="alertss">
+              帶*號項為必填項
           </div>
-        </div>
-  
-        <!-- 面积 -->
-        <div class="area publicCss">
-          <p class="title">
-            <span>*</span>面積</p>
-          <div class="content">
+              <!--正在發佈-->
+              <div class="wai_kuangs" v-if="isending==false">
+                  <div class="nei_kuang fabuing">正在發佈,請稍後...</div>
+                </div>
+        <div class="box" style="background: #ebebeb; padding-bottom: 1.1rem;">
+          <!-- 添加照片 -->
+          <div class="add-pics" :style="setImg">
+            <img :src="setaddImg" @click="addPic">
+            <h2 @click="addPic" v-show="iseditImg">添加照片</h2>
+            <p v-show="iseditImg">色彩明亮的照片可以大幅度提高房屋出租的速度最多可上傳12張照片</p>
+          </div>
+    
+          <!-- 租金 -->
+          <div class="price publicCss">
+            <p class="title">
+              <span>*</span>售價</p>
+            <div class="content">
+              <!-- <input type="number" placeholder="0" :value="price" @input="priceEdit($event.target.value)"> -->
+              <input type="number" placeholder="0" v-model="rentobject.price">
+              <span>元</span>
+            </div>
+          </div>
+    
+          <!-- 面积 -->
+          <div class="area publicCss">
+            <p class="title">
+              <span>*</span>面積</p>
+            <div class="content">
+              <div>
+                <span>建築面積</span>
+                <!-- <input type="number" placeholder="任填一項即可" :value="area" @input="areaEdit($event.target.value)"> -->
+                <input type="number" placeholder="任填一項即可" v-model="rentobject.area">
+                <span>平方呎</span>
+              </div>
+              <div>
+                <span>實用面積</span>
+                <!-- <input type="number" placeholder="任填一項即可" :value="useableArea" @input="useableAreaEdit($event.target.value)"> -->
+                <!-- <input type="number" placeholder="任填一項即可" :value="useableArea" @input="useableAreaEdit($event.target.value)"> -->
+                <input type="number" placeholder="任填一項即可" v-model="rentobject.useable_area">
+                <span>平方呎</span>
+              </div>
+            </div>
+          </div>
+    
+          <!-- 楼层 -->
+          <div class="floor publicCss">
+            <p class="title">
+              <span>*</span>樓層</p>
+            <div class="content">
+              <div>
+                <span class="item" v-for="(item, index) in floorData" @click="floorClick(item, index)" :class="{active: item.state}">{{item.text}}</span>
+              </div>
+              <div>
+                <span>自定義</span>
+                <!-- <input type="text" placeholder="請點擊輸入樓層" :value="floor" @input="floorEdit($event.target.value)"> -->
+                <input type="text" placeholder="請點擊輸入樓層" v-model="rentobject.floor">
+              </div>
+            </div>
+          </div>
+    
+    
+          <!-- 單位/座號 -->
+          <div class="code publicCss">
+            <p class="title">單位/座號</p>
+            <div class="content">
+              <div>
+                <!-- <input type="text" placeholder="點擊輸入4位數字/英文 例如:789A" :value="code" @input="codeEdit($event.target.value)"> -->
+                <input type="text" placeholder="點擊輸入4位數字/英文 例如:789A" v-model="rentobject.code">
+              </div>
+            </div>
+          </div>
+    
+    
+    
+          <!-- 景观 -->
+          <div class="landscape publicCss">
+            <p class="title">
+              <span>*</span>景觀</p>
+            <div class="content">
+              <div class="wrap">
+                <div class="item" v-for="(item, index) in landscapeData" @click="landscapeClick(item, index)" :style="setStyles(item)" :class="{active2: item.state}">{{item.text}}</div>
+              </div>
+            </div>
+          </div>
+    
+    
+          <!-- 装修程度 -->
+          <div class="decoration publicCss" style="padding-bottom: 0;">
+            <p class="title">
+              <span>*</span>裝修程度</p>
+            <div class="content">
+              <div class="wrap">
+                <div class="item" v-for="(item, index) in decorationData" @click="decorationClick(item, index)" :style="setStyles(item)" :class="{active2: item.state}">{{item.text}}</div>
+              </div>
+            </div>
+          </div>
+          
+    
+          <!-- 特色說明 -->
+          <div class="features publicCss">
+            <p class="title">特色說明</p>
+            <div class="content">
+              <w-checkbox :data="featuresData" @actionclick="featuresClick" number="4"></w-checkbox>
+              <p>*此項最多可同時選擇
+                <span>4</span>個</p>
+            </div>
+          </div>
+    
+    
+          <!-- 聯絡方式 -->
+          <div class="contact-type publicCss">
+            <p class="title">
+              <span>*</span>聯絡方式</p>
+            <div class="content" :style="contactTypeStyle">
+              <w-radio :data="contactTypeData" @actionclick="contactTypeClick" isradio="radio"></w-radio>
+            </div>
+            <div class="show-Box" v-show="rentobject.contactType == '1'">
+              <div class="box-item-1">
+                <span>聯絡人</span>
+                <!-- <input type="text" :placeholder="contacts" @input="inputContacts($event.target.value)"> -->
+                <input type="text" v-model="rentobject.contacts">
+              </div>
+              <div class="box-item-2">
+                <span>電話</span>
+                <!-- <input type="number" :placeholder="userphone" @input="inputUserPhone($event.target.value)"> -->
+                <input type="number" v-model="rentobject.phone">
+              </div>
+            </div>
+            <div class="show-Box2" v-show="rentobject.contactType == '1'">
+              <w-radio :data="contactTypeData2" @actionclick="contactTypeClick2"></w-radio>
+            </div>
+          </div>
+    
+          <!-- 詳細描述 -->
+          <div class="remark publicCss">
+            <p class="title">詳細描述</p>
+            <div class="content">
+              <textarea placeholder="描述一下您的房源獨特之處以及對租客的期望..." v-model="rentobject.remark"></textarea>
+            </div>
+          </div>
+    
+          <!-- 下一步 -->
+          <div class="footer">
             <div>
-              <span>建築面積</span>
-              <!-- <input type="number" placeholder="任填一項即可" :value="area" @input="areaEdit($event.target.value)"> -->
-              <input type="number" placeholder="任填一項即可" v-model="rentobject.area">
-              <span>平方呎</span>
-            </div>
-            <div>
-              <span>實用面積</span>
-              <!-- <input type="number" placeholder="任填一項即可" :value="useableArea" @input="useableAreaEdit($event.target.value)"> -->
-              <!-- <input type="number" placeholder="任填一項即可" :value="useableArea" @input="useableAreaEdit($event.target.value)"> -->
-              <input type="number" placeholder="任填一項即可" v-model="rentobject.useable_area">
-              <span>平方呎</span>
+              <button type="button" @click="next('preview.html')" style="padding:0;">详细预览</button>
+              <button type="button" @click="publish" style="padding:0;">立即發佈</button>
             </div>
           </div>
+    
+    
         </div>
-  
-        <!-- 楼层 -->
-        <div class="floor publicCss">
-          <p class="title">
-            <span>*</span>樓層</p>
-          <div class="content">
-            <div>
-              <span class="item" v-for="(item, index) in floorData" @click="floorClick(item, index)" :class="{active: item.state}">{{item.text}}</span>
-            </div>
-            <div>
-              <span>自定義</span>
-              <!-- <input type="text" placeholder="請點擊輸入樓層" :value="floor" @input="floorEdit($event.target.value)"> -->
-              <input type="text" placeholder="請點擊輸入樓層" v-model="rentobject.floor">
-            </div>
-          </div>
-        </div>
-  
-  
-        <!-- 單位/座號 -->
-        <div class="code publicCss">
-          <p class="title">單位/座號</p>
-          <div class="content">
-            <div>
-              <!-- <input type="text" placeholder="點擊輸入4位數字/英文 例如:789A" :value="code" @input="codeEdit($event.target.value)"> -->
-              <input type="text" placeholder="點擊輸入4位數字/英文 例如:789A" v-model="rentobject.code">
-            </div>
-          </div>
-        </div>
-  
-  
-  
-        <!-- 景观 -->
-        <div class="landscape publicCss">
-          <p class="title">
-            <span>*</span>景觀</p>
-          <div class="content">
-            <div class="wrap">
-              <div class="item" v-for="(item, index) in landscapeData" @click="landscapeClick(item, index)" :style="setStyles(item)" :class="{active2: item.state}">{{item.text}}</div>
-            </div>
-          </div>
-        </div>
-  
-  
-        <!-- 装修程度 -->
-        <div class="decoration publicCss" style="padding-bottom: 0;">
-          <p class="title">
-            <span>*</span>裝修程度</p>
-          <div class="content">
-            <div class="wrap">
-              <div class="item" v-for="(item, index) in decorationData" @click="decorationClick(item, index)" :style="setStyles(item)" :class="{active2: item.state}">{{item.text}}</div>
-            </div>
-          </div>
-        </div>
-        
-  
-        <!-- 特色說明 -->
-        <div class="features publicCss">
-          <p class="title">特色說明</p>
-          <div class="content">
-            <w-checkbox :data="featuresData" @actionclick="featuresClick" number="4"></w-checkbox>
-            <p>*此項最多可同時選擇
-              <span>4</span>個</p>
-          </div>
-        </div>
-  
-  
-        <!-- 聯絡方式 -->
-        <div class="contact-type publicCss">
-          <p class="title">
-            <span>*</span>聯絡方式</p>
-          <div class="content" :style="contactTypeStyle">
-            <w-radio :data="contactTypeData" @actionclick="contactTypeClick" isradio="radio"></w-radio>
-          </div>
-          <div class="show-Box" v-show="rentobject.contactType == '1'">
-            <div class="box-item-1">
-              <span>聯絡人</span>
-              <!-- <input type="text" :placeholder="contacts" @input="inputContacts($event.target.value)"> -->
-              <input type="text" v-model="rentobject.contacts">
-            </div>
-            <div class="box-item-2">
-              <span>電話</span>
-              <!-- <input type="number" :placeholder="userphone" @input="inputUserPhone($event.target.value)"> -->
-              <input type="number" v-model="rentobject.phone">
-            </div>
-          </div>
-          <div class="show-Box2" v-show="rentobject.contactType == '1'">
-            <w-radio :data="contactTypeData2" @actionclick="contactTypeClick2"></w-radio>
-          </div>
-        </div>
-  
-        <!-- 詳細描述 -->
-        <div class="remark publicCss">
-          <p class="title">詳細描述</p>
-          <div class="content">
-            <textarea placeholder="描述一下您的房源獨特之處以及對租客的期望..." v-model="rentobject.remark"></textarea>
-          </div>
-        </div>
-  
-        <!-- 下一步 -->
-        <div class="footer">
-          <div>
-            <button type="button" @click="next('preview.html')">详细预览</button>
-            <button type="button" @click="publish">立即發佈</button>
-          </div>
-        </div>
-  
-  
       </div>
-    </div>
-  
-    <script src="https://cdn.bootcss.com/vue/2.5.13/vue.min.js"></script>
-    <script src="https://cdn.bootcss.com/axios/0.18.0/axios.min.js"></script>
-    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
-    <script src="../../static/common.js"></script>
-  
-    <!-- 配置axios -->
-    <script src="./js/axios.config.js"></script>
-    <!-- 引入组件 -->
-    <script src="https://unpkg.com/vant/lib/vant.min.js"></script>
-    <script src="./js/temps/rent_radio.js"></script>
-    <script src="./js/temps/rent_checkbox.js"></script>
-    <script src="./js/saveObject.js"></script>
-  
-    <!-- 上传功能函数 -->
-    <script src="./js/func.js"></script>
-    <script src="./js/sell_xzl.js"></script>
-  
-  </body>
-  
-  </html>
+      <script>
+          function getAppLocalData(data) {
+      
+            if (data) {
+              console.log('有值传过来', data)
+              vm.rentobject = JSON.parse(data)
+              initdata()
+            } else {
+              console.log('没有传值过来')
+              vm.rentobject = JSON.parse(JSON.stringify(saveObject))
+              initdata()
+            }
+      
+          }
+        </script>
+      <script src="../../static/vconsole.min.js"></script>
+      <script src="https://cdn.bootcss.com/vue/2.5.13/vue.min.js"></script>
+      <script src="https://cdn.bootcss.com/axios/0.18.0/axios.min.js"></script>
+      <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+      <script src="../../static/common.js"></script>
+    
+      <!-- 配置axios -->
+      <script src="./js/axios.config.js"></script>
+      <!-- 引入组件 -->
+      <script src="https://unpkg.com/vant/lib/vant.min.js"></script>
+      <script src="./js/temps/rent_radio.js"></script>
+      <script src="./js/temps/rent_checkbox.js"></script>
+      <script src="./js/sell_saveObject.js"></script>
+    
+      <!-- 上传功能函数 -->
+      <script src="./js/func.js"></script>
+      <script src="./js/sell_xzl.js"></script>
+    
+    </body>
+    
+    </html>

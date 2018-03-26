@@ -1,8 +1,10 @@
 'use strict';
-
 Vue.prototype.$axios = axios;
 var vm = new Vue({
   el: '#app',
+  created: function created() {
+
+  },
   computed: {
     setstyle: function setstyle() {
       return {
@@ -17,6 +19,7 @@ var vm = new Vue({
     },
     setImg: function setImg() {
       if (this.rentobject) {
+
         if (this.rentobject.pics != '' && this.rentobject.pics != null) {
           var str = this.rentobject.pics[0];
           return {
@@ -42,7 +45,7 @@ var vm = new Vue({
       }
     },
     // iseditImg: function iseditImg() {
-    //   if (localStorage.fengmiantu) {
+    //   if (this.rentobject.fengmiantu) {
     //     return false;
     //   } else {
     //     return true;
@@ -57,7 +60,7 @@ var vm = new Vue({
       //   if(phone) {
       //     return phone
       //   } else {
-      //     let userdata = JSON.parse(localStorage.userData)
+      //     let userdata = JSON.parse(this.rentobject.userData)
       //     return userdata.phone
       //   }
     },
@@ -70,13 +73,12 @@ var vm = new Vue({
       //   if (contacts) {
       //     return contacts
       //   } else {    
-      //     let userdata = JSON.parse(localStorage.userData)
+      //     let userdata = JSON.parse(this.rentobject.userData)
       //     return userdata.displayname
       //   }
     }
   },
   mounted: function mounted() {
-
     if (window.WebViewJavascriptBridge) {
       WebViewJavascriptBridge.callHandler('GetData', {
         content_key: 'xiaolin'
@@ -89,34 +91,76 @@ var vm = new Vue({
         });
       }, 1000);
     }
+
   },
 
   methods: {
     publish: function publish() {
-
-      if (!this.rentobject.from || !this.rentobject.contactType) {
-        return alert('帶*號項為必填項');
+      var that = this;
+// 放售的商铺发布的必填为:图片 售价 建筑面积 实用面积 装修程度 联系方式
+      if (this.rentobject.pics == '' || this.rentobject.pics == null) {
+        // mui.toast('照片不能為空');
+        this.alerts=true;
+        setTimeout(function(){
+         that.alerts=false;
+        },2000)
+        return;
+      }
+      // 售价 建筑面积 实用面积 装修程度 联系方式
+      if (!this.rentobject.price || !this.rentobject.useable_area && !this.rentobject.area || !this.rentobject.decoration||!this.rentobject.contactType) {
+       this.alerts=true;
+       setTimeout(function(){
+        that.alerts=false;
+       },2000)
+        return;
       }
 
+      // if (!this.rentobject.contactType) {
+      //   this.alerts = true;
+      //   setTimeout(function () {
+      //     that.alerts = false;
+      //   }, 2000)
+      //   return
+      // }
+    
       if (this.rentobject.contactType === '1') {
 
         if (!this.rentobject.contacts || !this.rentobject.phone || !this.rentobject.call) {
-          return alert('帶*號項為必填項');
+          this.alerts = true;
+          setTimeout(function () {
+            that.alerts = false;
+          }, 2000)
+          return
         }
       }
-
+      this.isending = false;
       this.$axios.post('/agent', getFormDataFun(this.rentobject)).then(function (res) {
 
         if (!res.message) {
           console.log('发布成功');
-          clearLocalStorages();
-          goback(3);
+          // clearthis.rentobjects();
+          WebViewJavascriptBridge.callHandler('ClearData', {
+            content_key: 'huancun'
+          })
+          WebViewJavascriptBridge.callHandler('ClearData', {
+            content_key: 'xiaolin'
+          })
+          WebViewJavascriptBridge.callHandler('ClearData', {
+            content_key: 'xiangqingData'
+          })
+          goback(2);
         }
       });
     },
 
     // 添加照片
-    addPic: function addPic() { },
+    addPic: function addPic() {
+      WebViewJavascriptBridge.callHandler('SetData', {
+        content_key: 'xiaolin',
+        content: JSON.stringify(this.rentobject)
+      });
+      location.href = 'pic.html' + location.search;
+    },
 
     // 下一步
     next: function next(name) {
@@ -218,7 +262,7 @@ var vm = new Vue({
      * number : 选项上限数
      */
     saveData: function saveData(index, data, saveKey, number) {
-      var _this = this;
+      var that = this;
 
       if (this.rentobject[saveKey]) {
         var arr = this.rentobject[saveKey].split("、");
@@ -235,13 +279,13 @@ var vm = new Vue({
             }
             _item.state = true;
             arr.push(_item.text);
-            _this.rentobject[saveKey] = arr.join("、");
+            this.rentobject[saveKey] = arr.join("、");
             // console.log(arr)
           } else {
             _item.state = false;
             if (arr.indexOf(_item.text) > -1) {
               arr.splice(arr.indexOf(_item.text), 1);
-              _this.rentobject[saveKey] = arr.join("、");
+              this.rentobject[saveKey] = arr.join("、");
               // console.log(arr)
             }
           }
@@ -315,16 +359,18 @@ var vm = new Vue({
   },
   data: function data() {
     return {
+     alerts: false,
+      isending: true,
+      iseditImg: true,
+      rentobject: null,
       rentobject: null,
       isContact: false,
-      iseditImg: true,
       remark: '',
       price: '',
       code: '',
       isRent: false,
       area: '',
       useableArea: '',
-      fengmiantu: '',
       DatetimePickerShow: false,
       minDate: new Date(),
       currentDate: new Date(),
@@ -511,20 +557,6 @@ var vm = new Vue({
 });
 
 
-function getAppLocalData(data) {
-
-  if (data) {
-    console.log('有值传过来', data)
-    vm.rentobject = JSON.parse(data)
-    initdata()
-  } else {
-    console.log('没有传值过来')
-    vm.rentobject = JSON.parse(JSON.stringify(saveObject))
-    initdata()
-  }
-
-}
-
 function initdata() {
   // 讀取可起租時間 狀態
   var starttime = vm.rentobject.start_time;
@@ -541,7 +573,7 @@ function initdata() {
   vm.getData(vm.featuresData, "features");
 
   // 發佈者數據 读取状态
-  var fromRead = localStorage.from;
+  var fromRead = vm.rentobject.from;
   vm.fromData.forEach(function (_item, _index) {
     if (fromRead === _item.text) {
       _item.state = true;
@@ -558,11 +590,11 @@ function initdata() {
     if (parseInt(contactRead) === _index) {
       _item.state = true;
     }
-  });
+  }, vm);
 
   vm.contactTypeData2.forEach(function (_item, _index) {
     if (vm.rentobject.call === _item.eText) {
       _item.state = true;
     }
-  });
+  }, vm);
 }

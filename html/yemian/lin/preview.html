@@ -150,12 +150,28 @@
       </div>
     </div>
   </div>
+  <script>
+      function getAppLocalData(data) {
+  
+        if (data) {
+          console.log('有值传过来', data)
+          vm.rentobject = JSON.parse(data)
+          vm.initdata()
+        } else {
+          console.log('没有传值过来')
+          vm.rentobject = JSON.parse(JSON.stringify(saveObject))
+          vm.initdata()
+        }
+   
+      }
+    </script>
+    <script src="../../static/vconsole.min.js"></script>
   <script src="https://cdn.bootcss.com/vue/2.5.13/vue.min.js"></script>
   <script src="https://cdn.bootcss.com/axios/0.18.0/axios.min.js"></script>
-
+  <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+  <script src="../../static/common.js"></script>
   <!-- 配置axios -->
   <script src="./js/axios.config.js"></script>
-
   <!-- 引入组件 -->
   <script src="https://unpkg.com/vant/lib/vant.min.js"></script>
   <script src="./js/saveObject.js"></script>

@@ -13,6 +13,7 @@ var vm = new Vue({
 
       this.rentobject = JSON.parse(JSON.stringify(saveObject));
       this.rentobject.type = type;
+      this.rentobject.build_status = '';
 
       this.rentData.forEach(function (_item) {
         _item.state = false;
@@ -50,24 +51,28 @@ console.log('next')
         content_key: 'xiaolin',
         content: JSON.stringify(this.rentobject)
       });
-
+// 1.当前是放租的 商铺的时候必填项为 类型  地区 街道 出租类型 商铺类型
       if (this.rentobject.type === '商鋪') {
         // 商铺
-        if (!this.rentobject.rent_type || !this.rentobject.build_street || !this.rentobject.shop_type || !this.rentobject.build_area) {
+        if (!this.rentobject.type||!this.rentobject.rent_type || !this.rentobject.build_street || !this.rentobject.shop_type || !this.rentobject.build_area) {
           mui.toast('帶*號項為必填項');
           return;
         }
       } else if (this.rentobject.type === '車位') {
-        // 車位
-        if (!this.rentobject.build_name || !this.rentobject.build_area) {
+// 2.当前是放租的 車位的时候必填项为 类型 物业名称 地区
+        if (!this.rentobject.type||!this.rentobject.build_name || !this.rentobject.build_area) {
           mui.toast('帶*號項為必填項');
           return;
         }
       } else {
-        if (!this.rentobject.rent_type || !this.rentobject.build_name || !this.rentobject.build_area) {
-          mui.toast('帶*號項為必填項');
-          return;
-        }
+// 3.当前是放租的 其他三个类型住宅,写字楼,工业大厦必填项为
+// 必填: 类型 物业名称  地区 出租类型
+                    if (!this.rentobject.type|| !this.rentobject.build_name || !this.rentobject.build_area||!this.rentobject.rent_type) {
+                    mui.toast('帶*號項為必填項');
+                    return;
+            }
+        
+  
       }
 
       if (this.rentobject.type == '住宅') {

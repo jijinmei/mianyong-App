@@ -1,14 +1,8 @@
 'use strict';
-var aaa=document.title;
-var cats='';
-if(aaa.indexOf('售')){
-    cats='sell';
-}else{
-    cats='rent';
-}
+
 // 租,,售发布所有字段
 var saveObject = {
-    category:cats,
+    category: 'sell',
     type: '住宅',
     build_name: '',
     build_area: '',

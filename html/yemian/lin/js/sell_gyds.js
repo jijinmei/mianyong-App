@@ -1,11 +1,21 @@
 'use strict';
-
 Vue.prototype.$axios = axios;
 var vm = new Vue({
   el: '#app',
   mounted: function mounted() {
 
-
+    if (window.WebViewJavascriptBridge) {
+      WebViewJavascriptBridge.callHandler('GetData', {
+        content_key: 'xiaolin'
+      });
+    } else {
+      // 延时一秒
+      setTimeout(function () {
+        WebViewJavascriptBridge.callHandler('GetData', {
+          content_key: 'xiaolin'
+        });
+      }, 1000);
+    }
   },
 
   computed: {
@@ -87,17 +97,66 @@ var vm = new Vue({
       };
     },
     publish: function publish() {
-      // this.publishObj.publish(res => {
-      //   if (!res.message) {
-      //     this.$router.push('HOME')
-      //   }
-      // })
+      var that = this
+      WebViewJavascriptBridge.callHandler('SetData', {
+        content_key: 'xiaolin',
+        content: JSON.stringify(this.rentobject)
+      });
 
+      // 放售的工业大厦的发布必填:照片 售价 2个面积 楼层 装修程度 联络方式
+      if (this.rentobject.pics == '' || this.rentobject.pics == null) {
+        // alert('照片不能為空');
+        this.alerts = true;
+        setTimeout(function () {
+          that.alerts = false;
+        }, 2000)
+        return;
+      }
+
+      // 售价 2个面积 楼层 装修程度 联络方式
+      if (!this.rentobject.price ||!this.rentobject.useable_area ||!this.rentobject.area || !this.rentobject.floor || !this.rentobject.decoration || !this.rentobject.contactType) {
+        this.alerts = true;
+        setTimeout(function () {
+          that.alerts = false;
+        }, 2000)
+        return
+      }
+
+      if (this.rentobject.contactType === '1') {
+        // 联繁人     联繁电话       呼称
+        if (!this.rentobject.contacts || !this.rentobject.phone || !this.rentobject.call) {
+          this.alerts = true;
+          setTimeout(function () {
+            that.alerts = false;
+          }, 2000)
+          return
+        }
+      }
+      this.isending = false;
+      this.$axios.post('/agent', getFormDataFun(this.rentobject)).then(function (res) {
+
+        if (!res.message) {
+          console.log('发布成功');
+          WebViewJavascriptBridge.callHandler('ClearData', {
+            content_key: 'huancun'
+          })
+          WebViewJavascriptBridge.callHandler('ClearData', {
+            content_key: 'xiaolin'
+          })
+          WebViewJavascriptBridge.callHandler('ClearData', {
+            content_key: 'xiangqingData'
+          })
+          goback(2);
+        }
+      });
     },
 
     // 添加照片
     addPic: function addPic() {
-
+      WebViewJavascriptBridge.callHandler('SetData', {
+        content_key: 'xiaolin',
+        content: JSON.stringify(this.rentobject)
+      });
       location.href = 'pic.html' + location.search;
     },
     next: function next(name) {
@@ -318,8 +377,9 @@ var vm = new Vue({
   },
   data: function data() {
     return {
+      alerts: false,
+      isending: true,
       rentobject: null,
-      iseditImg: true,
       DatetimePickerShow: false,
       minDate: new Date(),
       currentDate: new Date(),
@@ -500,22 +560,6 @@ var vm = new Vue({
 });
 
 
-function getAppLocalData(data) {
-
-  if (data) {
-    console.log('有值传过来', data)
-    vm.rentobject = JSON.parse(data)
-    initdata()
-  } else {
-    console.log('没有传值过来')
-    vm.rentobject = JSON.parse(JSON.stringify(saveObject))
-    initdata()
-  }
-
-}
-
-
-
 
 
 function initdata() {
@@ -561,13 +605,13 @@ function initdata() {
       vm.isContact = _index === 0 ? true : false;
       _item.state = true;
     }
-  });
+  }, vm);
 
   vm.contactTypeData2.forEach(function (_item, _index) {
     if (vm.rentobject.call === _item.eText) {
       _item.state = true;
     }
-  });
+  }, vm);
 
   // 讀取景觀 狀態
   vm.getData(vm.landscapeData, 'landscape');

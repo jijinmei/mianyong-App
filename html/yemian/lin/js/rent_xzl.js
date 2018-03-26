@@ -95,7 +95,7 @@ var vm = new Vue({
         content: JSON.stringify(this.rentobject)
       });
 
-      // 照片
+      // 放租的写字楼发布必填:照片 租金 建筑面积 实际面积 楼层 景观 装修程度 发布者身份 联络方式
       if (this.rentobject.pics == '' || this.rentobject.pics == null) {
         // alert('照片不能為空');
         this.alerts = true;
@@ -105,14 +105,21 @@ var vm = new Vue({
         return;
       }
 
-      // 租金    楼层       发布者身份    联繁方式
-      if (!this.rentobject.price || !this.rentobject.floor || !this.rentobject.from || !this.rentobject.contactType) {
-        this.alerts = true;
-        setTimeout(function () {
-          that.alerts = false;
-        }, 2000)
-        return
-      }
+      //  租金 建筑面积 实际面积 楼层 景观 装修程度 发布者身份 联络方式
+            if (!this.rentobject.price || !this.rentobject.floor || !this.rentobject.area ||!this.rentobject.useable_area || !this.rentobject.landscape ||!this.rentobject.from ||!this.rentobject.decoration ||!this.rentobject.contactType) {
+              this.alerts = true;
+              setTimeout(function () {
+                that.alerts = false;
+              }, 2000)
+              return
+            }
+      // if (!this.rentobject.price || !this.rentobject.floor || !this.rentobject.from || !this.rentobject.contactType) {
+      //   this.alerts = true;
+      //   setTimeout(function () {
+      //     that.alerts = false;
+      //   }, 2000)
+      //   return
+      // }
 
       if (this.rentobject.contactType === '1') {
         // 联繁人     联繁电话       呼称
@@ -639,7 +646,7 @@ var vm = new Vue({
 
 
 function initdata() {
-    // 讀取樓層 狀態
+  // 讀取樓層 狀態
   if (vm.rentobject.floor) {
     vm.getData(vm.floorData, 'floor')
     

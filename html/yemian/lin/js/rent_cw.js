@@ -91,7 +91,7 @@ var vm = new Vue({
         content_key: 'xiaolin',
         content: JSON.stringify(this.rentobject)
       });
-
+// 放租的车位发布必填为:图片 租金 楼层 发布者身份 联络方式
       // 照片
       if (this.rentobject.pics == '' || this.rentobject.pics == null) {
         // alert('照片不能為空');
@@ -110,7 +110,7 @@ var vm = new Vue({
         }, 2000)
         return
       }
-
+// 如果为电话及在线咨询 则下面3个不为空
       if (this.rentobject.contactType === '1') {
         // 联繁人     联繁电话       呼称
         if (!this.rentobject.contacts || !this.rentobject.phone || !this.rentobject.call) {
@@ -121,6 +121,9 @@ var vm = new Vue({
           return
         }
       }
+      // console.log('this.rentobject.category')
+      // console.log(this.rentobject.category)
+      // return
       this.isending = false;
       this.$axios.post('/agent', getFormDataFun(this.rentobject)).then(function (res) {
 

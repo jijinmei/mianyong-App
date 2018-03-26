@@ -1,10 +1,8 @@
 'use strict';
-
 Vue.prototype.$axios = axios;
 var vm = new Vue({
   el: '#app',
   mounted: function mounted() {
-
     if (window.WebViewJavascriptBridge) {
       WebViewJavascriptBridge.callHandler('GetData', {
         content_key: 'xiaolin'
@@ -62,13 +60,6 @@ var vm = new Vue({
         }
       }
     },
-    // iseditImg: function iseditImg() {
-    //   if (this.rentobject.fengmiantu) {
-    //     return false;
-    //   } else {
-    //     return true;
-    //   }
-    // },
 
     // 用戶的電話號碼
     // userphone: function userphone() {
@@ -78,7 +69,7 @@ var vm = new Vue({
     //   if (phone) {
     //     return phone;
     //   } else {
-    //     var userdata = JSON.parse(localStorage.userData);
+    //     var userdata = JSON.parse(this.rentobject.userData);
     //     return userdata.phone;
     //   }
     // },
@@ -91,33 +82,80 @@ var vm = new Vue({
     //   if (contacts) {
     //     return contacts;
     //   } else {
-    //     var userdata = JSON.parse(localStorage.userData);
+    //     var userdata = JSON.parse(this.rentobject.userData);
     //     return userdata.displayname;
     //   }
     // }
   },
   methods: {
+    publish: function publish() {
+      var that = this
+      WebViewJavascriptBridge.callHandler('SetData', {
+        content_key: 'xiaolin',
+        content: JSON.stringify(this.rentobject)
+      });
+
+      // 放售的写字楼发布的必填:照片 售价 2个面积 楼层景观 装修程度 联系方式
+      if (this.rentobject.pics == '' || this.rentobject.pics == null) {
+        // alert('照片不能為空');
+        this.alerts = true;
+        setTimeout(function () {
+          that.alerts = false;
+        }, 2000)
+        return;
+      }
+
+      // 售价 2个面积 楼层 景观 装修程度 联系方式
+      if (!this.rentobject.price || !this.rentobject.floor || !this.rentobject.area ||!this.rentobject.useable_area || !this.rentobject.landscape ||!this.rentobject.decoration ||!this.rentobject.contactType) {
+        this.alerts = true;
+        setTimeout(function () {
+          that.alerts = false;
+        }, 2000)
+        return
+      }
+
+      if (this.rentobject.contactType === '1') {
+        // 联繁人     联繁电话       呼称
+        if (!this.rentobject.contacts || !this.rentobject.phone || !this.rentobject.call) {
+          this.alerts = true;
+          setTimeout(function () {
+            that.alerts = false;
+          }, 2000)
+          return
+        }
+      }
+      this.isending = false;
+      this.$axios.post('/agent', getFormDataFun(this.rentobject)).then(function (res) {
+
+        if (!res.message) {
+          console.log('发布成功');
+          WebViewJavascriptBridge.callHandler('ClearData', {
+            content_key: 'huancun'
+          })
+          WebViewJavascriptBridge.callHandler('ClearData', {
+            content_key: 'xiaolin'
+          })
+          WebViewJavascriptBridge.callHandler('ClearData', {
+            content_key: 'xiangqingData'
+          })
+          goback(2);
+        }
+      });
+    },
+
     setStyles: function setStyles(item) {
       return {
         backgroundImage: 'url(' + (item.state ? item.slcImg : item.normalImg) + ')'
       };
     },
-    publish: function publish() {
-      var _this = this;
 
-      // console.log(this.rentobject)
-
-
-      this.publishObj.publish(function (res) {
-        if (!res.message) {
-          _this.$router.push('HOME');
-        }
-      });
-    },
 
     // 添加照片
     addPic: function addPic() {
-
+      WebViewJavascriptBridge.callHandler('SetData', {
+        content_key: 'xiaolin',
+        content: JSON.stringify(this.rentobject)
+      });
       location.href = 'pic.html' + location.search;
     },
     next: function next(name) {
@@ -390,8 +428,11 @@ var vm = new Vue({
   },
   data: function data() {
     return {
-      rentobject: null,
       iseditImg: true,
+      alerts: false,
+      isending: true,
+      fangjian: 1,
+      rentobject: null,
       DatetimePickerShow: false,
       minDate: new Date(),
       currentDate: new Date(),
@@ -582,63 +623,63 @@ var vm = new Vue({
   }
 });
 
-function getAppLocalData(data) {
 
-  if (data) {
-    console.log('有值传过来', data)
-    vm.rentobject = JSON.parse(data)
-    initdata()
-  } else {
-    console.log('没有传值过来')
-    vm.rentobject = JSON.parse(JSON.stringify(saveObject))
-    initdata()
-  }
 
-}
+
 
 function initdata() {
+    // 讀取樓層 狀態
+  if (vm.rentobject.floor) {
+    vm.getData(vm.floorData, 'floor')
+    
+    // 讀取樓層自定義狀態 狀態
+    let floorStr = vm.rentobject.floor
+    if (floorStr !== '底層' && floorStr !== '中層' && floorStr !== '高層' && floorStr !== '極高層') {
+      vm.$refs.floor.value = floorStr
+    }
+  }
   // 讀取可起租時間 狀態
-  var starttime = this.rentobject.start_time;
+  var starttime = vm.rentobject.start_time;
   if (starttime && starttime === '隨時') {
-    this.isRent = true;
+    vm.isRent = true;
   } else if (starttime) {
-    this.datetime = starttime;
+    vm.datetime = starttime;
   }
 
   // 读取特色说明状态
-  this.getData(this.featuresData, "features");
+  vm.getData(vm.featuresData, "features");
 
   // 發佈者數據 读取状态
-  var fromRead = this.rentobject.from;
-  this.fromData.forEach(function (_item, _index) {
+  var fromRead = vm.rentobject.from;
+  vm.fromData.forEach(function (_item, _index) {
     if (fromRead === _item.text) {
       _item.state = true;
     }
   });
 
   // 聯繫方式 读取状态
-  if (this.rentobject.contactType === '1') {
+  if (vm.rentobject.contactType === '1') {
     var contactRead = '0';
-  } else if (this.rentobject.contactType === '0') {
+  } else if (vm.rentobject.contactType === '0') {
     var contactRead = '1';
   }
 
-  this.contactTypeData.forEach(function (_item, _index) {
+  vm.contactTypeData.forEach(function (_item, _index) {
     if (parseInt(contactRead) === _index) {
-      this.isContact = _index === 0 ? true : false;
+      vm.isContact = _index === 0 ? true : false;
       _item.state = true;
     }
   }, this);
 
-  this.contactTypeData2.forEach(function (_item, _index) {
-    if (this.rentobject.call === _item.eText) {
+  vm.contactTypeData2.forEach(function (_item, _index) {
+    if (vm.rentobject.call === _item.eText) {
       _item.state = true;
     }
-  }, this);
+  }, vm);
 
   // 讀取景觀 狀態
-  this.getData(this.landscapeData, 'landscape');
+  vm.getData(vm.landscapeData, 'landscape');
 
   // 讀取裝修程度 狀態
-  this.getData(this.decorationData, 'decoration');
+  vm.getData(vm.decorationData, 'decoration');
 }

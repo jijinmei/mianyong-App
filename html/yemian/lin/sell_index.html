@@ -6,18 +6,24 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>發佈售盤房源</title>
+  <link rel="stylesheet" href="../../static/mui.min.css">
+  <script src="../../static/mui.min.js"></script>
   <link rel="stylesheet" href="./css/reset.css">
-  <link rel="stylesheet" href="./css/sell_index.css">
+  <link rel="stylesheet" href="../../static/common.css">
+  <link rel="stylesheet" href="./css/rent_index.css">
+  <link rel="stylesheet" href="../../static/mui.min.css">
   <script src="./js/flexible.min.js"></script>
+  <script src="../../static/vconsole.min.js"></script>
 </head>
 
 <body>
-  <div id="app" :class="{'is-Sp': isSPLX}">
+  <div id="app" :class="{'is-Sp': rentobject.type === '商鋪'}" v-cloak>
     <div class="lei-xing">
       <p class="title">
         <span>*</span>類型</p>
       <div class="main">
-        <div class="item" v-for="(item, index) in typeData" :style="{backgroundImage: `url(${item.state ? item.imgurl1 : item.imgurl2})`}" @click="selectTypeItem(index)">
+        <div class="item" v-for="(item, index) in typeData" :style="{backgroundImage: `url(${item.state ? item.imgurl1 : item.imgurl2})`}"
+          @click="selectTypeItem(index)">
           <i :class="{active: item.state ? true : false}">{{item.text}}</i>
         </div>
       </div>
@@ -25,10 +31,11 @@
 
     <div class="wu-ye">
       <p class="title">
-        <span v-if="!isSPLX">*</span>物業名稱</p>
+        <span v-if="!(rentobject.type === '商鋪')">*</span>物業名稱</p>
       <div class="main">
-        <span>{{build_name}}sdfsdf</span>
-        <p class="sel" @click="goto('build_name')">選擇</p>
+        <span>{{rentobject.build_name}}</span>
+        <!-- <span>{{}}</span> -->
+        <p class="sel" @click="goto('buildname')">選擇</p>
       </div>
     </div>
 
@@ -36,36 +43,56 @@
       <p class="title">
         <span>*</span>地區</p>
       <div class="main">
-        <span>{{build_area}}asdfadsf</span>
-        <p class="sel" @click="goto('build_area')">選擇</p>
+        <span>{{rentobject.build_area}}</span>
+        <p class="sel" @click="goto('buildarea')">選擇</p>
       </div>
     </div>
 
     <div class="jie-dao">
       <p class="title">
-        <span v-show="isSPLX">*</span>街道</p>
-      <div class="main">
-        <input class="inp" type="text" placeholder="請點擊輸入" :value="build_street" @input="streetInputFunc($event.target.value)">
+        <span v-show="rentobject.type === '商鋪'">*</span>街道</p>
+      <div class="main" :class="{'no-border-bottom' : rentobject.type === '車位'}">
+        <input class="inp" type="text" placeholder="請點擊輸入" v-model="rentobject.build_street">
       </div>
     </div>
 
-    <div class="chu-zu">
+    <!-- <div class="chu-zu" v-show="!(rentobject.type === '車位')">
       <p class="title">
-        <span>*</span>物業現況</p>
-      <div class="main" :class="{'no-border-bottom' : !isSPLX}">
-        <ul class="box">
-          <li v-for="(item, index) in sArr" @click="buildStatusFunc(index)" :style="{backgroundImage: `url(${item.state ? item.slcImg : item.normalImg})`}">
-            {{item.text}}
-          </li>
-        </ul>
+        <span>*</span>出租類型</p>
+      <div class="main" :class="{'no-border-bottom' : !(rentobject.type === '商鋪')}">
+        <div class="item" v-for="(item, index) in (rentobject.type === '住宅' ? rentData : rentData2)" :style="{backgroundImage: `url(${item.state ? item.imgurl1 : item.imgurl2})`}" @click="rentobject.type === '住宅' ? selectRentTypeItem(index) : selectRentTypeItem2(index)">
+        <i :class="{active: item.state ? true : false}">{{item.text}}</i>
       </div>
+      </div>
+    </div> -->
+
+    <div class="chu-zu" >
+      <p class="title">
+        <span>*</span>物業現況
+      </p>
+      <p style="padding-bottom:0.4rem;" class="center">
+      <span @click="jis('已交吉')" style="font-size:0.25rem;">已交吉
+        <img style="width:0.39rem;top:0.1rem;" :src="rentobject.build_status=='已交吉'?'../../assets/img/jisuan/yx.png':'../../assets/img/jisuan/wx.png'" alt="" class="relative" >
+      </span>
+      <span @click="jis('隨時交吉')" style="font-size:0.25rem;margin:0 0.2rem;">隨時交吉
+          <img style="width:0.39rem;top:0.1rem;" :src="rentobject.build_status=='隨時交吉'?'../../assets/img/jisuan/yx.png':'../../assets/img/jisuan/wx.png'" alt="" class="relative" >
+      </span>
+      <span @click="jis('連約售')" style="font-size:0.25rem;">連約售
+          <img style="width:0.39rem;top:0.1rem;" :src="rentobject.build_status=='連約售'?'../../assets/img/jisuan/yx.png':'../../assets/img/jisuan/wx.png'"  alt="" class="relative" >
+      </span>
+      <!-- <span><img src="" alt=""></span>
+        <span><img src="" alt=""></span> -->
+</p>
+
     </div>
 
-    <div class="shang-pu" v-show="isSPLX">
+
+    <div class="shang-pu" v-show="rentobject.type === '商鋪'">
       <p class="title">
         <span>*</span>商鋪類型</p>
       <div class="main no-border-bottom">
-        <div class="item" v-for="(item, index) in shopTypeData" :style="{backgroundImage: `url(${item.state ? item.imgurl1 : item.imgurl2})`}" @click="selectShopTypeItem(index)">
+        <div class="item" v-for="(item, index) in shopTypeData" :style="{backgroundImage: `url(${item.state ? item.imgurl1 : item.imgurl2})`}"
+          @click="selectShopTypeItem(index)">
           <i :class="{active: item.state}">{{item.text}}</i>
         </div>
       </div>
@@ -73,14 +100,19 @@
 
     <div class="footer">
       <div class="content">
-        <p @click="next">下一步</p>
+        <p @click.stop="nexts">下一步</p>
       </div>
     </div>
   </div>
+
+  <script src="../../static/vconsole.min.js"></script>
+
   <script src="https://cdn.bootcss.com/vue/2.5.13/vue.min.js"></script>
-  
-  <!-- <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
-  <script src="../../static/common.js"></script> -->
+  <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+  <script src="../../static/common.js"></script>
+  <script src="../../static/mui.min.js"></script>
+  <!-- saveObject 引入储存上传发布所有字段的对象 -->
+  <script src="./js/sell_saveObject.js"></script>
   <script src="./js/sell_index.js"></script>
 </body>
 

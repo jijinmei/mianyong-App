@@ -142,16 +142,17 @@ var that=this
         content_key: 'xiaolin',
         content: JSON.stringify(this.rentobject)
       });
-
-      if (this.rentobject.pics == '' || this.rentobject.pics == null) {
-        // mui.toast('照片不能為空');
-        this.alerts=true;
-        setTimeout(function(){
-         that.alerts=false;
-        },2000)
-        return;
-      }
-      if (!this.rentobject.price || !this.rentobject.useable_area && !this.rentobject.area || !this.rentobject.floor || !this.rentobject.landscape || !this.rentobject.decoration) {
+// 3.当前是放租的 住宅第二个页面的内容
+// 必填: 图片 租金 间隔 建筑面积 实际面积 楼层 景观 装修程度
+      // if (this.rentobject.pics == '' || this.rentobject.pics == null) {
+      //   // mui.toast('照片不能為空');
+      //   this.alerts=true;
+      //   setTimeout(function(){
+      //    that.alerts=false;
+      //   },2000)
+      //   return;
+      // }
+      if (this.rentobject.pics == '' || this.rentobject.pics == null||!this.rentobject.price ||!this.rentobject.space ||!this.rentobject.useable_area && !this.rentobject.area || !this.rentobject.floor || !this.rentobject.landscape || !this.rentobject.decoration) {
        this.alerts=true;
        setTimeout(function(){
         that.alerts=false;
