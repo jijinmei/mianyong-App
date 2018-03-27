@@ -107,18 +107,22 @@
    mui.confirm('離開本頁面將清空當前頁面的內容，確定離開？', 'title', ['離開', '取消'], function (data) {
      console.log(data)
      if (data.index == 0) {
-       // if()
-       // localStorage.removeItem('huancun');
-       //  localStorage.removeItem('pics');
-       WebViewJavascriptBridge.callHandler('ClearData', {
-         content_key: 'huancun'
-       })
-       WebViewJavascriptBridge.callHandler('ClearData', {
-         content_key: 'xiangqingData'
-       })
-       WebViewJavascriptBridge.callHandler('ClearData', {
-         content_key: 'xiaolin'
-       })
+      var ua = navigator.userAgent.toLowerCase();
+      if (ua.match(/iPhone\sOS/i) == "iphone os") {
+        // 苹果清缓存
+                WebViewJavascriptBridge.callHandler('ClearData', {
+                  content_key: 'huancun'
+                })
+                WebViewJavascriptBridge.callHandler('ClearData', {
+                  content_key: 'xiangqingData'
+                })
+                WebViewJavascriptBridge.callHandler('ClearData', {
+                  content_key: 'xiaolin'
+                })
+      }else{
+       // 安卓清缓存
+      }
+      
        // app的返回
        goback(1)
      }
