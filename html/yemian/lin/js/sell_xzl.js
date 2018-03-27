@@ -106,7 +106,7 @@ var vm = new Vue({
       }
 
       // 售价 2个面积 楼层 景观 装修程度 联系方式
-      if (!this.rentobject.price || !this.rentobject.floor || !this.rentobject.area ||!this.rentobject.useable_area || !this.rentobject.landscape ||!this.rentobject.decoration ||!this.rentobject.contactType) {
+      if (!this.rentobject.price || !this.rentobject.floor || !this.rentobject.area || !this.rentobject.useable_area || !this.rentobject.landscape || !this.rentobject.decoration || !this.rentobject.contactType) {
         this.alerts = true;
         setTimeout(function () {
           that.alerts = false;
@@ -138,7 +138,9 @@ var vm = new Vue({
           WebViewJavascriptBridge.callHandler('ClearData', {
             content_key: 'xiangqingData'
           })
-          goback(2);
+          // goback(2);
+          // 跳转到查看售盘页面
+          window.location.href = "../xiangqing/liebiaoSou.html" + location.search;
         }
       });
     },
@@ -158,73 +160,75 @@ var vm = new Vue({
       });
       location.href = 'pic.html' + location.search;
     },
+    // 下一步
     next: function next(name) {
-      // console.log(window.store.state.currentObject);
-
-      // let pics = window.store.state.currentObject.pics
-      // let price = window.store.state.currentObject.price
-      // let useableArea = window.store.state.currentObject.useableArea
-      // let area = window.store.state.currentObject.area
-      // let floor = window.store.state.currentObject.floor
-      // let landscape = window.store.state.currentObject.landscape
-      // let decoration = window.store.state.currentObject.decoration
-      // let from = window.store.state.currentObject.from
-      // let contactType = window.store.state.currentObject.contactType
-
-      // console.log(price, useableArea, area, floor, landscape, decoration)
-
-      // if (!pics.length || !price || (!useableArea && !area) || !floor || !landscape || !decoration || !from || !contactType) {
-      //     Dialog.alert({
-      //         message: '帶<span>*</span>號項為必填項'
-      //     })
-      //     return
-      // }
-
-      // this.$router.push(name);
+      // 保存数据
+      WebViewJavascriptBridge.callHandler('SetData', {
+        content_key: 'xiaolin',
+        content: JSON.stringify(this.rentobject)
+      });
+      console.log('详情预览');
+      location.href = 'preview.html' + location.search;
     },
 
-    // 建築面積 input 輸入方法
-    areaEdit: function areaEdit(value) {
-      this.area = value;
-      window.store.state.currentObject.area = value;
-      this.useableArea = '';
-      window.store.state.currentObject.useableArea = '';
-    },
+    // // 建築面積 input 輸入方法
+    // areaEdit: function areaEdit(value) {
+    //   this.area = value;
+    //   // window.store.state.currentObject.area = value;
+    //   this.useableArea = '';
+    //   // window.store.state.currentObject.useableArea = '';
+    // },
 
-    // 實用面積 input 輸入方法
-    useableAreaEdit: function useableAreaEdit(value) {
-      this.area = '';
-      window.store.state.currentObject.area = '';
-      this.useableArea = value;
-      window.store.state.currentObject.useableArea = value;
-    },
+    // // 實用面積 input 輸入方法
+    // useableAreaEdit: function useableAreaEdit(value) {
+    //   this.area = '';
+    //   // window.store.state.currentObject.area = '';
+    //   this.useableArea = value;
+    //   // window.store.state.currentObject.useableArea = value;
+    // },
 
-    // 租金 input 編輯方法
-    priceEdit: function priceEdit(value) {
-      this.price = value;
-      window.store.state.currentObject.price = value;
-    },
+    // // 租金 input 編輯方法
+    // priceEdit: function priceEdit(value) {
+    //   this.price = value;
+    //   // window.store.state.currentObject.price = value;
+    // },
 
-    // 樓層點擊方法
-    floorClick: function floorClick(item, index) {
-      this.floor = '';
-      this.saveData2(item, index, this.floorData, 'floor');
-    },
+    // // 樓層點擊方法
+    // floorClick: function floorClick(item, index) {
+    //   this.floor = '';
+    //   this.saveData2(item, index, this.floorData, 'floor');
+    // },
 
-    // 樓層自定義方法
-    floorEdit: function floorEdit(value) {
+    // // 樓層自定義方法
+    // floorEdit: function floorEdit(value) {
 
-      // 判斷第一次輸入, this.floor還是空值, 只運行一次該循環
-      if (!this.floor && window.store.state.currentObject.floor) {
-        // 如果點擊自定義樓層的話, 選項的樓層失效
-        this.floorData.forEach(function (_item, _index) {
-          _item.state = false;
-        });
-      }
+    //   // 判斷第一次輸入, this.floor還是空值, 只運行一次該循環
+    //   if (!this.floor && window.store.state.currentObject.floor) {
+    //     // 如果點擊自定義樓層的話, 選項的樓層失效
+    //     this.floorData.forEach(function (_item, _index) {
+    //       _item.state = false;
+    //     });
+    //   }
 
-      this.floor = value;
-      window.store.state.currentObject.floor = value;
-    },
+    //   this.floor = value;
+    //   window.store.state.currentObject.floor = value;
+    // },
+ // 樓層點擊方法
+ floorClick: function floorClick(item, index) {
+  // this.$refs.floor.value = '';
+  this.ref_floor='';
+  this.saveData2(item, index, this.floorData, 'floor');
+},
+
+// 樓層自定義方法
+floorEdit: function floorEdit(value) {
+
+  this.rentobject.floor = value;
+
+  this.floorData.forEach(function (_item, _index) {
+    _item.state = false;
+  });
+},
 
     // 單位/座號 編輯方法
     codeEdit: function codeEdit(value) {
@@ -428,6 +432,7 @@ var vm = new Vue({
   },
   data: function data() {
     return {
+      ref_floor:'',
       iseditImg: true,
       alerts: false,
       isending: true,
@@ -628,14 +633,17 @@ var vm = new Vue({
 
 
 function initdata() {
-    // 讀取樓層 狀態
+  // 讀取樓層 狀態
   if (vm.rentobject.floor) {
-    vm.getData(vm.floorData, 'floor')
     
+
     // 讀取樓層自定義狀態 狀態
-    let floorStr = vm.rentobject.floor
+    var floorStr = vm.rentobject.floor;
     if (floorStr !== '底層' && floorStr !== '中層' && floorStr !== '高層' && floorStr !== '極高層') {
-      vm.$refs.floor.value = floorStr
+      // vm.$refs.floor.value = floorStr;
+      vm.ref_floor=floorStr;
+    }else{
+      vm.getData(vm.floorData, 'floor');
     }
   }
   // 讀取可起租時間 狀態

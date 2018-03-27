@@ -205,12 +205,23 @@
     },
     //点击编辑跳去小林的发布房源的租盘或者售盘
     gobianji(){
+      WebViewJavascriptBridge.callHandler('SetData', {
+        content_key: 'xiaolin',
+        content: JSON.stringify(this.arrayitem)
+      });
       if(this.arrayitem.category=='rent'){
         //我要放租
-          alert('我要放租')
+          // alert('我要放租')
+        //   console.log(this.arrayitem)
+        //  return
+          location.href='../lin/rent_index.html?sessiontoken='+sessiontoken
+
       }else if(this.arrayitem.category=='sell'){
         //我要放售
-         alert('我要放售')
+        //  alert('我要放售')
+        console.log(this.arrayitem)
+        // return
+        location.href='../lin/sell_index.html?sessiontoken='+sessiontoken
           // this.$router.push({name:'publish_sell'})
       }
               

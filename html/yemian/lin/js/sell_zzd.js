@@ -142,12 +142,18 @@ var that=this;
           WebViewJavascriptBridge.callHandler('ClearData', {
             content_key: 'xiangqingData'
           })
-          goback(3);
+          // goback(3);
+          // 跳转到查看售盘页面
+          window.location.href="../xiangqing/liebiaoSou.html"+location.search;
         }
       });
     },
     next: function next(name) {
-
+// 保存数据
+WebViewJavascriptBridge.callHandler('SetData', {
+  content_key: 'xiaolin',
+  content: JSON.stringify(this.rentobject)
+});
       console.log('详情预览');
       location.href = 'preview.html' + location.search;
     },

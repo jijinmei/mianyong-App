@@ -2,3 +2,22 @@
 .wai_kuangs{z-index:2000;position: fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.7);}
 .nei_kuang{position: absolute;left:50%;top:50%;-webkit-transform: translate(-50%,-50%);-moz-transform: translate(-50%,-50%);transform: translate(-50%,-50%);}/*字体会因为transform变模糊*/
 .fabuing{font-size:0.32rem;background:white;width:4.97rem;height:2rem;line-height: 2rem;text-align:center;border-radius:0.1rem;}
+
+/*5.万能居中*/
+/*垂直居中*/
+.czjzi{position: absolute !important;top:50% !important;-webkit-transform: translateY(-50%) !important;-moz-transform: translateY(-50%) !important;transform: translateY(-50%) !important;}
+.czjz{position: absolute !important;top:50% !important;-webkit-transform: translateY(-50%) !important;-moz-transform: translateY(-50%) !important;transform: translateY(-50%) !important;}
+.czjz2{position: absolute !important;top:50% !important;-webkit-transform: translateY(-50%) !important;-moz-transform: translateY(-50%) !important;transform: translateY(-50%) !important;}
+/*水平居中*/
+.spjzi{position: absolute !important;left:50% !important;-webkit-transform: translateX(-50%) !important;-moz-transform: translateX(-50%) !important;transform: translateX(-50%) !important;}
+.spjz{position: absolute !important;left:50% !important;-webkit-transform: translateX(-50%) !important;-moz-transform: translateX(-50%) !important;transform: translateX(-50%) !important;}
+.spjz2{position: absolute !important;left:50% !important;-webkit-transform: translateX(-50%) !important;-moz-transform: translateX(-50%) !important;transform: translateX(-50%) !important;}
+.margin{margin:0 auto;}
+/*居中*/
+.jz{position: absolute !important;left:50% !important;top:50% !important;-webkit-transform: translate(-50%,-50%) !important;-moz-transform: translate(-50%,-50%) !important;transform: translate(-50%,-50%) !important;}/*字体会因为transform变模糊*/
+.jz2{margin: auto;  position: absolute;top: 0; left: 0; bottom: 0; right: 0;}/*字体不会因为transform变模糊*/
+/*字体的对齐方式*/
+.center{text-align:center;}
+.relative{position: relative!important;}
+.fixed{position: fixed!important;}
+.absolute{position: absolute !important;}

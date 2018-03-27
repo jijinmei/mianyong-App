@@ -105,7 +105,8 @@ var vm = new Vue({
     // 樓層點擊方法
     floorClick: function floorClick(item, index) {
       // this.floor = ''
-      this.$refs.floor.value = '';
+      // this.$refs.floor.value = '';
+      this.ref_floor='';
       this.saveData(item, index, this.floorData, 'floor');
     },
 
@@ -262,6 +263,7 @@ var that=this
     // }
   },
   data: {
+    ref_floor:'',
     alerts:false,//
     fangjian: 1,
     keting: 0,
@@ -369,12 +371,15 @@ var that=this
 function initdata() {
   // 讀取樓層 狀態
   if (vm.rentobject.floor) {
-    vm.getData(vm.floorData, 'floor')
     
+
     // 讀取樓層自定義狀態 狀態
-    let floorStr = vm.rentobject.floor
+    var floorStr = vm.rentobject.floor;
     if (floorStr !== '底層' && floorStr !== '中層' && floorStr !== '高層' && floorStr !== '極高層') {
-      vm.$refs.floor.value = floorStr
+      // vm.$refs.floor.value = floorStr;
+      vm.ref_floor=floorStr;
+    }else{
+      vm.getData(vm.floorData, 'floor');
     }
   }
 

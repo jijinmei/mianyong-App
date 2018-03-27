@@ -147,7 +147,9 @@ if (this.rentobject.pics == '' || this.rentobject.pics == null) {
           WebViewJavascriptBridge.callHandler('ClearData', {
             content_key: 'xiangqingData'
           })
-          goback(2);
+          // goback(2);
+          // 跳转到查看租盘页面
+          window.location.href="../xiangqing/liebiaoZu.html"+location.search;
         }
       });
     },
@@ -163,7 +165,11 @@ if (this.rentobject.pics == '' || this.rentobject.pics == null) {
 
     // 下一步
     next: function next(name) {
-
+       // 保存数据
+       WebViewJavascriptBridge.callHandler('SetData', {
+        content_key: 'xiaolin',
+        content: JSON.stringify(this.rentobject)
+      });
       console.log('详情预览');
       location.href = 'preview.html' + location.search;
     },

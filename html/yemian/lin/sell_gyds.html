@@ -76,7 +76,7 @@
                 <span>自定義</span>
                 <!-- <input type="text" placeholder="請點擊輸入樓層" :value="floor" @input="floorEdit($event.target.value)"> -->
                 
-                <input type="text" placeholder="請點擊輸入樓層" @input="floorEdit($event.target.value)" ref="floor">
+                <input type="text" placeholder="請點擊輸入樓層" @input="floorEdit($event.target.value)" v-model="ref_floor">
                 <!-- <input type="text" placeholder="請點擊輸入樓層" v-model="rentobject.floor"> -->
               </div>
             </div>

@@ -15,27 +15,32 @@ var vm=new Vue({
     //   this.rentobject = JSON.parse(JSON.stringify(saveObject));
     // }
 
-    if (localStorage.userId) {
-      this.$axios.get('/user/' + localStorage.userId).then(function (res) {
-        console.log(res);
-        if (res.status) {
-          _this.userData = res.result;
-        }
-      });
-    }
+    // if (localStorage.userId) {
+    //   this.$axios.get('/user/' + localStorage.userId).then(function (res) {
+    //     console.log(res);
+    //     if (res.status) {
+    //       _this.userData = res.result;
+    //     }
+    //   });
+    // }
 
-    console.log('userData发生变化前');
+    // console.log('userData发生变化前');
   },
 
-  watch: {
-    rentobject: {
-      handler: function handler(newVal) {
-        localStorage.setItem('rentobject', JSON.stringify(newVal));
-      },
-      deep: true
-    }
-  },
+  // watch: {
+  //   rentobject: {
+  //     handler: function handler(newVal) {
+  //       localStorage.setItem('rentobject', JSON.stringify(newVal));
+  //     },
+  //     deep: true
+  //   }
+  // },
   mounted: function mounted() {
+    var that=this
+    // this.rentobject = JSON.parse(JSON.stringify(saveObject))
+    // this.rentobject.pics=['https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1689242572,2693282530&fm=27&gp=0.jpg','https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=371662182,3046145712&fm=27&gp=0.jpg']
+    
+    // return
     if (window.WebViewJavascriptBridge) {
       WebViewJavascriptBridge.callHandler('GetData', {
         content_key: 'xiaolin'
@@ -186,6 +191,26 @@ var vm=new Vue({
     }
   },
   methods: {
+     //拨打电话
+     tel(phone) {
+      if (sessiontoken && sessiontoken != 'null') {
+        if (phone) {
+          console.log("tel:" + phone)
+          if (isNaN(phone)) {
+            mui.toast('電話號碼為中文')
+          } else {
+            location.href = "tel:" + phone
+          }
+
+        } else {
+          mui.toast('電話號碼為空')
+          // location.href="tel:13411615134"
+        }
+      } else {
+        mui.toast('請先到【我的】登錄')
+      }
+
+    },
     initdata(){
       if (this.rentobject.infrastructure) {
         
@@ -205,16 +230,17 @@ var vm=new Vue({
     },
     // 平均價格
     average: function average() {
-      Dialog.alert({
-        message: '平均呎價是按建築面積計算'
-      });
-    },
-
-    // 点击轮播图
-    clickSwipeImg: function clickSwipeImg(index) {
-      // console.log(index, this.previewData.pics)
-      ImagePreview(this.previewData.pics, index);
+      // Dialog.alert({
+      //   message: '平均呎價是按建築面積計算'
+      // });
+      mui.alert('平均呎價是按建築面積計算', null, ['好的'], null, 'div')
     }
+
+    // // 点击轮播图
+    // clickSwipeImg: function clickSwipeImg(index) {
+    //   // console.log(index, this.previewData.pics)
+    //   ImagePreview(this.previewData.pics, index);
+    // }
   },
   data: function data() {
     return {

@@ -5,7 +5,9 @@ var vm = new Vue({
   created: function created() {
     // this.rentobject = JSON.parse(JSON.stringify(saveObject))    
   },
-  mounted: function mounted() {},
+  mounted: function mounted() {
+    // mui.toast(location.search)
+  },
 
   methods: {
     // 清除信息

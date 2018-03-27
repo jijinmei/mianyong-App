@@ -39,6 +39,14 @@ function getFormDataFun(obj) {
 
   for (var key in obj) {
     if (key !== 'pics' && obj[key] != '' && obj[key] != null) {
+      // ji加的判断 明火煮食和饲养宠物  发去后台的请求才改变这个,其他的显示就不改了
+              if(key=='cook'||key=='pet'){
+                    if(obj[key]=='可以'){
+                      obj[key]='1'
+                    }else if(obj[key]=='不可以'){
+                      obj[key]='0'
+                    }   
+              }
       formData.append(key, obj[key]);
     }
   }

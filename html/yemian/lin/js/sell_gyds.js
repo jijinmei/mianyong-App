@@ -114,7 +114,7 @@ var vm = new Vue({
       }
 
       // 售价 2个面积 楼层 装修程度 联络方式
-      if (!this.rentobject.price ||!this.rentobject.useable_area ||!this.rentobject.area || !this.rentobject.floor || !this.rentobject.decoration || !this.rentobject.contactType) {
+      if (!this.rentobject.price || !this.rentobject.useable_area || !this.rentobject.area || !this.rentobject.floor || !this.rentobject.decoration || !this.rentobject.contactType) {
         this.alerts = true;
         setTimeout(function () {
           that.alerts = false;
@@ -146,7 +146,9 @@ var vm = new Vue({
           WebViewJavascriptBridge.callHandler('ClearData', {
             content_key: 'xiangqingData'
           })
-          goback(2);
+          // goback(2);
+          // 跳转到查看售盘页面
+          window.location.href = "../xiangqing/liebiaoSou.html" + location.search;
         }
       });
     },
@@ -160,14 +162,19 @@ var vm = new Vue({
       location.href = 'pic.html' + location.search;
     },
     next: function next(name) {
-
+      // 保存数据
+      WebViewJavascriptBridge.callHandler('SetData', {
+        content_key: 'xiaolin',
+        content: JSON.stringify(this.rentobject)
+      });
       console.log('详情预览');
       location.href = 'preview.html' + location.search;
     },
 
     // 樓層點擊方法
     floorClick: function floorClick(item, index) {
-      this.$refs.floor.value = '';
+      // this.$refs.floor.value = '';
+      this.ref_floor='';
       this.saveData2(item, index, this.floorData, 'floor');
     },
 
@@ -377,6 +384,7 @@ var vm = new Vue({
   },
   data: function data() {
     return {
+      ref_floor:'',//ji
       alerts: false,
       isending: true,
       rentobject: null,
@@ -565,12 +573,15 @@ var vm = new Vue({
 function initdata() {
   // 讀取樓層 狀態
   if (vm.rentobject.floor) {
-    vm.getData(vm.floorData, 'floor');
+    
 
     // 讀取樓層自定義狀態 狀態
     var floorStr = vm.rentobject.floor;
     if (floorStr !== '底層' && floorStr !== '中層' && floorStr !== '高層' && floorStr !== '極高層') {
-      vm.$refs.floor.value = floorStr;
+      // vm.$refs.floor.value = floorStr;
+      vm.ref_floor=floorStr;
+    }else{
+      vm.getData(vm.floorData, 'floor');
     }
   }
 
