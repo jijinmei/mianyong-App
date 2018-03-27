@@ -35,9 +35,109 @@ var vm = new Vue({
     back: function back() {
       // this.$router.go(-1)
     },
+// 添加图片
+change: function change(e) {
+  console.log('files点击了图片上传框,粗发了事件')
+  var file = document.getElementById("input");
+  var fileList = file.files //获取的图片文件
+console.log(fileList)
+// 缓存获取的图片的长度加上现在上传的图片的长度不能超过12个,声明变量记录超出的个数,到时候超出了的不进入循环
+var num = fileList.length + this.imgUrl.length;
+      if (num > 12) {
+        mui.toast('图片不能超过12张,请重新选择!')
+        return;
+        // console.log('超过' + (num - 12), num);
+        // var chao = num - 12;
+      } else if(num==12) {
+        // var chao = 0;
+          this.showAdd = false;//上传框消失
+  
+      }
 
+
+// var num = fileList.length + this.imgUrl.length;
+// 重置fileList的个数
+// console.log('fileList.length')
+// console.log(fileList.length)
+// if(num>12){
+//   fileList.splice(fileList.length-chao,chao)
+// }
+//   // 
+//   console.log('deleted')
+//   console.log(fileList.length)
+//   console.log(fileList)
+//   bbbb=fileList
+//   return 
+// // 1.缓存的已经有12个,这个时候没有上传框
+// if(this.imgUrl.length==12){
+//   return
+// }
+// // 2.缓存少于12个,但是上传加缓存超过12个
+// if(this.imgUrl.length<12&&num>12){
+//   fileList.splice(fileList.length-chao,chao)
+//   // return
+// }
+// // 3.缓存少于12个,上传加缓存没有超过12个
+// if(this.imgUrl.length<12&&num<13){
+//   // fileList.splice(fileList.length-chao,chao)
+// }
+// // 4.缓存无,上传的超过12个
+// if(this.imgUrl.length==0&&num>12){
+//   // return
+//   fileList.splice(9,2)
+// }
+// // 5.缓存无,上传的没有超过12个
+// if(this.imgUrl.length==0&&num<13){
+//   // return
+// }
+
+
+  // 
+  console.log("图片数量符合") 
+    fileList = validateUp(fileList);
+    // return
+    fileList.forEach(function(file, i) {
+      // if(i>(fileList.length-chao+1)){
+      //   return
+      // }
+       console.log("开始处理上传文件")  			 
+          var reader = new FileReader();          
+//          获取图片大小
+
+          reader.onload = function() {
+             var result = this.result;
+             // console.log(fileList[i])
+              var img = new Image();
+              img.src = result;
+            
+              //如果图片大小小于100kb，则直接上传
+              if (result.length <= maxsize) {
+                  img = null;
+                  
+                  upload(result,fileList[i].type);
+                  return;
+              }
+//      图片加载完毕之后进行压缩，然后上传
+              if (img.complete) {
+                  callback();
+              } else {
+                  img.onload = callback;
+              }
+              function callback() {
+                  var data = compress(img);
+                  console.log(data)
+                  upload(data, fileList[i].type);
+                  img = null;
+              }
+          };
+          reader.readAsDataURL(fileList[i]);
+   
+
+  console.log('处理上传文件完成')
+})
+    },
     // 添加图片
-    change: function change(e) {
+    change222: function change(e) {
       var _this = this;
 
       var files = e.target.files;

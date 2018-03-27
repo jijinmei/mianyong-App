@@ -10,6 +10,9 @@
     <link rel="stylesheet" href="./css/reset.css">
     <link rel="stylesheet" href="./css/pic.css">
     <script src="./js/flexible.min.js"></script>
+    <script>
+      var bbbb
+    </script>
 </head>
 
 <body>
@@ -20,7 +23,7 @@
           <ul class="ul">
             <li v-for="(urlstr, index) in imgUrl"><span class="pic-r"></span><img :src="urlstr" alt="" @click="clickImg(index, $event)"><span class="slc-style" @click="cancelSlc(index, $event)"></span></li>
             <li :style="setStyle" v-if="showAdd">
-              <input type="file" id="input" @change="change" accept="image/*" ref="input" multiple="multiple" capture="capture">
+              <input type="file" id="input" @change="change($event)" accept="image/*" ref="input" multiple="multiple" capture="capture">
             </li>
           </ul>
         </div>
@@ -54,6 +57,9 @@
     <script src="https://cdn.bootcss.com/vue/2.5.13/vue.min.js"></script>
     <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
     <script src="../../static/common.js"></script>
+    <link rel="stylesheet" href="../../static/mui.min.css">
+    <script src="../../static/mui.min.js"></script>
+    <script src="./js/imgUp.js"></script>
     <!-- 引入组件 -->
     <script src="https://unpkg.com/vant/lib/vant.min.js"></script>
     <script src="./js/saveObject.js"></script>
