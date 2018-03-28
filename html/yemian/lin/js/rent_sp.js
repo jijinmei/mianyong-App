@@ -132,9 +132,10 @@ if (this.rentobject.pics == '' || this.rentobject.pics == null) {
           return
         }
       }
+      
       this.isending = false;
       this.$axios.post('/agent', getFormDataFun(this.rentobject)).then(function (res) {
-
+// return
         if (!res.message) {
           console.log('发布成功');
           // clearthis.rentobjects();

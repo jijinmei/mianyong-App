@@ -63,35 +63,10 @@ var vm = new Vue({
           return './imgs/fangzu/addPic.png';
         }
       }
-    },
-
-    // 用戶的電話號碼
-    // userphone: function userphone() {
-
-    //   var phone = this.rentobject.phone;
-
-    //   if (phone) {
-    //     return phone;
-    //   } else {
-    //     var userdata = JSON.parse(localStorage.userData);
-    //     return userdata.phone;
-    //   }
-    // },
-
-    // // 联系人
-    // contacts: function contacts() {
-
-    //   var contacts = this.rentobject.contacts;
-
-    //   if (contacts) {
-    //     return contacts;
-    //   } else {
-    //     var userdata = JSON.parse(localStorage.userData);
-    //     return userdata.displayname;
-    //   }
-    // }
+    }
   },
   methods: {
+   
     setStyles: function setStyles(item) {
       return {
         backgroundImage: 'url(' + (item.state ? item.slcImg : item.normalImg) + ')'
@@ -266,6 +241,7 @@ var vm = new Vue({
     contactTypeClick2: function contactTypeClick2(item, index) {
 
       this.rentobject.call = item.eText;
+      console.log(this.rentobject.call)
 
       this.contactTypeData2.forEach(function (_item, _index) {
         if (_index === index) {

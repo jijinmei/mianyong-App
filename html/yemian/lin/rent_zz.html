@@ -158,7 +158,15 @@
     if (data) {
       console.log('有值传过来', data)
       vm.rentobject = JSON.parse(data)
-      initdata()
+      if(vm.rentobject.call&&vm.rentobject.contacts&&vm.rentobject.phone){
+                  console.log('电话及在线咨询同时有')
+                  initdata()
+                }else{
+                  console.log('电话及在线咨询同时无')
+                  users()//在users里面调用initdata
+                      
+                }
+      // initdata()
     } else {
       console.log('没有传值过来')
       vm.rentobject = JSON.parse(JSON.stringify(saveObject))
@@ -172,10 +180,10 @@
 </script>
 
 <script src="../../static/vconsole.min.js"></script>
-
-<script src="https://cdn.bootcss.com/vue/2.5.13/vue.min.js"></script>
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
 <script src="../../static/common.js"></script>
+<script src="https://cdn.bootcss.com/vue/2.5.13/vue.min.js"></script>
+
 
 <script src="./js/rent_saveObject.js"></script>
 <script src="./js/rent_zz.js"></script>

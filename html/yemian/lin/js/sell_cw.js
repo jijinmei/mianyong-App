@@ -87,10 +87,10 @@ var vm = new Vue({
     },
     publish: function publish() {
       var that = this
-      WebViewJavascriptBridge.callHandler('SetData', {
-        content_key: 'xiaolin',
-        content: JSON.stringify(this.rentobject)
-      });
+      // WebViewJavascriptBridge.callHandler('SetData', {
+      //   content_key: 'xiaolin',
+      //   content: JSON.stringify(this.rentobject)
+      // });
 // 放售的车位发布必填为:图片 售价 楼层 联络方式
       // 照片
       if (this.rentobject.pics == '' || this.rentobject.pics == null) {

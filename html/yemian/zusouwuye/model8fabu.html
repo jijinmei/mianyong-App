@@ -324,14 +324,15 @@
         if (JSON.parse(data).start_time != undefined) { //小林的数组对象
           console.log('you小林的')
           vm.huancunPics = JSON.parse(data)
+          vm.huancun.pics=vm.huancunPics.pics
         } else { //我的数组对象huancun
           console.log('you我的')
           vm.huancun = JSON.parse(data)
-          if (JSON.parse(data).call && JSON.parse(data).contacts && JSON.parse(data).phone) {
+          // if (JSON.parse(data).call && JSON.parse(data).contacts && JSON.parse(data).phone) {
 
-          } else {
-            vm.users()
-          }
+          // } else {
+          //   vm.users()
+          // }
         }
         vm.huancuns()
       } else {
@@ -350,7 +351,7 @@
       el: '#app',
       // store,
       data: {
-        huancun: [],
+        huancun:[],
         xiaolin: [], //
         huancunPics: [],
         objectId: 'no',
@@ -477,7 +478,7 @@
       },
       methods: {
         users() {
-          var that = this
+          var that = this    
           // // 查看个人资料
           var id = localStorage.getItem('userId')
           // alert(id)
@@ -498,28 +499,30 @@
         },
         //读取原来的缓存
         huancuns() {
-          console.log('huancuns:this.Fenlei')
-          console.log(this.Fenlei, this.Fenlei.length)
-          // console.log('app存储的huancun')
-          // console.log(this.huancun)
-          // console.log(this.huancunPics)
+          // console.log('huancuns:this.Fenlei')
+          // console.log(this.Fenlei, this.Fenlei.length)
+          console.log('app存储的huancun')
           var hh = this.huancun
           var hh1 = this.huancunPics
-          // 小林有则图片取小林的
-          if (hh1.pics) {
+          // 不管有没有,全部取小林的图片
+          console.log(hh)
+          console.log(hh1)
+          // hh.pics=hh1.pics
+          // // 小林有则图片取小林的
+          // if (hh1.pics) {
 
-          } else {
-            // 我的图片有，小林无，我的图片转64存到小林，我的图片转64赋值给大数组
-            if (locations('from') == 'wodefabu') {
-              for (var i = 0; i < this.huancun.pics.length; i++) {
-                this.getBase64(this.huancun.pics[i], this.huancun.pics.length, i)
-              }
-              // this.getBase64(this.huancun.pics[0],1)
-            } else {
-              // 小林无，我无，不需要执行图片操作，如果是新页面进来的
+          // } else {
+          //   // 我的图片有，小林无，我的图片转64存到小林，我的图片转64赋值给大数组
+          //   if (locations('from') == 'wodefabu') {
+          //     for (var i = 0; i < this.huancun.pics.length; i++) {
+          //       this.getBase64(this.huancun.pics[i], this.huancun.pics.length, i)
+          //     }
+          //     // this.getBase64(this.huancun.pics[0],1)
+          //   } else {
+          //     // 小林无，我无，不需要执行图片操作，如果是新页面进来的
 
-            }
-          }
+          //   }
+          // }
           //我的发布点击编辑过来的，这个时候本地有一个model8fabu_array，将这个东西的内容赋给huancun的数组
           if (locations('from') == 'wodefabu') { //肯定有数据，一定会执行这个
             console.log('wodefabu从app取得的数据')
@@ -551,9 +554,13 @@
             console.log(hh)
             console.log(hh1)
             //从8大模块的列表左边的发布跳过来的 只有存在数据才执行这一个
-            if (!hh) {
+            if (hh==false) {
+              console.log(hh)
+              console.log('!hh')
               return
             } else {
+              console.log(hh)
+              console.log('hh')
               // console.log('model8 huancun')
               this.objectId = 'no'
               this.type = hh.type
@@ -564,6 +571,7 @@
 
           // 共同的获取数据
           console.log('共同的执行数据挂载')
+          hh.pics=hh1.pics
           if (hh1.pics) {
             this.fengmiantu = hh1.pics[0]
             console.log('封面图取小林的')
@@ -633,6 +641,7 @@
         addPic() {
           var hh = this.huancun
           var hh1 = this.huancunPics
+          hh1.pics=hh.pics
           var pics = []
           if (hh1.pics) {
             pics = hh1.pics
@@ -661,21 +670,7 @@
           })
           // 如果hh1是空，则代表当前是http的图片路径或者还没选择图片，这个时候要转64存在小林的数组
           // 自己的缓存没有图片并且小林的也没有，则当前是全新进入的页面
-          location.href = "../lin/pic.html"
-          // if((!hh.pics)&&(!hh1.pics)){
-          //     location.href = "../lin/pic.html"
-          // }else if(hh.pics&&(!hh1.pics)){
-          // // 自己的缓存有图片并且小林的没有图片，则要转base64
-          //        this.getBase64(hh.pics) 
-          // }else{
-          //  // 自己的缓存没有图片并且小林的有，则直接跳去
-          //     location.href = "../lin/pic.html"
-          // }
-
-
-
-
-
+          location.href = "../lin/pic.html?where=ji"        
         },
 
         //价格
@@ -688,11 +683,13 @@
           var that = this
           var hh = this.huancun
           var hh1 = this.huancunPics
+          hh1.pics=hh.pics
           var pics1 = []
           var pics = []
+
           if (hh1.pics) {
             pics1 = hh1.pics
-          } else {
+          } else if(hh.pics) {
             pics1 = hh.pics
           }
           if (pics1) {
@@ -736,18 +733,12 @@
           }
 
           console.log(xiangqingData)
-          // console.log(httplu+'xiangqing/xiangqing.html?jianju=no&objectId=no&name=' + that.names+'&xiangqingData='+JSON.stringify(xiangqingData))
-          // window.localStorage.setItem('xiangqingData', JSON.stringify(xiangqingData))
-          // console.log(window.localStorage.getItem('xiangqingData'))
           // 跳转到详情页面
           WebViewJavascriptBridge.callHandler('SetData', {
             content_key: 'xiangqingData',
             content: JSON.stringify(xiangqingData)
           })
-          // location.href = 'http://stg-static-macaucf.leanapp.cn/html/yemian/more/mztk.html'
-          // setTimeout(function(){
           location.href = httplu + 'xiangqing/xiangqing.html?jianju=no&objectId=no&name=' + that.names
-          // },11000)
 
         },
         //点击详情预览的按钮的时候
@@ -764,11 +755,8 @@
           //进入这里代表要发请求了，要把prending设置为false，代表不能再点击那个发布按钮              
           var formData = new FormData();
           formData.append("sessiontoken", sessiontoken);
-          //                  formData.append("channel",'services');//home=主页 discuss=讨论 services= 服务
           formData.append("title", this.title); //标题或商店名称
-          // 只有调用了上传的插件才传图片去后台修改，否则不传
-          // var pics = JSON.parse(localStorage.getItem('pics'))
-          // var pics=JSON.parse(WebViewJavascriptBridge.callHandler('GetData', {content_key: 'xiaolin'})).pics
+          // 只有调用了上传的插件才传图片去后台修改，否则不传         
           var pics = this.huancunPics.pics
 
           if (pics) {
@@ -815,10 +803,11 @@
           console.log('sessiontoken' + sessiontoken)
           console.log('id' + this.objectId)
           console.log('小林的图片')
-          console.log(this.huancunPics.pics)
+          console.log(this.huancunPics.pics.length)
+          // console.log(this.huancunPics.pics)
           console.log('我的图片')
-          console.log(this.huancun.pics)
-
+          // console.log(this.huancun.pics)
+// return
           formData.append("content", this.content); //详细内容
           // console.log('okok')
           setTimeout(function () {
@@ -847,7 +836,7 @@
 
 
                 } else {
-                  that.isending = false //正在发布，请稍后
+                  that.isending = true //正在发布，请稍后
                   mui.toast(data.result.message)
                 }
 
@@ -866,22 +855,26 @@
           console.log(this.huancun.pics)
           console.log(this.huancunPics.pics)
           console.log(':::::'+this.names)
+          // 图片是必填
           if (this.huancun || this.huancunPics) {
 
             if (this.huancun.pics == undefined && this.huancunPics.pics == undefined) {
               mui.toast('图片为必填，請填写完整')
               return
             }
-
-
           }
-
-
           if (this.title == '' || this.contactType == -1) {
             mui.toast('带星号为必填，請填写完整')
             return
           }
-
+          // 电话及在线咨询的时候需要下面三个都已经被填写
+          if (this.contactType== '1') {
+            // 联繁人     联繁电话       呼称
+            if (!this.contacts || !this.phone || !this.call) {
+              mui.toast('带星号为必填，請填写完整')
+              return
+            }
+      }
           if (this.names == '汽車交易' || this.names == '傢俬電器') {
             if (this.type == 0 || (this.price == 0 && this.values == '')) {
               mui.toast('带星号为必填，請填写完整')
@@ -948,12 +941,24 @@
           console.log(that.Fenlei)
           //获取填写的东西，必须等请求完后才调用获取方法
           // 一个是字段数据，一个是小林的图片
-          WebViewJavascriptBridge.callHandler('GetData', {
-            content_key: 'huancun'
-          })
-          WebViewJavascriptBridge.callHandler('GetData', {
-            content_key: 'xiaolin'
-          })
+          if(window.WebViewJavascriptBridge){
+                      WebViewJavascriptBridge.callHandler('GetData', {
+                        content_key: 'huancun'
+                      })
+                      WebViewJavascriptBridge.callHandler('GetData', {
+                        content_key: 'xiaolin'
+                      })
+          }else{
+            setTimeout(function(){
+                      WebViewJavascriptBridge.callHandler('GetData', {
+                        content_key: 'huancun'
+                      })
+                      WebViewJavascriptBridge.callHandler('GetData', {
+                        content_key: 'xiaolin'
+                      })
+            },1000)
+          }
+         
 
         })
 

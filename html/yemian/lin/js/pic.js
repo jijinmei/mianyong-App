@@ -9,7 +9,6 @@ var vm = new Vue({
     //   this.rentobject = JSON.parse(JSON.stringify(saveObject))
     // }
   },
-
   computed: {
     setStyle: function setStyle() {
       return {
@@ -43,73 +42,48 @@ change: function change(e) {
 console.log(fileList)
 // 缓存获取的图片的长度加上现在上传的图片的长度不能超过12个,声明变量记录超出的个数,到时候超出了的不进入循环
 var num = fileList.length + this.imgUrl.length;
-      if (num > 12) {
-        mui.toast('图片不能超过12张,请重新选择!')
-        return;
-        // console.log('超过' + (num - 12), num);
-        // var chao = num - 12;
-      } else if(num==12) {
-        // var chao = 0;
-          this.showAdd = false;//上传框消失
-  
-      }
+if(locations('where')){
+  // 只有我的页面才有传这个东西,只要有这个,就是不能超过9张照片
+  console.log('不能超过9张图片')
+        if (num > 9) {
+          mui.toast('图片不能超过9张,请重新选择!')
+          return;
+          // console.log('超过' + (num - 12), num);
+          // var chao = num - 12;
+        } else if(num==9) {
+          // var chao = 0;
+            this.showAdd = false;//上传框消失
 
+        }
+}else{
+  console.log('不能超过12张图片')
+        if (num > 12) {
+          mui.toast('图片不能超过12张,请重新选择!')
+          return;
+          // console.log('超过' + (num - 12), num);
+          // var chao = num - 12;
+        } else if(num==12) {
+          // var chao = 0;
+            this.showAdd = false;//上传框消失
 
-// var num = fileList.length + this.imgUrl.length;
-// 重置fileList的个数
-// console.log('fileList.length')
-// console.log(fileList.length)
-// if(num>12){
-//   fileList.splice(fileList.length-chao,chao)
-// }
-//   // 
-//   console.log('deleted')
-//   console.log(fileList.length)
-//   console.log(fileList)
-//   bbbb=fileList
-//   return 
-// // 1.缓存的已经有12个,这个时候没有上传框
-// if(this.imgUrl.length==12){
-//   return
-// }
-// // 2.缓存少于12个,但是上传加缓存超过12个
-// if(this.imgUrl.length<12&&num>12){
-//   fileList.splice(fileList.length-chao,chao)
-//   // return
-// }
-// // 3.缓存少于12个,上传加缓存没有超过12个
-// if(this.imgUrl.length<12&&num<13){
-//   // fileList.splice(fileList.length-chao,chao)
-// }
-// // 4.缓存无,上传的超过12个
-// if(this.imgUrl.length==0&&num>12){
-//   // return
-//   fileList.splice(9,2)
-// }
-// // 5.缓存无,上传的没有超过12个
-// if(this.imgUrl.length==0&&num<13){
-//   // return
-// }
+        }
+}
+      
 
-
-  // 
   console.log("图片数量符合") 
     fileList = validateUp(fileList);
     // return
     fileList.forEach(function(file, i) {
-      // if(i>(fileList.length-chao+1)){
-      //   return
-      // }
        console.log("开始处理上传文件")  			 
           var reader = new FileReader();          
 //          获取图片大小
-
           reader.onload = function() {
              var result = this.result;
-             // console.log(fileList[i])
               var img = new Image();
               img.src = result;
-            
+              // 测试没有压缩前的文件大小
+              // upload(result,fileList[i].type);
+              // return
               //如果图片大小小于100kb，则直接上传
               if (result.length <= maxsize) {
                   img = null;
@@ -247,55 +221,36 @@ var num = fileList.length + this.imgUrl.length;
         // localStorage.pics = this.imgUrl  ( 这个地方引用同一个对象, 当第二次选图片即使不运行该方法, 由于第一次已经引用了this.imgUrl数组对象, 所以之后只要该对象动态改变, 那么 currentObject.pics随之改变 )
 
         // this.rentobject.pics = JSON.parse(JSON.stringify(this.imgUrl)))
-        this.rentobject.pics = [].concat(this.imgUrl);
-
-        // goback(1)
-
-
+        this.rentobject.pics = [].concat(this.imgUrl);      
         WebViewJavascriptBridge.callHandler('SetData', {
           content_key: 'xiaolin',
           content: JSON.stringify(this.rentobject)
         });
         goback(1)
-        // setTimeout(function () {
-
-        //   WebViewJavascriptBridge.callHandler('goback', {
-        //     pageNumber: '1',
-        //     needRefresh: 'YES'
-        //   });
-        // }, 1000);
       } else {
         // localStorage.removeItem('pics')
         this.rentobject.pics = [];
-
         WebViewJavascriptBridge.callHandler('SetData', {
           content_key: 'xiaolin',
           content: JSON.stringify(this.rentobject)
         });
         goback(1)
-
-        // setTimeout(function () {
-
-        //   WebViewJavascriptBridge.callHandler('goback', {
-        //     pageNumber: '1',
-        //     needRefresh: 'YES'
-        //   });
-        // }, 1000);
+//  // 如果是小吉来添加图片这里,把最新的图片存储到我的缓存里面
+// if(locations('where')){
+//   this.insave=true
+//   WebViewJavascriptBridge.callHandler('GetData', {
+//   content_key: 'huancun'
+// })
+// }else{
+//   // 如果是小林自己去的添加图片这里,则不需要管这些
+//  goback(1)
+// }
       }
+      
 
-      // 返回
 
-      // if (isAPP) {
-      //     var aa = JSON.parse(window.localStorage.getItem('huancun'))
-      //     aa.pics = localStorage.pics
-      //     window.localStorage.setItem('huancun', JSON.stringify(aa))
-      //     locationClick('liebiaoZu', 1)
-      // } else {
-      //     var aa = JSON.parse(window.localStorage.getItem('huancun'))
-      //     aa.pics = localStorage.pics
-      //     window.localStorage.setItem('huancun', JSON.stringify(aa))
-      //     this.$router.go(-1)
-      // }
+
+  
     },
     getBlobBydataURI: function getBlobBydataURI(dataURI, type) {
       var binary = atob(dataURI.split(',')[1]);
@@ -458,6 +413,7 @@ var num = fileList.length + this.imgUrl.length;
   },
   data: function data() {
     return {
+      // insave:false,//判断是否按了保存按钮,来对返回的数据进行处理
       imgUrl: [],
       showAdd: true,
       show: false,
@@ -478,11 +434,31 @@ var num = fileList.length + this.imgUrl.length;
 });
 
 function getAppLocalData(data) {
-
-  if (data) {
-    console.log('有值传过来', data);
+  if (data) { 
+    console.log('有传值过来', data);
     vm.rentobject = JSON.parse(data);
     initdata();
+    // console.log(vm.imgUrl.length)
+    // console.log('有值传过来',vm.insave);
+    // if(vm.insave==false) { //小林的数组对象 
+    //   // 小林进来的时候拿的数据
+    //   console.log('小林进来的时候拿的数据')     
+    //    vm.rentobject = JSON.parse(data);
+    //    initdata();
+    // }else{
+    //   // 点击保存按钮的更新我的缓存的数据
+    //   console.log('点击保存按钮的更新我的缓存的数据')
+    //   var huancun = JSON.parse(data);
+    //   huancun.pics=[];
+    //   WebViewJavascriptBridge.callHandler('SetData', {
+    //     content_key: 'huancun',
+    //     content: JSON.stringify(huancun)
+    //   });
+    //   setTimeout(function(){
+    //      goback(1)
+    //   },1000) 
+    // }
+     
   } else {
     console.log('没有传值过来', data);
     vm.rentobject = JSON.parse(JSON.stringify(saveObject));
@@ -539,3 +515,5 @@ function initdata() {
     vm.showAdd = true;
   }
 }
+
+

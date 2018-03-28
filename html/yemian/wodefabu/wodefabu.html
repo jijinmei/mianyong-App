@@ -171,6 +171,7 @@
     var vm = new Vue({
         el: '#app',
         data: {
+        xiaolin:[],
         tanchukuang:false,//编辑和封盘的弹出框
         bianjiarray:'',//点击编辑跳去小林的发布房源的租盘或者售盘
         index:-1,//点击的是第几个楼盘
@@ -231,16 +232,67 @@
                     contacts: that.arrayitem.contacts, //联络人
                     type: that.arrayitem.tags, //分类  1是二手家私  2是二手电器  3是全新家私  tags
                 }
+                // 保存小林的数据
+               for (var i = 0; i < that.arrayitem.pics.length; i++) {
+                that.getBase64(that.arrayitem.pics[i], that.arrayitem.pics.length, i)
+              }
                 WebViewJavascriptBridge.callHandler('SetData', {content_key: 'huancun', content:JSON.stringify(huancun)})
-                WebViewJavascriptBridge.callHandler('ClearData', {content_key: 'xiaolin'})
-              setTimeout(function(){
-                 location.href="../zusouwuye/model8fabu.html?name="+that.arrayitem.section+'&from=wodefabu&sessiontoken='+sessiontoken
-              },100)
+                // WebViewJavascriptBridge.callHandler('ClearData', {content_key: 'xiaolin'})
+                // return
+           
                
            
               
           // this.$router.push({name:'model8fabu',params:{name:this.arrayitem.section,from:'wodefabu'}})      
     },
+    getBase64(img, lengths, i) {
+          var that = this
+          //传入图片路径，返回base64
+          function getBase64Image(img, width, height) { //width、height调用时传入具体像素值，控制大小 ,不传则默认图像大小
+            var canvas = document.createElement("canvas");
+            canvas.width = width ? width : img.width;
+            canvas.height = height ? height : img.height;
+
+            var ctx = canvas.getContext("2d");
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+            var dataURL = canvas.toDataURL();
+
+            // 
+            console.log('转换为base64')
+            that.xiaolin.push(dataURL)
+            console.log(that.xiaolin)
+            if (i == lengths - 1) {
+              // 转完后要存储去app
+              var aa = {
+                'pics': that.xiaolin,
+                'start_time':'123444'
+              }
+              WebViewJavascriptBridge.callHandler('SetData', {
+                content_key: 'xiaolin',
+                content: JSON.stringify(aa)
+              })
+              // setTimeout(function(){
+                 location.href="../zusouwuye/model8fabu.html?name="+that.arrayitem.section+'&from=wodefabu&sessiontoken='+sessiontoken
+              // },1000)
+              // that.huancuns.pics = that.xiaolin
+            }
+
+
+
+          }
+          var image = new Image();
+          image.crossOrigin = '';
+          image.src = img;
+          var deferred = $.Deferred();
+          if (img) {
+            image.onload = function () {
+              deferred.resolve(getBase64Image(image)); //将base64传给done上传处理
+            }
+            return deferred.promise(); //问题要让onload完成后再return sessionStorage['imgTest']
+          }
+
+
+        },
     //点击全部类型
       zzc1(e){
         if($(this).parent().hasClass('mui-active')){

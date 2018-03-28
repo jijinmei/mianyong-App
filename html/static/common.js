@@ -167,7 +167,9 @@
        });
      }
      //循环项目名称，依次添加项目
-     formData.append(items, blob); //依次添加的项目名称                 
+     formData.append(items, blob); //依次添加的项目名称 
+     console.log('转完文件对象后提交到后台的文件大小')  
+     console.log(blob)                
 
    }
  }
@@ -200,11 +202,31 @@
  }
 
 
- setInterval(function() {
+//  setInterval(function() {
  	console.log(locations('sessiontoken'))
- 	 // console.log('个人信息')
- },5000)
+//  	 // console.log('个人信息')
+//  },5000)
 
+function users(){ 
+    // // 查看个人资料
+    var id = localStorage.getItem('userId')
+    if (id) {
+      $.get(Boss + 'user/' + id, function (data, status) {
+        if (!data.result.message) {
+          // userData 个人信息
+          // that.userIn=data.result
+          console.log('查看了个人资料赋值给了电话及在线咨询')
+          vm.rentobject.phone = data.result.phone
+          vm.rentobject.contacts = data.result.displayname
+          vm.rentobject.call =data.result.call
+          initdata()
+        }else{
+          initdata()
+        }
+      })
+    }
+
+  }
 
  //   	//返回的时候提示将清空我要发布模块的发布数据
  // function qingkong(){

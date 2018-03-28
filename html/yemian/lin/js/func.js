@@ -27,6 +27,7 @@ function commonFiles(files, formData, items) {
     }
     //循环项目名称，依次添加项目
     formData.append(items, blob); //依次添加的项目名称
+    console.log(blob)
   }
 }
 
