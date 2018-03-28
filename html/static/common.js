@@ -200,10 +200,10 @@
  }
 
 
- // setInterval(function() {
- // 	console.log(locations('sessiontoken'))
- // 	 // console.log('个人信息')
- // },5000)
+ setInterval(function() {
+ 	console.log(locations('sessiontoken'))
+ 	 // console.log('个人信息')
+ },5000)
 
 
  //   	//返回的时候提示将清空我要发布模块的发布数据

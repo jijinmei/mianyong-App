@@ -247,7 +247,7 @@ function getAppLocalData(data) {
   }
 }
 
-
+// vm.rentobject = JSON.parse(JSON.stringify(saveObject))
 if(window.WebViewJavascriptBridge){
   WebViewJavascriptBridge.callHandler('GetData', {
     content_key: 'xiaolin'

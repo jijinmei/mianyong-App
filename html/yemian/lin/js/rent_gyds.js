@@ -3,7 +3,8 @@ Vue.prototype.$axios = axios;
 var vm = new Vue({
   el: '#app',
   mounted: function mounted() {
-
+//     this.rentobject = JSON.parse(JSON.stringify(saveObject))
+// return
     if (window.WebViewJavascriptBridge) {
       WebViewJavascriptBridge.callHandler('GetData', {
         content_key: 'xiaolin'

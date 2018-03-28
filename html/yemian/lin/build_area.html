@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="./css/reset.css">
   <link rel="stylesheet" href="./css/build_area.css">
   <script src="./js/flexible.min.js"></script>
+
 </head>
 
 <body>
@@ -15,7 +16,7 @@
     <div class="top">
       <div>
         <img id="searchicon" src="./imgs/fangzu/search.png" alt="">
-        <input type="text" placeholder="請輸入物業所在地區" @input="inputfunc($event.target.value)">
+        <input type="text" placeholder="請輸入物業所在地區" @input="inputfunc($event.target.value)" style="color:#000000 !important;">
         <input type="button" value="確認" @click="searchFunc">
       </div>
     </div>

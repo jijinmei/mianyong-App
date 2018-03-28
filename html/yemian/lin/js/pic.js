@@ -256,14 +256,14 @@ var num = fileList.length + this.imgUrl.length;
           content_key: 'xiaolin',
           content: JSON.stringify(this.rentobject)
         });
+        goback(1)
+        // setTimeout(function () {
 
-        setTimeout(function () {
-
-          WebViewJavascriptBridge.callHandler('goback', {
-            pageNumber: '1',
-            needRefresh: 'YES'
-          });
-        }, 1000);
+        //   WebViewJavascriptBridge.callHandler('goback', {
+        //     pageNumber: '1',
+        //     needRefresh: 'YES'
+        //   });
+        // }, 1000);
       } else {
         // localStorage.removeItem('pics')
         this.rentobject.pics = [];
@@ -272,15 +272,15 @@ var num = fileList.length + this.imgUrl.length;
           content_key: 'xiaolin',
           content: JSON.stringify(this.rentobject)
         });
-        // goback(1)
+        goback(1)
 
-        setTimeout(function () {
+        // setTimeout(function () {
 
-          WebViewJavascriptBridge.callHandler('goback', {
-            pageNumber: '1',
-            needRefresh: 'YES'
-          });
-        }, 1000);
+        //   WebViewJavascriptBridge.callHandler('goback', {
+        //     pageNumber: '1',
+        //     needRefresh: 'YES'
+        //   });
+        // }, 1000);
       }
 
       // 返回

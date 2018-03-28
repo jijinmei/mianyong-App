@@ -303,11 +303,12 @@
     </div>
   </div>
   <!-- <script src="https://cdn.bootcss.com/vue/2.5.9/vue.min.js"></script> -->
+   <script src="../../static/vconsole.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
-  <script src="https://cdn.bootcss.com/vuex/3.0.1/vuex.min.js"></script>
-  <script src="../store.js"></script>
-  <script src="https://cdn.bootcss.com/vue-router/3.0.1/vue-router.min.js"></script>
-  <script src="../../static/vconsole.min.js"></script>
+  <!-- <script src="https://cdn.bootcss.com/vuex/3.0.1/vuex.min.js"></script> -->
+  <!-- <script src="../store.js"></script> -->
+  <!-- <script src="https://cdn.bootcss.com/vue-router/3.0.1/vue-router.min.js"></script> -->
+ 
   <script src="../../static/mui.min.js"></script>
   <!-- <script src="../../templated/liebiao.js"></script> -->
   <script src="../../static/imgUp.js"></script>
@@ -315,7 +316,7 @@
   <!-- <script src="../../static/mui.pullToRefresh.material.js"></script> -->
   <script src="../../static/mui.zoom.js"></script>
   <!-- <script src="../../static/mui.previewimage.js"></script> -->
-  <script src="../../static/public.js"></script>
+  <!-- <script src="../../static/public.js"></script> -->
   <script>
     function getAppLocalData(data) {
       if (data) {
@@ -347,7 +348,7 @@
   <script>
     var vm = new Vue({
       el: '#app',
-      store,
+      // store,
       data: {
         huancun: [],
         xiaolin: [], //
@@ -811,9 +812,11 @@
             formData.append("call", calls); //呼称
           }
           console.log(formData)
-          console.log('gerenershouche' + sessiontoken)
+          console.log('sessiontoken' + sessiontoken)
           console.log('id' + this.objectId)
+          console.log('小林的图片')
           console.log(this.huancunPics.pics)
+          console.log('我的图片')
           console.log(this.huancun.pics)
 
           formData.append("content", this.content); //详细内容
@@ -828,7 +831,7 @@
                 data: formData,
               })
               .done(function (data, textStatus, jqXHR) {
-                if (data.status == 1) {
+                if (data.status) {
                   WebViewJavascriptBridge.callHandler('ClearData', {
                     content_key: 'huancun'
                   })
@@ -844,7 +847,8 @@
 
 
                 } else {
-                  mui.toast(data.err.rawMessage)
+                  that.isending = false //正在发布，请稍后
+                  mui.toast(data.result.message)
                 }
 
               })

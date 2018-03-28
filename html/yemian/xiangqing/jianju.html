@@ -70,12 +70,12 @@
 
 </div>
 <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
- <script src="https://cdn.bootcss.com/vuex/3.0.1/vuex.min.js"></script>
+ <!-- <script src="https://cdn.bootcss.com/vuex/3.0.1/vuex.min.js"></script> -->
 
     <script src="../../static/vconsole.min.js"></script>
     <script src="../../static/mui.min.js"></script>
    <script src="list.js"></script>
-   <script src="../store.js"></script>
+   <!-- <script src="../store.js"></script> -->
     <!-- <script src="../../static/imgUp.js"></script> -->
     <script src="../../static/mui.pullToRefresh.js"></script>
     <script src="../../static/mui.pullToRefresh.material.js"></script>
@@ -92,7 +92,7 @@
 <script>
     var vm = new Vue({
         el: '#app',
-        store,
+        // store,
         data: {
          item:'no',//检举的内容
          imageView2:'?imageView2/1/w/'+parseInt(640*w0)+'/h/'+parseInt(700*w0),
@@ -141,7 +141,7 @@
             return
           }
        
-          $.post(Boss+'agent/'+this.$store.state.jianjuItem.objectId+'/report',{
+          $.post(Boss+'agent/'+locations('objectId')+'/report',{
             remark:this.content,
             sessiontoken:sessiontoken
           },function(data){
