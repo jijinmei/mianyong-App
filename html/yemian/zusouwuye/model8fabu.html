@@ -610,8 +610,9 @@
             createdAt: '',
             views: '',
             rent_type: '',
-            price: (this.values == '' && this.price == 0 ? '--' : (this.values == '' && this.price == -1 ? '面议' :
-              this.values)),
+            price:this.values == '' && this.price == -1?-1:this.values,
+            // price: (this.values == '' && this.price == 0 ? '--' : (this.values == '' && this.price == -1 ? '面議' :
+            //   this.values)),
             category: '1',
             content: this.content,
             contacts: this.contacts,
@@ -669,7 +670,7 @@
             if (this.values == '' && this.price == -1) {
               formData.append("price", -1); //价格，当-1时为面议
             } else {
-              formData.append("price", this.price); //价格，当-1时为面议
+              formData.append("price", this.values); //价格，当-1时为面议
             }
           }
           // 判断是修改还是新的发布
@@ -725,6 +726,9 @@ if(this.content){
                     content_key: 'xiangqingData'
                   })
                   that.isending = true //正在发布，请稍后
+                //   console.log('that.price')
+                //   console.log(that.price)
+                // return
                   location.href = '../zusouwuye/model8.html?objectId=no&name=' + that.names +
                     '&sessiontoken=' + sessiontoken
 

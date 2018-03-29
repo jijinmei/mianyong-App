@@ -380,6 +380,9 @@ refresh(){
                                                      self.endPullDownToRefresh();//关闭刷新
                         },1000)
                                                 
+                        }else{
+                          mui.toast(data.result.message)
+                          self.endPullDownToRefresh();//关闭刷新
                         }
                         
 
@@ -438,6 +441,10 @@ refresh(){
                                     self.endPullUpToRefresh();//加载更多数据
                             }
                                                 
+                        }else{
+                          that.page--
+                          self.endPullUpToRefresh();//加载更多数据
+                          mui.toast(data.result.message)
                         }
                         
 
@@ -445,7 +452,8 @@ refresh(){
                       error: function(xhr, type, errorThrown) {
                         //异常处理；让当前页数变回减1
                           that.page--
-                        self.endPullDownToRefresh();//关闭刷新
+                        // self.endPullDownToRefresh();//关闭刷新
+                        self.endPullUpToRefresh();//加载更多数据
                         mui.toast(errorThrown, {
                           duration: 'long',
                           type: 'div'

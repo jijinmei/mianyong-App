@@ -188,9 +188,9 @@ console.log('next')
       imgurl2: './imgs/fangzu/leixing/5.png',
       state: false
     }, {
-      text: '分組',
-      imgurl1: './imgs/fangzu/leixing/4+.png',
-      imgurl2: './imgs/fangzu/leixing/4.png',
+      text: '分租',
+      imgurl1: './imgs/fangzu/chuzuleixing/3+.png',
+      imgurl2: './imgs/fangzu/chuzuleixing/3.png',
       state: false
     }, {
       text: '單間',

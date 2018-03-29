@@ -107,7 +107,7 @@ var vm = new Vue({
         return;
       }
       // 售价 建筑面积 实用面积 装修程度 联系方式
-      if (!this.rentobject.price || !this.rentobject.useable_area && !this.rentobject.area || !this.rentobject.decoration||!this.rentobject.contactType) {
+      if (!this.rentobject.price ||(!this.rentobject.area&&!this.rentobject.useable_area)|| !this.rentobject.decoration||!this.rentobject.contactType) {
        this.alerts=true;
        setTimeout(function(){
         that.alerts=false;
@@ -115,13 +115,7 @@ var vm = new Vue({
         return;
       }
 
-      // if (!this.rentobject.contactType) {
-      //   this.alerts = true;
-      //   setTimeout(function () {
-      //     that.alerts = false;
-      //   }, 2000)
-      //   return
-      // }
+     
     
       if (this.rentobject.contactType === '1') {
 
@@ -268,8 +262,9 @@ WebViewJavascriptBridge.callHandler('SetData', {
      * number : 选项上限数
      */
     saveData: function saveData(index, data, saveKey, number) {
-      var that = this;
+      var _this = this;
 
+      console.log(this.rentobject.features);
       if (this.rentobject[saveKey]) {
         var arr = this.rentobject[saveKey].split("、");
       } else {
@@ -285,13 +280,17 @@ WebViewJavascriptBridge.callHandler('SetData', {
             }
             _item.state = true;
             arr.push(_item.text);
-            this.rentobject[saveKey] = arr.join("、");
+            _this.rentobject[saveKey] = arr.join("、");
             // console.log(arr)
           } else {
             _item.state = false;
             if (arr.indexOf(_item.text) > -1) {
               arr.splice(arr.indexOf(_item.text), 1);
-              this.rentobject[saveKey] = arr.join("、");
+              if (arr.length) {
+                _this.rentobject[saveKey] = arr.join("、");
+              } else {
+                _this.rentobject[saveKey] = '';
+              }
               // console.log(arr)
             }
           }

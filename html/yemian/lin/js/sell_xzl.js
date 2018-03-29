@@ -106,7 +106,7 @@ var vm = new Vue({
       }
 
       // 售价 2个面积 楼层 景观 装修程度 联系方式
-      if (!this.rentobject.price || !this.rentobject.floor || !this.rentobject.area || !this.rentobject.useable_area || !this.rentobject.landscape || !this.rentobject.decoration || !this.rentobject.contactType) {
+      if (!this.rentobject.price || !this.rentobject.floor ||(!this.rentobject.area&&!this.rentobject.useable_area)|| !this.rentobject.landscape || !this.rentobject.decoration || !this.rentobject.contactType) {
         this.alerts = true;
         setTimeout(function () {
           that.alerts = false;

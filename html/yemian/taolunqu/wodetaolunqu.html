@@ -130,14 +130,16 @@
           <a @tap="qiehuan(2)" class="tapa relative mui-control-item" data-index='2' href="#item2mobile">
             我的讃好
             <span v-show="datasIdx==2" style="width:0.5rem;border-bottom:0.05rem solid #36C748;bottom:0rem;" class="spjz"></span>
-            <span style="height:0.18rem;width:0.18rem;bottom:-0.25rem;background: red;right:0.28rem;" class="czjz radius50"></span>
+            <!-- 红点 -->
+            <span v-if="appgood>0" style="height:0.18rem;width:0.18rem;bottom:-0.25rem;background: red;right:0.28rem;" class="czjz radius50"></span>
             <span style="width:0;height:0.3rem;left:0;margin-top:0.05rem;" class="czjz border-l"></span>
             <span style="width:0;height:0.3rem;right:0;margin-top:0.05rem;" class="czjz border-l"></span>
           </a>
           <a @tap="qiehuan(3)" class="tapa relative mui-control-item  border-r" data-index='3' href="#item3mobile">
             我的回復
             <span v-show="datasIdx==3" style="width:0.5rem;border-bottom:0.05rem solid #36C748;bottom:0rem;" class="spjz"></span>
-            <span style="height:0.18rem;width:0.18rem;bottom:-0.25rem;background: red;right:0.28rem;" class="czjz radius50"></span>
+            <!-- 红点 -->
+            <span v-if="appcomment>0" style="height:0.18rem;width:0.18rem;bottom:-0.25rem;background: red;right:0.28rem;" class="czjz radius50"></span>
           </a>
 
         </div>
@@ -213,7 +215,7 @@
                 <button :class="{muiBtnGreen:tab2Idx==1,muiBtnGrey:tab2Idx==2}" @tap="tap2fachu(1)" type="button" class="mui-btn" style="margin-right:1.9rem;border-radius:0.3rem;padding:0.12rem 0.34rem !important;">已發出</button>
                 <button :class="{muiBtnGreen:tab2Idx==2,muiBtnGrey:tab2Idx==1}" @tap="tap2shoudao(2)" type="button" class="mui-btn" style="border-radius:0.3rem;padding:0.12rem 0.34rem !important;">已收到</button>
                 <!--收到的信息量-->
-                <span class="mui-badge mui-btn-red absolute bold" style="background:red;color:white;right:0.5rem;top:-0.01rem;">158</span>
+                <span v-if="appgood>0" class="mui-badge mui-btn-red absolute bold" style="background:red;color:white;right:0.5rem;top:-0.01rem;">{{appgood}}</span>
               </p>
               <ul class="mui-table-view">
                 <li @tap="xiangqing(item.objectId)" class="mui-table-view-cell taolunquli taolunquli2" v-for="(item,index) in datas2">
@@ -257,7 +259,7 @@
                 <button @tap="tap3fachu(1)" type="button" :class="{muiBtnGreen:tab3Idx==1,muiBtnGrey:tab3Idx==2}" class="mui-btn" style="margin-right:1.9rem;border-radius:0.3rem;padding:0.12rem 0.34rem !important;">已發出</button>
                 <button @tap="tap3shoudao(2)" type="button" :class="{muiBtnGreen:tab3Idx==2,muiBtnGrey:tab3Idx==1}" class="mui-btn" style="border-radius:0.3rem;padding:0.12rem 0.34rem !important;">已收到</button>
                 <!--收到的信息量-->
-                <span class="mui-badge mui-btn-red absolute bold" style="background:red;color:white;right:0.5rem;top:-0.01rem;">158</span>
+                <span  v-if="appcomment>0"  class="mui-badge mui-btn-red absolute bold" style="background:red;color:white;right:0.5rem;top:-0.01rem;">{{appcomment}}</span>
               </p>
               <ul class="mui-table-view">
                 <li @tap="xiangqing(item.objectId)" class="mui-table-view-cell taolunquli taolunquli3" v-for="(item,index) in datas3" v-if="item.isDelete!=1">
@@ -329,7 +331,19 @@
 
   </div>
 </div>
+<script>
+    function getAppLocalData(data) {
+      if (data) {
+        console.log('有值传过来', data)
+        vm.appgood=JSON.parse(data).good_latest_flag
+        vm.appcomment=JSON.parse(data).comment_latest_flag
+      } else {
+        console.log('没有传值过来')
+        
+      }
 
+    }
+  </script>
 <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
  <!-- <script src="https://cdn.bootcss.com/vuex/3.0.1/vuex.min.js"></script> -->
  <!-- <script src="https://cdn.bootcss.com/vue-router/3.0.1/vue-router.min.js"></script> -->
@@ -354,6 +368,8 @@
     var vm = new Vue({
         el: '#app',
         data: {
+          appgood:'',
+          appcomment:'',
        imageView1:'?imageView2/1/w/'+parseInt(500*w0)+'/h/'+parseInt(500*w0),
         imageView2:'?imageView2/1/w/'+parseInt(245*w0)+'/h/'+parseInt(245*w0),
         imageView3:'?imageView2/1/w/'+parseInt(163*w0)+'/h/'+parseInt(163*w0),
@@ -475,6 +491,20 @@
          this.page2=0
          this.datas2=[]
             this.refresh()
+            // 清空app的数据
+            if(window.WebViewJavascriptBridge){
+               WebViewJavascriptBridge.callHandler('ClearData', {
+                  content_key: 'good_latest_flag'
+                })
+            }else{
+              setTimeout(function(){
+                WebViewJavascriptBridge.callHandler('ClearData', {
+                  content_key: 'good_latest_flag'
+                })
+              },1000)
+            }
+           
+            this.appgood=0
       },
       //3我的回复已发出
       tap3fachu(index) {
@@ -489,6 +519,19 @@
          this.page3=0
          this.datas3=[]
             this.refresh()
+            // 清空app的数据
+            if(window.WebViewJavascriptBridge){
+               WebViewJavascriptBridge.callHandler('ClearData', {
+                  content_key: 'comment_latest_flag'
+                })
+            }else{
+              setTimeout(function(){
+                WebViewJavascriptBridge.callHandler('ClearData', {
+                  content_key: 'comment_latest_flag'
+                })
+              },1000)
+            }
+                this.appcomment=0
       },
       refresh() {
         var that = this;
@@ -559,9 +602,12 @@
                             that.count3 = data.result.count
                             that.datas3 = data.result.data
                           }
-
+                          self.endPullDownToRefresh();
+                        }else{
+                          mui.toast(data.result.message)
+                          self.endPullDownToRefresh();
                         }
-                        self.endPullDownToRefresh();
+                        
 
                       },
                       error: function(xhr, type, errorThrown) {
@@ -656,13 +702,24 @@
                               }
                             }
                           }
-
-                        }
-                        if(data.result.data){
-                          self.endPullUpToRefresh(true); //没有更多数据
+                                if(data.result.data){
+                                self.endPullUpToRefresh(true); //没有更多数据
+                              }else{
+                                self.endPullUpToRefresh(); //加载更多数据
+                              }
                         }else{
-                          self.endPullUpToRefresh(); //加载更多数据
-                        }
+                          //异常处理；让当前页数变回减1
+                            if(that.datasIdx == 1) {
+                              that.page1--
+                            } else if(that.datasIdx == 2) {
+                              that.page2--
+                            } else if(that.datasIdx == 3) {
+                              that.page3--
+                            }
+                            mui.toast(data.result.message)
+                              self.endPullUpToRefresh();
+                            }
+                       
 
                       },
                       error: function(xhr, type, errorThrown) {
@@ -693,6 +750,18 @@
 
     },
     mounted() {  
+      if (window.WebViewJavascriptBridge) {
+      WebViewJavascriptBridge.callHandler('GetData', {
+        content_key: 'two_badge'
+      });
+    } else {
+      // 延时一秒
+      setTimeout(function () {
+        WebViewJavascriptBridge.callHandler('GetData', {
+          content_key: 'two_badge'
+        });
+      }, 1000);
+    }
       //调用刷新和加载
       this.refresh()
          

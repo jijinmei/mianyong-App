@@ -330,10 +330,10 @@
     </div> -->
     <div class="pubStyle sectionOne">
       <div class="top">
-        <h2>{{rentobject.build_name || "--"}}</h2>
+        <h2>{{rentobject.build_name||rentobject.build_street}}</h2>
         <div class="top-sub">
-          <span>發佈時間: {{rentobject.start_time || "--"}}</span>
-          <span>瀏覽: 7130人</span>
+          <span>發佈時間:--</span>
+          <span>瀏覽:--</span>
         </div>
         <div class="buttom-sub">
           <span>租金
@@ -356,7 +356,7 @@
       </div>
       <div class="cell">
         <span>樓層單位:
-          <i>{{rentobject.code || "--"}}</i>
+          <i>{{rentobject.floor}}{{rentobject.code || "--"}}</i>
         </span>
         <span>建築面積:
           <i>{{rentobject.area || "--"}}呎</i>
@@ -402,7 +402,7 @@
         <span>裝修程度:
           <i>{{rentobject.decoration || "--"}}</i>
         </span>
-        <span>可入住時間:
+        <span>{{rentobject.type=='住宅'?'可入住時間':'可起租時間'}}:
           <i>{{rentobject.start_time || "--"}}</i>
         </span>
       </div>
@@ -435,18 +435,18 @@
         <p class="icon">
           <img :src="userIcon" alt="">
         </p>
-        <p class="username">{{nickname}}
-          <span>業主</span>
+        <p class="username">{{fabuzhe.displayname}}{{fabuzhe.call=='miss'?'小姐':(fabuzhe.call=='mrs'?'太太':'先生')}}
+          <span>{{fabuzhe.user_role=='base_user'?'業主':'中介'}}</span>
         </p>
         <p class="is-verify">
           <span>手機號碼已驗證</span>
         </p>
         <div class="date-time">
           <span>
-            <i></i>{{createdAt}}</span>
+            <i></i>{{fabuzhe.createdAt}}</span>
           <em></em>
           <span>
-            <i></i>2569993</span>
+            <i></i>{{fabuzhe.likes}}</span>
         </div>
       </div>
     </div>
@@ -458,7 +458,7 @@
       </div>
     </div> -->
 <!--3.联系人电话：纯绿色：左边联络人文字+右边电话图标-->
-<div  style="position:fixed;left:0;bottom:0;width:6.4rem;height: 0.98rem;" class="bai">
+<div v-if="rentobject.contactType==1"  style="position:fixed;left:0;bottom:0;width:6.4rem;height: 0.98rem;" class="bai">
     <div @click='tel(rentobject.phone)' class="bg36c748 relative" style="background:#36c748;height:100%;padding:0.1rem 0.2rem;">
       <div style="width:3.12rem;margin:0 auto;height:100%;" class="relative">
         <p class="fz24 cff4d00" style="color:#ff4d00;font-size:0.24rem;padding-top:0.1rem;">{{rentobject.from}} 聯絡人</p>

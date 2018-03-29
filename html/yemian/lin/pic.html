@@ -24,7 +24,9 @@
           <ul class="ul">
             <li v-for="(urlstr, index) in imgUrl"><span class="pic-r"></span><img :src="urlstr" alt="" @click="clickImg(index, $event)"><span class="slc-style" @click="cancelSlc(index, $event)"></span></li>
             <li :style="setStyle" v-if="showAdd">
-              <input type="file" id="input" @change="change($event)" accept="image/*" ref="input" multiple="multiple" capture="capture">
+              <input type="file" id="input" @change="change($event)" accept="image/jpg,image/jpeg,image/png,image/bmp,image/JPG,image/JPEG,image/PNG,image/BMP"  ref="input" multiple="multiple" >
+              <!-- <input  type="file" name="file" id="file" class="file addsfile" value="" 
+              accept="image/jpg,image/jpeg,image/png,image/bmp,image/JPG,image/JPEG,image/PNG,image/BMP" multiple /> -->
             </li>
           </ul>
         </div>
@@ -41,7 +43,7 @@
           </div>
     
           <div v-if="setType">
-            <button @click="setF" style="width: 2.4rem; marginRight: 0; color: white; backgroundColor: #36c748;">設置為封面</button>
+            <button @click="setF" style="width: 2.4rem;margin-right:0rem; color: white;background: #36c748;">設置為封面</button>
           </div>
     
         </div>

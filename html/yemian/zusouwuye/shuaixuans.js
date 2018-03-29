@@ -77,7 +77,7 @@ template: `
 type(item){
 	this.zuoitem=item
 	this.backdrop=false
-	this.datas=[]
+	this.$parent.datas=[]
 	$('.first').toggleClass('mui-active')
 	this.$parent.page=0
 	this.$parent.tags=(item=='全部分類'?'':item)
@@ -89,7 +89,7 @@ type(item){
 paixu(item){
 	this.youitem=item
 	this.backdrop=false
-	this.datas=[]
+	this.$parent.datas=[]
 	$('.second').toggleClass('mui-active')
 	this.$parent.page=0
 	this.$parent.sort=(item=='默認排序'?'':item)

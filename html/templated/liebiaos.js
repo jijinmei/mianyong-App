@@ -167,8 +167,8 @@ template: `
 			// 	console.log(JSON.parse(JSON.stringify(that.datas)))
 			// },4000)
 			
-			this.name=locations('name')
-		
+      this.name=locations('name')
+    
 //          alert("3"+this.name)
 	}
 		}

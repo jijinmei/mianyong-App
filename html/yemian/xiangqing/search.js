@@ -51,6 +51,7 @@ template: `
 			},
 			//弹出框的租售点击事件
 			popover(n) {
+        
 				//设置租售并关闭弹窗
 				this.types = n
 				if(n==0){//租
@@ -65,8 +66,9 @@ template: `
 				$('.jiantou').addClass('mui-icon-arrowdown')
 				$('.jiantou').removeClass('mui-icon-arrowup')
 				this.$parent.page=0
-				// this.$parent.datas=[]
-				this.$parent.refresh()
+        // this.$parent.datas=[]
+        
+				this.$parent.onfresh()
 			}
 		},
 		mounted() {

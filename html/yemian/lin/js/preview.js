@@ -6,41 +6,12 @@ var vm=new Vue({
   created: function created() {
     var _this = this;
 
-    // this.rentobject = JSON.parse(localStorage.getItem('rentobject'))
-
-
-    // if (localStorage.getItem('rentobject')) {
-    //   this.rentobject = JSON.parse(localStorage.getItem('rentobject'));
-    // } else {
-    //   this.rentobject = JSON.parse(JSON.stringify(saveObject));
-    // }
-
-    // if (localStorage.userId) {
-    //   this.$axios.get('/user/' + localStorage.userId).then(function (res) {
-    //     console.log(res);
-    //     if (res.status) {
-    //       _this.userData = res.result;
-    //     }
-    //   });
-    // }
-
-    // console.log('userData发生变化前');
+    
   },
 
-  // watch: {
-  //   rentobject: {
-  //     handler: function handler(newVal) {
-  //       localStorage.setItem('rentobject', JSON.stringify(newVal));
-  //     },
-  //     deep: true
-  //   }
-  // },
+  
   mounted: function mounted() {
     var that=this
-    // this.rentobject = JSON.parse(JSON.stringify(saveObject))
-    // this.rentobject.pics=['https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1689242572,2693282530&fm=27&gp=0.jpg','https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=371662182,3046145712&fm=27&gp=0.jpg']
-    
-    // return
     if (window.WebViewJavascriptBridge) {
       WebViewJavascriptBridge.callHandler('GetData', {
         content_key: 'xiaolin'
@@ -53,6 +24,21 @@ var vm=new Vue({
         });
       }, 1000);
     }
+// 查看发布者的信息
+var that=this
+  var id = localStorage.getItem('userId')
+  if (id) {
+    $.get(Boss + 'user/' + id, function (data, status) {
+      if (!data.result.message) {
+        console.log('查看了个人资料赋值给了电话及在线咨询')
+        console.log(data)
+        that.fabuzhe=data.result
+       
+      }
+    })
+  }
+
+
 
   },
 
@@ -244,6 +230,7 @@ var vm=new Vue({
   },
   data: function data() {
     return {
+      fabuzhe:'no',//发布者咨询
       rentobject: null,
       previewData: {},
       infrastructureData: [],

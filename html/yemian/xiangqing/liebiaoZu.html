@@ -266,6 +266,9 @@
                                                      self.endPullDownToRefresh();//关闭刷新
                         },1000)
                                                 
+                        }else{
+                          self.endPullDownToRefresh();//关闭刷新
+                          mui.toast(data.result.message)
                         }
                         
 
@@ -351,6 +354,10 @@
                                    
                             }
 
+                        }else{
+                          that.page--
+                          self.endPullUpToRefresh();//加载更多数据
+                          mui.toast(data.result.message)
                         }
                         
 
@@ -358,7 +365,8 @@
                       error: function(xhr, type, errorThrown) {
                         //异常处理；让当前页数变回减1
                           that.page--
-                        self.endPullDownToRefresh();//关闭刷新
+                        // self.endPullDownToRefresh();//关闭刷新
+                        self.endPullUpToRefresh();
                         mui.toast(errorThrown, {
                           duration: 'long',
                           type: 'div'

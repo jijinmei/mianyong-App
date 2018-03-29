@@ -107,14 +107,14 @@ var vm = new Vue({
       if (this.rentobject.pics == '' || this.rentobject.pics == null) {
         // alert('照片不能為空');
         this.alerts = true;
-        setTimeout(function () {
+        setTimeout(function (){
           that.alerts = false;
         }, 2000)
         return;
       }
 
       // 售价 2个面积 楼层 装修程度 联络方式
-      if (!this.rentobject.price || !this.rentobject.useable_area || !this.rentobject.area || !this.rentobject.floor || !this.rentobject.decoration || !this.rentobject.contactType) {
+      if (!this.rentobject.price ||(!this.rentobject.area&&!this.rentobject.useable_area)|| !this.rentobject.floor || !this.rentobject.decoration || !this.rentobject.contactType) {
         this.alerts = true;
         setTimeout(function () {
           that.alerts = false;

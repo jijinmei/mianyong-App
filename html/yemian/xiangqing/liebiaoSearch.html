@@ -217,11 +217,12 @@
       },
       //父元素的方法根据条件去更新列表
       onfresh(){
+        console.log(2)
         this.datas=[]
         this.page=0
         this.refresh()
       },
-            refresh(){
+      refresh(){
         var that=this;
       (function($) {
         //阻尼系数
@@ -280,6 +281,9 @@
                                                      self.endPullDownToRefresh();//关闭刷新
                         },1000)
                                                 
+                        }else{
+                          self.endPullDownToRefresh();//关闭刷新
+                          mui.toast(data.result.message)
                         }
                         
 
@@ -299,7 +303,6 @@
               up: {
                 auto: true,//可选,默认false.首次加载自动下拉刷新一次
                 callback: function() {
-//                  alert('加载')
                   var self = this;
                   that.page++
                   var wheredata={}
@@ -357,6 +360,11 @@
                                     self.endPullUpToRefresh();//加载更多数据
                             }
                                                 
+                        }else{
+                          that.page--
+                          // self.endPullDownToRefresh();//关闭刷新
+                          self.endPullUpToRefresh();//加载更多数据
+                          mui.toast(data.result.message)
                         }
                         
 
@@ -364,7 +372,8 @@
                       error: function(xhr, type, errorThrown) {
                         //异常处理；让当前页数变回减1
                           that.page--
-                        self.endPullDownToRefresh();//关闭刷新
+                        // self.endPullDownToRefresh();//关闭刷新
+                        self.endPullUpToRefresh();//加载更多数据
                         mui.toast(errorThrown, {
                           duration: 'long',
                           type: 'div'
