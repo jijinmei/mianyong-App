@@ -572,6 +572,8 @@
         },
         //防止刷新的时候详情的预览数据消失
         xiangqingyulans() {
+          // mui.toast('123')
+          // return
           var that = this
           var hh = this.huancun
           // var hh1 = this.huancunPics
@@ -602,6 +604,7 @@
           var xiangqingData = {
             objectId: this.objectId,
             pics: pics,
+            phone:this.phone,
             title: this.title,
             address: this.address,
             createdAt: '',

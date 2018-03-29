@@ -174,6 +174,7 @@
     var vm = new Vue({
         el: '#app',
         data: {
+          xiaolin:[],
          tanchukuang:false,//编辑和封盘的弹出框
         bianjiarray:'',//点击编辑跳去小林的发布房源的租盘或者售盘
         index:-1,//点击的是第几个楼盘
@@ -203,29 +204,73 @@
           this.tanchukuang=false
         this.$refs.fengpan.fengpan(this.arrayitem.title,this.index,this.arrayitem.objectId)
     },
+
     //点击编辑跳去小林的发布房源的租盘或者售盘
     gobianji(){
-      WebViewJavascriptBridge.callHandler('SetData', {
-        content_key: 'xiaolin',
-        content: JSON.stringify(this.arrayitem)
-      });
-      if(this.arrayitem.category=='rent'){
-        //我要放租
-          // alert('我要放租')
-        //   console.log(this.arrayitem)
-        //  return
-          location.href='../lin/rent_index.html?sessiontoken='+sessiontoken
-
-      }else if(this.arrayitem.category=='sell'){
-        //我要放售
-        //  alert('我要放售')
-        console.log(this.arrayitem)
-        // return
-        location.href='../lin/sell_index.html?sessiontoken='+sessiontoken
-          // this.$router.push({name:'publish_sell'})
-      }
+      var that=this;
+      // 把图片转base64
+      for (var i = 0; i < that.arrayitem.pics.length; i++) {
+                that.getBase64(that.arrayitem.pics[i], that.arrayitem.pics.length, i)
+              }
+      // WebViewJavascriptBridge.callHandler('SetData', {
+      //   content_key: 'xiaolin',
+      //   content: JSON.stringify(this.arrayitem)
+      // });
+     
               
     },
+    getBase64(img, lengths, i) {
+          var that = this
+          //传入图片路径，返回base64
+          function getBase64Image(img, width, height) { //width、height调用时传入具体像素值，控制大小 ,不传则默认图像大小
+            var canvas = document.createElement("canvas");
+            canvas.width = width ? width : img.width;
+            canvas.height = height ? height : img.height;
+
+            var ctx = canvas.getContext("2d");
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+            var dataURL = canvas.toDataURL();
+
+            // 
+            console.log('转换为base64')
+            that.xiaolin.push(dataURL)
+            console.log(that.xiaolin)
+            if (i == lengths - 1) {
+              var aa=that.arrayitem
+              aa.pics=that.xiaolin
+              // 转完后要存储去app
+             
+                WebViewJavascriptBridge.callHandler('SetData', {
+                  content_key: 'xiaolin',
+                  content: JSON.stringify(aa)
+                });
+              if(that.arrayitem.category=='rent'){
+                //我要放租
+                  location.href='../lin/rent_index.html?sessiontoken='+sessiontoken
+        
+              }else if(that.arrayitem.category=='sell'){
+                //我要放售
+                console.log(that.arrayitem)
+                location.href='../lin/sell_index.html?sessiontoken='+sessiontoken
+              }
+            }
+
+
+
+          }
+          var image = new Image();
+          image.crossOrigin = '';
+          image.src = img;
+          var deferred = $.Deferred();
+          if (img) {
+            image.onload = function () {
+              deferred.resolve(getBase64Image(image)); //将base64传给done上传处理
+            }
+            return deferred.promise(); //问题要让onload完成后再return sessionStorage['imgTest']
+          }
+
+
+        },
     //点击全部类型
       zzc1(e){
         if($('.first').hasClass('mui-active')){

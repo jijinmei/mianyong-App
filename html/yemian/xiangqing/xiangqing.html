@@ -314,7 +314,7 @@
 
       <!--从租售列表跳过来的并且contactType==1-->
       <!--1.联系人+在线咨询：左边绿色 右边白色-->
-      <div v-if="datas!='no'&&datas.contactType==1&&isyulan!='no'" style="position:fixed;left:0;bottom:0;width:6.4rem;height: 0.98rem;"
+      <div v-if="datas!='no'&&datas.contactType==1&&objectId!='no'" style="position:fixed;left:0;bottom:0;width:6.4rem;height: 0.98rem;"
         class="bai border-t">
         <div @click='tel(datas.phone)' class="mui-pull-left bg36c748 relative" style="width: 4rem;height:100%;padding:0.1rem 0.2rem;">
           <p class="fz24 cff4d00 mB01" v-if="datas.from!='中介'">
@@ -332,7 +332,7 @@
 
       <!--从租售列表跳过来的并且contactType==0 -->
       <!--2.在线咨询：纯绿色：白色微信图片+在线咨询文字-->
-      <div @click='im()' v-if="datas!='no'&&datas.contactType==0&&isyulan!='no'" style="position:fixed;left:0;bottom:0;width:6.4rem;height: 0.98rem;"
+      <div @click='im()' v-if="datas!='no'&&datas.contactType==0&&objectId!='no'" style="position:fixed;left:0;bottom:0;width:6.4rem;height: 0.98rem;"
         class="bai">
         <div class="fz44 cffffff relative center bg36c748" style="height:0.98rem;padding-right:0.26rem;line-height:0.98rem;">
           <img src="../../assets/img/xiangqing/zixun2.png" alt="" style="top:0.1rem;width:0.53rem;" class="relative" /> 在線咨詢
@@ -340,7 +340,7 @@
       </div>
 
       <!--3.联系人电话：纯绿色：左边联络人文字+右边电话图标-->
-      <div v-if="datas!='no'&&isyulan=='no'" style="position:fixed;left:0;bottom:0;width:6.4rem;height: 0.98rem;" class="bai">
+      <div v-if="datas!='no'&&objectId=='no'&&datas.contactType==1" style="position:fixed;left:0;bottom:0;width:6.4rem;height: 0.98rem;" class="bai">
         <div @click='tel(datas.phone)' class="bg36c748 relative" style="height:100%;padding:0.1rem 0.2rem;">
           <div style="width:3.12rem;margin:0 auto;height:100%;" class="relative">
             <p class="fz24 cff4d00">{{returns(datas.from)}} 聯絡人</p>
@@ -401,7 +401,7 @@
       data: {
         xiangqingData: [],
         jianju: '',
-        isyulan: '', //根据id判断是否是预览
+        objectId: '', //根据id判断是否是预览
         imageView2: '?imageView2/1/w/' + parseInt(640 * w0) + '/h/' + parseInt(300 * w0),
         imageView2big: '?imageView2/2/w/' + parseInt(640 * w0),
         peitao: [], //配套設備：
@@ -631,7 +631,7 @@
       },
       mounted: function () {
         var that = this
-        this.isyulan = locations('objectId')
+        this.objectId = locations('objectId')
         this.jianju = locations('jianju')
         isyulan(locations('jianju'))
         // 预览的时候才调用手机的存储
