@@ -72,11 +72,11 @@
             blob = new window.Blob([buffer], {type: type});
         }
 // 逻辑代码
-        vm.files.push(blob)
+        // vm.files.push(blob)
         vm.imgUrl.push(basestr)
         console.log('压缩完后的大小')
-        console.log(blob)
-        console.log(vm.files)
+        // console.log(blob)
+        // console.log(vm.files)
        console.log("转换完成！") 
     }
  /**

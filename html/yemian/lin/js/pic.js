@@ -379,15 +379,10 @@ if(locations('where')){
       console.log(this.setArray);
 
       var temp = this.imgUrl.splice(this.setArray[0], 1);
-      this.imgUrl.unshift(temp);
-
-      // if (this.imgUrl.length) {
-
-      //   // 封面圖設為 圖片url 數組的第一個
-      //   window.store.state.fengmiantu = this.imgUrl[0]
-      //   localStorage.pics[0] = temp
-      // }
-
+      // temp是一个数组
+      this.imgUrl.unshift(temp[0]);
+      console.log(temp)
+      console.log(this.imgUrl)    
       // 白色選中圖, 隱藏
       this.spanArray.forEach(function (_item, _index) {
         _item.style.width = '0';
@@ -437,28 +432,7 @@ function getAppLocalData(data) {
   if (data) { 
     console.log('有传值过来', data);
     vm.rentobject = JSON.parse(data);
-    initdata();
-    // console.log(vm.imgUrl.length)
-    // console.log('有值传过来',vm.insave);
-    // if(vm.insave==false) { //小林的数组对象 
-    //   // 小林进来的时候拿的数据
-    //   console.log('小林进来的时候拿的数据')     
-    //    vm.rentobject = JSON.parse(data);
-    //    initdata();
-    // }else{
-    //   // 点击保存按钮的更新我的缓存的数据
-    //   console.log('点击保存按钮的更新我的缓存的数据')
-    //   var huancun = JSON.parse(data);
-    //   huancun.pics=[];
-    //   WebViewJavascriptBridge.callHandler('SetData', {
-    //     content_key: 'huancun',
-    //     content: JSON.stringify(huancun)
-    //   });
-    //   setTimeout(function(){
-    //      goback(1)
-    //   },1000) 
-    // }
-     
+    initdata(); 
   } else {
     console.log('没有传值过来', data);
     vm.rentobject = JSON.parse(JSON.stringify(saveObject));

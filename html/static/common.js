@@ -144,8 +144,15 @@
 
  //1.base64转文件对象
  function commonFiles(files, formData, items) {
+  //  
+  // console.log('base64转文件对象')
+  //  console.log(files)
+  //  return
    for (var i = 0; i < files.length; i++) {
      //base64转换为blob对象
+     console.log('files[i]')
+     console.log(files[i])
+     console.log(files.length)
      var text = window.atob(files[i].split(",")[1]);
      var buffer = new ArrayBuffer(text.length);
      var ubuffer = new Uint8Array(buffer);

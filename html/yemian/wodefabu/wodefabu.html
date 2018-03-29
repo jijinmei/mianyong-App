@@ -220,7 +220,7 @@
 
                 var huancun = {
                    objectId:that.arrayitem.objectId,
-                    pics: that.arrayitem.pics,
+                    pics:[],
                     content: that.arrayitem.content,
                     title:that.arrayitem.title, //名称
                     values:values, //输入框的价格
@@ -230,9 +230,10 @@
                     phone: that.arrayitem.phone, //联系电话
                     address: that.arrayitem.address, //地址
                     contacts: that.arrayitem.contacts, //联络人
-                    type: that.arrayitem.tags, //分类  1是二手家私  2是二手电器  3是全新家私  tags
+                    type: that.arrayitem.tags[0], //分类  1是二手家私  2是二手电器  3是全新家私  tags
                 }
-                // 保存小林的数据
+                // console.log(that.arrayitem)
+                // return
                for (var i = 0; i < that.arrayitem.pics.length; i++) {
                 that.getBase64(that.arrayitem.pics[i], that.arrayitem.pics.length, i)
               }
