@@ -94,7 +94,7 @@ var that=this;
           WebViewJavascriptBridge.callHandler('ClearData', {
             content_key: 'xiangqingData'
           })
-          return
+          // return
           goback(3);
           // 跳转到查看租盘页面
           // window.location.href="../xiangqing/liebiaoZu.html"+location.search; 
