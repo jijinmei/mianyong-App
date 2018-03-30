@@ -200,6 +200,11 @@ template: `
 				//调用父元素的方法根据条件去更新列表
 				this.$parent.onfresh()
 				
+      },
+      		//点击帅选的时候让遮罩层出现
+			opens(e){
+				$('ul>li.mui-active').removeClass('mui-active')
+					this.backdrop=false
 			},
 			//点击帅选的时候让遮罩层出现
 			open(e){
@@ -208,7 +213,12 @@ template: `
 					console.log(1)
 				}else{
 					this.backdrop=true
-					console.log(0)
+          console.log(0)
+          // 让搜索的弹出框消失
+          if(document.title=='搜索'){
+              this.$parent.tosearch()
+          }
+        
 				}
 			},
 			province(item,index,keys){

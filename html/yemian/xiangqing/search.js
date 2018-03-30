@@ -35,19 +35,29 @@ template: `
 				    this.$parent.onfresh()
 //				}
 				
-			},
+      },
+      // // 点击筛选弹出框的时候搜索弹出框要消失
+      isopens(){
+        this.isopen = false;
+        $('.jiantou').addClass('mui-icon-arrowdown')
+        $('.jiantou').removeClass('mui-icon-arrowup')
+      },
 			//弹出框事件
 			isopen0() {
 				if(this.isopen == false) {
 					this.isopen = true
 					$('.jiantou').addClass('mui-icon-arrowup')
-					$('.jiantou').removeClass('mui-icon-arrowdown')
+          $('.jiantou').removeClass('mui-icon-arrowdown')
+          // 打开这个要让其他四个筛选收起来
 				} else {
 					this.isopen = false
 					$('.jiantou').addClass('mui-icon-arrowdown')
 					$('.jiantou').removeClass('mui-icon-arrowup')
 				}
-
+          // 让筛选的弹出框消失
+          if(document.title=='搜索'){
+            this.$parent.toshuaixuan()
+        }
 			},
 			//弹出框的租售点击事件
 			popover(n) {

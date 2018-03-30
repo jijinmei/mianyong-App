@@ -22,7 +22,7 @@
       </div>
     </div>
     <ul class="content">
-      <li v-for="(item, index) in result" @click="clickLi(item, index)">{{item.name}}</li>
+      <li v-for="(item, index) in result" @click="clickLi(item, index,item.street)">{{item.name}}</li>
     </ul>
   </div>
   <script src="https://cdn.bootcss.com/vue/2.5.13/vue.min.js"></script>

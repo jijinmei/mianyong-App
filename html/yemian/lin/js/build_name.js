@@ -38,13 +38,21 @@ var vm = new Vue({
         }
       });
     },
-    clickLi: function clickLi(item) {
+    clickLi: function clickLi(item,index,street) {
       this.searchVal = item.name;
+      this.street=street;
     },
     goback: function goback() {
 
       console.log(this.searchVal);
       this.rentobject.build_name = this.searchVal;
+      this.rentobject.build_street=this.street;
+      // if(this.rentobject.build_street){
+      //   console.log('已经自己填写了街道信息,则无需预设')
+      // }else{
+      //   this.rentobject.build_street=this.street;
+      // }
+      
 
       WebViewJavascriptBridge.callHandler('SetData', {
         content_key: 'xiaolin',
@@ -58,6 +66,7 @@ var vm = new Vue({
     }
   },
   data: {
+    street:'',//街道信息
     searchVal: '',
     result: [],
     inputval: '',

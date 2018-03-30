@@ -282,7 +282,7 @@
       //具体点击的某个人的回复框
       whoIds(name, id) {
         if(sessiontoken==''){
-                   mui.toast('請先到【我的】登錄')
+                   mui.toast('請先到【我的】登入')
                    return
                    }
         //记录下全局的回复人id
@@ -296,7 +296,7 @@
         $("#item1").addClass('mui-active')
         $("#item2").removeClass('mui-active')
           if(!sessiontoken||sessiontoken=='null'){
-                   mui.toast('請先到【我的】登錄')
+                   mui.toast('請先到【我的】登入')
                    return
                    }
           //1.不等于0则代表说已经赞过了，这个时候点击要取消攒
@@ -357,7 +357,7 @@
       bottomreply() {
         var that=this
         if(!sessiontoken||sessiontoken=='null'){
-                   mui.toast('請先到【我的】登錄')
+                   mui.toast('請先到【我的】登入')
                    return
                    }
         this.shurukuang = true
