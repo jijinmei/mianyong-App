@@ -137,10 +137,8 @@ if (this.rentobject.pics == '' || this.rentobject.pics == null) {
       // return
       this.isending = false;
       this.$axios.post('/agent', getFormDataFun(this.rentobject)).then(function (res) {
-// console.log(":::::"+res)
-// console.log(res)
 //         return
-        if (!res.message) {
+        if (res.status==true) {
           console.log('发布成功');
           // clearthis.rentobjects();
           WebViewJavascriptBridge.callHandler('ClearData', {

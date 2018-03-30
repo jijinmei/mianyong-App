@@ -4,6 +4,9 @@
  var Boss = 'http://boss-macaucf-beta.leanapp.cn/api/v1/' //测试
  var Boss2 = 'http://boss-macaucf-beta.leanapp.cn/' //测试
  var Boss3 = 'http://boss-macaucf-beta.leanapp.cn/api/v1/' //测试接口
+// var Boss='http://192.168.0.142:9000/'
+// var Boss2='http://192.168.0.142:9000/'
+// var Boss3='http://192.168.0.142:9000/'
  var limit20 = 20
  var data_jj = 1.03
  var H = 0
