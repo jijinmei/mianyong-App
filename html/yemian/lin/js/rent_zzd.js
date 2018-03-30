@@ -79,6 +79,7 @@ var that=this;
         }
       }
       this.isending=false
+      console.log(this.rentobject)
       this.$axios.post('/agent', getFormDataFun(this.rentobject)).then(function (res) {
 
         if (!res.message) {
@@ -93,6 +94,7 @@ var that=this;
           WebViewJavascriptBridge.callHandler('ClearData', {
             content_key: 'xiangqingData'
           })
+          return
           goback(3);
           // 跳转到查看租盘页面
           // window.location.href="../xiangqing/liebiaoZu.html"+location.search; 
@@ -283,9 +285,10 @@ var that=this;
      */
     getData: function getData(data, getKey) {
       if (this.rentobject[getKey] != '' && this.rentobject[getKey] != null) {
-        // console.log(localStorage[getKey])
+        console.log(getKey)
         var arr = [];
         arr = this.rentobject[getKey].split("、");
+        console.log("::::"+getKey)
         data.forEach(function (_item, _index) {
           for (var key in arr) {
             if (_item.text === arr[key]) {

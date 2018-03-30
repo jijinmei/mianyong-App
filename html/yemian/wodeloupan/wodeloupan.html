@@ -255,6 +255,12 @@
             console.log('转换为base64')
             that.xiaolin.push(dataURL)
             console.log(that.xiaolin)
+var feature1
+if(data.features&&data.features.length==0){
+  feature1=''
+}else{
+  feature1=JSON.stringify(data.features).replace(/,/g,'、').replace('[','').replace(']','').replace(/"/g,'')
+}
  if (i == lengths - 1) {
    var saveObject = {
     objectId:data.objectId,
@@ -279,10 +285,10 @@
     cook:data.cook,
     pet: data.pet,
     start_time:data.start_time,
-    infrastructure:data.infrastructure,
-    home_infrastructure: data.home_infrastructure,
-    location_infrastructure: data.location_infrastructure,
-    features:(data.features&&data.features.length==0?'':data.features),
+    infrastructure:(data.infrastructure?'':data.infrastructure),
+    home_infrastructure:(data.home_infrastructure?'':data.home_infrastructure),
+    location_infrastructure: (data.location_infrastructure?'':data.location_infrastructure),
+    features:feature1,
     contactType:data.contactType,
     contacts:data.contacts,
     phone: data.phone,
@@ -290,7 +296,7 @@
     remark: data.remark,
     from: data.from
 };
-             
+  //  return          
              
               // 转完后要存储去app
              

@@ -150,7 +150,7 @@ if (this.rentobject.pics == '' || this.rentobject.pics == null) {
           WebViewJavascriptBridge.callHandler('ClearData', {
             content_key: 'xiangqingData'
           })
-                  return
+                  // return
           goback(2);
           // 跳转到查看租盘页面
           // return

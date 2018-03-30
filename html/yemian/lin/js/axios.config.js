@@ -1,7 +1,7 @@
 'use strict';
 
-axios.defaults.baseURL = 'http://192.168.0.142:9000/api/v1/'// 正式
-// axios.defaults.baseURL = 'http://boss-macaucf-beta.leanapp.cn/api/v1'; // 开发
+ axios.defaults.baseURL = 'http://192.168.0.142:9000/api/v1/'// 正式
+//axios.defaults.baseURL = 'http://boss-macaucf-beta.leanapp.cn/api/v1'; // 开发
 
 
 // 添加请求拦截器
@@ -16,7 +16,6 @@ axios.interceptors.request.use(function (config) {
 // 添加响应拦截器
 axios.interceptors.response.use(function (response) {
   // 对响应数据做点什么
-
   return response.data;
 }, function (error) {
   // 对响应错误做点什么

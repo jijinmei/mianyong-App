@@ -37,7 +37,6 @@ function getFormDataFun(obj) {
   var formData = new FormData();
   commonFiles(obj.pics, formData, 'pics');
   formData.append("sessiontoken", location.search.slice(1).split('=')[1]);
-
   for (var key in obj) {
     if (key !== 'pics' && obj[key] != '' && obj[key] != null) {
       // ji加的判断 明火煮食和饲养宠物  发去后台的请求才改变这个,其他的显示就不改了
@@ -48,7 +47,8 @@ function getFormDataFun(obj) {
                       obj[key]='0'
                     }   
               }
-      // console.log(key, obj[key])
+      console.log(key, obj[key])
+      if(key==)
       formData.append(key, obj[key]);
     }
   }

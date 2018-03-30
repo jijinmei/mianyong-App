@@ -108,9 +108,13 @@
  };
 
  function tixing() {
+   var countconfirm = 0; 
    mui.confirm('離開本頁面將清空當前頁面的內容，確定離開？', 'title', ['離開', '取消'], function (data) {
+     console.log("data")
      console.log(data)
-     if (data.index == 0) {
+    //  return
+     if (data.index == 0&&countconfirm == 0) {
+       countconfirm ++;
       var ua = navigator.userAgent.toLowerCase();
       if (ua.match(/iPhone\sOS/i) == "iphone os") {
         // 苹果清缓存
@@ -129,7 +133,9 @@
       
        // app的返回
        goback(1)
+       
      }
+    //  mui.close(data)
    }, 'div')
  };
 

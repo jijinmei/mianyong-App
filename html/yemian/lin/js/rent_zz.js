@@ -208,59 +208,7 @@ var that=this
         }
       });
     }
-    // initdata: function initdata() {
-    //   // 讀取樓層 狀態
-    //   // if((this.rentobject){
-    //   if (this.rentobject.floor) {
-    //     console.log(1231231);
-    //     this.getData(this.floorData, 'floor');
-
-    //     // 讀取樓層自定義狀態 狀態
-    //     var floorStr = this.rentobject.floor;
-    //     if (floorStr !== '底層' && floorStr !== '中層' && floorStr !== '高層' && floorStr !== '極高層') {
-    //       this.$refs.floor.value = floorStr;
-    //     }
-    //   }
-    // // }
-    //   // 讀取間隔 狀態
-    //   var str = this.rentobject.space;
-    //   if (str) {
-    //     // 判斷改字段是否存在數據, 存在->運行下面循環, 否則跳過循環
-    //     str.split(',').forEach(function (_item, _index) {
-    //       var temp = _item.substr(-1, 1);
-    //       if (_index === 0) {
-    //         this.fangjian = temp;
-    //       } else if (_index === 1) {
-    //         this.keting = temp;
-    //       } else {
-    //         this.xishoujian = temp;
-    //       }
-    //     }, this);
-    //   } else {
-    //     this.rentobject.space = '房間:1,客廳:0,洗手間:0';
-    //   }
-
-    //   // 讀取座向 狀態
-    //   if (this.rentobject.direct) {
-    //     this.getData(this.directData, 'direct');
-    //   }
-
-    //   // 讀取景觀 狀態
-    //   if (this.rentobject.landscape) {
-    //     this.getData(this.landscapeData, 'landscape');
-    //   }
-
-    //   // 讀取裝修程度 狀態
-    //   if (this.rentobject.decoration) {
-    //     this.getData(this.decorationData, 'decoration');
-    //   }
-
-    //   // this.setImg();
-    //   // this.addPic();
-    //   // this.setaddImg();
-    //   // this.ketingNum();
-    //   // this.xishoujianNum();
-    // }
+  
   },
   data: {
     ref_floor:'',
