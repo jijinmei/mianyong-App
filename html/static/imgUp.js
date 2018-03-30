@@ -268,17 +268,18 @@ $(function(){
 		 	 	// 调整图片的大小
 		  var thisImage=$('.up-img')
               for (var j = 0; j < thisImage.length; j++) {
+                console.log($(thisImage[j]).height(),$(thisImage[j]).width())
                if($(thisImage[j]).height()>$(thisImage[j]).width()){
-                 $(thisImage[j]).attr("width","100%")
+                 $(thisImage[j]).css("width","100%")
                }else if($(thisImage[j]).height()==$(thisImage[j]).width()){
-                  $(thisImage[j]).attr("width","100%")
-                  $(thisImage[j]).attr("height","100%")
+                  $(thisImage[j]).css("width","100%")
+                  $(thisImage[j]).css("height","100%")
                }else{
-                 $(thisImage[j]).attr("height","100%")
+                 $(thisImage[j]).css("height","100%")
                }
              
               }
-		  },450);
+		  },1000);
 		 numUp = imgContainer.find(".up-section").length;
 		if(numUp >= 9){//如果图片大于9张则隐藏上传框
 			// $(this).parent().hide();
