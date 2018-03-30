@@ -70,6 +70,7 @@
 
  //返回
  function goback(data) {
+  //  console.log(data)
    var ua = navigator.userAgent.toLowerCase();
    if (ua.match(/iPhone\sOS/i) == "iphone os") {
      // 苹果

@@ -142,9 +142,9 @@ var vm = new Vue({
           WebViewJavascriptBridge.callHandler('ClearData', {
             content_key: 'xiangqingData'
           })
-          // goback(2);
+          goback(2);
           // 跳转到查看售盘页面
-          window.location.href="../xiangqing/liebiaoSou.html"+location.search;
+          // window.location.href="../xiangqing/liebiaoSou.html"+location.search;
         }
       });
     },

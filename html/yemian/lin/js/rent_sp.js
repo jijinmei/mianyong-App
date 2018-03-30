@@ -137,7 +137,7 @@ if (this.rentobject.pics == '' || this.rentobject.pics == null) {
       // return
       this.isending = false;
       this.$axios.post('/agent', getFormDataFun(this.rentobject)).then(function (res) {
-//         return
+
         if (res.status==true) {
           console.log('发布成功');
           // clearthis.rentobjects();
@@ -150,10 +150,11 @@ if (this.rentobject.pics == '' || this.rentobject.pics == null) {
           WebViewJavascriptBridge.callHandler('ClearData', {
             content_key: 'xiangqingData'
           })
-          // goback(2);
+                  return
+          goback(2);
           // 跳转到查看租盘页面
           // return
-          window.location.href="../xiangqing/liebiaoZu.html"+location.search;
+          // window.location.href="../xiangqing/liebiaoZu.html"+location.search;
         }
       });
     },

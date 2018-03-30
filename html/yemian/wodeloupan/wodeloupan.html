@@ -212,6 +212,8 @@
       // window.local
       $.get(Boss + 'agent/' + that.arrayitem.objectId,function(data){
         if (data.status == true) {
+          console.log(data.result)
+          // return
                  for (var i = 0; i < data.result.pics.length; i++) {
                 that.getBase64(data.result.pics[i].url, that.arrayitem.pics.length, i,data.result)
               }
@@ -253,18 +255,48 @@
             console.log('转换为base64')
             that.xiaolin.push(dataURL)
             console.log(that.xiaolin)
-            if (i == lengths - 1) {
-              // var aa=that.arrayitem
-              // aa.pics=that.xiaolin
-              data.pics=that.xiaolin
-              if(data.features&&data.features.length==0){
-                data.features='';
-              }
+ if (i == lengths - 1) {
+   var saveObject = {
+    objectId:data.objectId,
+    category: that.arrayitem.category,
+    type:data.type,
+    build_name:data.build_name,
+    build_area:data.build_area,
+    build_street:data.build_street,
+    rent_type:data.rent_type,
+    build_status:data.build_status,
+    shop_type:data.shop_type,
+    pics:that.xiaolin,
+    price:data.price,
+    space:data.space,
+    area:data.area,
+    useable_area:data.useable_area,
+    floor:data.floor,
+    code:data.code,
+    direct:data.direct,
+    landscape:data.landscape,
+    decoration:data.decoration,
+    cook:data.cook,
+    pet: data.pet,
+    start_time:data.start_time,
+    infrastructure:data.infrastructure,
+    home_infrastructure: data.home_infrastructure,
+    location_infrastructure: data.location_infrastructure,
+    features:(data.features&&data.features.length==0?'':data.features),
+    contactType:data.contactType,
+    contacts:data.contacts,
+    phone: data.phone,
+    call:data.call,
+    remark: data.remark,
+    from: data.from
+};
+             
+             
               // 转完后要存储去app
              
                 WebViewJavascriptBridge.callHandler('SetData', {
                   content_key: 'xiaolin',
-                  content: JSON.stringify(data)
+                  content: JSON.stringify(saveObject)
                 });
                 console.log(data)
                 // return

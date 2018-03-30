@@ -91,9 +91,9 @@ var that=this;
           WebViewJavascriptBridge.callHandler('ClearData', {
             content_key: 'xiangqingData'
           })
-          // goback(3);
+          goback(3);
           // 跳转到查看售盘页面
-          window.location.href="../xiangqing/liebiaoSou.html"+location.search;
+          // window.location.href="../xiangqing/liebiaoSou.html"+location.search;
         }
       });
     },
