@@ -48,42 +48,10 @@ function getFormDataFun(obj) {
                       obj[key]='0'
                     }   
               }
+      // console.log(key, obj[key])
       formData.append(key, obj[key]);
     }
   }
-
-  // formData.append("category", obj.category)
-  // formData.append("type", obj.type)
-  // formData.append("build_name", obj.build_name)
-  // formData.append("build_area", obj.build_area)
-  // formData.append("build_street", obj.build_street)
-  // formData.append("rent_type", obj.rent_type)
-  // formData.append("build_status", obj.build_status)
-  // formData.append("shop_type", obj.shop_type)
-  // formData.append("price", obj.price)
-  // formData.append("space", obj.space)
-  // formData.append("area", obj.area)
-  // formData.append("useable_area", obj.useable_area)
-  // formData.append("floor", obj.floor)
-  // formData.append("code", obj.code)
-  // formData.append("direct", obj.direct)
-  // formData.append("landscape", obj.landscape)
-  // formData.append("decoration", obj.decoration)
-  // formData.append("cook", obj.cook)
-  // formData.append("pet", obj.pet)
-  // formData.append("start_time", obj.start_time)
-  // formData.append("infrastructure", obj.infrastructure)
-  // formData.append("home_infrastructure", obj.home_infrastructure)
-  // formData.append("location_infrastructure", obj.location_infrastructure)
-  // formData.append("features", obj.features)
-  // formData.append("contactType", obj.contactType)
-  // formData.append("contacts", obj.contacts)
-  // formData.append("phone", obj.phone)
-  // formData.append("call", obj.call)
-  // formData.append("remark", obj.remark)
-  // formData.append("from", obj.from)
-
-
   return formData;
 }
 

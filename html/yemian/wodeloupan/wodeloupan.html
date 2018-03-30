@@ -209,9 +209,27 @@
     gobianji(){
       var that=this;
       // 把图片转base64
-      for (var i = 0; i < that.arrayitem.pics.length; i++) {
-                that.getBase64(that.arrayitem.pics[i], that.arrayitem.pics.length, i)
+      // window.local
+      $.get(Boss + 'agent/' + that.arrayitem.objectId,function(data){
+        if (data.status == true) {
+                 for (var i = 0; i < data.result.pics.length; i++) {
+                that.getBase64(data.result.pics[i].url, that.arrayitem.pics.length, i,data.result)
               }
+        }else{
+                mui.toast(data.result.message)
+              }
+      })
+              // if(that.arrayitem.category=='rent'){
+              //   //我要放租
+              //     location.href='../lin/rent_index.html?sessiontoken='+sessiontoken
+              // }else if(that.arrayitem.category=='sell'){
+              //   //我要放售
+              //   console.log(that.arrayitem)
+              //   location.href='../lin/sell_index.html?sessiontoken='+sessiontoken
+              // }
+      // for (var i = 0; i < that.arrayitem.pics.length; i++) {
+      //           that.getBase64(that.arrayitem.pics[i], that.arrayitem.pics.length, i)
+      //         }
       // WebViewJavascriptBridge.callHandler('SetData', {
       //   content_key: 'xiaolin',
       //   content: JSON.stringify(this.arrayitem)
@@ -219,7 +237,7 @@
      
               
     },
-    getBase64(img, lengths, i) {
+    getBase64(img, lengths, i,data) {
           var that = this
           //传入图片路径，返回base64
           function getBase64Image(img, width, height) { //width、height调用时传入具体像素值，控制大小 ,不传则默认图像大小
@@ -236,14 +254,20 @@
             that.xiaolin.push(dataURL)
             console.log(that.xiaolin)
             if (i == lengths - 1) {
-              var aa=that.arrayitem
-              aa.pics=that.xiaolin
+              // var aa=that.arrayitem
+              // aa.pics=that.xiaolin
+              data.pics=that.xiaolin
+              if(data.features&&data.features.length==0){
+                data.features='';
+              }
               // 转完后要存储去app
              
                 WebViewJavascriptBridge.callHandler('SetData', {
                   content_key: 'xiaolin',
-                  content: JSON.stringify(aa)
+                  content: JSON.stringify(data)
                 });
+                console.log(data)
+                // return
               if(that.arrayitem.category=='rent'){
                 //我要放租
                   location.href='../lin/rent_index.html?sessiontoken='+sessiontoken

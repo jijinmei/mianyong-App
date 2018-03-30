@@ -412,39 +412,6 @@
         slideimg: 'no'
       },
       methods: {
-    //     adjust(e) {
-		// 	//获取容器宽高
-		// 	var pwidth = $(e.currentTarget).parent().width()
-		// 	var pheight = $(e.currentTarget).parent().height()
-		// 	//获取图片实际宽高
-		// 	var width = $(e.currentTarget).width()
-    //   var height = $(e.currentTarget).height()
-    //   //获取实际宽高比例
-		// 	var kgb = width / height
-		// 	var gkb = height / width
-
-    //   console.log(pwidth,pheight)
-    //   console.log(width,height)
-		// 	if(width < height) {
-		// 		$(e.currentTarget).css('width', pwidth + 'px')
-    //     console.log('取宽')
-    //     var xzg = pwidth / kgb
-		// 		$(e.currentTarget).css('height', xzg + 'px')
-
-		// 	} else if(width > height){
-		// 		$(e.currentTarget).css('height', pheight + 'px')
-    //     console.log('取高')
-    //     var xzk = pheight * kgb
-		// 		$(e.currentTarget).css('width', xzk + 'px')
-
-		// 	}else if(width == height){
-    //     $(e.currentTarget).css('width', pwidth + 'px')
-    //     console.log('取宽')
-    //     var xzg = pwidth / kgb
-		// 		$(e.currentTarget).css('height', xzg + 'px')
-    //   }
-		// },
-
         goback() {
           goback(1)
         },
@@ -508,21 +475,11 @@
         xiangqing() {
           var that = this
           //如果是预览的则拿缓存的数据
-          if (locations('objectId') == 'no') {
-            // alert(2)
-            //var aa=JSON.parse(window.localStorage.getItem('xiangqingData'))
-            // var aa=JSON.parse(locations('xiangqingData'))
-            // var aa= JSON.parse(WebViewJavascriptBridge.callHandler('GetData', {content_key: 'xiangqingData'}))
-            // var aa=JSON.parse(locations('xiangqingData'))
+          if (locations('objectId') == 'no') {            
             var aa = this.xiangqingData
             console.log('aa')
             console.log(aa)
             that.datas = aa
-
-            // var bb=JSON.parse(window.localStorage.getItem('pics'))
-            // var bb=JSON.parse(window.localStorage.getItem('xiangqingData')).pics
-            // var bb=JSON.parse(WebViewJavascriptBridge.callHandler('GetData', {content_key: 'xiangqingData'})).pics
-            // var bb=JSON.parse(locations('xiangqingData')).pics
             var bb = this.xiangqingData.pics
             if (bb) {
               that.slideimg = bb

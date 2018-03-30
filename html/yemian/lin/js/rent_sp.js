@@ -132,10 +132,14 @@ if (this.rentobject.pics == '' || this.rentobject.pics == null) {
           return
         }
       }
-      
+      // console.log(this.rentobject)
+      // console.log(this.rentobject.objectId)
+      // return
       this.isending = false;
       this.$axios.post('/agent', getFormDataFun(this.rentobject)).then(function (res) {
-// return
+// console.log(":::::"+res)
+// console.log(res)
+//         return
         if (!res.message) {
           console.log('发布成功');
           // clearthis.rentobjects();
@@ -150,6 +154,7 @@ if (this.rentobject.pics == '' || this.rentobject.pics == null) {
           })
           // goback(2);
           // 跳转到查看租盘页面
+          // return
           window.location.href="../xiangqing/liebiaoZu.html"+location.search;
         }
       });

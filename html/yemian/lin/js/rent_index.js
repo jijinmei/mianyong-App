@@ -246,9 +246,11 @@ function getAppLocalData(data) {
     initdata();
   }
 }
+// 如果存在objectId,则说明是从我的楼盘过来的,根据id查询详情,把数据赋值给小林的缓存,图片也要转为base64
+// if(locations(objectId)){
 
-// vm.rentobject = JSON.parse(JSON.stringify(saveObject))
-if(window.WebViewJavascriptBridge){
+// }else{
+  if(window.WebViewJavascriptBridge){
   WebViewJavascriptBridge.callHandler('GetData', {
     content_key: 'xiaolin'
   });
@@ -260,6 +262,8 @@ setTimeout(function () {
   });
 }, 1000);
 }
+// }
+
 
 
 function initdata() {
@@ -294,28 +298,5 @@ function initdata() {
     }
   });
 
-  // vm.$watch('rentobject', function () {
-
-  //   console.log('保存数据...', newVal)
-  //   WebViewJavascriptBridge.callHandler('SetData', {
-  //     content_key: 'xiaolin',
-  //     content: JSON.stringify(this.rentobject)
-  //   })
-  // }, {
-  //   deep: true
-  // })
-
-  // vm.$watch('rentobject', function () {
-  //   var ua = navigator.userAgent.toLowerCase()
-  //   if (ua.match(/iPhone\sOS/i) == "iphone os") {
-
-  //     console.log('保存数据...', newVal)
-  //     WebViewJavascriptBridge.callHandler('SetData', {
-  //       content_key: 'xiaolin',
-  //       content: JSON.stringify(this.rentobject)
-  //     })
-  //   }
-  // }, {
-  //   deep: true
-  // })
+  
 }
