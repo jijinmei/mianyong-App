@@ -255,13 +255,55 @@
             console.log('转换为base64')
             that.xiaolin.push(dataURL)
             console.log(that.xiaolin)
+
+ if (i == lengths - 1) {
+var space1
+if(data.space){
+  for(var ii=0;ii<data.space.length;ii++){
+    if(isNaN(data.space[ii])){
+      // console.log(data.space[i])
+   }else{
+      if(ii==0){  
+        space1='房間:'+data.space[ii]
+      }
+      if(ii==2){
+        space1=space1+',客廳:'+data.space[ii]
+      }
+      if(ii==4){
+        space1=space1+',洗手間:'+data.space[ii]
+      }
+   }
+}
+}else{
+ space1='房間:1,客廳:0,洗手間:0'
+};
+// console.log(space1)
 var feature1
 if(data.features&&data.features.length==0){
   feature1=''
 }else{
   feature1=JSON.stringify(data.features).replace(/,/g,'、').replace('[','').replace(']','').replace(/"/g,'')
 }
- if (i == lengths - 1) {
+var infrastructure1
+if(data.infrastructure&&data.infrastructure.length==0){
+  infrastructure1=''
+}else{
+  infrastructure1=JSON.stringify(data.features).replace(/,/g,'、').replace('[','').replace(']','').replace(/"/g,'')
+}
+var home1
+if(data.home_infrastructure){
+  home1=data.home_infrastructure.replace(/,/g,'、')
+}else{
+  home1=''
+}
+
+var location1
+if(data.location_infrastructure){
+  location1=data.location_infrastructure.replace(/,/g,'、')
+
+}else{
+  location1=''
+ } 
    var saveObject = {
     objectId:data.objectId,
     category: that.arrayitem.category,
@@ -274,7 +316,7 @@ if(data.features&&data.features.length==0){
     shop_type:data.shop_type,
     pics:that.xiaolin,
     price:data.price,
-    space:data.space,
+    space:space1,
     area:data.area,
     useable_area:data.useable_area,
     floor:data.floor,
@@ -285,10 +327,10 @@ if(data.features&&data.features.length==0){
     cook:data.cook,
     pet: data.pet,
     start_time:data.start_time,
-    infrastructure:(data.infrastructure?'':data.infrastructure),
-    home_infrastructure:(data.home_infrastructure?'':data.home_infrastructure),
-    location_infrastructure: (data.location_infrastructure?'':data.location_infrastructure),
+    infrastructure:infrastructure1,
     features:feature1,
+    home_infrastructure:home1,
+    location_infrastructure:location1,
     contactType:data.contactType,
     contacts:data.contacts,
     phone: data.phone,
@@ -296,10 +338,11 @@ if(data.features&&data.features.length==0){
     remark: data.remark,
     from: data.from
 };
+console.log(space1)
+console.log(saveObject)
   //  return          
              
               // 转完后要存储去app
-             
                 WebViewJavascriptBridge.callHandler('SetData', {
                   content_key: 'xiaolin',
                   content: JSON.stringify(saveObject)

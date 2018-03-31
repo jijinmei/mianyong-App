@@ -47,8 +47,21 @@ function getFormDataFun(obj) {
                       obj[key]='0'
                     }   
               }
+      
+     
+      if(key=='home_infrastructure'&&obj[key] != ''){
+        obj[key]=obj[key].replace(/、/g,',')
+      }
+      if(key=='location_infrastructure'&&obj[key] != ''){
+        obj[key]=obj[key].replace(/、/g,',')
+      }
+      if(key=='infrastructure'&&obj[key] != ''){
+        obj[key]=obj[key].replace(/、/g,',')
+      }
+      if(key=='features'&&obj[key] != ''){
+        obj[key]=obj[key].replace(/、/g,',')
+      }
       console.log(key, obj[key])
-      // if(key==)
       formData.append(key, obj[key]);
     }
   }

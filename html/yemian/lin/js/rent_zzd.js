@@ -80,6 +80,8 @@ var that=this;
       }
       this.isending=false
       console.log(this.rentobject)
+      // getFormDataFun(this.rentobject)
+      // return
       this.$axios.post('/agent', getFormDataFun(this.rentobject)).then(function (res) {
 
         if (!res.message) {
