@@ -48,7 +48,7 @@ function getFormDataFun(obj) {
                     }   
               }
       console.log(key, obj[key])
-      if(key==)
+      // if(key==)
       formData.append(key, obj[key]);
     }
   }
