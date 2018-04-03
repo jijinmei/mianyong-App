@@ -335,12 +335,19 @@
           <span>發佈時間:--</span>
           <span>瀏覽:--</span>
         </div>
-        <div class="buttom-sub">
+        <div class="buttom-sub" v-if="rentobject.category=='rent'">
           <span>租金
             <i>({{rentobject.rent_type || "--"}})</i>
           </span>
           <span>{{rentobject.price || "--"}}
             <i>元/月</i>
+          </span>
+        </div>
+        <div class="buttom-sub" v-if="rentobject.category=='sell'">
+          <span>售價
+          </span>
+          <span>{{rentobject.price || "--"}}
+            <i>萬元</i>
           </span>
         </div>
       </div>
@@ -402,8 +409,11 @@
         <span>裝修程度:
           <i>{{rentobject.decoration || "--"}}</i>
         </span>
-        <span>{{rentobject.type=='住宅'?'可入住時間':'可起租時間'}}:
+        <span v-if="rentobject.category=='rent'">{{rentobject.type=='住宅'?'可入住時間':'可起租時間'}}:
           <i>{{rentobject.start_time || "--"}}</i>
+        </span>
+        <span v-if="rentobject.category=='sell'">物業現況:
+          <i>{{rentobject.build_status || "--"}}</i>
         </span>
       </div>
     </div>
@@ -427,7 +437,7 @@
     </div>
     <div class="pubStyle sectionSeven">
       <span>詳細描述</span>
-      <p>{{rentobject.remark || "這業主很懶什麼都沒有留下..."}}</p>
+      <p><pre>{{rentobject.remark || "這業主很懶什麼都沒有留下..."}}</pre></p>
     </div>
     <div class="pubStyle sectionEight" :class="{showfooter : rentobject.contactType==='1'}">
       <span>發佈者資訊</span>
@@ -435,15 +445,20 @@
         <p class="icon">
           <img :src="userIcon" alt="">
         </p>
-        <p class="username">{{fabuzhe.displayname}}{{fabuzhe.call=='miss'?'小姐':(fabuzhe.call=='mrs'?'太太':'先生')}}
-          <span>{{fabuzhe.user_role=='base_user'?'業主':'中介'}}</span>
+        <p class="username relative">{{fabuzhe.displayname}}{{fabuzhe.call=='miss'?'小姐':(fabuzhe.call=='mrs'?'太太':'先生')}}
+          <!-- <span>{{fabuzhe.user_role=='base_user'?'業主':'中介'}}</span> -->
+          <span v-if="rentobject.category=='rent'&&rentobject.from!=''&&rentobject.from!='轉租客'"
+          class="mui-badge fz17 cffffff czjz" :class="{bg36c748:rentobject.from=='業主',bgff4d00:rentobject.from=='中介'}" style="margin-left: 0.05rem;">{{rentobject.from}}</span>
+          
+          <span v-if="rentobject.category=='sell'&&fabuzhe.user_role!=''"
+          class="mui-badge fz17 cffffff czjz" :class="{bg36c748:fabuzhe.user_role=='base_user',bgff4d00:fabuzhe.user_role=='estate_agent'}" style="margin-left: 0.05rem;">{{fabuzhe.user_role=='estate_agent'?'中介':'業主'}}</span>
         </p>
         <p class="is-verify">
           <span>手機號碼已驗證</span>
         </p>
         <div class="date-time">
           <span>
-            <i></i>{{fabuzhe.createdAt}}</span>
+            <i></i>{{fabuzhe.createdAt?fabuzhe.createdAt.substring(0,10):''}}</span>
           <em></em>
           <span>
             <i></i>{{fabuzhe.likes}}</span>
@@ -461,7 +476,7 @@
 <div v-if="rentobject.contactType==1"  style="position:fixed;left:0;bottom:0;width:6.4rem;height: 0.98rem;" class="bai">
     <div @click='tel(rentobject.phone)' class="bg36c748 relative" style="background:#36c748;height:100%;padding:0.1rem 0.2rem;">
       <div style="width:3.12rem;margin:0 auto;height:100%;" class="relative">
-        <p class="fz24 cff4d00" style="color:#ff4d00;font-size:0.24rem;padding-top:0.1rem;">{{rentobject.from}} 聯絡人</p>
+        <p v-if="rentobject.from!='中介'" class="fz24 cff4d00" style="color:#ff4d00;font-size:0.24rem;padding-top:0.1rem;">{{rentobject.from}} 聯絡人</p>
         <p class="fz30 cffffff" style="color:#ffffff;font-size:0.30rem;">
           {{ (rentobject.contacts==undefined?'': (rentobject.contacts.length>6?rentobject.contacts.substring(0,6)+"...":(rentobject.contacts.length==6?rentobject.contacts:(rentobject.contacts.length==5?rentobject.contacts+(rentobject.call=='miss'?'小...':
           (rentobject.call=='mrs'?'太...':'先...')):(rentobject.contacts+(rentobject.call=='miss'?'小姐': (rentobject.call=='mrs'?'太太': '先生')))))
@@ -479,7 +494,7 @@
    
 
       function getAppLocalData(data) {
-  
+        data=data.replace(/\n/g,"\\n").replace(/\r/g,"\\r")
         if (data) {
           console.log('有值传过来', data)
           vm.rentobject = JSON.parse(data)

@@ -209,9 +209,9 @@ console.log('next')
       imgurl2: './imgs/fangzu/leixing/5.png',
       state: false
     }, {
-      text: '分組',
-      imgurl1: './imgs/fangzu/leixing/4+.png',
-      imgurl2: './imgs/fangzu/leixing/4.png',
+      text: '分租',
+      imgurl1: './imgs/fangzu/chuzuleixing/3+.png',
+      imgurl2: './imgs/fangzu/chuzuleixing/3.png',
       state: false
     }],
     shopTypeData: [{
@@ -235,15 +235,24 @@ console.log('next')
 });
 
 function getAppLocalData(data) {
-
+  data=data.replace(/\n/g,"\\n").replace(/\r/g,"\\r");
   if (data) {
     console.log('有值传过来', data);
     vm.rentobject = JSON.parse(data);
-    initdata();
+    // initdata();
+    if(!vm.rentobject.call&&!vm.rentobject.contacts&&!vm.rentobject.phone){
+           console.log('电话及在线咨询同时无')
+      users()//在users里面调用initdata
+    }else{
+      console.log('电话及在线咨询同时有')
+      initdata()
+          
+    }
   } else {
     console.log('没有传值过来');
     vm.rentobject = JSON.parse(JSON.stringify(saveObject));
     initdata();
+    users()//在users里面调用initdata
   }
 }
 // 如果存在objectId,则说明是从我的楼盘过来的,根据id查询详情,把数据赋值给小林的缓存,图片也要转为base64

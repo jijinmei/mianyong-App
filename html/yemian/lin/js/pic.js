@@ -429,6 +429,7 @@ if(locations('where')){
 });
 
 function getAppLocalData(data) {
+  data=data.replace(/\n/g,"\\n").replace(/\r/g,"\\r");
   if (data) { 
     console.log('有传值过来', data);
     vm.rentobject = JSON.parse(data);

@@ -229,10 +229,11 @@ function users(){
     var id = localStorage.getItem('userId')
     if (id) {
       $.get(Boss + 'user/' + id, function (data, status) {
-        if (!data.result.message) {
+        if (data.status==true) {
           // userData 个人信息
           // that.userIn=data.result
           console.log('查看了个人资料赋值给了电话及在线咨询')
+          console.log(data.result)
           vm.rentobject.phone = data.result.phone
           vm.rentobject.contacts = data.result.displayname
           vm.rentobject.call =data.result.call

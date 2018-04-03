@@ -245,21 +245,38 @@ var vm = new Vue({
 
     //聯絡方式
     contactTypeClick: function contactTypeClick(item, index) {
-
+      var that=this;
       if (index === 0) {
         this.rentobject.contactType = '1'; // 电话
+        
+
       } else {
         this.rentobject.contactType = '0'; // 仅在线
       }
 
       if (index === 1) {
-        this.rentobject.call = '';
-        this.rentobject.phone = '';
-        this.rentobject.contacts = '';
+        // this.rentobject.call = '';
+        // this.rentobject.phone = '';
+        // this.rentobject.contacts = '';
         this.contactTypeData2.forEach(function (_item) {
-          _item.state = false;
+          if(_item.eText==that.rentobject.call)
+          _item.state = true;
         });
       }
+      // if (index === 0) {
+      //   this.rentobject.contactType = '1'; // 电话
+      // } else {
+      //   this.rentobject.contactType = '0'; // 仅在线
+      // }
+
+      // if (index === 1) {
+      //   this.rentobject.call = '';
+      //   this.rentobject.phone = '';
+      //   this.rentobject.contacts = '';
+      //   this.contactTypeData2.forEach(function (_item) {
+      //     _item.state = false;
+      //   });
+      // }
     },
 
     // 男士 小姐 太太

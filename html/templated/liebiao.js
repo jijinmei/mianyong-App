@@ -2,7 +2,7 @@ const liebiao = {
 template: `
 	<div :style="{paddingTop:datas.length==0?'1rem':'0'}">
 		<!--2.帅选出来的列表内容-->
-		<ul id="LIST" class="bgebebeb mui-table-view relative before00" style="z-index:1;margin-top:0.7rem;" v-if="datas.length>0">
+		<ul id="LIST" class="bgebebeb mui-table-view relative before00" style="background:#ebebeb;z-index:1;margin-top:0.7rem;" v-if="datas.length>0">
 			<li @tap="xiangqings(item.objectId,item)" :class="{mg10:name=='wodeloupan'}" class="mui-table-view-cell mui-media bai listLiebiao padding20" v-for="(item,index) in datas">
 					
 					<!--我的楼盘特有的封盘按钮-->
@@ -56,12 +56,12 @@ template: `
 							</div>
 							<div class="fz25 c666666" style="height:0.4rem;line-height:0.4rem;">{{item.sub_title}}</div>
 							<div class="fz19 c000000 mui-ellipsis-2" style="height:0.48rem;line-height:0.25rem;margin-bottom:0.12rem;white-space: normal;">
-								{{item.intro==''||item.intro==undefined?'這業主很懶甚麼都沒有留下...':item.intro}}
+								<pre class="padding0 margin0">{{item.intro==''||item.intro==undefined?'這業主很懶甚麼都沒有留下...':item.intro}}</pre>
 							</div>
-							<!--苹果保持居中
-							<button type="button" class="mui-btn mui-btn-green fz15 mui-pull-left center" v-for="(items,indexs) in item.tag" style="margin-right:0.03rem;">{{items}}</button>-->
-							<!--安卓保持居中-->
-						   	<span class="fz15 mui-pull-left center radius bg36c748 cffffff" v-for="(items,indexs) in item.tag" style="padding:0.08rem;display:mui-inline;margin-right:0.03rem;line-height:1;">{{items}}</span>
+							<!--苹果保持居中-->
+							<button type="button" class="mui-btn mui-btn-green fz15 mui-pull-left center" v-for="(items,indexs) in item.tag" style="margin-right:0.03rem;">{{items}}</button>
+							<!--安卓保持居中
+						   	<span class="fz15 mui-pull-left center radius bg36c748 cffffff" v-for="(items,indexs) in item.tag" style="padding:0.08rem;display:mui-inline;margin-right:0.03rem;line-height:1;">{{items}}</span>-->
 						</div>
 					</div>
 				</a>

@@ -241,7 +241,8 @@
               <span class="opacity0">錢錢</span>址</span>
           </p>
           <div class="mui-input-row">
-            <input v-model="address" type="text" placeholder="請點擊輸入" class="center border0 fz25 padding0 margin0 h50 lh50">
+            <input v-model="address" type="text" placeholder="請點擊輸入" class="center border0 fz25 padding0 margin0 h50 lh50" style="padding-right:1rem;">
+            
           </div>
         </div>
         <!--4.聯絡方式:8大板块都有 v-if="names!='no'&&(names=='qiChe'||names=='jiaSi'||names=='tiaoSi'||names=='zhaoSheng'||names=='banWu'||names=='zhuangXiu'||names=='daiGou')"-->
@@ -261,14 +262,14 @@
           <ul class="relative overflow mT60 pL35" v-if="contactType==1">
             <li class="mui-pull-left w50s">
               <span class="fz25 c222222">聯絡人</span>
-              <input v-model="contacts" class="right fz25 c222222  padding0  border-b inputwho" type="text">
-              <b style="border-right:1px solid #36C748;" class="mL03"></b>
+              <input v-model="contacts" class="right fz25 c222222  padding0  border-b inputwho" type="text" style="border-radius:0;">
+              <!-- <b style="border-right:1px solid #36C748;" class="mL03"></b> -->
             </li>
             <li class="mui-pull-right w50s">
               <span class="fz25 c222222">電話</span>
-              <input v-model="phone" autofocus="false" class="right fz25 c222222  padding0  border-b inputwho" type="number" onkeyup="if(isNaN(value))execCommand('undo')"
+              <input  style="border-radius:0;" v-model="phone" autofocus="false" class="right fz25 c222222  padding0  border-b inputwho" type="number" onkeyup="if(isNaN(value))execCommand('undo')"
                 onafterpaste="if(isNaN(value))execCommand('undo')">
-              <b style="border-right:1px solid #36C748;" class="mL03"></b>
+              <!-- <b style="border-right:1px solid #36C748;" class="mL03"></b> -->
             </li>
           </ul>
           <p class="relative pL35 mT05" v-if="contactType==1">
@@ -319,6 +320,7 @@
   <!-- <script src="../../static/public.js"></script> -->
   <script>
     function getAppLocalData(data) {
+      data=data.replace(/\n/g,"\\n").replace(/\r/g,"\\r")
       if (data) {
         console.log('有值传过来',data)
         if (JSON.parse(data).start_time != undefined) { //小林的数组对象
@@ -333,9 +335,9 @@
       } else {
         console.log('没有传值过来',data)
         vm.huancuns()
-        vm.users()
+        
       }
-
+vm.users()
     }
   </script>
   <script type="text/javascript">
@@ -346,6 +348,7 @@
       el: '#app',
       // store,
       data: {
+      userIn:'no',
       huancun:{
                    objectId:'no',
                     pics:[],
@@ -492,13 +495,18 @@
           // alert(id)
           if (id) {
             $.get(Boss + 'user/' + id, function (data, status) {
-              if (!data.result.message) {
+              if (data.status==true) {
                 // userData 个人信息
-                // that.userIn=data.result
-                that.phone = data.result.phone
+                console.log(data.result)
+                that.userIn=data.result
+                if(!that.phone&&!that.contacts&&!that.call){
+                  // 同时没有填写则获取发布的资料
+                  that.phone = data.result.phone
                 that.contacts = data.result.displayname
                 that.call = (data.result.call == 'mr' ? '1' : (data.result.call == 'miss' ? '2' : (data.result.call ==
                   'mrs' ? '3' : '')))
+                }
+               
 
               }
             })
@@ -619,12 +627,13 @@
             templeId: id,
             // remark:this.content,
             contactType: this.contactType,
-            from: this.contacts,
+            from:'',
             user: {
-              likes: '1',
-              call: (this.call == '先生' ? 'mr' : (this.call == '太太' ? 'mrs' : (this.call == '小姐' ? 'miss' : ''))),
-              displayname: this.contacts,
-              createdAt: '1'
+              likes:this.userIn.likes,
+              call:this.userIn.call,
+              // call: (this.call == '先生' ? 'mr' : (this.call == '太太' ? 'mrs' : (this.call == '小姐' ? 'miss' : ''))),
+              displayname: this.userIn.displayname,
+              createdAt:this.userIn.createdAt
             }
           }
 
@@ -824,7 +833,7 @@ if(this.content){
         }
       },
       mounted() {
-
+      
         var that = this
         this.names = locations('name')
 
@@ -865,6 +874,11 @@ if(this.content){
       }
     })
   </script>
+  <!-- <script>
+  setInterval(function(){
+   console.log(vm.content)
+  },5000)
+  </script> -->
 </body>
 
 </html>

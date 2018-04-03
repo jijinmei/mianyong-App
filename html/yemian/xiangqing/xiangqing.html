@@ -65,6 +65,7 @@
     .mui-badge {
       border-radius: 0.1rem !important;
     }
+
   </style>
 </head>
 
@@ -205,9 +206,9 @@
       <!--1.配套设施-->
       <ul v-if="datas.category=='rent'&&datas.templeId==undefined" class="after00 left mui-table-view fz27 c666666 mg10 peitao">
         <li class="mui-table-view-cell overflow" style="padding-left:0.18rem;">
-          <p style="" class="fz27 mui-pull-left">配套設備：</p>
+          <p  class="fz27 mui-pull-left">配套設備：</p>
           <ul class="c000000 mui-pull-left left overflow" style="width: 4.3rem;">
-            <li class="lf red" :class="{mR21:idxs1==1||idxs1==4,mL21:idxs1==1||idxs1==4}" v-if="dos1!=''" v-for="(dos1,idxs1) in peitao">
+            <li class="lf" :class="{mR21:idxs1==1||idxs1==4,mL21:idxs1==1||idxs1==4}" v-if="dos1!=''" v-for="(dos1,idxs1) in peitao">
               <img src="../../assets/img/xiangqing/gouxuan.png" alt="" class="mR07" />{{dos1}}
             </li>
             <li class="lf" v-if="peitao.length==0">
@@ -258,7 +259,7 @@
           業主的話
         </li>
         <li class="mui-table-view-cell c000000" style="padding-left: 0;padding-bottom: 0;">
-          {{datas.remark==undefined||datas.remark==''?'這業主很懶甚麼都沒有留下...':datas.remark}}
+          <pre class="padding0 margin0">{{datas.remark==undefined||datas.remark==''?'這業主很懶甚麼都沒有留下...':datas.remark}}</pre>
         </li>
 
       </ul>
@@ -268,9 +269,7 @@
           詳細內容
         </li>
         <li class="mui-table-view-cell c000000" style="padding-left: 0;padding-bottom: 0;">
-          <!-- <pre style="margin:0;word-wrap:break-word;"> -->
-          {{datas.content==undefined||datas.content==''?'這業主很懶甚麼都沒有留下...':datas.content}}
-          <!-- </pre> -->
+          <pre class="padding0 margin0">{{datas.content==undefined||datas.content==''?'這業主很懶甚麼都沒有留下...':datas.content}}</pre>
         </li>
 
 
@@ -296,15 +295,20 @@
         <li v-if="datas!='no'" class="after00 mui-table-view-cell c000000 center after0" style="padding-left: 0;">
           <img style="width: 1.62rem;margin-top: 0.19rem;" src="../../assets/img/xiangqing/logo.png" alt="" />
           <p class="c000000 fz31 relative" style="margin-top: 0.2rem;">{{returns(datas.user.displayname)}}{{datas.user.call=='miss'?'小姐':(datas.user.call=='mrs'?'太太':'先生')}}
-            <span v-if="datas.from!=''&&datas.templeId==undefined&&datas.from!='轉租客'"
+            <!-- 租盘的身份 -->
+            <span v-if="datas.category=='rent'&&datas.from!=''&&datas.from!='轉租客'"
               class="mui-badge fz17 cffffff czjz" :class="{bg36c748:datas.from=='業主',bgff4d00:datas.from=='中介'}" style="margin-left: 0.05rem;">{{datas.from}}</span>
+               <!-- 搜盘的身份 -->
+              <span v-if="datas.category=='sell'"
+              class="mui-badge fz17 cffffff czjz" :class="{bg36c748:datas.from=='',bgff4d00:datas.from=='中介'}" style="margin-left: 0.05rem;">{{datas.from==''?'業主':'中介'}}</span>
+               <!-- 8大模块不用显示的身份 -->
           </p>
           <p class="c888888 fz20">
             <img src="../../assets/img/xiangqing/phone_gx.png" alt="" style="width:0.17rem;" />手機號碼已驗證</p>
         </li>
         <li v-if="datas!='no'" class="mui-table-view-cell fz25 overflow padding0" style="padding-top: 0;height:0.4rem;">
           <p class="mui-pull-left border-r c888888 center pR20" style="width:50%;height:0.4rem;line-height:0.4rem;">
-            <img src="../../assets/img/taolunqu/big.png" alt="" style="width:0.31rem;vertical-align: middle;" /> {{datas.user.createdAt}}
+            <img src="../../assets/img/taolunqu/big.png" alt="" style="width:0.31rem;vertical-align: middle;" /> {{datas.user.createdAt?datas.user.createdAt.substring(0,10):''}}
           </p>
           <p class="mui-pull-right cff4d00 center pL20" style="width:50%;height:0.4rem;line-height:0.4rem;">
             <img src="../../assets/img/taolunqu/bigs.png" alt="" style="width:0.31rem;vertical-align: middle;" /> {{datas.user.likes}}
@@ -318,7 +322,11 @@
         class="bai border-t">
         <div @click='tel(datas.phone)' class="mui-pull-left bg36c748 relative" style="width: 4rem;height:100%;padding:0.1rem 0.2rem;">
           <p class="fz24 cff4d00 mB01" v-if="datas.from!='中介'">
-            <span v-if="datas.category=='rent'">{{returns(datas.from)}} </span>聯絡人</p>
+            <span v-if="datas.from!='中介'&&datas.category=='rent'">{{returns(datas.from)}} </span>
+            <span v-if="datas.from!='中介'&&datas.category=='sell'">{{datas.from==''?'業主':''}} </span>
+            聯絡人
+          </p>
+           
           <p class="fz30 cffffff mui-ellipsis" style="width:2.5rem;">
             {{datas.contacts}}{{datas.call=='miss'?'小姐':(datas.call=='mrs'?'太太':'先生')}}
           </p>
@@ -339,11 +347,11 @@
         </div>
       </div>
 
-      <!--3.联系人电话：纯绿色：左边联络人文字+右边电话图标-->
+      <!--3.联系人电话：纯绿色：左边联络人文字+右边电话图标 8大模块的预览不用写身份-->
       <div v-if="datas!='no'&&objectId=='no'&&datas.contactType==1" style="position:fixed;left:0;bottom:0;width:6.4rem;height: 0.98rem;" class="bai">
         <div @click='tel(datas.phone)' class="bg36c748 relative" style="height:100%;padding:0.1rem 0.2rem;">
           <div style="width:3.12rem;margin:0 auto;height:100%;" class="relative">
-            <p class="fz24 cff4d00">{{returns(datas.from)}} 聯絡人</p>
+            <p class="fz24 cff4d00 margin0" v-if="datas.from!='中介'">聯絡人</p>
             <p class="fz30 cffffff">
               {{ (datas.contacts==undefined?'': (datas.contacts.length>6?datas.contacts.substring(0,6)+"...":(datas.contacts.length==6?datas.contacts:(datas.contacts.length==5?datas.contacts+(datas.call=='miss'?'小...':
               (datas.call=='mrs'?'太...':'先...')):(datas.contacts+(datas.call=='miss'?'小姐': (datas.call=='mrs'?'太太': '先生')))))
@@ -383,7 +391,9 @@
     function getAppLocalData(data) {
       if (data) {
         console.log('有值传过来1')
-        vm.xiangqingData = JSON.parse(data)
+        // console.log(data)
+        vm.xiangqingData = JSON.parse(data.replace(/\n/g,"\\n").replace(/\r/g,"\\r"))
+        // vm.datas.content=vm.datas.content.replace(/\\n/g,"\n").replace(/\\r/g,"\r")
         vm.xiangqing()
       } else {
         console.log('没有传值过来')

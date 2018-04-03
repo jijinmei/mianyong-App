@@ -239,15 +239,24 @@ console.log('next')
 });
 
 function getAppLocalData(data) {
-
+  data=data.replace(/\n/g,"\\n").replace(/\r/g,"\\r");
   if (data) {
     console.log('有值传过来', data);
     vm.rentobject = JSON.parse(data);
-    initdata();
+    // initdata();
+     if(!vm.rentobject.call&&!vm.rentobject.contacts&&!vm.rentobject.phone){                
+                  console.log('电话及在线咨询同时无')
+                  users()//在users里面调用initdata
+                }else{
+                 console.log('电话及在线咨询同时有')
+                  initdata()
+                }
+            
   } else {
     console.log('没有传值过来');
     vm.rentobject = JSON.parse(JSON.stringify(saveObject));
     initdata();
+    users()//在users里面调用initdata
   }
 }
 

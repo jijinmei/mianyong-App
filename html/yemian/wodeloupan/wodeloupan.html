@@ -288,7 +288,7 @@ var infrastructure1
 if(data.infrastructure&&data.infrastructure.length==0){
   infrastructure1=''
 }else{
-  infrastructure1=JSON.stringify(data.features).replace(/,/g,'、').replace('[','').replace(']','').replace(/"/g,'')
+  infrastructure1=JSON.stringify(data.infrastructure).replace(/,/g,'、').replace('[','').replace(']','').replace(/"/g,'')
 }
 var home1
 if(data.home_infrastructure){

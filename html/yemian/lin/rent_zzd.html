@@ -133,14 +133,14 @@
       <!-- 下一步 -->
       <div class="footer">
         <div>
-          <button type="button" @click="next" >详细预览</button>
+          <button type="button" @click="next" >詳情預覽</button>
           <button type="button" @click="publish" >立即發佈</button>
         </div>
       </div>
   </div>
   <script>
     function getAppLocalData(data) {
-  
+      data=data.replace(/\n/g,"\\n").replace(/\r/g,"\\r");
     if (data) {
       console.log('有值传过来', data);
       vm.rentobject = JSON.parse(data);
