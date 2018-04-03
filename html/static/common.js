@@ -261,3 +261,146 @@ function users(){
  //   		},'div')
 
  //   	}
+
+ function getBase64(img, lengths, i,data) {
+  // var that = this
+  //传入图片路径，返回base64
+  function getBase64Image(img, width, height) { //width、height调用时传入具体像素值，控制大小 ,不传则默认图像大小
+    var canvas = document.createElement("canvas");
+    canvas.width = width ? width : img.width;
+    canvas.height = height ? height : img.height;
+
+    var ctx = canvas.getContext("2d");
+    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    var dataURL = canvas.toDataURL();
+
+    // 
+    console.log('转换为base64')
+    vm.xiaolin.push(dataURL)
+    // console.log(that.xiaolin)
+
+if (i == lengths - 1) {
+var space1
+if(data.space){
+for(var ii=0;ii<data.space.length;ii++){
+if(isNaN(data.space[ii])){
+// console.log(data.space[i])
+}else{
+if(ii==0){  
+space1='房間:'+data.space[ii]
+}
+if(ii==2){
+space1=space1+',客廳:'+data.space[ii]
+}
+if(ii==4){
+space1=space1+',洗手間:'+data.space[ii]
+}
+}
+}
+}else{
+space1='房間:1,客廳:0,洗手間:0'
+};
+// console.log(space1)
+var feature1
+if(data.features&&data.features.length==0){
+feature1=''
+}else{
+feature1=JSON.stringify(data.features).replace(/,/g,'、').replace('[','').replace(']','').replace(/"/g,'')
+}
+var infrastructure1
+if(data.infrastructure&&data.infrastructure.length==0){
+infrastructure1=''
+}else{
+infrastructure1=JSON.stringify(data.infrastructure).replace(/,/g,'、').replace('[','').replace(']','').replace(/"/g,'')
+}
+var home1
+if(data.home_infrastructure){
+home1=data.home_infrastructure.replace(/,/g,'、')
+}else{
+home1=''
+}
+
+var location1
+if(data.location_infrastructure){
+location1=data.location_infrastructure.replace(/,/g,'、')
+
+}else{
+location1=''
+} 
+var saveObject = {
+objectId:data.objectId,
+category: data.category,
+type:data.type,
+build_name:data.build_name,
+build_area:data.build_area,
+build_street:data.build_street,
+rent_type:data.rent_type,
+build_status:data.build_status,
+shop_type:data.shop_type,
+pics:vm.xiaolin,
+price:data.price,
+space:space1,
+area:data.area,
+useable_area:data.useable_area,
+floor:data.floor,
+code:data.code,
+direct:data.direct,
+landscape:data.landscape,
+decoration:data.decoration,
+cook:data.cook,
+pet: data.pet,
+start_time:data.start_time,
+infrastructure:infrastructure1,
+features:feature1,
+home_infrastructure:home1,
+location_infrastructure:location1,
+contactType:data.contactType,
+contacts:data.contacts,
+phone: data.phone,
+call:data.call,
+remark: data.remark,
+from: data.from
+};
+console.log(space1)
+console.log(saveObject)
+vm.rentobject=saveObject
+if(!vm.rentobject.call&&!vm.rentobject.contacts&&!vm.rentobject.phone){
+  console.log('电话及在线咨询同时无')
+users()//在users里面调用initdata
+}else{
+console.log('电话及在线咨询同时有')
+initdata()
+ 
+}
+    }
+
+
+
+  }
+  var image = new Image();
+  image.crossOrigin = '';
+  image.src = img;
+  var deferred = $.Deferred();
+  if (img) {
+    image.onload = function () {
+      deferred.resolve(getBase64Image(image)); //将base64传给done上传处理
+    }
+    return deferred.promise(); //问题要让onload完成后再return sessionStorage['imgTest']
+  }
+
+
+}
+// 根据id查看详细内容赋值给放租和放售的发布页面xiaolin
+function xiangqing(){
+  $.get(Boss + 'agent/' + locations('objectId'),function(data){
+    if (data.status == true) {
+      console.log(data.result)
+      // return
+             for (var i = 0; i < data.result.pics.length; i++) {
+            getBase64(data.result.pics[i].url, data.result.pics.length, i,data.result)
+          }
+    }else{
+            mui.toast(data.result.message)
+          }
+  })
+}

@@ -83,7 +83,7 @@ var vm = new Vue({
       });
 
       console.log('详情预览');
-      location.href = 'preview.html' + location.search;
+      location.href = 'preview.html?sessiontoken='+locations('sessiontoken')//' + location.search;
     },
     publish: function publish() {
       var that = this
@@ -151,7 +151,7 @@ var vm = new Vue({
         content_key: 'xiaolin',
         content: JSON.stringify(this.rentobject)
       });
-      location.href = 'pic.html' + location.search;
+      location.href = 'pic.html?sessiontoken='+locations('sessiontoken')//' + location.search;
     },
 
     // 顯示樓層 彈出層

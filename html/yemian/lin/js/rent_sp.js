@@ -165,7 +165,7 @@ if (this.rentobject.pics == '' || this.rentobject.pics == null) {
         content_key: 'xiaolin',
         content: JSON.stringify(this.rentobject)
       });
-      location.href = 'pic.html' + location.search;
+      location.href = 'pic.html?sessiontoken='+locations('sessiontoken')//' + location.search;
     },
 
     // 下一步
@@ -176,7 +176,7 @@ if (this.rentobject.pics == '' || this.rentobject.pics == null) {
         content: JSON.stringify(this.rentobject)
       });
       console.log('详情预览');
-      location.href = 'preview.html' + location.search;
+      location.href = 'preview.html?sessiontoken='+locations('sessiontoken')//' + location.search;
     },
 
     // 選擇可起租時間

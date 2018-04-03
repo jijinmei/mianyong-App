@@ -159,7 +159,7 @@ var vm = new Vue({
         content_key: 'xiaolin',
         content: JSON.stringify(this.rentobject)
       });
-      location.href = 'pic.html' + location.search;
+      location.href = 'pic.html?sessiontoken='+locations('sessiontoken')//' + location.search;
     },
     next: function next(name) {
       // 保存数据
@@ -168,7 +168,7 @@ var vm = new Vue({
         content: JSON.stringify(this.rentobject)
       });
       console.log('详情预览');
-      location.href = 'preview.html' + location.search;
+      location.href = 'preview.html?sessiontoken='+locations('sessiontoken')//' + location.search;
     },
 
     // 樓層點擊方法

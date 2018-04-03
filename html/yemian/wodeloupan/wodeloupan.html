@@ -208,34 +208,29 @@
     //点击编辑跳去小林的发布房源的租盘或者售盘
     gobianji(){
       var that=this;
+      if(that.arrayitem.category=='rent'){
+                //我要放租
+                  location.href='../lin/rent_index.html?sessiontoken='+sessiontoken+'&objectId='+that.arrayitem.objectId
+        
+              }else if(that.arrayitem.category=='sell'){
+                //我要放售
+                console.log(that.arrayitem)
+                location.href='../lin/sell_index.html?sessiontoken='+sessiontoken+'&objectId='+that.arrayitem.objectId
+              }
       // 把图片转base64
       // window.local
-      $.get(Boss + 'agent/' + that.arrayitem.objectId,function(data){
-        if (data.status == true) {
-          console.log(data.result)
-          // return
-                 for (var i = 0; i < data.result.pics.length; i++) {
-                that.getBase64(data.result.pics[i].url, that.arrayitem.pics.length, i,data.result)
-              }
-        }else{
-                mui.toast(data.result.message)
-              }
-      })
-              // if(that.arrayitem.category=='rent'){
-              //   //我要放租
-              //     location.href='../lin/rent_index.html?sessiontoken='+sessiontoken
-              // }else if(that.arrayitem.category=='sell'){
-              //   //我要放售
-              //   console.log(that.arrayitem)
-              //   location.href='../lin/sell_index.html?sessiontoken='+sessiontoken
-              // }
-      // for (var i = 0; i < that.arrayitem.pics.length; i++) {
-      //           that.getBase64(that.arrayitem.pics[i], that.arrayitem.pics.length, i)
+      // $.get(Boss + 'agent/' + that.arrayitem.objectId,function(data){
+      //   if (data.status == true) {
+      //     console.log(data.result)
+      //     // return
+      //            for (var i = 0; i < data.result.pics.length; i++) {
+      //           that.getBase64(data.result.pics[i].url, that.arrayitem.pics.length, i,data.result)
       //         }
-      // WebViewJavascriptBridge.callHandler('SetData', {
-      //   content_key: 'xiaolin',
-      //   content: JSON.stringify(this.arrayitem)
-      // });
+      //   }else{
+      //           mui.toast(data.result.message)
+      //         }
+      // })
+            
      
               
     },

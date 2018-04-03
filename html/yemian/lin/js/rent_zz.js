@@ -62,7 +62,7 @@ var vm = new Vue({
         content_key: 'xiaolin',
         content: JSON.stringify(this.rentobject)
       });
-      location.href = 'pic.html' + location.search;
+      location.href = 'pic.html?sessiontoken=' + locations('sessiontoken');//+ location.search;
     },
 
     // 添加 --- 間隔
@@ -161,7 +161,7 @@ var that=this
         return;
       }
 
-      location.href = 'rent_zzd.html' + location.search;
+      location.href = 'rent_zzd.html?sessiontoken=' + locations('sessiontoken');//+ location.search;
     },
 
     /**

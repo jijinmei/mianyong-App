@@ -79,12 +79,12 @@ var that=this;
         }
       }
       this.isending=false
-      console.log(this.rentobject)
+      // console.log(this.rentobject)
       // getFormDataFun(this.rentobject)
       // return
       this.$axios.post('/agent', getFormDataFun(this.rentobject)).then(function (res) {
-
-        if (!res.message) {
+console.log(res)
+        if (res.status==true) {
           console.log('发布成功');
           // clearLocalStorages();1
           WebViewJavascriptBridge.callHandler('ClearData', {
@@ -111,7 +111,8 @@ var that=this;
         content_key: 'xiaolin',
         content: JSON.stringify(this.rentobject)
       });
-      location.href = 'preview.html' + location.search;
+      // location.href = 'preview.html' + location.search;
+      location.href = 'preview.html?sessiontoken=' + locations('sessiontoken');
     },
 
     // 選擇可起租時間

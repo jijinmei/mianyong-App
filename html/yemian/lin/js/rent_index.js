@@ -35,9 +35,9 @@ var vm = new Vue({
       });
 
       if (name === 'buildname') {
-        location.href = 'build_name.html' + location.search;
+        location.href = 'build_name.html?sessiontoken='+ locations('sessiontoken');// + location.search;
       } else if (name === 'buildarea') {
-        location.href = 'build_area.html' + location.search;
+        location.href = 'build_area.html?sessiontoken='+ locations('sessiontoken'); //+ location.search;
       }
     },
     // 聊天
@@ -79,19 +79,19 @@ console.log('next')
 
       if (this.rentobject.type == '住宅') {
 
-        location.href = 'rent_zz.html' + location.search;
+        location.href = 'rent_zz.html?sessiontoken='+ locations('sessiontoken');// + location.search;
       } else if (this.rentobject.type == '車位') {
 
-        location.href = 'rent_cw.html' + location.search;
+        location.href = 'rent_cw.html?sessiontoken='+ locations('sessiontoken');// + location.search;
       } else if (this.rentobject.type == '商鋪') {
 
-        location.href = 'rent_sp.html' + location.search;
+        location.href = 'rent_sp.html?sessiontoken='+ locations('sessiontoken');// + location.search;
       } else if (this.rentobject.type == '寫字樓') {
 
-        location.href = 'rent_xzl.html' + location.search;
+        location.href = 'rent_xzl.html?sessiontoken='+ locations('sessiontoken');// + location.search;
       } else if (this.rentobject.type == '工業大廈') {
 
-        location.href = 'rent_gyds.html' + location.search;
+        location.href = 'rent_gyds.html?sessiontoken='+ locations('sessiontoken');// + location.search;
       }
     },
     // 商铺类型點擊方法
@@ -155,6 +155,7 @@ console.log('next')
     }
   },
   data: {
+    xiaolin:[],
     rentobject: null,
     typeData: [{
       text: '住宅',
@@ -250,9 +251,16 @@ function getAppLocalData(data) {
     }
   } else {
     console.log('没有传值过来');
-    vm.rentobject = JSON.parse(JSON.stringify(saveObject));
-    initdata();
-    users()//在users里面调用initdata
+    if(locations('objectId')){
+      // 根据id请求数据,有id说明是从我的楼盘过来的
+      xiangqing()
+
+    }else{
+      vm.rentobject = JSON.parse(JSON.stringify(saveObject));
+     initdata();
+     users()//在users里面调用initdata
+    }
+    
   }
 }
 // 如果存在objectId,则说明是从我的楼盘过来的,根据id查询详情,把数据赋值给小林的缓存,图片也要转为base64
