@@ -667,7 +667,7 @@ function initdata() {
 
     // 讀取樓層自定義狀態 狀態
     var floorStr = vm.rentobject.floor;
-    if (floorStr !== '底層' && floorStr !== '中層' && floorStr !== '高層' && floorStr !== '極高層') {
+    if (floorStr !== '低層' && floorStr !== '中層' && floorStr !== '高層' && floorStr !== '極高層') {
       // vm.$refs.floor.value = floorStr;
       vm.ref_floor=floorStr;
     }else{

@@ -37,8 +37,8 @@
             <p class="title">
               <span>*</span>租金</p>
             <div class="content">
-              <!-- <input type="number" placeholder="0" :value="price" @input="priceEdit($event.target.value)"> -->
               <input type="number" placeholder="0" v-model="rentobject.price">
+           
               <span>元/月</span>
             </div>
           </div>
@@ -197,17 +197,15 @@
             data=data.replace(/\n/g,"\\n").replace(/\r/g,"\\r");
             if (data) {
               console.log('有值传过来', data)
-              vm.rentobject = JSON.parse(data)
+               // 后台传过来的是有,号分割的,我自己写的是没有逗号分割的,输入框类型是数字类型,含逗号是显示不了的   
+      vm.rentobject = JSON.parse(data)
+      if(isNaN(vm.rentobject.price)){
+        // 含有逗号
+        var pricea=vm.rentobject.price.replace(/,/,'')
+        vm.rentobject.price=parseFloat(pricea)
+      }      
               initdata()
-               // 如果电话及在线咨询三个东西都是同时为空,则调用那个个人资料
-              //  if(vm.rentobject.call&&vm.rentobject.contacts&&vm.rentobject.phone){
-              //     console.log('电话及在线咨询同时有')
-              //     initdata()
-              //   }else{
-              //     console.log('电话及在线咨询同时无')
-              //     users()//在users里面调用initdata
-                      
-              //   }
+              
             } else {
               console.log('没有传值过来')
               vm.rentobject = JSON.parse(JSON.stringify(saveObject))

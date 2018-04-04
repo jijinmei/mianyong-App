@@ -42,7 +42,7 @@ function getFormDataFun(obj) {
   console.log(locations('sessiontoken'))
   formData.append("sessiontoken",locations('sessiontoken'));
   for (var key in obj) {
-    if (key !== 'pics' && obj[key] != '' && obj[key] != null) {
+    if (key !== 'pics' && obj[key] != '' && obj[key] != null&& obj[key] != '--') {
       // ji加的判断 明火煮食和饲养宠物  发去后台的请求才改变这个,其他的显示就不改了
               if(key=='cook'||key=='pet'){
                     if(obj[key]=='可以'){
