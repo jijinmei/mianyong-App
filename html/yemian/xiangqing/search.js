@@ -14,7 +14,7 @@ template: `
 
 		<span class="czjz" style="left:1.2rem;height:0.3rem;border-right:1px solid #36C748;margin-top:0.05rem;"></span>
 		<span class="mui-icon mui-icon-search fz30 czjz" style="left:1.4rem;margin-top:0.05rem;"></span>
-		<input v-model="keyword" type="text" class="border0 fz21" placeholder="" placeholder="請輸入屋苑進行搜索"  style="width:5rem;padding-left:1.6rem;height:0.58rem;background:#EBEBEB;">
+		<input v-model="keyword" type="text" class="border0 fz21"  placeholder="請輸入屋苑進行搜索"  style="width:5rem;padding-left:1.6rem;height:0.58rem;background:#EBEBEB;">
 		<button @click="search" type="button" class="mui-btn mui-btn-green mui-pull-right fz28 radius" style="padding:0.07rem 0.1rem !important;">搜索</button>
 	</div>
 
