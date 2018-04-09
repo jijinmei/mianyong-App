@@ -38,7 +38,7 @@
 
   </head>
 
-  <body>
+  <body class="relative">
 
     <div id="app" v-cloak>
 <div class="bgebebeb">
@@ -89,7 +89,7 @@
       <div class="nei_kuang fz32 bai w497 h200 lh200 center radius">正在發佈,請稍後...</div>
     </div>
   </div>
-
+  
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
@@ -117,6 +117,7 @@
         el: '#app',
         store,
         data: {
+          cha:false,
          isending:true,//是否结束了请求
         tdate:[],
         btnindex: -1, //发布内容的类型
@@ -213,8 +214,8 @@ setTimeout(function(){
                
     },
     mounted() {
-          
-
+// 添加叉子
+$('#__MUI_PREVIEWIMAGE').append('<img src="../../assets/img/login/02.png"  class="absolute cursor w25 padding0 T25 R40">')
     }
 
     })

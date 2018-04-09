@@ -247,7 +247,8 @@ $(function(){
 					delParent = $(this).parent();
                     // 删除输入框的值 ，防止上传后删除图片后再次上传该图片的时候导致上传不了
                     $(".addsfile").val("")
-				});   
+        }); 
+        
 				$img0.attr("src","../../static/deleteds.png").appendTo($section);
 		     var $img = $("<img class='up-img up-opcity'>");
 		         $img.attr("src",imgArr[i]);
@@ -337,7 +338,6 @@ $(function(){
 		}	
 	
 })
-
 
 
 //如果图片大于9张则隐藏上传框    270

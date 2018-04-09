@@ -30,11 +30,11 @@
     <div id="app" v-cloak>
 <div>
   <!--头部的搜索条-->
-      <form class="mui-input-group after00 before00 border-b fixed" style="padding:0.15rem 0.2rem;width:6.4rem;z-index: 999;">
+      <form class="mui-input-group after00 before00 border-b fixed" style="padding:0.15rem 0.2rem;width:6.4rem;z-index: 999;"  onsubmit="return false;">
         <div class="mui-input-row after00" style="height: 0.58rem;">
           <!--放大镜-->
           <span class="mui-icon mui-icon-search mui-icon czjz c999999 fz29 bold" style="left:0.2rem;"></span>
-          <input v-model="keyword" @focus="datas='no'" type="text" class="fz24 c999999 radius" style="height: 0.58rem;width:5rem;padding-left:0.6rem;background: #EBEBEB;" placeholder="請輸入內容進行搜索">
+          <input  @keyup.enter="search"  v-model="keyword" @focus="datas='no'" type="text" class="fz24 c999999 radius" style="height: 0.58rem;width:5rem;padding-left:0.6rem;background: #EBEBEB;" placeholder="請輸入內容進行搜索">
            <!--关联叉子-->
            <img v-show="keyword!=''" @click="clears" src="../../assets/img/home/san.png" alt="" class="czjz" style="width:0.32rem;right:1.2rem;"/>
             <!--搜索按钮-->
