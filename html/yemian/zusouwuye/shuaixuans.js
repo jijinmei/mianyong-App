@@ -2,9 +2,9 @@ const shuaixuans = {
 template: `
 	<div>
 		<!--1.头部帅选-->
-		<header style="z-index:997;" class="mui-bar mui-bar-nav bai header padding0" :class="{SHUAIXUANS:sousuobar=='no',SHUAIXUANS1:sousuobar=='yes',model8shuaixuans:routename=='model8Search'}" data-top='0' data-offset='150' data-duration='16' data-scrollby=".mui-scroll-wrapper">
-			<ul class="mui-table-view fz23 c666666">
-			    <li v-if="jiaSitype.length>1" class="first tap mui-table-view-cell mui-collapse mui-pull-left center" style="width:50%;">
+		<header style="z-index:997;box-shadow:none;" class="mui-bar mui-bar-nav bai header padding0" :class="{SHUAIXUANS:sousuobar=='no',SHUAIXUANS1:sousuobar=='yes',model8shuaixuans:routename=='model8Search'}" data-top='0' data-offset='150' data-duration='16' data-scrollby=".mui-scroll-wrapper" >
+			<ul class="mui-table-view fz23 c666666" style="border-bottom:1px solid rgb(235, 235, 235);">
+			    <li  class="first tap mui-table-view-cell mui-collapse mui-pull-left center" style="width:50%;">
 			        <a @tap="zzc1($event)" class=" mui-navigate-right tap1 fz23  center" :class="{c36c748:zuoitem!='全部分類',jiantou2:zuoitem.length==2,jiantou3:zuoitem.length==3,jiantou4:zuoitem.length==4,jiantou5:zuoitem.length==5}" href="#">{{zuoitem}}</a>
 			        <div class="mui-collapse-content mT08 paddingt0 margint0" >
 			            <ul class="mui-table-view list margint0">
