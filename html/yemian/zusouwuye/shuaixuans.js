@@ -1,7 +1,7 @@
 const shuaixuans = {
 template: `
 	<div>
-		<!--1.头部帅选-->
+		<!--1.头部帅1选-->
 		<header style="z-index:997;box-shadow:none;" class="mui-bar mui-bar-nav bai header padding0" :class="{SHUAIXUANS:sousuobar=='no',SHUAIXUANS1:sousuobar=='yes',model8shuaixuans:routename=='model8Search'}" data-top='0' data-offset='150' data-duration='16' data-scrollby=".mui-scroll-wrapper" >
 			<ul class="mui-table-view fz23 c666666" style="border-bottom:1px solid rgb(235, 235, 235);">
 			    <li  class="first tap mui-table-view-cell mui-collapse mui-pull-left center" style="width:50%;">
@@ -34,7 +34,7 @@ template: `
 			   
 			</ul>
 			<!--v-if="name!='banWu'&&name!='daiGou'&&name!='tiaoSi'&&name!='zhuangXiu'"-->
-			<span  v-if="jiaSitype.length>1" class="border-r jz" style="height:0.3rem;width:0.1rem;"></span>
+			<span  v-if="jiaSitype.length>0" class="border-r jz" style="height:0.3rem;width:0.1rem;"></span>
 		</header>
 		<!--遮罩层-->
 		<div class="mui-backdrop" v-show="backdrop==true" style="z-index:996;"></div>

@@ -9,7 +9,7 @@ template: `
 
 	
 		<!--2.帅选出来的列表内容-->
-		<ul   class="bgebebeb mui-table-view relative LIEBIAOS" style="background:#ebebeb;z-index:1;margin-top:0.7rem;" >
+		<ul   class="before00 bgebebeb mui-table-view relative LIEBIAOS" style="background:#ebebeb;z-index:1;margin-top:0.7rem;" >
 			<li  v-for="(item,index) in datas" :class="{mg10:who=='wodefabu'}"  @tap="xiangqings(item.objectId,item)"  class="mui-table-view-cell mui-media bai listLiebiao padding20" >
 				
 					<!--我的发布特有的封盘按钮@tap.stop="fengpan(item.title,index,item.objectId)"-->

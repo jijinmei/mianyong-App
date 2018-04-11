@@ -103,8 +103,8 @@
 
   <div  class="fixbody">
     <!--1.头部帅选-->
-    <header style="z-index:997;" class="WODELOUPAN mui-bar mui-bar-nav bai header padding0" data-top='0' data-offset='150' data-duration='16' data-scrollby=".mui-scroll-wrapper">
-      <ul class="mui-table-view fz23 c666666">
+    <header style="z-index:997;box-shadow:none;" class="WODELOUPAN mui-bar mui-bar-nav bai header padding0" data-top='0' data-offset='150' data-duration='16' data-scrollby=".mui-scroll-wrapper">
+      <ul class="mui-table-view fz23 c666666" style="border-bottom:1px solid rgb(235, 235, 235);">
           <li class="first tap mui-table-view-cell mui-collapse mui-pull-left center" style="width:50%;">
               <a @tap="zzc1($event)" class="mui-navigate-right tap1 fz23  center" :class="{c36c748:zuoitem!=0,jiantou0:zuoitem==0,jiantou1:zuoitem==1,jiantou2:zuoitem==2}" href="#">{{zuoitem==0?'全部類型':(zuoitem==1?'租盤':'售盤')}}</a>
               <div class="mui-collapse-content margint0" >
