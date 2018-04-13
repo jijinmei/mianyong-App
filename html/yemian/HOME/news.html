@@ -156,7 +156,8 @@
                 callback: function() {
 //                  alert('加载')
                   var self = this;
-                  that.page++
+                  // that.page++
+                  that.page=1
                   mui.ajax(Boss3 + 'news', {
                       data:{"page":that.page,"limit":limit20,'sessiontoken':sessiontoken},
                       dataType: 'json', //服务器返回json格式数据
