@@ -168,7 +168,7 @@
                               <div   @tap="zhezhaocengs(item)" class="mui-media-object mui-pull-left relative center" style="max-width:0.8rem;width:0.8rem;height:1.5rem;margin-right:0.15rem;">
                                     <!--个人头像-->
                                     <div class="radius50 overflow" style="max-width:0.8rem;width:0.8rem;height:0.8rem;">
-                                      <img  :src="item.user.avatar!=undefined&&item.user!=undefined?item.user.avatar.url:'../../assets/img/taolunqu/head.png'" style="width:100%;">
+                                      <!-- <img  :src="item.user.avatar!=undefined&&item.user!=undefined?item.user.avatar.url:'../../assets/img/taolunqu/head.png'" style="width:100%;"> -->
                                     </div>
                                        
                                            <img src="../../assets/img/taolunqu/zong.png" alt="" class="spjz" style="margin-top:0.05rem;width:0.3rem;"/>            
@@ -191,7 +191,7 @@
                               <div class="mui-card-content" >
                                 <ul class="overflow pics" >
                                   <li class="mui-pull-left overflow" v-for="(pic,idx) in item.pics" :class="{onepic:item.pics.length==1,twopic:item.pics.length==2,morepic:item.pics.length>2}">
-                                    <img  :src="item.pics.length==1?pic.url+imageView1:(item.pics.length==2?pic.url+imageView2:pic.url+imageView3)" alt=""  :data-preview-src="pic.url+imageView" :data-preview-group="'1'+index" />
+                                    <!-- <img  :src="item.pics.length==1?pic.url+imageView1:(item.pics.length==2?pic.url+imageView2:pic.url+imageView3)" alt=""  :data-preview-src="pic.url+imageView" :data-preview-group="'1'+index" /> -->
                                   </li>
                                 </ul>
                                 
@@ -256,7 +256,7 @@
                               <div class="mui-card-content">
                                 <ul class="overflow pics" >
                                   <li class="mui-pull-left overflow" v-for="(pic,idx) in item.pics" :class="{onepic:item.pics.length==1,twopic:item.pics.length==2,morepic:item.pics.length>2}">
-                                     <img  :src="item.pics.length==1?pic.url+imageView1:(item.pics.length==2?pic.url+imageView2:pic.url+imageView3)" alt=""  :data-preview-src="pic.url+imageView" :data-preview-group="'2'+index" />
+                                     <!-- <img  :src="item.pics.length==1?pic.url+imageView1:(item.pics.length==2?pic.url+imageView2:pic.url+imageView3)" alt=""  :data-preview-src="pic.url+imageView" :data-preview-group="'2'+index" /> -->
                                   </li>
                                 </ul>
                                 
@@ -299,7 +299,7 @@
                               <div   @tap="zhezhaocengs(item)" class="mui-media-object mui-pull-left relative center" style="max-width:0.8rem;width:0.8rem;height:1.5rem;margin-right:0.15rem;">
                                     <!--个人头像-->
                                     <div class="radius50 overflow" style="max-width:0.8rem;width:0.8rem;height:0.8rem;">
-                                      <img :src="item.user.avatar!=undefined&&item.user!=undefined?item.user.avatar.url:'../../assets/img/taolunqu/head.png'" style="width:100%;">
+                                      <!-- <img :src="item.user.avatar!=undefined&&item.user!=undefined?item.user.avatar.url:'../../assets/img/taolunqu/head.png'" style="width:100%;"> -->
                                     </div>
                                        
                                            <img src="../../assets/img/taolunqu/zong.png" alt="" class="spjz" style="margin-top:0.05rem;width:0.3rem;"/>            
@@ -323,7 +323,7 @@
                                 <ul class="overflow pics" >
                                   <li class="mui-pull-left overflow" v-for="(pic,idx) in item.pics" :class="{onepic:item.pics.length==1,twopic:item.pics.length==2,morepic:item.pics.length>2}">
                            <!--          <img  :src="pic.url" alt=""  data-preview-src="pic.url" :data-preview-group="'3'+index" style="min-width:100%;min-height:100%;"/> -->
-                                     <img  :src="item.pics.length==1?pic.url+imageView1:(item.pics.length==2?pic.url+imageView2:pic.url+imageView3)" alt=""  :data-preview-src="pic.url+imageView" :data-preview-group="'3'+index" />
+                                     <!-- <img  :src="item.pics.length==1?pic.url+imageView1:(item.pics.length==2?pic.url+imageView2:pic.url+imageView3)" alt=""  :data-preview-src="pic.url+imageView" :data-preview-group="'3'+index" /> -->
                                   </li>
                                 </ul>
                                 
@@ -387,7 +387,7 @@
     <div class="radius bai jz" style="width:6rem;height:5.23rem;padding:0.7rem 0.25rem;">
        <img @click="closes()" src="../../assets/img/taolunqu/close.png" alt="" class="absolute" style="width:0.52rem;top:0.25rem;right:0.25rem;"/>
        <div style="height:1.64rem;width:1.64rem;" class="radius50 overflow center margin">
-               <img :src="zhezhaocengItem.user.avatar!=undefined&&zhezhaocengItem.user!=undefined?zhezhaocengItem.user.avatar.url:'../../assets/img/taolunqu/head.png'"  alt=""  style="width:1.64rem;"/>
+               <!-- <img :src="zhezhaocengItem.user.avatar!=undefined&&zhezhaocengItem.user!=undefined?zhezhaocengItem.user.avatar.url:'../../assets/img/taolunqu/head.png'"  alt=""  style="width:1.64rem;"/> -->
        </div>
        <p class="fz30 c000000 center" style="margin:0.27rem 0 0.15rem 0;">
          {{(!isNaN(zhezhaocengItem.user.nickname)==false?zhezhaocengItem.user.nickname:zhezhaocengItem.user.nickname.substring(0,2)+'****'+zhezhaocengItem.user.nickname.substring(zhezhaocengItem.user.nickname.length,zhezhaocengItem.user.nickname.length-2))}}
