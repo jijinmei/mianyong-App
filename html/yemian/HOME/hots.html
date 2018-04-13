@@ -105,7 +105,7 @@
                 callback: function() {
 //                  alert('刷新')
                   var self = this;
-                  that.page=0
+                  
                   that.datas=[]
                   mui.ajax(Boss3 + 'hot_topic', {
                       data:{"page":1,"limit":limit20,'sessiontoken':sessiontoken},
@@ -115,18 +115,25 @@
                     success: function(data) {
                         //1.服务器返回响应，根据响应结果，分析是否登录成功；
                         if(data.status == true) {
+                            that.page=1
                             that.count = data.result.count
                             that.datas = data.result.data
                         setTimeout(function(){
                                                      self.endPullDownToRefresh();//关闭刷新
                         },1000)
                                                 
+                        }else{
+                          that.page=0
+                          mui.toast(data.result.message)
+                          self.endPullDownToRefresh();//关闭刷新
                         }
+                        
                         
 
                       },
                       error: function(xhr, type, errorThrown) {
                         //异常处理；
+                        that.page=0
                         self.endPullDownToRefresh();//关闭刷新
                         mui.toast(errorThrown, {
                           duration: 'long',

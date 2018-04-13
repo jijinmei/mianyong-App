@@ -412,7 +412,7 @@
           $('.mui-scroll-wrapper').scroll({
             bounce: false,
             indicators: true, //是否显示滚动条
-            deceleration:0.0009//deceleration
+            deceleration:0.0015//deceleration
           });
           $.ready(function() {
             //循环初始化所有下拉刷新，上拉加载。
@@ -473,6 +473,16 @@
                         },1000)
                                                 
                         }else{
+                          if(that.datasIdx == 1) {
+                            that.count1 =0
+                            that.datas1 =[]
+                            that.page1=0
+                          } else if(that.datasIdx == 2) {
+                            that.count2 =0
+                            that.datas2 =[]
+                            that.page2=0
+                            
+                          }
                           mui.toast(data.result.message)
                            self.endPullDownToRefresh();//关闭刷新
                         }
@@ -481,6 +491,16 @@
                       },
                       error: function(xhr, type, errorThrown) {
                         //异常处理；
+                        if(that.datasIdx == 1) {
+                            that.count1 =0
+                            that.datas1 =[]
+                            that.page1=0
+                          } else if(that.datasIdx == 2) {
+                            that.count2 =0
+                            that.datas2 =[]
+                            that.page2=0
+                            
+                          }
                         self.endPullDownToRefresh();//关闭刷新
                         mui.toast(errorThrown, {
                           duration: 'long',

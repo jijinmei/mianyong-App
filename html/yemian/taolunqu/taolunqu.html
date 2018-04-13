@@ -647,17 +647,17 @@ location.href='taolunquXq.html?objectId='+objectId+'&sessiontoken='+sessiontoken
                   var sort=''
                   if(that.datasIdx==1){
                     tag=''//综合传空进去
-                    that.page1=1
+                    // that.page1=1
                     sort=that.paixu1
                     console.log('当前的是综合1')
                 }else if(that.datasIdx==2){
                       tag='求盤'
-                      that.page2=1
+                      // that.page2=1
                       sort=that.paixu2
                     console.log('当前的是求盤2')
                   }else if(that.datasIdx==3){
                      tag='時事'
-                     that.page3=1
+                    //  that.page3=1
                      sort=that.paixu3
                     console.log('当前的是时事3')
                   }
@@ -685,22 +685,55 @@ mui.ajax(Boss+'discuss',{
         });
       },100)
       if(that.datasIdx==1){
+        that.page1=1
       that.count1=data.result.count 
       that.datas1=data.result.data
        }else if(that.datasIdx==2){
+        that.page2=1
         that.count2=data.result.count 
       that.datas2=data.result.data
        }else if(that.datasIdx==3){
+        that.page3=1
         that.count3=data.result.count 
       that.datas3=data.result.data
        }
-       
+       self.endPullDownToRefresh();
+    }else{
+      if(that.datasIdx==1){
+        that.page1=0
+      // that.count1=data.result.count 
+      that.datas1=[]
+       }else if(that.datasIdx==2){
+        that.page2=0
+        // that.count2=data.result.count 
+      that.datas2=[]
+       }else if(that.datasIdx==3){
+        that.page3=0
+        // that.count3=data.result.count 
+      that.datas3=[]
+       }
+      that.page=0
+                          mui.toast(data.result.message)
+                          self.endPullDownToRefresh();//关闭刷新
     }
-    self.endPullDownToRefresh();
+   
                     
   },
   error:function(xhr,type,errorThrown){
     //异常处理；
+    if(that.datasIdx==1){
+        that.page1=0
+      that.count1=0 
+      that.datas1=[]
+       }else if(that.datasIdx==2){
+        that.page2=0
+        that.count2=0
+      that.datas2=[]
+       }else if(that.datasIdx==3){
+        that.page3=0
+        that.count3=0
+      that.datas3=[]
+       }
     self.endPullDownToRefresh();
     mui.toast(type,{ duration:'long', type:'div' }) 
   }

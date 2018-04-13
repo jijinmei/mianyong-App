@@ -555,21 +555,21 @@
                     var url = ''
                     if(that.datasIdx == 1) { //1.我的帖文
                       url = 'user/post' //get
-                      that.page1 = 1
+                      // that.page1 = 1
                     } else if(that.datasIdx == 2) { //2.我的攒好
                       if(that.tab2Idx == 1) { //a.已发出：查看用户赞赏的帖文列表
                         url = 'user/good/posts'
                       } else if(that.tab2Idx == 2) { //b.已收到：查看用户被赞赏的帖文列表
                         url = 'user/posts/good'
                       }
-                      that.page2 = 1
+                      // that.page2 = 1
                     } else if(that.datasIdx == 3) { //3.我的回复
                       if(that.tab3Idx == 1) { //a.已发出：查看用戶發出的帖文回復
                         url = 'user/comment'
                       } else if(that.tab3Idx == 2) { //b.已收到：查看用戶帖文回復收信箱
                         url = 'user/inbox/comment'
                       }
-                      that.page3 = 1
+                      // that.page3 = 1
                     }
                     mui.ajax(Boss + url, {
                       data: {
@@ -594,16 +594,32 @@
                           }, 100)
                           if(that.datasIdx == 1) {
                             that.count1 = data.result.count
+                            that.page1=1
                             that.datas1 = data.result.data
                           } else if(that.datasIdx == 2) {
+                            that.page2=1
                             that.count2 = data.result.count
                             that.datas2 = data.result.data
                           } else if(that.datasIdx == 3) {
+                            that.page3=1
                             that.count3 = data.result.count
                             that.datas3 = data.result.data
                           }
                           self.endPullDownToRefresh();
                         }else{
+                          if(that.datasIdx == 1) {
+                            that.count1 =0
+                            that.page1=0
+                            that.datas1 =[]
+                          } else if(that.datasIdx == 2) {
+                            that.page2=0
+                            that.count2 =0
+                            that.datas2 =[]
+                          } else if(that.datasIdx == 3) {
+                            that.page3=0
+                            that.count3 = 0
+                            that.datas3 =[]
+                          }
                           mui.toast(data.result.message)
                           self.endPullDownToRefresh();
                         }
@@ -612,6 +628,19 @@
                       },
                       error: function(xhr, type, errorThrown) {
                         //异常处理；
+                        if(that.datasIdx == 1) {
+                            that.count1 =0
+                            that.page1=0
+                            that.datas1 =[]
+                          } else if(that.datasIdx == 2) {
+                            that.page2=0
+                            that.count2 =0
+                            that.datas2 =[]
+                          } else if(that.datasIdx == 3) {
+                            that.page3=0
+                            that.count3 = 0
+                            that.datas3 =[]
+                          }
                         self.endPullDownToRefresh();
                         mui.toast(type, {
                           duration: 'long',
