@@ -2,7 +2,7 @@ const liebiao = {
 template: `
 	<div :style="{paddingTop:datas.length==0?'1rem':'0'}">
 		<!--2.帅选出来的列表内容-->
-		<ul id="LIST" class="bgebebeb mui-table-view relative before00" style="background:#ebebeb;z-index:1;margin-top:0.7rem;" v-if="datas.length>0">
+		<ul id="LIST" class="List bgebebeb mui-table-view relative before00 after00" style="background:#ebebeb;z-index:1;margin-top:0.7rem;" >
 			<li @tap="xiangqings(item.objectId,item)" :class="{mg10:name=='wodeloupan'}" class="mui-table-view-cell mui-media bai listLiebiao padding20" v-for="(item,index) in datas">
 					
 					<!--我的楼盘特有的封盘按钮-->

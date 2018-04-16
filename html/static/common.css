@@ -791,5 +791,18 @@ body>div.mui-popup.mui-popup-in {
 				background: #36c748 !important;
       }
       
-      .mui-pull-bottom-tips{line-height:80px !important;}
-      
+      /* .mui-pull-bottom-tips{line-height:80px !important;}
+       */
+       .mescroll-empty {
+        background: #efeff4;
+        height: 0.8rem;
+        line-height: 0.8rem;
+       }
+       .mescroll{
+				position: fixed;
+				top: 0rem;
+				bottom: 0;
+				height: auto;
+			}
+
+
