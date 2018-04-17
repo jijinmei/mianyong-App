@@ -3,10 +3,10 @@ template: `
 	<div :style="{paddingTop:datas.length==0?'1rem':'0'}">
 		<!--2.帅选出来的列表内容-->
 		<ul id="LIST" class="List bgebebeb mui-table-view relative before00 after00" style="background:#ebebeb;z-index:1;margin-top:0.7rem;" >
-			<li @tap="xiangqings(item.objectId,item)" :class="{mg10:name=='wodeloupan'}" class="mui-table-view-cell mui-media bai listLiebiao padding20" v-for="(item,index) in datas">
+			<li @click="xiangqings(item.objectId,item)" :class="{mg10:name=='wodeloupan'}" class="mui-table-view-cell mui-media bai listLiebiao padding20" v-for="(item,index) in datas">
 					
 					<!--我的楼盘特有的封盘按钮-->
-				 <p v-if="name=='wodeloupan'"  @tap.stop="caozuos(item.objectId,item,item.status,index)" class="border-b relative fz25 c555555 center" style="top:-0.2rem;height:0.6rem;line-height:0.6rem;">
+				 <p v-if="name=='wodeloupan'"  @click.stop="caozuos(item.objectId,item,item.status,index)" class="border-b relative fz25 c555555 center" style="top:-0.2rem;height:0.6rem;line-height:0.6rem;">
 				 	<span class="czjz fz25" style="left:0;" :class="{cff0000:bb=item.status=='-1',cff4d00:item.status=='0',c999999:item.status=='-2',c36c748:item.status=='1'}">
 				 	{{item.status=='-1'?'不通過':(item.status=='0'?'審核中':(item.status=='1'?'已發佈':(item.status=='-2'?'已封盘':'')))}}
 				 	</span>

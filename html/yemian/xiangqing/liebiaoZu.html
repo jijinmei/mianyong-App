@@ -12,13 +12,10 @@
     <title>查看租盤</title>
     <script typet="text/javascript" src="https://cdn.bootcss.com/jquery/2.2.0/jquery.min.js"></script>
     <script typet="text/javascript" src="../../static/common.js"></script>
-
-    <!-- <link href="https://cdn.bootcss.com/Swiper/3.4.2/css/swiper.css" rel="stylesheet"> -->
-    <!-- <script src="https://cdn.bootcss.com/Swiper/3.4.2/js/swiper.jquery.min.js"></script> -->
     <link href="../../static/common.css" rel="stylesheet">
     <link href="../../static/commonS.css" rel="stylesheet">
-    <!-- <link href="../../static/imgUp.css" rel="stylesheet"> -->
     <link rel="stylesheet" href="../../static/mui.min.css">
+    <link rel="stylesheet" href="../../static/mescroll.min.css">
 <!-- 子组件liebiao,js的样式 -->
 <style>
 /*左边的图片的样式*/  
@@ -136,38 +133,26 @@
 
     <div id="app">
 
-  <div class="fixbody">
+  <div>
     <!--1.头部帅选-->
         <shuaixuan :souorzu="souorzu" class="fixed SHUAIXUANZU" style="top:0rem;left:0;z-index:1000;width:100%;"></shuaixuan>
     <!--2.帅选出来的列表内容-->
-    <div class="mui-scroll-wrapper LIEBIAOZU mui-content ">
-      <liebiao :datas='datas' :name='name' class="mui-scroll" id="list"></liebiao>
+    <div class="LIEBIAOZU">
+      <liebiao :datas='datas' :name='name' id="mescroll" class="mescroll" ></liebiao>
     </div>
   <!--查看搜索按钮-->
     <img @click="searchs"  src="../../assets/img/xiangqing/searchs.png" alt="" class="fixed" style="width:0.82rem;right:0.2rem;bottom:1.5rem;z-index:996;"/>
   </div>
 </div>
 
- <script src="https://cdn.bootcss.com/vue/2.5.9/vue.min.js"></script>
- <!-- <script src="https://cdn.bootcss.com/vuex/3.0.1/vuex.min.js"></script> -->
- <!-- <script src="https://cdn.bootcss.com/vue-router/3.0.1/vue-router.min.js"></script> -->
-
+    <script src="https://cdn.bootcss.com/vue/2.5.9/vue.min.js"></script>
     <script src="../../static/vconsole.min.js"></script>
     <script src="../../static/mui.min.js"></script>
     <script src="../../templated/liebiao.js"></script>
     <script src="shuaixuan.js"></script>
-    <!-- <script src="../../static/imgUp.js"></script> -->
-    <script src="../../static/mui.pullToRefresh.js"></script>
-    <script src="../../static/mui.pullToRefresh.material.js"></script>
-    <!-- <script src="../../static/mui.zoom.js"></script> -->
-    <!-- <script src="../../static/mui.previewimage.js"></script> -->
-    <!-- <script src="../../static/public.js"></script> -->
+    <script src="../../static/mescroll.min.js"></script>
     <script type="text/javascript">
-      // 初始化previewImage
-      // mui.previewImage();
       mui.init();
-      // var objectId = '58bd0b8b1b69e6006b274f76' //'587f3b29570c352201193d6e'
-      // var user = '';
     </script>
 <script>
     var vm = new Vue({
@@ -201,28 +186,55 @@
       //父元素的方法根据条件去更新列表
       onfresh(){
         this.datas=[]
-        this.page=0
-        this.refresh()
+        mescroll.resetUpScroll(); //重新搜索,重置列表数据
       },
-      refresh(){
-        var that=this;
-      (function($) {
-        //阻尼系数
-        var deceleration = mui.os.ios?0.003:0.0009;
-        $('.mui-scroll-wrapper').scroll({
-          bounce: false,
-          indicators: true, //是否显示滚动条
-          deceleration:0.0015//deceleration
-        });
-        $.ready(function() {
-          //循环初始化所有下拉刷新，上拉加载。
-          $.each(document.querySelectorAll('.mui-scroll'), function(index, pullRefreshEl) {
-            $(pullRefreshEl).pullToRefresh({
-              down: {
-                callback: function() {
-//                  alert('刷新')
-                  var self = this;
-                  // that.page=0
+     refresh(){
+      //下拉刷新的回调
+      var that=this;
+			mescroll = new MeScroll("mescroll", {
+				down:{
+					auto:false //是否在初始化完毕之后自动执行下拉回调callback; 默认true; 
+				},
+				up: {
+          offset:500,
+					callback:getListData,
+					clearEmptyId: "LIST", //1.下拉刷新时会自动先清空此列表,再加入数据; 2.无任何数据时会在此列表自动提示空
+          isBounce: false, 
+          page: { // 要使用它提供的分页参数， 把分页功能托管给他
+                num : 0,
+                size : '20',
+                time: null
+            },
+					noMoreSize: 1, //如果列表已无数据,可设置列表的总数量要大于半页才显示无更多数据;避免列表数据过少(比如只有一条数据),显示无更多数据会不好看
+					empty: {
+						tip: "已顯示全部內容", //提示
+					}
+				}
+			});
+			
+			
+			/*联网加载列表数据  page = {num:1, size:10}; num:当前页 从1开始, size:每页数据条数 */
+			function getListData(page){
+				getListDataFromNet(page.num,function(curPageData){
+					mescroll.endSuccess(curPageData.length);
+               //2.成功请求的回调 设置列表数据
+          	   /*设置列表数据*/
+                // if(page.num==1){
+                //     that.datas=[]
+                // }       
+                for (var i = 0; i <curPageData.length; i++) {
+                    that.datas.push(curPageData[i])
+                }
+			                   
+				}, function(){
+					//联网失败的回调,隐藏下拉刷新和上拉加载的状态;
+	                mescroll.endErr();
+				});
+			}
+						
+			/*1.联网加载列表数据
+			 * */
+			function getListDataFromNet(page,successCallback,errorCallback) {
                   var wheredata={}
                   wheredata['category']=that.category
                   if(that.build_area!='不限'){
@@ -241,151 +253,23 @@
                     wheredata['from']=that.from
                   }
                   wheredata['limit']=limit20
-                  wheredata['page']=1
+                  wheredata['page']=page
                   wheredata['sessiontoken']=sessiontoken
-                  //获取租盘列表的信息
-                  mui.ajax(Boss + 'agent', {
-                      data:wheredata,
-//                      {
-//                        category:that.category,//租盘
-//                        page: 1,
-//                        limit: limit20,
-//                        sessiontoken: sessiontoken
-//                      },
-                      dataType: 'json', //服务器返回json格式数据
-                      type: 'GET', //HTTP请求类型
-                      timeout: 10000, //超时时间设置为10秒；
-                      //  headers:{'Content-Type':'application/json'},
-                    success: function(data) {
-                        //1.服务器返回响应，根据响应结果，分析是否登录成功；
-                        if(data.status == true) {
-                          that.page=1
-                            that.count = data.result.count
-                            that.datas = data.result.data
+                	$.ajax({
+                    type: 'GET',
+		                url:Boss + 'agent',
+                    data: wheredata,
+		                dataType: 'json',
+		                success: function(dataAll){
+                      // 只要成功请求到ture,就有可能是数组有数据或者数组数据为空
+		                	successCallback(dataAll.result.data);
+                    },
+                    // 失败就一定是false,有可能是网络原因,也有可能是后台报错
+		                error: errorCallback
+		            });
+			}
+     }
 
-                        setTimeout(function(){
-                                                     self.endPullDownToRefresh();//关闭刷新
-                        },1000)
-                                                
-                        }else{
-                          that.page=0
-                          self.endPullDownToRefresh();//关闭刷新
-                          mui.toast(data.result.message)
-                        }
-                        
-
-                      },
-                      error: function(xhr, type, errorThrown) {
-                        //异常处理；
-                        that.page=0
-                        self.endPullDownToRefresh();//关闭刷新
-                        mui.toast(errorThrown, {
-                          duration: 'long',
-                          type: 'div'
-                        })
-                      }
-                    });
-
-                }
-              },
-              up: {
-              
-                auto: true,//可选,默认false.首次加载自动下拉刷新一次
-                callback: function() {
-//                  alert('加载')
-                  var self = this;
-                  that.page++
-                  var wheredata={}
-                  wheredata['category']=that.category
-                  if(that.build_area!='不限'){
-                    wheredata['build_area']=that.build_area
-                  }
-                  if(that.price_min!='不限'&&that.price_min!=''){
-                    wheredata['price_min']=that.price_min
-                  }
-                  if(that.price_max!='不限'&&that.price_max!=''){
-                    wheredata['price_max']=that.price_max
-                  }
-                  if(that.type!='不限'){
-                    wheredata['type']=that.type
-                  }
-                  if(that.from!='不限'){
-                    wheredata['from']=that.from
-                  }
-                  wheredata['limit']=limit20
-                  wheredata['page']=that.page
-                  wheredata['sessiontoken']=sessiontoken
-                  //获取租盘列表的信息
-                   mui.ajax(Boss + 'agent', {
-                      data: wheredata,
-//                      {
-//                        page:that.page,
-//                        limit: limit20,
-//                        sessiontoken: sessiontoken
-//                      },
-                      dataType: 'json', //服务器返回json格式数据
-                      type: 'GET', //HTTP请求类型
-                      timeout: 10000, //超时时间设置为10秒；
-                      //  headers:{'Content-Type':'application/json'},
-                    success: function(data) {
-                    
-
-                        //1.服务器返回响应，根据响应结果，分析是否登录成功；
-                        if(data.status == true) {
-
-                            
-                          
-                            that.count=data.result.count  
-                            //如果是切换标签的加载事件也就是现在请求的是第一页，所以则要让页数变为1，下次加载的时候就变成++
-                            if(that.page==1){
-                              that.datas=[]
-                            }
-                            
-                            for (var i = 0; i < data.result.data.length; i++) {
-                            that.datas.push(data.result.data[i])
-                             }
-                            if(that.count == that.datas.length) {
-                              setTimeout(function(){
-                                                     self.endPullUpToRefresh(true);//没有更多数据
-                                    },1000)
-                              
-                              
-                            }else{
-                              setTimeout(function(){
-                                                      self.endPullUpToRefresh();//加载更多数据
-                                    },1000)
-                                   
-                            }
-
-                        }else{
-                          that.page--
-                          self.endPullUpToRefresh();//加载更多数据
-                          mui.toast(data.result.message)
-                        }
-                        
-
-                      },
-                      error: function(xhr, type, errorThrown) {
-                        //异常处理；让当前页数变回减1
-                          that.page--
-                        // self.endPullDownToRefresh();//关闭刷新
-                        self.endPullUpToRefresh();
-                        mui.toast(errorThrown, {
-                          duration: 'long',
-                          type: 'div'
-                        })
-                      }
-                    });
-
-                }
-              }
-            });
-          });
-
-
-        });
-      })(mui);
-      }
              
         
     },

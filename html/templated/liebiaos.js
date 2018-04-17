@@ -9,11 +9,11 @@ template: `
 
 	
 		<!--2.帅选出来的列表内容-->
-		<ul   class="before00 bgebebeb mui-table-view relative LIEBIAOS" style="background:#ebebeb;z-index:1;margin-top:0.7rem;" >
-			<li  v-for="(item,index) in datas" :class="{mg10:who=='wodefabu'}"  @tap="xiangqings(item.objectId,item)"  class="mui-table-view-cell mui-media bai listLiebiao padding20" >
+		<ul id="LIST"  class="before00 bgebebeb mui-table-view relative LIEBIAOS" style="background:#ebebeb;z-index:1;margin-top:0.7rem;" >
+			<li  v-for="(item,index) in datas" :class="{mg10:who=='wodefabu'}"  @click="xiangqings(item.objectId,item)"  class="mui-table-view-cell mui-media bai listLiebiao padding20" >
 				
-					<!--我的发布特有的封盘按钮@tap.stop="fengpan(item.title,index,item.objectId)"-->
-				 <p v-show="who=='wodefabu'" @tap.stop="caozuos2(item.objectId,item,item.status,index)" class="border-b relative fz25 c555555 center" style="top:-0.2rem;height:0.6rem;line-height:0.6rem;">
+					<!--我的发布特有的封盘按钮@click.stop="fengpan(item.title,index,item.objectId)"-->
+				 <p v-show="who=='wodefabu'" @click.stop="caozuos2(item.objectId,item,item.status,index)" class="border-b relative fz25 c555555 center" style="top:-0.2rem;height:0.6rem;line-height:0.6rem;">
 				 	<span class="czjz fz25" style="left:0;" :class="{cff0000:bb=item.status=='-1',cff4d00:item.status=='0',c999999:item.status=='-2',c36c748:item.status=='1'}">{{item.status=='-1'?'不通過':(item.status=='0'?'審核中':(item.status=='1'?'已發佈':'已下架'))}}</span>
 				 	<img  src="../../assets/img/me/caozuo.png" alt="" style="width:0.29rem;right:0.6rem;" class="czjz" />
 				 	<span  class="czjz fz25 c000000" style="right:0;">操作</span>
@@ -47,7 +47,7 @@ template: `
 					</div>
 				</a>
 				 <!-- contactType=0  仅在线咨询  -->
-					<img @tap.stop="call(item.phone)" v-if="item.templeId=='content_01'&&item.contactType==1" src="../../assets/img/wuyebangzhu/phone1.png" style="width:1.15rem;right:0.2rem;bottom:0.2rem;" class="absolute"/>
+					<img @click.stop="call(item.phone)" v-if="item.templeId=='content_01'&&item.contactType==1" src="../../assets/img/wuyebangzhu/phone1.png" style="width:1.15rem;right:0.2rem;bottom:0.2rem;" class="absolute"/>
 			</li>
 
 		</ul>

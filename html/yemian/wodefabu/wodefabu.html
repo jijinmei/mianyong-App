@@ -12,13 +12,10 @@
     <title>我的發佈</title>
     <script typet="text/javascript" src="https://cdn.bootcss.com/jquery/2.2.0/jquery.min.js"></script>
     <script typet="text/javascript" src="../../static/common.js"></script>
-<!-- 
-    <link href="https://cdn.bootcss.com/Swiper/3.4.2/css/swiper.css" rel="stylesheet">
-    <script src="https://cdn.bootcss.com/Swiper/3.4.2/js/swiper.jquery.min.js"></script> -->
     <link href="../../static/common.css" rel="stylesheet">
     <link href="../../static/commonS.css" rel="stylesheet">
-    <!-- <link href="../../static/imgUp.css" rel="stylesheet"> -->
     <link rel="stylesheet" href="../../static/mui.min.css">
+    <link rel="stylesheet" href="../../static/mescroll.min.css">
 <style scoped>
 /*子组件liebiao.js的样式*/
 /*左边的图片的样式*/	
@@ -100,7 +97,7 @@
 
     <div id="app" v-cloak>
 
- <div  class="fixbody">
+ <div  >
     <!--1.头部帅选-->
     <header style="z-index:997;box-shadow:none;" class="WODELOUPAN mui-bar mui-bar-nav bai header padding0" data-top='0' data-offset='150' data-duration='16' data-scrollby=".mui-scroll-wrapper">
       <ul class="mui-table-view fz23 c666666" style="border-bottom:1px solid rgb(235, 235, 235);">
@@ -108,7 +105,7 @@
               <a @tap="zzc1($event)" class="mui-navigate-right tap1 fz23  center jiantou" :class="{c36c748:zuoitem!='全部分類'}" href="#">{{zuoitem}}</a>
               <div class="mui-collapse-content margint0" >
                   <ul class="mui-table-view list margint0">
-                         <li v-if="zuo" @tap="type(index,item.title)" class="mui-table-view-cell fz27" v-for="(item,index) in zuo">
+                         <li v-if="zuo" @click="type(index,item.title)" class="mui-table-view-cell fz27" v-for="(item,index) in zuo">
                             {{item.title}}
                           </li>
                       </ul>
@@ -118,7 +115,7 @@
               <a @tap="zzc2($event)"  class="mui-navigate-right tap2 fz23 center jiantou"  href="#"  :class="{c36c748:youitem!='全部狀態'}" >{{youitem}}</a>
               <div class="mui-collapse-content margint0 center" >
                   <ul class="mui-table-view list fz27 margint0">
-                          <li  @tap="status(index,item)" class="mui-table-view-cell fz27" v-for="(item,index) in you">
+                          <li  @click="status(index,item)" class="mui-table-view-cell fz27" v-for="(item,index) in you">
                             {{item}}
                           </li>
                       </ul>
@@ -130,8 +127,8 @@
       <span class="border-r jz" style="height:0.3rem;width:0.1rem;"></span>
     </header>
     <!--2.帅选出来的列表内容-->
-    <div class="mui-scroll-wrapper WODELOUPANLIEBIAO">
-      <liebiaos :datas='datas' :who='name' class="liebiao mui-scroll"  ref="xiajia"></liebiaos>
+    <div class="WODELOUPANLIEBIAO">
+      <liebiaos :datas='datas' :who='name' class="liebiao mescroll"  id="mescroll"   ref="xiajia"></liebiaos>
     </div>
     
     <!--遮罩层-->
@@ -149,23 +146,13 @@
 
 </div>
 
- <script src="https://cdn.bootcss.com/vue/2.5.9/vue.min.js"></script>
- <!-- <script src="https://cdn.bootcss.com/vuex/3.0.1/vuex.min.js"></script> -->
-
+    <script src="https://cdn.bootcss.com/vue/2.5.9/vue.min.js"></script>
     <script src="../../static/vconsole.min.js"></script>
     <script src="../../static/mui.min.js"></script>
     <script src="../../templated/liebiaos.js"></script>
-    <script src="../../static/mui.pullToRefresh.js"></script>
-    <script src="../../static/mui.pullToRefresh.material.js"></script>
-    <!-- <script src="../../static/mui.zoom.js"></script> -->
-    <!-- <script src="../../static/mui.previewimage.js"></script> -->
-    <!-- <script src="../../static/public.js"></script> -->
+    <script src="../../static/mescroll.min.js"></script>
     <script type="text/javascript">
-      // 初始化previewImage
-      // mui.previewImage();
       mui.init();
-      // var objectId = '58bd0b8b1b69e6006b274f76' //'587f3b29570c352201193d6e'
-      // var user = '';
     </script>
 <script>
     var vm = new Vue({
@@ -177,8 +164,8 @@
         index:-1,//点击的是第几个楼盘
         arrayitem:'',//判断当前是租盘还是售盘 子元素传过来
         keep:-1,//判断是否显示编辑和封盘的哪一个
-        page:0,
-        count:'',
+        // page:0,
+        // count:'',
         name:'wodefabu',
         zuoitem:'全部分類',//当前选择的类型
         zuo:'',
@@ -298,8 +285,10 @@
       zzc1(e){
         if($(this).parent().hasClass('mui-active')){
           this.backdrop=false
+          console.log('wu')
         }else{
           this.backdrop=true
+          console.log('you')
         }
       },
       //点击全部状态
@@ -314,165 +303,91 @@
 type(index,item){
   this.zuoitem=item
   this.backdrop=false
-  this.datas=[]
   $('.first').toggleClass('mui-active')
-  this.page=0
-  this.refresh()
+  this.datas=[]
+  mescroll.resetUpScroll(); //重新搜索,重置列表数据
 },
 //全部状态
 status(index,item){
   this.youitem=item
   this.backdrop=false
-  this.datas=[]
   $('.second').toggleClass('mui-active')
-  this.page=0
-  this.refresh()
+  this.datas=[]
+  mescroll.resetUpScroll(); //重新搜索,重置列表数据
 },
-//刷新和加载
-refresh(){
-
-  
-  
-
-        var that=this;
-      (function($) {
-        //阻尼系数
-        // var deceleration = mui.os.ios?0.003:0.0009;
-        $('.mui-scroll-wrapper').scroll({
-          bounce: false,
-          indicators: true, //是否显示滚动条
-          deceleration:0.0015//0.0009//deceleration
-        });
-        $.ready(function() {
-          //循环初始化所有下拉刷新，上拉加载。
-          $.each(document.querySelectorAll('.mui-scroll'), function(index, pullRefreshEl) {
-            $(pullRefreshEl).pullToRefresh({
-              down: {
-                callback: function() {
-//                  alert('刷新')
-                  var self = this;
-                  // that.page=0
-                  that.datas=[]
-                  //获取我的发布
-  //判断状态['全部狀態','審核中','已發佈','不通過','已下架'],
-  var statu=''
-  if(that.youitem=='審核中'){
-    statu='0'
-  }else if(that.youitem=='已發佈'){
-    statu='1'
-  }else if(that.youitem=='不通過'){
-    statu='-1'
-  }else if(that.youitem=='已下架'){
-    statu='-2'
-  }
-                  mui.ajax(Boss3 + 'user/article', {
-                      data:{'page':1,'limit':limit20,'sessiontoken':sessiontoken,'title':that.zuoitem,'status':statu},
-                      dataType: 'json', //服务器返回json格式数据
-                      type: 'GET', //HTTP请求类型
-                      timeout: 10000, //超时时间设置为10秒；
-                      //  headers:{'Content-Type':'application/json'},
-                    success: function(data) {
-                        //1.服务器返回响应，根据响应结果，分析是否登录成功；
-                        if(data.status == true) {
-                          that.page=1
-                            that.count = data.result.count
-                            that.datas = data.result.data
-                        setTimeout(function(){
-                                                     self.endPullDownToRefresh();//关闭刷新
-                        },1000)
-                                                
-                        }else{
-                          that.page=0
-                          mui.toast(data.result.message)
-                          self.endPullDownToRefresh();//关闭刷新
-                        }
-                        
-
-                      },
-                      error: function(xhr, type, errorThrown) {
-                        //异常处理；
-                        that.page=0
-                        self.endPullDownToRefresh();//关闭刷新
-                        mui.toast(errorThrown, {
-                          duration: 'long',
-                          type: 'div'
-                        })
-                      }
-                    });
-
+     refresh(){
+      //下拉刷新的回调
+      var that=this;
+			mescroll = new MeScroll("mescroll", {
+				down:{
+					auto:false //是否在初始化完毕之后自动执行下拉回调callback; 默认true; 
+				},
+				up: {
+          offset:500,
+					callback:getListData,
+					clearEmptyId: "LIST", //1.下拉刷新时会自动先清空此列表,再加入数据; 2.无任何数据时会在此列表自动提示空
+          isBounce: false, 
+          page: { // 要使用它提供的分页参数， 把分页功能托管给他
+                num : 0,
+                size : '20',
+                time: null
+            },
+					noMoreSize: 1, //如果列表已无数据,可设置列表的总数量要大于半页才显示无更多数据;避免列表数据过少(比如只有一条数据),显示无更多数据会不好看
+					empty: {
+						tip: "已顯示全部內容", //提示
+					}
+				}
+			});
+			
+			
+			/*联网加载列表数据  page = {num:1, size:10}; num:当前页 从1开始, size:每页数据条数 */
+			function getListData(page){
+				getListDataFromNet(page.num,function(curPageData){
+					mescroll.endSuccess(curPageData.length);
+               //2.成功请求的回调 设置列表数据
+          	   /*设置列表数据*/
+                // if(page.num==1){
+                //     that.datas=[]
+                // }       
+                for (var i = 0; i <curPageData.length; i++) {
+                    that.datas.push(curPageData[i])
                 }
-              },
-              up: {
-                auto: true,//可选,默认false.首次加载自动下拉刷新一次
-                callback: function() {
-//                  alert('加载')
-                  var self = this;
-                  that.page++
-          //判断状态['全部狀態','審核中','已發佈','不通過','已下架'],
-  var statu=''
-  if(that.youitem=='審核中'){
-    statu='0'
-  }else if(that.youitem=='已發佈'){
-    statu='1'
-  }else if(that.youitem=='不通過'){
-    statu='-1'
-  }else if(that.youitem=='已下架'){
-    statu='-2'
-  }
-                  //获取我的发布的信息
-                      mui.ajax(Boss3 + 'user/article', {
-                      data:{'page':that.page,'limit':limit20,'sessiontoken':sessiontoken,'title':that.zuoitem,'status':statu},
-                      dataType: 'json', //服务器返回json格式数据
-                      type: 'GET', //HTTP请求类型
-                      timeout: 10000, //超时时间设置为10秒；
-                    success: function(data) {
-                        //1.服务器返回响应，根据响应结果，分析是否登录成功；
-                        if(data.status == true) {
-                            that.count=data.result.count  
-                            //如果是切换标签的加载事件也就是现在请求的是第一页，所以则要让页数变为1，下次加载的时候就变成++
-                            if(that.page==1){
-                              that.datas=[]
-                            }
-                            
-                            for (var i = 0; i < data.result.data.length; i++) {
-                            that.datas.push(data.result.data[i])
-                             }
-                            if(that.count == that.datas.length) {
-                              self.endPullUpToRefresh(true);//没有更多数据
-                              
-                            }else{
-                                    self.endPullUpToRefresh();//加载更多数据
-                            }
-                                                
-                        }else{
-                          that.page--
-                          self.endPullUpToRefresh();//加载更多数据
-                          mui.toast(data.result.message)
-                        }
-                        
-
-                      },
-                      error: function(xhr, type, errorThrown) {
-                        //异常处理；让当前页数变回减1
-                          that.page--
-                        // self.endPullDownToRefresh();//关闭刷新
-                        self.endPullUpToRefresh();//加载更多数据
-                        mui.toast(errorThrown, {
-                          duration: 'long',
-                          type: 'div'
-                        })
+			                   
+				}, function(){
+					//联网失败的回调,隐藏下拉刷新和上拉加载的状态;
+	                mescroll.endErr();
+				});
+			}
+						
+			/*1.联网加载列表数据
+			 * */
+			function getListDataFromNet(page,successCallback,errorCallback) {
+                         //判断状态['全部狀態','審核中','已發佈','不通過','已下架'],
+                      var statu=''
+                      if(that.youitem=='審核中'){
+                        statu='0'
+                      }else if(that.youitem=='已發佈'){
+                        statu='1'
+                      }else if(that.youitem=='不通過'){
+                        statu='-1'
+                      }else if(that.youitem=='已下架'){
+                        statu='-2'
                       }
-                    });
-
-                }
-              }
-            });
-          });
-
-
-        });
-      })(mui);
-      }
+                     
+                	$.ajax({
+                    type: 'GET',
+		                url:Boss3 + 'user/article',
+                    data:{'page':page,'limit':limit20,'sessiontoken':sessiontoken,'title':that.zuoitem,'status':statu},
+		                dataType: 'json',
+		                success: function(dataAll){
+                      // 只要成功请求到ture,就有可能是数组有数据或者数组数据为空
+		                	successCallback(dataAll.result.data);
+                    },
+                    // 失败就一定是false,有可能是网络原因,也有可能是后台报错
+		                error: errorCallback
+		            });
+			}
+     }
     },
         mounted: function() {
            var that=this

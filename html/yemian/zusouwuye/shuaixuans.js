@@ -77,23 +77,23 @@ template: `
 type(item){
 	this.zuoitem=item
 	this.backdrop=false
-	this.$parent.datas=[]
+	// this.$parent.datas=[]
 	$('.first').toggleClass('mui-active')
-	this.$parent.page=0
+	// this.$parent.page=0
 	this.$parent.tags=(item=='全部分類'?'':item)
 //	alert(item)
-	this.$parent.refresh()
+	this.$parent.onfresh()
 	
 },
 //默认排序
 paixu(item){
 	this.youitem=item
 	this.backdrop=false
-	this.$parent.datas=[]
+	// this.$parent.datas=[]
 	$('.second').toggleClass('mui-active')
-	this.$parent.page=0
+	// this.$parent.page=0
 	this.$parent.sort=(item=='默認排序'?'':item)
-	this.$parent.refresh()
+	this.$parent.onfresh()
 	
 }
 			

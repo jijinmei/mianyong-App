@@ -791,18 +791,27 @@ body>div.mui-popup.mui-popup-in {
 				background: #36c748 !important;
       }
       
-      /* .mui-pull-bottom-tips{line-height:80px !important;}
-       */
+
+
+   /* 刷新和加载插件 */
        .mescroll-empty {
         background: #efeff4;
-        height: 0.8rem;
-        line-height: 0.8rem;
        }
        .mescroll{
 				position: fixed;
 				top: 0rem;
 				bottom: 0;
 				height: auto;
-			}
+      }
+      /* 无数据 加载更多 */
+      .mescroll-upwarp,.upwarp-tip,.downwarp-content,.downwarp-tip,.mescroll-empty{padding:0 !important;height: 1.5rem !important;
+        line-height: 1.5rem !important;}
+
+      .upwarp-nodata,.upwarp-tip,.downwarp-tip{margin-bottom:0 !important;font-size:0.26rem !important;}
+
+      .empty-tip{margin:0 !important;}
+      
+      .upwarp-progress,.downwarp-progress{margin-right:0.2rem !important;margin-bottom:0 !important;font-size:0.26rem !important;}
+      .mescroll-downwarp{top:0.7rem !important;}
 
 
