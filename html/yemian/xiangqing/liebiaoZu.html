@@ -202,7 +202,7 @@
           isBounce: false, 
           page: { // 要使用它提供的分页参数， 把分页功能托管给他
                 num : 0,
-                size : '20',
+                size : 20,
                 time: null
             },
 					noMoreSize: 1, //如果列表已无数据,可设置列表的总数量要大于半页才显示无更多数据;避免列表数据过少(比如只有一条数据),显示无更多数据会不好看
@@ -211,10 +211,13 @@
 					}
 				}
 			});
-			
-			
+	
+	
 			/*联网加载列表数据  page = {num:1, size:10}; num:当前页 从1开始, size:每页数据条数 */
 			function getListData(page){
+                 if(page.num==1){
+                    that.datas=[]
+                }      
 				getListDataFromNet(page.num,function(curPageData){
 					mescroll.endSuccess(curPageData.length);
                //2.成功请求的回调 设置列表数据

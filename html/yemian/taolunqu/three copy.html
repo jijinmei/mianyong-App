@@ -96,7 +96,7 @@
         position: fixed;
         border:1px solid red;
         /* padding-top:4.5rem !important; */
-				top: 4.5rem !important;
+				/* top: 4.5rem !important; */
         bottom: 0;
         height: auto !important;
         /* overflow:hidden; */
@@ -104,7 +104,7 @@
       }
 	/*ios使用sticky样式实现*/
       .nav-sticky{
-				z-index: 10;/*需设置zIndex,避免在悬停时,可能会被列表数据遮住*/
+				z-index: 9999;/*需设置zIndex,避免在悬停时,可能会被列表数据遮住*/
         top: 0 !important;/*相对mescroll的div悬停的位置*/
         position: -webkit-sticky;
 				position: -moz-sticky;
@@ -114,7 +114,7 @@
 			}
 			/*android和pc端悬停*/
 			.nav-fixed{
-				z-index: 10;
+				z-index: 9999;
 				position: fixed !important;
 				top: 0 !important;
 				left: 0;
@@ -138,34 +138,41 @@
   <div id="TAOLUNQU" >
     <!--1.头部轮播图-->
     <div  > 
-       <!-- <slider></slider> -->
-       <div id="xiangqingSlider" class="mui-slider xiangqingSlider" >
-          <div class="mui-slider-group mui-slider-loop" v-if="slideimg.length>0">
-            <!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
-            <div class="mui-slider-item mui-slider-item-duplicate">
-              <a @click="go(slideimg[slideimg.length-1].url)" style="width:6.4rem;height:3.8rem;">
-                <img :src="slideimg[slideimg.length-1].cover.url">
-              </a>
-            </div>
     
-            <!-- 第n张 -->
-            <div class="mui-slider-item relative" v-for="(item,index) in slideimg" >
-              <a @click="go(item.url)"  style="width:6.4rem;height:3.8rem;">
-                <img :src="item.cover.url" class="jz" >
-              </a>
+<!-- 滚动的内容 -->
+		<!--0000-->
+		<div id="mescroll0" class="mescroll">
+        <!-- <slider></slider> -->
+        <div id="xiangqingSlider" class="mui-slider xiangqingSlider" >
+            <div class="mui-slider-group mui-slider-loop" v-if="slideimg.length>0">
+              <!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+              <div class="mui-slider-item mui-slider-item-duplicate">
+                <a @click="go(slideimg[slideimg.length-1].url)" style="width:6.4rem;height:3.8rem;">
+                  <img :src="slideimg[slideimg.length-1].cover.url">
+                </a>
+              </div>
+      
+              <!-- 第n张 -->
+              <div class="mui-slider-item relative" v-for="(item,index) in slideimg" >
+                <a @click="go(item.url)"  style="width:6.4rem;height:3.8rem;">
+                  <img :src="item.cover.url" class="jz" >
+                </a>
+              </div>
+              <!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
+              <div class="mui-slider-item mui-slider-item-duplicate">
+                <a @click="go(slideimg[0].url)"   style="width:6.4rem;height:3.8rem;">
+                  <img :src="slideimg[0].cover.url" >
+                </a>
+              </div>
             </div>
-            <!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
-            <div class="mui-slider-item mui-slider-item-duplicate">
-              <a @click="go(slideimg[0].url)"   style="width:6.4rem;height:3.8rem;">
-                <img :src="slideimg[0].cover.url" >
-              </a>
+            <div class="mui-slider-indicator">
+              <div class="mui-indicator"  :class="{'mui-active':index==0}" v-for="(item,index) in slideimg" ></div>
             </div>
           </div>
-          <div class="mui-slider-indicator">
-            <div class="mui-indicator"  :class="{'mui-active':index==0}" v-for="(item,index) in slideimg" ></div>
-          </div>
-        </div>
-          <!--讨论区列表-->   
+          
+          
+      
+      <!--讨论区列表-->   
       <!--讨论区列表-->    
       <div class="h70 bai fz25 relative" id="navWarp"> 
           <ul class="h69 biaotiUL nav bai pL20 pR20 border-b" id="navContent" >
@@ -187,9 +194,6 @@
           </ul>  
           
           </div>  
-<!-- 滚动的内容 -->
-		<!--0000-->
-		<div id="mescroll0" class="mescroll">
         <ul id="dataList0" class="data-list mui-table-view">
                         <li v-if="datas1!='no'" class="mui-table-view-cell taolunquli" v-for="(item,index) in datas1">
                             <ul class="mui-table-view">
@@ -252,7 +256,57 @@
       
       <!--11111111111111-->
       <div id="mescroll1" class="mescroll hide">
+          <div id="xiangqingSlider" class="mui-slider xiangqingSlider" >
+              <div class="mui-slider-group mui-slider-loop" v-if="slideimg.length>0">
+                <!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+                <div class="mui-slider-item mui-slider-item-duplicate">
+                  <a @click="go(slideimg[slideimg.length-1].url)" style="width:6.4rem;height:3.8rem;">
+                    <img :src="slideimg[slideimg.length-1].cover.url">
+                  </a>
+                </div>
         
+                <!-- 第n张 -->
+                <div class="mui-slider-item relative" v-for="(item,index) in slideimg" >
+                  <a @click="go(item.url)"  style="width:6.4rem;height:3.8rem;">
+                    <img :src="item.cover.url" class="jz" >
+                  </a>
+                </div>
+                <!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
+                <div class="mui-slider-item mui-slider-item-duplicate">
+                  <a @click="go(slideimg[0].url)"   style="width:6.4rem;height:3.8rem;">
+                    <img :src="slideimg[0].cover.url" >
+                  </a>
+                </div>
+              </div>
+              <div class="mui-slider-indicator">
+                <div class="mui-indicator"  :class="{'mui-active':index==0}" v-for="(item,index) in slideimg" ></div>
+              </div>
+            </div>
+            
+            
+        
+        <!--讨论区列表-->   
+        <!--讨论区列表-->    
+        <div class="h70 bai fz25 relative" id="navWarp"> 
+            <ul class="h69 biaotiUL nav bai pL20 pR20 border-b" id="navContent" >
+                <li   class="active lf mL20 mR20 h69 relative lh69 hahaha" i="0" :style="{'color':curNavIndex==0?'#36C748':'#000000'}">綜合
+                  <span class="spjz B01 w100s h07" :style="{'background':curNavIndex==0?'#36C748':'#ffffff'}"></span>
+                </li> 
+                <li  class="lf mL20 mR20 h69 relative lh69 hahaha" i="1" :style="{'color':curNavIndex==1?'#36C748':'#000000'}">求盤
+                      <span class="spjz B01 w100s h07" :style="{'background':curNavIndex==1?'#36C748':'#ffffff'}"></span>
+                </li> 
+                <li  class="lf mL20 mR20 h69 relative lh69 hahaha" i="2" :style="{'color':curNavIndex==2?'#36C748':'#000000'}">時事
+                          <span class="spjz B01 w100s h07" :style="{'background':curNavIndex==2?'#36C748':'#ffffff'}"></span>
+                </li> 
+                <li>
+                  <a @tap="paixus($event)" class="fz25 c666666 czjz" style="right:0.4rem;">
+                排序
+                <span class="mui-icon-arrowdown mui-icon exchange"  style="margin-left:0;width:0.2rem;margin-right: 0;border:none;"></span>
+              </a>
+                </li>
+            </ul>  
+            
+            </div>  
           <ul id="dataList1" class="data-list mui-table-view">
               <li v-if="datas2!='no'" class="mui-table-view-cell taolunquli" v-for="(item,index) in datas2">
                   <ul class="mui-table-view">
@@ -316,7 +370,57 @@
       
       <!--222222222222222-->
       <div id="mescroll2" class="mescroll hide">
-         
+          <div id="xiangqingSlider" class="mui-slider xiangqingSlider" >
+              <div class="mui-slider-group mui-slider-loop" v-if="slideimg.length>0">
+                <!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+                <div class="mui-slider-item mui-slider-item-duplicate">
+                  <a @click="go(slideimg[slideimg.length-1].url)" style="width:6.4rem;height:3.8rem;">
+                    <img :src="slideimg[slideimg.length-1].cover.url">
+                  </a>
+                </div>
+        
+                <!-- 第n张 -->
+                <div class="mui-slider-item relative" v-for="(item,index) in slideimg" >
+                  <a @click="go(item.url)"  style="width:6.4rem;height:3.8rem;">
+                    <img :src="item.cover.url" class="jz" >
+                  </a>
+                </div>
+                <!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
+                <div class="mui-slider-item mui-slider-item-duplicate">
+                  <a @click="go(slideimg[0].url)"   style="width:6.4rem;height:3.8rem;">
+                    <img :src="slideimg[0].cover.url" >
+                  </a>
+                </div>
+              </div>
+              <div class="mui-slider-indicator">
+                <div class="mui-indicator"  :class="{'mui-active':index==0}" v-for="(item,index) in slideimg" ></div>
+              </div>
+            </div>
+            
+            
+        
+        <!--讨论区列表-->   
+        <!--讨论区列表-->    
+        <div class="h70 bai fz25 relative" id="navWarp"> 
+            <ul class="h69 biaotiUL nav bai pL20 pR20 border-b" id="navContent" >
+                <li   class="active lf mL20 mR20 h69 relative lh69 hahaha" i="0" :style="{'color':curNavIndex==0?'#36C748':'#000000'}">綜合
+                  <span class="spjz B01 w100s h07" :style="{'background':curNavIndex==0?'#36C748':'#ffffff'}"></span>
+                </li> 
+                <li  class="lf mL20 mR20 h69 relative lh69 hahaha" i="1" :style="{'color':curNavIndex==1?'#36C748':'#000000'}">求盤
+                      <span class="spjz B01 w100s h07" :style="{'background':curNavIndex==1?'#36C748':'#ffffff'}"></span>
+                </li> 
+                <li  class="lf mL20 mR20 h69 relative lh69 hahaha" i="2" :style="{'color':curNavIndex==2?'#36C748':'#000000'}">時事
+                          <span class="spjz B01 w100s h07" :style="{'background':curNavIndex==2?'#36C748':'#ffffff'}"></span>
+                </li> 
+                <li>
+                  <a @tap="paixus($event)" class="fz25 c666666 czjz" style="right:0.4rem;">
+                排序
+                <span class="mui-icon-arrowdown mui-icon exchange"  style="margin-left:0;width:0.2rem;margin-right: 0;border:none;"></span>
+              </a>
+                </li>
+            </ul>  
+            
+            </div>  
           <ul id="dataList2" class="data-list mui-table-view">
               <li v-if="datas3!='no'" class="mui-table-view-cell taolunquli" v-for="(item,index) in datas3">
                   <ul class="mui-table-view">
@@ -624,22 +728,22 @@ location.href='taolunquXq.html?objectId='+objectId+'&sessiontoken='+sessiontoken
 			mescrollArr[0]=initMescroll("mescroll0", "dataList0");
       
       var navWarp=document.getElementById("navWarp");
-			if(mescroll.os.ios){
-				//ios的悬停效果,通过给navWarp添加nav-sticky样式来实现
-				navWarp.classList.add("nav-sticky");
-			}else{
+			// if(mescroll.os.ios){
+			// 	//ios的悬停效果,通过给navWarp添加nav-sticky样式来实现
+			// 	navWarp.classList.add("nav-sticky");
+			// }else{
 				//android和pc端悬停效果,通过监听mescroll的scroll事件,控制navContent是否为fixed定位来实现
-				navWarp.style.height=navWarp.offsetHeight+"px";//固定高度占位,避免悬浮时列表抖动
+				// navWarp.style.height=navWarp.offsetHeight+"px";//固定高度占位,避免悬浮时列表抖动
 				var navContent=document.getElementById("navContent");
 				mescroll.optUp.onScroll=function(mescroll, y, isUp){
 					console.log("up --> onScroll 列表当前滚动的距离 y = " + y + ", 是否向上滑动 isUp = " + isUp);
 					if(y>=navWarp.offsetTop){
-						navContent.classList.add("nav-fixed");
+						navWarp.classList.add("nav-fixed");
 					}else{
-						navContent.classList.remove("nav-fixed");
+						navWarp.classList.remove("nav-fixed");
 					}
 				}
-			}
+			// }
     
       
 

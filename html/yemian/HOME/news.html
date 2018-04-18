@@ -110,6 +110,9 @@
 			
 			/*联网加载列表数据  page = {num:1, size:10}; num:当前页 从1开始, size:每页数据条数 */
 			function getListData(page){
+        if(page.num==1){
+                    that.datas=[]
+                }     
 				getListDataFromNet(page.num,function(curPageData){
 					mescroll.endSuccess(curPageData.length);
                //2.成功请求的回调 设置列表数据
