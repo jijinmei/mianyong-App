@@ -473,19 +473,20 @@ location.href='taolunquXq.html?objectId='+objectId+'&sessiontoken='+sessiontoken
               console.log('直接赋值')
             
               // setTimeout(function(){
-                        if((i==0&&(that.page1==that.count1))||(i==1&&(that.page2==that.count2))||(i==2&&(that.page3==that.count3))){
-                        //  自己的页数和后台的总页数一样,则锁上
-                        console.log('// 无更多数据')
-                        mescroll.endSuccess(0);
+                      //   if((i==0&&(that.page1==that.count1))||(i==1&&(that.page2==that.count2))||(i==2&&(that.page3==that.count3))){
+                      //   //  自己的页数和后台的总页数一样,则锁上
+                      //   console.log('// 无更多数据')
+                      //   mescroll.endSuccess(0);
                       
-                      }else{
-                      console.log('// 更多数据')
-                      mescroll.endSuccess(20);
+                      // }else{
+                      // console.log('// 更多数据')
+                      // mescroll.endSuccess(20);
                       
-                      }
+                      // }
               // },500)
-              
+              // setTimeout(function(){
                 that.datas=(i==0?that.datas1:(i==1?that.datas2:that.datas3))
+              // },500)
               // 判断页数是否已经有了
               // console.log(that.page1+'=='+that.count1,that.count2,that.count3)
               // mescroll.showUpScroll();
