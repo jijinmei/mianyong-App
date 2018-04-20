@@ -285,10 +285,10 @@
           <li @click="qiehuan($event,2)" class="lf mL20 mR20 h69 relative lh69" i="2" :style="{'color':curNavIndex==2?'#36C748':'#000000'}">時事
             <span class="spjz B02 w100s h07" :style="{'background':curNavIndex==2?'#36C748':'#ffffff'}"></span>
           </li>
-          <li>
-            <a @tap="paixus($event)" class="fz25 c666666 czjz" style="right:0.4rem;">
+          <li class="rf w150 h69 relative"  >
+            <a @click="paixus($event)" class="fz25 c666666 czjz" style="right:0.1rem;">
               排序
-              <span class="mui-icon-arrowdown mui-icon exchange" style="margin-left:0;width:0.2rem;margin-right: 0;border:none;"></span>
+              <span class="mui-icon-arrowdown mui-icon exchange fz25" style="margin-left:0;width:0.2rem;margin-right: 0;border:none;"></span>
             </a>
           </li>
         </ul>
@@ -336,7 +336,7 @@
 
                       </div>
                       <!--页脚，放置补充信息或支持的操作-->
-                      <div class="mui-card-footer fz21 c666666 before00" @tap="xiangqing(item.objectId)">
+                      <div class="mui-card-footer fz21 c666666 before00 pB00" @tap="xiangqing(item.objectId)">
                         <span>{{item.createdAt}}</span>
 
                         <span>
@@ -524,9 +524,7 @@
         },
         //排序框
         paixus(e) {
-          //传入toggle参数，用户无需关心当前是显示还是隐藏状态，mui会自动识别处理；
-          //        $('.exchange').toggleClass('mui-icon-arrowdown')
-          //          $('.exchange').toggleClass('mui-icon-arrowup')
+         
           mui('#paixu').popover('toggle');
         },
         //三种排序方式的点击按钮
@@ -551,6 +549,7 @@
           mui('#paixu').popover('toggle');
           // this.refresh()
           mescroll.resetUpScroll(); //重新搜索,重置列表数据
+          $('.mescroll').scrollTop(0)
         },
         //取消按钮
         quxiao() {
@@ -571,6 +570,7 @@
 
         },
         qiehuan(e, index) {
+          $('.mescroll').scrollTop(0)
           // 记录滚动高度
           // if (this.curNavIndex == 0) {
           //   this.scroll1 = $('.mescroll').scrollTop()
