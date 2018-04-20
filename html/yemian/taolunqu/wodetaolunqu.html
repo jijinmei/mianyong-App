@@ -146,13 +146,21 @@
 				color: #36c748;
 			}
 			/*列表*/
-			.mescroll{
+      .mescroll{
+				position: fixed;
+        top: 0;
+        padding-top:1.6rem;
+				bottom: 0;
+				height: auto !important;
+      }
+			#mescroll0.mescroll{
 				position: fixed;
         top: 0;
         padding-top:0.8rem;
 				bottom: 0;
 				height: auto !important;
       }
+     
       		/*隐藏*/
       .hide{display: none;}
       .downwarp-content{margin-bottom:0.3rem !important;}
@@ -171,7 +179,7 @@
                 <span class="spjz xia"></span>
                 
             </p>
-            <p  @click="qiehuan($event,1)" i="1" class="relative hahaha">我的讃好
+            <p  @click="qiehuan($event,1)" i="1"  class="relative hahaha">我的讃好
                  <!-- 下边框线 -->
                 <span class="spjz xia"></span>
                 <!-- 红点 -->
@@ -180,14 +188,29 @@
                 <span style="width:0;height:0.3rem;left:0;margin-top:0.05rem;" class="czjz border-l"></span>
                 <span style="width:0;height:0.3rem;right:0;margin-top:0.05rem;" class="czjz border-l"></span>
             </p>
-            <p  @click="qiehuan($event,2)" i="2"  class="relative hahaha">我的回復
+           
+            <p  @click="qiehuan($event,3)" i="3"   class="relative hahaha">我的回復
                <!-- 下边框线 -->
                 <span class="spjz xia"></span>
                  <!-- 红点 -->
             <span v-if="appcomment>0" style="height:0.18rem;width:0.18rem;bottom:-0.25rem;background: red;right:0.28rem;" class="czjz radius50"></span>
             </p>
+           
           </div>
         </div>
+
+
+        <p v-if="curNavIndex!=0"  class="center fz23 overflown fixed T80 bgebebeb h80 lh80" style="width:100%;z-index:100;margin-bottom:0;padding-top:0.05rem;">
+          <button v-if="curNavIndex==1||curNavIndex==2" @click="qiehuan($event,1)" i="1"   type="button" :class="{muiBtnGreen:tab2Idx==1,muiBtnGrey:tab2Idx==2}" class="mui-btn" style="margin-right:1.9rem;border-radius:0.3rem;padding:0.12rem 0.34rem !important;">已發出</button>
+          <button  v-if="curNavIndex==1||curNavIndex==2" @click="qiehuan($event,2)" i="2" type="button" :class="{muiBtnGreen:tab2Idx==2,muiBtnGrey:tab2Idx==1}" class="mui-btn" style="border-radius:0.3rem;padding:0.12rem 0.34rem !important;">已收到</button>
+
+          <button   v-if="curNavIndex==4||curNavIndex==3" @click="qiehuan($event,3)" i="3"    type="button" :class="{muiBtnGreen:tab3Idx==1,muiBtnGrey:tab3Idx==2}" class="mui-btn" style="margin-right:1.9rem;border-radius:0.3rem;padding:0.12rem 0.34rem !important;">已發出</button>
+          <button   v-if="curNavIndex==4||curNavIndex==3" @click="qiehuan($event,4)" i="4"  type="button" :class="{muiBtnGreen:tab3Idx==2,muiBtnGrey:tab3Idx==1}" class="mui-btn" style="border-radius:0.3rem;padding:0.12rem 0.34rem !important;">已收到</button> 
+          <!--收到的信息量-->
+          <span  v-if="appcomment>0"  class="mui-badge mui-btn-red absolute bold" style="background:red;color:white;right:0.5rem;top:-0.01rem;">{{appcomment}}</span>
+        </p>
+
+
 
 	<!--1.我的贴文-->
   <div id="mescroll0" class="mescroll">
@@ -248,86 +271,142 @@
             </ul>
 		</div>
 		
-		  <!--2.我的讃好-->
-		<div id="mescroll1" class="mescroll hide">
-          <p class="center fz23" style="padding:0.05rem 0 0.15rem 0;margin-bottom:0;">
-              <button :class="{muiBtnGreen:tab2Idx==1,muiBtnGrey:tab2Idx==2}" @tap="tap2fachu(1)" type="button" class="mui-btn" style="margin-right:1.9rem;border-radius:0.3rem;padding:0.12rem 0.34rem !important;">已發出</button>
-              <button :class="{muiBtnGreen:tab2Idx==2,muiBtnGrey:tab2Idx==1}" @tap="tap2shoudao(2)" type="button" class="mui-btn" style="border-radius:0.3rem;padding:0.12rem 0.34rem !important;">已收到</button>
-              <!--收到的信息量-->
-              <span v-if="appgood>0" class="mui-badge mui-btn-red absolute bold" style="background:red;color:white;right:0.5rem;top:-0.01rem;">{{appgood}}</span>
-            </p>
-            <ul id="dataList1" class="data-list mui-table-view before00 after00" >
-              <li @tap="xiangqing(item.objectId)" class="mui-table-view-cell taolunquli taolunquli2" v-for="(item,index) in datas2">
+      <!--2.我的讃好-->
+ 
+    <div id="mescroll1" class="mescroll hide">
+              <ul id="dataList1" class="data-list mui-table-view before00 after00" >
+              <li @tap="xiangqing(item.objectId)" class="mui-table-view-cell taolunquli taolunquli2" v-for="(item,index) in datas21">
+                
+                                <ul class="mui-table-view before00 after00">
+                                  <li class="mui-table-view-cell mui-media before00 after00">
+                                    <a href="javascript:;">
+                                      <div  class="mui-media-object mui-pull-left radius50 overflow" style="max-width:0.8rem;width:0.8rem;height:0.8rem;">
+                                        <!--个人头像-->
+                                        <!--已发出都是拿显示自己的资料-->
+                                        <img v-if="tab2Idx==1" :src="user.avatar!=undefined&&user!=undefined?user.avatar.url:'../../assets/img/taolunqu/head.png'"  style="width:100%;">
+                                        <!--已收到都是拿循环的数据-->
+                                        <img  v-if="tab2Idx==2"  :src="item.user.avatar!=undefined&&item.user!=undefined?item.user.avatar.url:'../../assets/img/taolunqu/head.png'"  style="width:100%;">
+                                        
+                                      </div>
+                                      <div class="mui-media-body fz23 c282828">
+                                        <!--已发出都是拿显示自己的资料-->
+                                         {{tab2Idx==1?isnan(user.nickname):isnan(item.user.nickname)}}
+                                        <p class="fz18 c666666">{{item.goodAt}}</p>
+                                        <p><img src="../../assets/img/taolunqu/dilanzanlv.png" alt="" style="width:0.35rem;" /></p>
+                                        <p class="relative fz25 c777777 whiteSpace bgeeeeee radius" style="margin-top:0.1rem;padding:0.2rem;">
+                                          <img class="absolute" src="../../assets/img/taolunqu/san.png" alt="" style="top:-0.1rem;left:0.3rem;width:0.3rem;" /> 
+                                          回復{{returns(item.user.nickname)}}的主題：{{item.title}}
+                                        </p>
+                                      </div>
+                                    </a>
+                                  </li>
+              
+                          </ul>
+                        </li>
 
-                <ul class="mui-table-view before00 after00">
-                  <li class="mui-table-view-cell mui-media before00 after00">
-                    <a href="javascript:;">
-                      <div  class="mui-media-object mui-pull-left radius50 overflow" style="max-width:0.8rem;width:0.8rem;height:0.8rem;">
-                        <!--个人头像-->
-                        <!--已发出都是拿显示自己的资料-->
-                        <img v-if="tab2Idx==1" :src="user.avatar!=undefined&&user!=undefined?user.avatar.url:'../../assets/img/taolunqu/head.png'"  style="width:100%;">
-                        <!--已收到都是拿循环的数据-->
-                        <img  v-if="tab2Idx==2"  :src="item.user.avatar!=undefined&&item.user!=undefined?item.user.avatar.url:'../../assets/img/taolunqu/head.png'"  style="width:100%;">
-                        
-                      </div>
-                      <div class="mui-media-body fz23 c282828">
-                        <!--已发出都是拿显示自己的资料-->
-                         {{tab2Idx==1?isnan(user.nickname):isnan(item.user.nickname)}}
-                        <p class="fz18 c666666">{{item.goodAt}}</p>
-                        <p><img src="../../assets/img/taolunqu/dilanzanlv.png" alt="" style="width:0.35rem;" /></p>
-                        <p class="relative fz25 c777777 whiteSpace bgeeeeee radius" style="margin-top:0.1rem;padding:0.2rem;">
-                          <img class="absolute" src="../../assets/img/taolunqu/san.png" alt="" style="top:-0.1rem;left:0.3rem;width:0.3rem;" /> 
-                          回復{{returns(item.user.nickname)}}的主題：{{item.title}}
-                        </p>
-                      </div>
-                    </a>
-                  </li>
+        </ul>
+</div>
 
-                </ul>
-              </li>
-
-            </ul>
-		</div>
-		
-	<!--3.我的回復-->
-		<div id="mescroll2" class="mescroll hide">
-        <p class="center fz23 overflown" style="padding:0.05rem 0 0.15rem 0;margin-bottom:0;">
-            <button @tap="tap3fachu(1)" type="button" :class="{muiBtnGreen:tab3Idx==1,muiBtnGrey:tab3Idx==2}" class="mui-btn" style="margin-right:1.9rem;border-radius:0.3rem;padding:0.12rem 0.34rem !important;">已發出</button>
-            <button @tap="tap3shoudao(2)" type="button" :class="{muiBtnGreen:tab3Idx==2,muiBtnGrey:tab3Idx==1}" class="mui-btn" style="border-radius:0.3rem;padding:0.12rem 0.34rem !important;">已收到</button>
-            <!--收到的信息量-->
-            <span  v-if="appcomment>0"  class="mui-badge mui-btn-red absolute bold" style="background:red;color:white;right:0.5rem;top:-0.01rem;">{{appcomment}}</span>
-          </p>
-			<ul id="dataList2" class="data-list mui-table-view before00 after00">
-          <li @tap="xiangqing(item.objectId)" class="mui-table-view-cell taolunquli taolunquli3" v-for="(item,index) in datas3" v-if="item.isDelete!=1">
-              <ul class="mui-table-view before00 after00">
-                <li class="mui-table-view-cell mui-media before00 after00" >
-                  <a href="javascript:;">
-                    <div class="mui-media-object mui-pull-left radius50 overflow" style="max-width:0.8rem;width:0.8rem;height:0.8rem;">
-                      <!--个人头像-->
-                      <!--已发出都是拿显示自己的资料-->
-                      <img v-if="tab3Idx==1" :src="user.avatar!=undefined&&user!=undefined?user.avatar.url:'../../assets/img/taolunqu/head.png'"  style="width:100%;">
-                      <!--已收到都是拿循环的数据-->
-                      <img  v-if="tab3Idx==2"  :src="item.user.avatar!=undefined&&item.user!=undefined?item.user.avatar.url:'../../assets/img/taolunqu/head.png'"  style="width:100%;">
-                      </div>
-                    <div class="mui-media-body fz23 c282828">
-                      <!--已发出都是拿显示自己的资料-->
-                        {{tab3Idx==1?isnan(user.nickname):isnan(item.user.nickname)}}
-                      <p class="fz18 c666666">{{item.createdAt}}</p>
-                      <div class="fz25 c333333" style="white-space: normal;">
-                        {{item.comment}}                                                                                                </div>
-                      <p class="relative fz25 c777777 whiteSpace bgeeeeee radius" style="margin-top:0.2rem;padding:0.2rem;">
-                        <img class="absolute" src="../../assets/img/taolunqu/san.png" alt="" style="top:-0.1rem;left:0.3rem;width:0.3rem;" /> 
-                        回復{{returns2(item.post.user.nickname)}}主題：{{item.post.title}}                       
-                      </p>
-                    </div>
-                  </a>
+<div id="mescroll2" class="mescroll hide">
+    <ul id="dataList2" class="data-list mui-table-view before00 after00" >
+      <li @tap="xiangqing(item.objectId)" class="mui-table-view-cell taolunquli taolunquli2" v-for="(item,index) in datas22">
+        
+                        <ul class="mui-table-view before00 after00">
+                          <li class="mui-table-view-cell mui-media before00 after00">
+                            <a href="javascript:;">
+                              <div  class="mui-media-object mui-pull-left radius50 overflow" style="max-width:0.8rem;width:0.8rem;height:0.8rem;">
+                                <!--个人头像-->
+                                <!--已发出都是拿显示自己的资料-->
+                                <img v-if="tab2Idx==1" :src="user.avatar!=undefined&&user!=undefined?user.avatar.url:'../../assets/img/taolunqu/head.png'"  style="width:100%;">
+                                <!--已收到都是拿循环的数据-->
+                                <img  v-if="tab2Idx==2"  :src="item.user.avatar!=undefined&&item.user!=undefined?item.user.avatar.url:'../../assets/img/taolunqu/head.png'"  style="width:100%;">
+                                
+                              </div>
+                              <div class="mui-media-body fz23 c282828">
+                                <!--已发出都是拿显示自己的资料-->
+                                 {{tab2Idx==1?isnan(user.nickname):isnan(item.user.nickname)}}
+                                <p class="fz18 c666666">{{item.goodAt}}</p>
+                                <p><img src="../../assets/img/taolunqu/dilanzanlv.png" alt="" style="width:0.35rem;" /></p>
+                                <p class="relative fz25 c777777 whiteSpace bgeeeeee radius" style="margin-top:0.1rem;padding:0.2rem;">
+                                  <img class="absolute" src="../../assets/img/taolunqu/san.png" alt="" style="top:-0.1rem;left:0.3rem;width:0.3rem;" /> 
+                                  回復{{returns(item.user.nickname)}}的主題：{{item.title}}
+                                </p>
+                              </div>
+                            </a>
+                          </li>
+      
+                  </ul>
                 </li>
+    </ul>
+</div>
 
-              </ul>
+		
+		
+  <!--3.我的回復-->
+
+		<div id="mescroll3" class="mescroll hide">
+			<ul id="dataList3" class="data-list mui-table-view before00 after00">
+        <li @tap="xiangqing(item.objectId)" class="mui-table-view-cell taolunquli taolunquli3" v-for="(item,index) in datas31" v-if="item.isDelete!=1">
+          <ul class="mui-table-view before00 after00">
+            <li class="mui-table-view-cell mui-media before00 after00" >
+              <a href="javascript:;">
+                <div class="mui-media-object mui-pull-left radius50 overflow" style="max-width:0.8rem;width:0.8rem;height:0.8rem;">
+                  <!--个人头像-->
+                  <!--已发出都是拿显示自己的资料-->
+                  <img v-if="tab3Idx==1" :src="user.avatar!=undefined&&user!=undefined?user.avatar.url:'../../assets/img/taolunqu/head.png'"  style="width:100%;">
+                  <!--已收到都是拿循环的数据-->
+                  <img  v-if="tab3Idx==2"  :src="item.user.avatar!=undefined&&item.user!=undefined?item.user.avatar.url:'../../assets/img/taolunqu/head.png'"  style="width:100%;">
+                  </div>
+                <div class="mui-media-body fz23 c282828">
+                  <!--已发出都是拿显示自己的资料-->
+                    {{tab3Idx==1?isnan(user.nickname):isnan(item.user.nickname)}}
+                  <p class="fz18 c666666">{{item.createdAt}}</p>
+                  <div class="fz25 c333333" style="white-space: normal;">
+                    {{item.comment}}                                                                                                </div>
+                  <p class="relative fz25 c777777 whiteSpace bgeeeeee radius" style="margin-top:0.2rem;padding:0.2rem;">
+                    <img class="absolute" src="../../assets/img/taolunqu/san.png" alt="" style="top:-0.1rem;left:0.3rem;width:0.3rem;" /> 
+                    回復{{returns2(item.post.user.nickname)}}主題：{{item.post.title}}                       
+                  </p>
+                </div>
+              </a>
             </li>
 
           </ul>
-		</div>
+        </li>
+          </ul>
+    </div>
+    <div id="mescroll4" class="mescroll hide">
+    <ul id="dataList4" class="data-list mui-table-view before00 after00">
+      <li @tap="xiangqing(item.objectId)" class="mui-table-view-cell taolunquli taolunquli3" v-for="(item,index) in datas32" v-if="item.isDelete!=1">
+        <ul class="mui-table-view before00 after00">
+          <li class="mui-table-view-cell mui-media before00 after00" >
+            <a href="javascript:;">
+              <div class="mui-media-object mui-pull-left radius50 overflow" style="max-width:0.8rem;width:0.8rem;height:0.8rem;">
+                <!--个人头像-->
+                <!--已发出都是拿显示自己的资料-->
+                <img v-if="tab3Idx==1" :src="user.avatar!=undefined&&user!=undefined?user.avatar.url:'../../assets/img/taolunqu/head.png'"  style="width:100%;">
+                <!--已收到都是拿循环的数据-->
+                <img  v-if="tab3Idx==2"  :src="item.user.avatar!=undefined&&item.user!=undefined?item.user.avatar.url:'../../assets/img/taolunqu/head.png'"  style="width:100%;">
+                </div>
+              <div class="mui-media-body fz23 c282828">
+                <!--已发出都是拿显示自己的资料-->
+                  {{tab3Idx==1?isnan(user.nickname):isnan(item.user.nickname)}}
+                <p class="fz18 c666666">{{item.createdAt}}</p>
+                <div class="fz25 c333333" style="white-space: normal;">
+                  {{item.comment}}                                                                                                </div>
+                <p class="relative fz25 c777777 whiteSpace bgeeeeee radius" style="margin-top:0.2rem;padding:0.2rem;">
+                  <img class="absolute" src="../../assets/img/taolunqu/san.png" alt="" style="top:-0.1rem;left:0.3rem;width:0.3rem;" /> 
+                  回復{{returns2(item.post.user.nickname)}}主題：{{item.post.title}}                       
+                </p>
+              </div>
+            </a>
+          </li>
+
+        </ul>
+      </li>
+
+        </ul>
+  </div>
 
 
 
@@ -411,13 +490,15 @@
         user:user,//个人资料
         datasIdx: 1,
         zhezhaoceng: false, //个人头像弹出框
+        tab2s:false,
+        tab3s:false,
         datas1: [], //我的贴文
         datas2: [], //我的攒好
-            datas21: 'no', //我的攒好已发出
-            datas22: 'no', //我的攒好已收到
+            datas21: [], //我的攒好已发出
+            datas22: [], //我的攒好已收到
         datas3: [], //我的回复
-            datas31: 'no', //我的回复已发出
-            datas32: 'no', //我的回复已收到
+            datas31: [], //我的回复已发出
+            datas32: [], //我的回复已收到
         tab2page1: 0,//2.当前我的攒好的已发出
         tab2page2: 0,//2.当前我的攒好的已收出
         tab3page1: 0,//3.当前我的回复的已发出
@@ -474,6 +555,15 @@
       //点击标签切换
       qiehuan(e,index) {
         var that=this;
+        if(index==1){
+          this.tab2Idx=1
+        }else  if(index==2){
+          this.tab2Idx=2
+        }else  if(index==3){
+          this.tab3Idx=1
+        }else  if(index==4){
+          this.tab3Idx=2
+        }
         var i=index;
         console.log(33333333333)
 				if(that.curNavIndex!=i) {
@@ -490,16 +580,6 @@
 					if(mescrollArr[i]==null){
             console.log('初始化')
 						mescrollArr[i]=initMescroll("mescroll"+i, "dataList"+i);
-					}else{
-            console.log('不需要初始化')
-						//检查是否需要显示回到到顶按钮
-						var curMescroll=mescrollArr[i];
-						var curScrollTop=curMescroll.getScrollTop();
-						if(curScrollTop>=curMescroll.optUp.toTop.offset){
-							curMescroll.showTopBtn();
-						}else{
-							curMescroll.hideTopBtn();
-						}
 					}
 					//更新标记
 					that.curNavIndex=i;
@@ -530,18 +610,11 @@
       //2我的攒好已发出
       tap2fachu(index) {
         this.tab2Idx = index;
-        // 已经有旧数据的
+        // 已经有旧数据的 肯定已经初始化了
         if(this.datas21!='no'){
           this.datas2=this.datas21;
-        }else{
-          // 没有赋值过则要初始化拿数据
-          this.datas21=[];
-          this.datas2=[];
-          mescrollArr[1]=initMescroll("mescroll1", "dataList1");
         }
        
-        // this.page2=0
-            // this.refresh()
           
       },
       //3我的攒好已收到
@@ -577,15 +650,16 @@
       //3我的回复已发出
       tap3fachu(index) {
         this.tab3Idx = index
-        // 已经有旧数据的
+        // 已经有旧数据的  肯定已经初始化了
         if(this.datas31!='no'){
         this.datas3=this.datas31;
-      }else{
-        // 没有赋值过则要初始化拿数据
-        this.datas31=[];
-        this.datas3=[];
-        mescrollArr[2]=initMescroll("mescroll2", "dataList2");
       }
+      // else{
+      //   // 没有赋值过则要初始化拿数据
+      //   this.datas31=[];
+      //   this.datas3=[];
+      //   mescrollArr[2]=initMescroll("mescroll2", "dataList2");
+      // }
         
       },
       //3我的回复已收到
@@ -615,250 +689,8 @@
               },1000)
             }
                 this.appcomment=0
-      },
-      refresh() {
-        var that = this;
-        (function($) {
-          //阻尼系数
-          // var deceleration = mui.os.ios ? 0.003 : 0.0009;
-          $('.mui-scroll-wrapper').scroll({
-            bounce: false,
-            indicators: true, //是否显示滚动条
-            deceleration: 0.0015//0.0009//deceleration
-          });
-          $.ready(function() {
-            //循环初始化所有下拉刷新，上拉加载。
-            $.each(document.querySelectorAll('.wai .mui-scroll'), function(index, pullRefreshEl) {
-              $(pullRefreshEl).pullToRefresh({
-                //刷新              
-                down: {
-                  auto: true, //可选,默认false.首次加载自动下拉刷新一次
-                  callback: function() {
-                    var self = this;
-                    var url = ''
-                    if(that.datasIdx == 1) { //1.我的帖文
-                      url = 'user/post' //get
-                      // that.page1 = 1
-                    } else if(that.datasIdx == 2) { //2.我的攒好
-                      if(that.tab2Idx == 1) { //a.已发出：查看用户赞赏的帖文列表
-                        url = 'user/good/posts'
-                      } else if(that.tab2Idx == 2) { //b.已收到：查看用户被赞赏的帖文列表
-                        url = 'user/posts/good'
-                      }
-                      // that.page2 = 1
-                    } else if(that.datasIdx == 3) { //3.我的回复
-                      if(that.tab3Idx == 1) { //a.已发出：查看用戶發出的帖文回復
-                        url = 'user/comment'
-                      } else if(that.tab3Idx == 2) { //b.已收到：查看用戶帖文回復收信箱
-                        url = 'user/inbox/comment'
-                      }
-                      // that.page3 = 1
-                    }
-                    mui.ajax(Boss + url, {
-                      data: {
-                        page: 1,
-                        limit: limit20,
-                        sessiontoken: sessiontoken
-                      },
-                      dataType: 'json', //服务器返回json格式数据
-                      type: 'GET', //HTTP请求类型
-                      timeout: 10000, //超时时间设置为10秒；
-                      //  headers:{'Content-Type':'application/json'},                
-                      success: function(data) {
-                        //服务器返回响应，根据响应结果，分析是否登录成功；
-                        if(data.status == true) {
-                          that.slideimg = data.result.slider
-                          //获得slider插件对象
-                          setTimeout(function() {
-                            var gallery = mui('.xiangqingSlider');
-                            gallery.slider({
-                              interval: 3000 //自动轮播周期，若为0则不自动播放，默认为0；
-                            });
-                          }, 100)
-                          if(that.datasIdx == 1) {
-                            that.count1 = data.result.count
-                            that.page1=1
-                            that.datas1 = data.result.data
-                          } else if(that.datasIdx == 2) {
-                            that.page2=1
-                            that.count2 = data.result.count
-                            that.datas2 = data.result.data
-                          } else if(that.datasIdx == 3) {
-                            that.page3=1
-                            that.count3 = data.result.count
-                            that.datas3 = data.result.data
-                          }
-                          self.endPullDownToRefresh();
-                        }else{
-                          if(that.datasIdx == 1) {
-                            that.count1 =0
-                            that.page1=0
-                            that.datas1 =[]
-                          } else if(that.datasIdx == 2) {
-                            that.page2=0
-                            that.count2 =0
-                            that.datas2 =[]
-                          } else if(that.datasIdx == 3) {
-                            that.page3=0
-                            that.count3 = 0
-                            that.datas3 =[]
-                          }
-                          mui.toast(data.result.message)
-                          self.endPullDownToRefresh();
-                        }
-                        
-
-                      },
-                      error: function(xhr, type, errorThrown) {
-                        //异常处理；
-                        if(that.datasIdx == 1) {
-                            that.count1 =0
-                            that.page1=0
-                            that.datas1 =[]
-                          } else if(that.datasIdx == 2) {
-                            that.page2=0
-                            that.count2 =0
-                            that.datas2 =[]
-                          } else if(that.datasIdx == 3) {
-                            that.page3=0
-                            that.count3 = 0
-                            that.datas3 =[]
-                          }
-                        self.endPullDownToRefresh();
-                        mui.toast(type, {
-                          duration: 'long',
-                          type: 'div'
-                        })
-                      }
-                    });
-
-                  }
-                },
-                //滚动加载
-                up: {
-                  auto: true, //可选,默认false.首次加载自动下拉刷新一次
-                  callback: function(item) {
-                    var self = this;
-                    var page = ''
-                    var url = ''                  
-                    if(that.datasIdx == 1) { //1.我的帖文
-                      url = 'user/post' //get
-                      that.page1++
-                      page = that.page1
-                    } else if(that.datasIdx == 2) { //2.我的攒好
-                      if(that.tab2Idx == 1) { //a.已发出：查看用户赞赏的帖文列表
-                        url = 'user/good/posts'
-                      } else if(that.tab2Idx == 2) { //b.已收到：查看用户被赞赏的帖文列表
-                        url = 'user/posts/good'
-                      }
-                      that.page2++
-                        page = that.page2
-                    } else if(that.datasIdx == 3) { //3.我的回复
-                      if(that.tab3Idx == 1) { //a.已发出：查看用戶發出的帖文回復
-                        url = 'user/comment'
-                      } else if(that.tab3Idx == 2) { //b.已收到：查看用戶帖文回復收信箱
-                        url = 'user/inbox/comment'
-                      }
-                      that.page3++
-                        page = that.page3
-                    }
-                    mui.ajax(Boss + url, {
-                      data: {
-                        page: page,
-                        limit: limit20,
-                        sessiontoken: sessiontoken
-                      },
-                      dataType: 'json', //服务器返回json格式数据
-                      type: 'GET', //HTTP请求类型
-                      timeout: 10000, //超时时间设置为10秒；
-                      //  headers:{'Content-Type':'application/json'},                
-                      success: function(data) {
-                        //服务器返回响应，根据响应结果，分析是否登录成功；
-                        if(data.status == true) {
-                          that.slideimg = data.result.slider
-                          //获得slider插件对象
-                          setTimeout(function() {
-                            var gallery = mui('.xiangqingSlider');
-                            gallery.slider({
-                              interval: 3000 //自动轮播周期，若为0则不自动播放，默认为0；
-                            });
-                          }, 100)
-
-                          if(that.datasIdx == 1) {
-                            that.count1 = data.result.count
-                          
-                            //如果是切换标签的加载事件也就是现在请求的是第一页，所以则要让页数变为1，下次加载的时候就变成++
-                            if(that.page1 == 1) {
-                              that.datas1 = data.result.data
-                            } else {
-                              for(var i = 0; i < data.result.data.length; i++) {
-                                that.datas1.push(data.result.data[i])
-                              }
-                            }
-                          } else if(that.datasIdx == 2) {
-                            that.count2 = data.result.pages
-                            if(that.page2 == 1) {
-                              that.datas2 = data.result.data
-                            } else {
-                              for(var i = 0; i < data.result.data.length; i++) {
-                                that.datas2.push(data.result.data[i])
-                              }
-                            }
-                          } else if(that.datasIdx == 3) {
-                            that.count3 = data.result.count
-                            if(that.page3 == 1) {
-                              that.datas3 = data.result.data
-                            } else {
-                              for(var i = 0; i < data.result.data.length; i++) {
-                                that.datas3.push(data.result.data[i])
-                              }
-                            }
-                          }
-                                if(data.result.data){
-                                self.endPullUpToRefresh(true); //没有更多数据
-                              }else{
-                                self.endPullUpToRefresh(); //加载更多数据
-                              }
-                        }else{
-                          //异常处理；让当前页数变回减1
-                            if(that.datasIdx == 1) {
-                              that.page1--
-                            } else if(that.datasIdx == 2) {
-                              that.page2--
-                            } else if(that.datasIdx == 3) {
-                              that.page3--
-                            }
-                            mui.toast(data.result.message)
-                              self.endPullUpToRefresh();
-                            }
-                       
-
-                      },
-                      error: function(xhr, type, errorThrown) {
-                        //异常处理；让当前页数变回减1
-                        if(that.datasIdx == 1) {
-                          that.page1--
-                        } else if(that.datasIdx == 2) {
-                          that.page2--
-                        } else if(that.datasIdx == 3) {
-                          that.page3--
-                        }
-                        mui.toast(type, {
-                          duration: 'long',
-                          type: 'div'
-                        })
-                        self.endPullUpToRefresh();
-                      }
-                    });
-
-                  }
-                }
-              });
-            });
-
-          });
-        })(mui);
       }
+     
 
     },
     mounted() {  
@@ -884,7 +716,7 @@
 <script>
     
           var that=vm;
-        mescrollArr=new Array(3);//4个菜单所对应的4个mescroll对象
+        mescrollArr=new Array(5);//4个菜单所对应的4个mescroll对象
 			//初始化首页
 			mescrollArr[0]=initMescroll("mescroll0", "dataList0");		
 			/*创建MeScroll对象*/
@@ -909,46 +741,28 @@
 			
 			/*联网加载列表数据  page = {num:1, size:10}; num:当前页 从1开始, size:每页数据条数 */
 			function getListData(page){
-                // 1.如果插件本身这个时候页数是1说明刷新了当前页面,则赋值给对应标签的页数为0
-        // alert(page.num)
-        
         if(page.num==1){
           if(that.curNavIndex==0){
             that.datas1=[]
-          }else  if(that.curNavIndex==1){
-                  if(that.tab2Idx==1){
-                      that.datas21=[]
-                      that.datas2=[]
-                      that.tab2page1=0   
-                  }else if(that.tab2Idx==2){
-                      that.datas22=[]
-                      that.datas2=[]
-                      that.tab2page2=0   
-                  }
-          }else  if(that.curNavIndex==2){
-                  if(that.tab3Idx==1){
-                      that.datas31=[]
-                      that.datas3=[]
-                      that.tab3page1=0   
-                  }else if(that.tab3Idx==2){
-                      that.datas32=[]
-                      that.datas3=[]
-                      that.tab3page1=0   
-                  }
+          }else if(that.curNavIndex==1){
+            that.datas21=[]
+          }else if(that.curNavIndex==2){
+            that.datas22=[]
+          }else if(that.curNavIndex==3){
+            that.datas31=[]
+          }else if(that.curNavIndex==4){
+            that.datas32=[]
           }
-        }
-
-       
-        // 当前的标签页数
-         var pages=(that.curNavIndex==0?(page.num)-1:(that.curNavIndex==1&&that.tab2Idx==1?that.tab2page1:(that.curNavIndex==1&&that.tab2Idx==2?that.tab2page2:(that.curNavIndex==2&&that.tab3Idx==1?that.tab3page1:that.tab3page2))))
-
+                    
+       }  
+                // 1.如果插件本身这个时候页数是1说明刷新了当前页面,则赋值给对应标签的页数为0
 				//联网加载数据
 				var dataIndex=that.curNavIndex; //记录当前联网的nav下标,防止快速切换时,联网回来curNavIndex已经改变的情况;
-				getListDataFromNet(dataIndex,pages, function(pageData){
+				getListDataFromNet(dataIndex,page.num, function(pageData){
       // if(page.num==1){
         				mescrollArr[dataIndex].endSuccess(pageData.length);
 					//设置列表数据
-					setListData(pageData,pages,dataIndex,that.tab2Idx,that.tab3Idx);
+					setListData(pageData,page.num,dataIndex);
       // }
 
 				}, function(){
@@ -961,35 +775,20 @@
 			/*设置列表数据
 			 * pageData 当前页的数据
 			 * dataIndex 数据属于哪个nav */
-			function setListData(curPageData,pages,curNavIndex,tab2Idx,tab3Idx){
-                if(curNavIndex==0){
-                  //  that.page1++
-                 }else if(curNavIndex==1&&tab2Idx==1){
-                   that.tab2page1++
-                 }else if(curNavIndex==1&&tab2Idx==2){
-                   that.tab2page2++
-                 }else if(curNavIndex==2&&tab3Idx==1){
-                  that.tab3page1++
-                }else if(curNavIndex==2&&tab3Idx==2){
-                  that.tab3page2++
-                }
+			function setListData(curPageData,pages,curNavIndex){
 
 
         for (var i = 0; i <curPageData.length; i++) {
                 if(curNavIndex==0){
                   that.datas1.push(curPageData[i])         
-                }else if(curNavIndex==1&&tab2Idx==1){
+                }else if(curNavIndex==1){
                   that.datas21.push(curPageData[i])
-                  that.datas2.push(curPageData[i])
-                }else if(curNavIndex==1&&tab2Idx==2){
+                }else if(curNavIndex==2){
                   that.datas22.push(curPageData[i])
-                  that.datas2.push(curPageData[i])
-                }else if(curNavIndex==2&&tab3Idx==1){
+                }else if(curNavIndex==3){
                   that.datas31.push(curPageData[i])
-                  that.datas3.push(curPageData[i])
-                }else if(curNavIndex==2&&tab3Idx==2){
+                }else if(curNavIndex==4){
                   that.datas32.push(curPageData[i])
-                  that.datas3.push(curPageData[i])
                 }
                
             }
@@ -1003,30 +802,28 @@
 			 实际项目以您服务器接口返回的数据为准,无需本地处理分页.
 			 * */
 			function getListDataFromNet(curNavIndex,pages,successCallback,errorCallback) {
-                     pages++
                     var url = ''
                     var category
                     if(curNavIndex== 0) { //1.我的帖文
                               url = 'user/post' //get
                     } else if(curNavIndex== 1) { //2.我的攒好
-                            if(that.tab2Idx == 1) { //a.已发出：查看用户赞赏的帖文列表
-                              // url = 'user/good/posts'
-                              url='agent'
-                              category='sell'
-                            } else if(that.tab2Idx == 2) { //b.已收到：查看用户被赞赏的帖文列表
-                              // url = 'user/posts/good'
-                              url='agent'
-                              category='rent'
-                            }
+                               url = 'user/good/posts'
+                              //url='agent'
+                              //category='sell'
+                           
                     } else if(curNavIndex== 2) { //3.我的回复
-                              if(that.tab3Idx == 1) { //a.已发出：查看用戶發出的帖文回復
-                                url = 'user/comment'
-                              } else if(that.tab3Idx == 2) { //b.已收到：查看用戶帖文回復收信箱
-                                url = 'user/inbox/comment'
-                              }
+                       url = 'user/posts/good'
+                             // url='agent'
+                             // category='rent'
+                    }else if(curNavIndex== 3) { //3.我的回复
+                       url = 'user/comment'
+                      //url='agent'
+                      //category='sell'
+                    }else if(curNavIndex== 4) { //3.我的回复
+                       url = 'user/inbox/comment'
+                     // url='agent'
+                     // category='rent'
                     }
-                  // var tag=(curNavIndex==0?'':(curNavIndex==1?'求盤':'時事'))
-                  // var sort=(curNavIndex==0?that.paixu1:(curNavIndex==1?that.paixu2:that.paixu3))
 
                 	$.ajax({
 		                type: 'GET',
@@ -1040,7 +837,7 @@
                     // },
                       url:Boss + url,
                     data: {
-                      category:category,
+                        // category:category,
                         page:pages,
                         limit: limit20,
                         sessiontoken: sessiontoken
