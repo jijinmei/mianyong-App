@@ -133,17 +133,16 @@
       }
       .header .nav .xia{
         width:0.5rem;
-        border-bottom:0.05rem solid white;
+        
         bottom:0rem;
       }
-      .header .nav .active .xia{
-        width:0.5rem;
-        border-bottom:0.05rem solid #36C748;
-        bottom:0rem;
-      }
+      .header .nav .xiabai{border-bottom:0.05rem solid white;}
+      .header .nav .xialv{border-bottom:0.05rem solid #36c748;}
+
+
 			.header .nav .active{
 				/* border-bottom: 1px solid #FF6990; */
-				color: #36c748;
+				/* color: #36c748; */
 			}
 			/*列表*/
       .mescroll{
@@ -174,14 +173,14 @@
   		<!--标题-->
       <div class="header ">
           <div class="nav">
-            <p @click="qiehuan($event,0)" class="active relative hahaha" i="0">我的貼文
+            <p @click="qiehuan($event,0)" class="active relative hahaha" i="0" :class="{c36c748:curNavIndex==0}">我的貼文
                <!-- 下边框线 -->
-                <span class="spjz xia"></span>
+                <span class="spjz xia" :class="{xialv:curNavIndex==0,xiabai:curNavIndex!=0}"></span>
                 
             </p>
-            <p  @click="qiehuan($event,1)" i="1"  class="relative hahaha">我的讃好
+            <p  @click="qiehuan($event,1)" i="1"  class="relative hahaha" :class="{c36c748:curNavIndex==1||curNavIndex==2}">我的讃好
                  <!-- 下边框线 -->
-                <span class="spjz xia"></span>
+                <span class="spjz xia" :class="{xialv:curNavIndex==1||curNavIndex==2,xiabai:curNavIndex!=1&&curNavIndex!=2}"></span>
                 <!-- 红点 -->
                 <span v-if="appgood>0" style="height:0.18rem;width:0.18rem;bottom:-0.25rem;background: red;right:0.28rem;" class="czjz radius50"></span>
                 <!-- 左右的边框线 -->
@@ -189,9 +188,9 @@
                 <span style="width:0;height:0.3rem;right:0;margin-top:0.05rem;" class="czjz border-l"></span>
             </p>
            
-            <p  @click="qiehuan($event,3)" i="3"   class="relative hahaha">我的回復
+            <p  @click="qiehuan($event,3)" i="3"   class="relative hahaha" :class="{c36c748:curNavIndex==3||curNavIndex==4}">我的回復
                <!-- 下边框线 -->
-                <span class="spjz xia"></span>
+                <span class="spjz xia" :class="{xialv:curNavIndex==3||curNavIndex==4,xiabai:curNavIndex!=3||curNavIndex!=4}"></span>
                  <!-- 红点 -->
             <span v-if="appcomment>0" style="height:0.18rem;width:0.18rem;bottom:-0.25rem;background: red;right:0.28rem;" class="czjz radius50"></span>
             </p>
@@ -559,10 +558,12 @@
           this.tab2Idx=1
         }else  if(index==2){
           this.tab2Idx=2
+          this.newshoudao2()
         }else  if(index==3){
           this.tab3Idx=1
         }else  if(index==4){
           this.tab3Idx=2
+          this.newshoudao3()
         }
         var i=index;
         console.log(33333333333)
@@ -607,31 +608,9 @@
 //          }
 //        })
       },
-      //2我的攒好已发出
-      tap2fachu(index) {
-        this.tab2Idx = index;
-        // 已经有旧数据的 肯定已经初始化了
-        if(this.datas21!='no'){
-          this.datas2=this.datas21;
-        }
-       
-          
-      },
+    
       //3我的攒好已收到
-      tap2shoudao(index) {
-        this.tab2Idx = index
-       // 已经有旧数据的
-       if(this.datas22!='no'){
-        this.datas2=this.datas22;
-      }else{
-        // 没有赋值过则要初始化拿数据
-        this.datas22=[];
-        this.datas2=[];
-        mescrollArr[1]=initMescroll("mescroll1", "dataList1");
-      }
-
-
-
+      newshoudao2() {
             // 清空app的数据
             if(window.WebViewJavascriptBridge){
                WebViewJavascriptBridge.callHandler('ClearData', {
@@ -647,35 +626,8 @@
            
             this.appgood=0
       },
-      //3我的回复已发出
-      tap3fachu(index) {
-        this.tab3Idx = index
-        // 已经有旧数据的  肯定已经初始化了
-        if(this.datas31!='no'){
-        this.datas3=this.datas31;
-      }
-      // else{
-      //   // 没有赋值过则要初始化拿数据
-      //   this.datas31=[];
-      //   this.datas3=[];
-      //   mescrollArr[2]=initMescroll("mescroll2", "dataList2");
-      // }
-        
-      },
       //3我的回复已收到
-      tap3shoudao(index) {
-        this.tab3Idx = index
-         // 已经有旧数据的
-         if(this.datas32!='no'){
-        this.datas3=this.datas32;
-      }else{
-        // 没有赋值过则要初始化拿数据
-        this.datas32=[];
-        this.datas3=[];
-        mescrollArr[2]=initMescroll("mescroll2", "dataList2");
-      }
-
-       
+      newshoudao3() {
             // 清空app的数据
             if(window.WebViewJavascriptBridge){
                WebViewJavascriptBridge.callHandler('ClearData', {
