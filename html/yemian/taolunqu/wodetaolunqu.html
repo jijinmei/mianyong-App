@@ -112,7 +112,7 @@
 
 /*菜单*/
     .header{
-				z-index: 9990;
+				z-index: 10;
 				position: relative;
 				top: 0;
 				left: 0;
@@ -140,10 +140,7 @@
       .header .nav .xialv{border-bottom:0.05rem solid #36c748;}
 
 
-			.header .nav .active{
-				/* border-bottom: 1px solid #FF6990; */
-				/* color: #36c748; */
-			}
+	
 			/*列表*/
       .mescroll{
 				position: fixed;
@@ -240,14 +237,14 @@
                           <!--列表大图-->
                           <div class="mui-card-content">
                             <ul class="overflow pics">
-                              <li class="mui-pull-left overflow" v-for="(pic,idx) in item.pics" :class="{onepic:item.pics.length==1,twopic:item.pics.length==2,morepic:item.pics.length>2}">
-                                <img :src="item.pics.length==1?pic.url+imageView1:(item.pics.length==2?pic.url+imageView2:pic.url+imageView3)" alt="" :data-preview-src="pic.url" :data-preview-group="'1'+index" />
+                              <li class="mui-pull-left overflow relative" v-for="(pic,idx) in item.pics" :class="{onepic:item.pics.length==1,twopic:item.pics.length==2,morepic:item.pics.length>2}">
+                                <img :src="item.pics.length==1?pic.url+imageView1:(item.pics.length==2?pic.url+imageView2:pic.url+imageView3)" alt="" :data-preview-src="pic.url" :data-preview-group="'1'+index" style="min-width:100%;min-height:100%;" class="jz" />
                               </li>
                             </ul>
 
                           </div>
                           <!--页脚，放置补充信息或支持的操作-->
-                          <div class="mui-card-footer fz21 c666666" @tap="xiangqing(item.objectId)">
+                          <div class="mui-card-footer fz21 c666666 before00" @tap="xiangqing(item.objectId)">
                             <span>{{item.createdAt}}</span>
 
                             <span>
