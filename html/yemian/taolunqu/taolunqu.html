@@ -229,7 +229,9 @@
     .downwarp-content {
       padding-bottom: 2rem !important;
     }
-
+.twoul:after{
+  left:0 !important;
+}
     /*.mui-card-footer:after,.mui-card-footer:before{opacity:0;color:red !important;}*/
   </style>
 
@@ -296,7 +298,7 @@
       <div class="relative h71 bai fz25" id="upscrollWarp">
         <ul class="mui-table-view data-list after00" id="dataList">
 
-          <li v-if="datas!='no'" class="mui-table-view-cell taolunquli" v-for="(item,index) in datas">
+          <li v-if="datas!='no'" class="mui-table-view-cell taolunquli twoul" v-for="(item,index) in datas">
             <ul class="mui-table-view after00">
 
               <li class="mui-table-view-cell mui-media padding20">
@@ -334,7 +336,7 @@
 
                       </div>
                       <!--页脚，放置补充信息或支持的操作-->
-                      <div class="mui-card-footer fz21 c666666" @tap="xiangqing(item.objectId)">
+                      <div class="mui-card-footer fz21 c666666 before00" @tap="xiangqing(item.objectId)">
                         <span>{{item.createdAt}}</span>
 
                         <span>
