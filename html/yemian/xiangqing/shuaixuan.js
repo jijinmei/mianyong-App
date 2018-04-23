@@ -13,7 +13,7 @@ template: `
 				<div class="mui-collapse-content bai paddingt0 margin0" style="left:0rem;top:0;width: 6.4rem;height:auto;">
                       <ul class="mui-table-view mui-pull-left margint0 quyuz overflow" style="width:3.2rem;">
                               <li  v-for="(items,keys,indexs) in quyuZuo" class="mui-table-view-cell padding0" @tap="province(items,indexs,keys)"  style="height:0.74rem;line-height:0.74rem;" :class="{bgeeeeee:quyuIdx!=indexs,bgffffff:quyuIdx==indexs}" >
-                                  <a :class="{c36c748:quyuIdx==indexs,c666666:quyuIdx!=indexs,jiantous:indexs<3}" class="fz27 mui-navigate-right margin0" style="padding-left:0.4rem;">
+                                  <a :class="{'mui-navigate-right':items.length>0,c36c748:quyuIdx==indexs,c666666:quyuIdx!=indexs,jiantous:indexs<3}" class="fz27 margin0" style="padding-left:0.4rem;">
                                      {{keys}}
                                   </a>
 
