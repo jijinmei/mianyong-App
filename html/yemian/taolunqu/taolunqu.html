@@ -570,7 +570,7 @@
 
         },
         qiehuan(e, index) {
-          $('.mescroll').scrollTop(0)
+          // $('.mescroll').scrollTop(0)
           // 记录滚动高度
           // if (this.curNavIndex == 0) {
           //   this.scroll1 = $('.mescroll').scrollTop()
@@ -653,7 +653,7 @@
                 size: limit20,
                 time: null
               },
-              offset: 100,
+              offset: 1500,
               // isLock:true,
               // scrollbar:{
               //     use : true, 
@@ -703,6 +703,7 @@
 
           /*联网加载列表数据  page = {num:1, size:10}; num:当前页 从1开始, size:每页数据条数 */
           function getListData(page) {
+            // mui.toast('yes')
             // 1.如果插件本身这个时候页数是1说明刷新了当前页面,则赋值给对应标签的页数为0
             // alert(page.num)
             // if(that.isload==false){
@@ -804,26 +805,7 @@
 
 
 
-          // {
-          //                 console.log('无更多数据')
-          //               // mescroll.optUp.page.num = bb--;
-          //               mescroll.showNoMore();
-          //               mescroll.optUp.isLock =true;//实际粗发功能
-          //               mescroll.optUp.hasNext = false;//实际粗发功能
-          //               // $('.mescroll-upwarp').css({'display':'none'})
-          //               // mescroll.showEmpty();
-          //               mescroll.scrollTo( cc, 1);
-
-          //               }else{
-          //               console.log('更多数据')
-          //               // mescroll.optUp.page.num = bb-;
-          //               // mescroll.showUpScroll();
-          //               mescroll.optUp.isLock = false;//实际粗发功能
-          //               mescroll.optUp.hasNext = true;//实际粗发功能
-          //               // $('.mescroll-upwarp').css({'display':'block'})
-          //               // mescroll.removeEmpty(); //移除空布局
-          //               mescroll.scrollTo( cc, 1);
-          //               } 
+      
           /*联网加载列表数据
            在您的实际项目中,请参考官方写法: http://www.mescroll.com/api.html#tagUpCallback
            请忽略getListDataFromNet的逻辑,这里仅仅是在本地模拟分页数据,本地演示用
