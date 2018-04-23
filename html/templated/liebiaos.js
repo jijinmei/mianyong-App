@@ -32,7 +32,7 @@ template: `
 							<p class=" mui-pull-left c36c748 mui-ellipsis-2 fz30"  style="height:0.7rem;line-height:0.36rem;width:100%;font-weight:none;">{{item.title}}</p>
 							
 							<p  class="mui-pull-left c666666 fz21"   :class="{seconds:item.templeId=='content_01','mui-ellipsis-2':item.templeId=='content_02','mui-ellipsis-3':item.templeId=='content_01'}"  style="margin-top:0.1rem;font-weight:none;">
-								<pre class="margin0 padding0">{{item.content}}</pre>
+								<pre class="margin0 padding0 fz21" style="font-size:0.21rem;">{{item.content}}</pre>
 							</p>
 							
 							
