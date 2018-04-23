@@ -294,8 +294,14 @@
                     data: wheredata,
 		                dataType: 'json',
 		                success: function(dataAll){
-                      // 只要成功请求到ture,就有可能是数组有数据或者数组数据为空
-		                	successCallback(dataAll.result.data);
+                      if(dataAll.status){
+                        // 只要成功请求到ture,就有可能是数组有数据或者数组数据为空
+                       successCallback(dataAll.result.data);
+                     }else{
+                       //联网失败的回调,隐藏下拉刷新和上拉加载的状态;
+                       mescroll.endErr();
+                       mui.toast(data.result.message)
+                     }
                     },
                     // 失败就一定是false,有可能是网络原因,也有可能是后台报错
 		                error: errorCallback
