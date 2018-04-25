@@ -9,8 +9,8 @@ template: `
 
 	
 		<!--2.帅选出来的列表内容-->
-		<ul id="LIST"  class="before00 bgebebeb mui-table-view relative LIEBIAOS" style="background:#ebebeb;z-index:1;margin-top:0.7rem;" >
-			<li  v-for="(item,index) in datas" :class="{mg10:who=='wodefabu'}"  @click="xiangqings(item.objectId,item)"  class="mui-table-view-cell mui-media bai listLiebiao padding20" >
+		<ul id="LIST"  class="before00 after00 bgebebeb mui-table-view relative LIEBIAOS" style="background:#ebebeb;z-index:1;margin-top:0.7rem;" >
+			<li  v-for="(item,index) in datas" :class="{mg10:who=='wodefabu'}"  @click="xiangqings(item.objectId,item)"  class="before00 after00  mui-table-view-cell mui-media bai listLiebiao padding20" >
 				
 					<!--我的发布特有的封盘按钮@click.stop="fengpan(item.title,index,item.objectId)"-->
 				 <p v-show="who=='wodefabu'" @click.stop="caozuos2(item.objectId,item,item.status,index)" class="border-b relative fz25 c555555 center" style="top:-0.2rem;height:0.6rem;line-height:0.6rem;">
@@ -21,7 +21,7 @@ template: `
 				 
 				<a href="javascript:;" class="padding0 margin0" >
 					<div class="mui-media-object mui-pull-left tukuang overflow relative" >
-						<img class="jz" :src="item.pics!=undefined?item.pics[0]+imageView2:''" style="min-width:2.45rem;min-height:2.15rem;" >
+						<img class="jz" v-lazy="item.pics!=undefined?item.pics[0]+imageView2:''" style="min-width:2.45rem;min-height:2.15rem;" >
 						<button type="button" class="mui-btn mui-btn-blue absolute fz19 cffffff" style="padding:0.05rem 0.1rem;border-radius:0;border:none;right: 0;top: 0;background-color: rgba(0,0,0,0.4);">
 							{{item.pics.length}}張
 						</button>
@@ -32,7 +32,7 @@ template: `
 							<p class=" mui-pull-left c36c748 mui-ellipsis-2 fz30"  style="height:0.7rem;line-height:0.36rem;width:100%;font-weight:none;">{{item.title}}</p>
 							
 							<p  class="mui-pull-left c666666 fz21"   :class="{seconds:item.templeId=='content_01','mui-ellipsis-2':item.templeId=='content_02','mui-ellipsis-3':item.templeId=='content_01'}"  style="margin-top:0.1rem;font-weight:none;">
-								<pre class="margin0 padding0 fz21" style="font-size:0.21rem;">{{item.content}}</pre>
+								<pre class="overflow margin0 padding0 fz21" style="font-size:0.21rem;">{{item.content}}</pre>
 							</p>
 							
 							
@@ -168,6 +168,7 @@ template: `
 			// },4000)
 			
       this.name=locations('name')
+      console.log('212')
     
 //          alert("3"+this.name)
 	}

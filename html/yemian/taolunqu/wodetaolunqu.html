@@ -238,7 +238,7 @@
                           <div class="mui-card-content">
                             <ul class="overflow pics">
                               <li class="mui-pull-left overflow relative" v-for="(pic,idx) in item.pics" :class="{onepic:item.pics.length==1,twopic:item.pics.length==2,morepic:item.pics.length>2}">
-                                <img :src="item.pics.length==1?pic.url+imageView1:(item.pics.length==2?pic.url+imageView2:pic.url+imageView3)" alt="" :data-preview-src="pic.url" :data-preview-group="'1'+index" style="min-width:100%;min-height:100%;" class="jz" />
+                                <img v-lazy="item.pics.length==1?pic.url+imageView1:(item.pics.length==2?pic.url+imageView2:pic.url+imageView3)" alt="" :data-preview-src="pic.url" :data-preview-group="'1'+index" style="min-width:100%;min-height:100%;" class="jz" />
                               </li>
                             </ul>
 
@@ -454,17 +454,18 @@
     }
   </script>
 <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
- <!-- <script src="https://cdn.bootcss.com/vuex/3.0.1/vuex.min.js"></script> -->
- <!-- <script src="https://cdn.bootcss.com/vue-router/3.0.1/vue-router.min.js"></script> -->
-
     <script src="../../static/vconsole.min.js"></script>
     <script src="../../static/mui.min.js"></script>
     <script src="../../templated/liebiao.js"></script>
     <script src="../../static/mescroll.min.js" type="text/javascript" charset="utf-8"></script>
     <script src="../../static/mui.zoom.js"></script>
     <script src="../../static/mui.previewimage.js"></script>
-    <!-- <script src="../../static/public.js"></script> -->
+    <script src=" https://unpkg.com/vue-lazyload/vue-lazyload.js"></script>
     <script type="text/javascript">
+    Vue.use(VueLazyload,{
+  // error:'../../assets/img/taolunqu/loading(2).gif',
+  // loading:'../../assets/img/taolunqu/loading.gif'
+  })
       // 初始化previewImage
       mui.previewImage();
       mui.init();

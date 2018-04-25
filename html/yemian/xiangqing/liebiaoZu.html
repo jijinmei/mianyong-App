@@ -126,6 +126,8 @@
 .shuaixuan>li>.leng2{width:0.8rem !important;}
 .shuaixuan>li>.leng3{width:1.1rem !important;}
 .shuaixuan>li>.leng4{width:1.3rem !important;}
+
+.lazy{width:2.45rem;height:2.15rem;background: url(../../assets/img/taolunqu/loading.gif) 50% no-repeat;}
 </style>
   </head>
 
@@ -151,7 +153,13 @@
     <script src="../../templated/liebiao.js"></script>
     <script src="shuaixuan.js"></script>
     <script src="../../static/mescroll.min.js"></script>
+    <script src=" https://unpkg.com/vue-lazyload/vue-lazyload.js"></script>
+    <!-- <script src="../../static/echo.js"></script> -->
     <script type="text/javascript">
+Vue.use(VueLazyload,{
+// error:'../../assets/img/taolunqu/loading(2).gif',
+// loading:'../../assets/img/taolunqu/loading.gif'
+})
       mui.init();
     </script>
 <script>

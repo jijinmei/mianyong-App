@@ -45,10 +45,8 @@
   .mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active {
     border-bottom: white;
   }
-  
-  /*.mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active>span {
-    color: #36C748 !important;
-  }*/
+  .mui-pull-bottom-tips{height:1.2rem !important;line-height:1.2rem !important;}
+  .mui-pull-bottom-wrapper{background:#ebebeb !important;}
 </style>
 
   </head>
@@ -56,7 +54,7 @@
   <body>
 
     <div id="app">
-<div id="" class="mui-scroll-wrapper XIANGQING" style="padding-bottom:1rem;">
+<div v-cloak class="mui-scroll-wrapper XIANGQING" style="padding-bottom:1rem;">
     <div class="mui-scroll" @scroll="scrolls($event)">
       <!--1.讨论区详情的列表描述-->
       <ul class="mui-table-view" v-if="datas!='no'" v-cloak>
@@ -142,7 +140,7 @@
                         <div class="mui-media-body fz23 ">
                           <span class="c282828">{{item.user!=undefined&&item.user.nickname!=undefined?item.user.nickname:' '}}</span>
                           <!--具体的点击某个人回复-->
-                          <button @tap="whoIds(item.user.nickname,item.objectId)" type="button" class="absolute mui-btn-green mui-btn-outlined fz19" style="top:0.2;right:0.2rem;padding:0.04rem 0.08rem;">回復</button>
+                          <button @tap="whoIds(item.user.nickname,item.objectId)" type="button" class="absolute mui-btn-green mui-btn-outlined fz19" style="top:0.2;right:0.2rem;padding:0.03rem 0.06rem !important;">回復</button>
                           <p class="mui-ellipsis fz19 c666666">發佈時間:{{item.createdAt}}</p>
                           <p class="fz25 c333333" style="white-space: normal;">{{item.comment}}</p>
 
@@ -197,7 +195,7 @@
     <ul v-if="shurukuang==true" class="fixed bai fz30 c666666" style="z-index:998;bottom:0;left:0;width:100%;height:0.98rem;padding:0.25rem 0;box-shadow: 0 0 0.1rem #EBEBEB;">
       <li>
         <img @tap="shurukuang=false" class="absolute" src="../../assets/img/taolunqu/11.png" style="width:0.62rem;left:0.2rem;" alt="" />
-        <input id="input" type="text" v-model="values" :placeholder="towho" class="fz25 c999999" style="background:#EBEBEB;border:1px solid #BBBBBB;margin-left:1.2rem;margin-right:0.18rem;height:0.6rem;width:3.56rem;padding: 0 0.2rem;">
+        <input  @keyup.enter="fasongs()" id="input" type="text" v-model="values" :placeholder="towho" class="fz25 c999999" style="background:#EBEBEB;border:1px solid #BBBBBB;margin-left:1.2rem;margin-right:0.18rem;height:0.6rem;width:3.56rem;padding: 0 0.2rem;">
         <button @tap="fasongs()" type="button" class="mui-btn mui-btn-green fz30 pT06 pB06 pL20 pR20" style="padding:0.06rem 0.2rem;">發送</button>
 
       </li>

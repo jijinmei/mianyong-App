@@ -19,8 +19,8 @@ template: `
 
 				 <!--正常列表1-->
 				<a  class="padding0 margin0" >
-					<div class="mui-media-object mui-pull-left tukuang overflow relative" >
-							<img class="jz"  :src="item.pics[0]+imageView2" style="min-width:2.45rem;min-height:2.15rem;">
+					<div class="bgebebeb mui-media-object mui-pull-left tukuang overflow relative" >
+							<img  v-lazy="item.pics[0]+imageView2" class="jz" style="min-width:2.45rem;min-height:2.15rem;">
 						<button type="button" class="mui-btn mui-btn-blue absolute fz19 cffffff" style="padding:0.05rem 0.1rem;border-radius:0;border:none;right: 0;top: 0;background-color: rgba(0,0,0,0.4);">
 							{{item.pics.length}}張
 						</button>
@@ -57,7 +57,7 @@ template: `
 							<div class="fz25 c666666" style="height:0.4rem;line-height:0.4rem;">{{item.sub_title}}</div>
               <div class="fz19 c000000 mui-ellipsis-2" style="height:0.48rem;line-height:0.25rem;margin-bottom:0.12rem;white-space: normal;">
                 <p class="fz19" v-if="item.intro!=''&&item.intro!=undefined">{{item.intro}}</p>
-								<pre style="font-size:0.19rem;" class="fz19" v-if="item.intro==''||item.intro==undefined" class="padding0 margin0">{{item.intro==''||item.intro==undefined?'這業主很懶甚麼都沒有留下...':item.intro}}</pre>
+								<pre style="font-size:0.19rem;" class="overflow fz19 padding0 margin0" v-if="item.intro==''||item.intro==undefined">{{item.intro==''||item.intro==undefined?'這業主很懶甚麼都沒有留下...':item.intro}}</pre>
 							</div>
 							<!--苹果保持居中-->
 							<button type="button" class="mui-btn mui-btn-green fz15 mui-pull-left center" v-for="(items,indexs) in item.tag" style="margin-right:0.03rem;">{{items}}</button>
@@ -73,8 +73,6 @@ template: `
 		</ul>
 </div>
 
-		<!--抱歉，未找到相關結果。-->
-		<!--<div v-if="datas.length==0" class="c999999 fz23 center"  style="margin-top:4.22rem;">抱歉，未找到相關結果。</div>-->
 
 
   `,

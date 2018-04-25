@@ -322,15 +322,14 @@
                       <button v-if="item.tag!='綜合'" type="button" class="mui-btn mui-btn-green czjz" style="font-size: 0.21rem;left:0rem;">{{item.tag}}
                       </button>
                       {{item.title}}
-
                     </p>
                     <p @tap="xiangqing(item.objectId)" class="mui-ellipsis-2 fz25 c888888" style="margin-top:0.1rem;">{{item.content}}</p>
                     <div style="margin:0.15rem 0 0 0;">
                       <!--列表大图-->
                       <div class="mui-card-content">
                         <ul class="overflow pics">
-                          <li class="mui-pull-left overflow relative" v-for="(pic,idx) in item.pics" :class="{onepic:item.pics.length==1,twopic:item.pics.length==2,morepic:item.pics.length>2}">
-                            <img :src="item.pics.length==1?pic.url+imageView1:(item.pics.length==2?pic.url+imageView2:pic.url+imageView3)" alt="" :data-preview-src="pic.url+imageView"
+                          <li class="bgebebeb mui-pull-left overflow relative" v-for="(pic,idx) in item.pics" :class="{onepic:item.pics.length==1,twopic:item.pics.length==2,morepic:item.pics.length>2}">
+                            <img v-lazy="item.pics.length==1?pic.url+imageView1:(item.pics.length==2?pic.url+imageView2:pic.url+imageView3)" alt="" :data-preview-src="pic.url+imageView"
                               :data-preview-group="'1'+index" style="min-width:100%;min-height:100%;" class="jz" />
                           </li>
                         </ul>
@@ -436,8 +435,12 @@
   <script src="../../static/mui.zoom.js"></script>
   <script src="../../static/mui.previewimage.js"></script>
   <script src="../../static/mescroll.min.js"></script>
-
+  <script src=" https://unpkg.com/vue-lazyload/vue-lazyload.js"></script>
   <script type="text/javascript">
+  Vue.use(VueLazyload,{
+// error:'../../assets/img/taolunqu/loading(2).gif',
+// loading:'../../assets/img/taolunqu/loading.gif'
+})
     // 初始化previewImage
     mui.previewImage();
     mui.init();
