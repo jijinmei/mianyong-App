@@ -47,8 +47,8 @@ var vm = new Vue({
       console.log(this.searchVal,this.street);
       this.rentobject.build_name = this.searchVal;
       this.rentobject.build_street=this.street;
-     
-      
+      console.log('this.searchVal,this.street');
+      // return
 
       // WebViewJavascriptBridge.callHandler('SetData', {
       //   content_key: 'xiaolin',
