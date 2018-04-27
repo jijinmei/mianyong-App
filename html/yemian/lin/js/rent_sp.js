@@ -79,18 +79,37 @@ var vm = new Vue({
     }
   },
   mounted: function mounted() {
-    if (window.WebViewJavascriptBridge) {
-      WebViewJavascriptBridge.callHandler('GetData', {
-        content_key: 'xiaolin'
-      });
-    } else {
-      // 延时一秒
+    var ua = navigator.userAgent.toLowerCase();
+    if (ua.match(/iPhone\sOS/i) == "iphone os") {
+      console.log('苹果')
+      if(window.WebViewJavascriptBridge){
+        WebViewJavascriptBridge.callHandler('GetData', {
+          content_key: 'xiaolin'
+        });
+      }else{
+        // 延时一秒
       setTimeout(function () {
         WebViewJavascriptBridge.callHandler('GetData', {
           content_key: 'xiaolin'
         });
       }, 1000);
+      }
+    } else {
+      console.log('安卓')
+     
     }
+    // if (window.WebViewJavascriptBridge) {
+    //   WebViewJavascriptBridge.callHandler('GetData', {
+    //     content_key: 'xiaolin'
+    //   });
+    // } else {
+    //   // 延时一秒
+    //   setTimeout(function () {
+    //     WebViewJavascriptBridge.callHandler('GetData', {
+    //       content_key: 'xiaolin'
+    //     });
+    //   }, 1000);
+    // }
 
   },
 
@@ -141,15 +160,18 @@ if (this.rentobject.pics == '' || this.rentobject.pics == null) {
         if (res.status==true) {
           console.log('发布成功');
           // clearthis.rentobjects();
-          WebViewJavascriptBridge.callHandler('ClearData', {
-            content_key: 'huancun'
-          })
-          WebViewJavascriptBridge.callHandler('ClearData', {
-            content_key: 'xiaolin'
-          })
-          WebViewJavascriptBridge.callHandler('ClearData', {
-            content_key: 'xiangqingData'
-          })
+          cleardata('huancun')
+          cleardata('xiaolin')
+          cleardata('xiangqingData')
+          // WebViewJavascriptBridge.callHandler('ClearData', {
+          //   content_key: 'huancun'
+          // })
+          // WebViewJavascriptBridge.callHandler('ClearData', {
+          //   content_key: 'xiaolin'
+          // })
+          // WebViewJavascriptBridge.callHandler('ClearData', {
+          //   content_key: 'xiangqingData'
+          // })
                   // return
           goback(2);
           // 跳转到查看租盘页面
@@ -161,20 +183,22 @@ if (this.rentobject.pics == '' || this.rentobject.pics == null) {
 
     // 添加照片
     addPic: function addPic() {
-      WebViewJavascriptBridge.callHandler('SetData', {
-        content_key: 'xiaolin',
-        content: JSON.stringify(this.rentobject)
-      });
+      // WebViewJavascriptBridge.callHandler('SetData', {
+      //   content_key: 'xiaolin',
+      //   content: JSON.stringify(this.rentobject)
+      // });
+      setDataxiaolin(this.rentobject)
       location.href = 'pic.html?sessiontoken='+locations('sessiontoken')//' + location.search;
     },
 
     // 下一步
     next: function next(name) {
        // 保存数据
-       WebViewJavascriptBridge.callHandler('SetData', {
-        content_key: 'xiaolin',
-        content: JSON.stringify(this.rentobject)
-      });
+      //  WebViewJavascriptBridge.callHandler('SetData', {
+      //   content_key: 'xiaolin',
+      //   content: JSON.stringify(this.rentobject)
+      // });
+      setDataxiaolin(this.rentobject)
       console.log('详情预览');
       location.href = 'preview.html?sessiontoken='+locations('sessiontoken')//' + location.search;
     },

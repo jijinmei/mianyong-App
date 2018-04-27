@@ -12,18 +12,38 @@ var vm=new Vue({
   
   mounted: function mounted() {
     var that=this
-    if (window.WebViewJavascriptBridge) {
-      WebViewJavascriptBridge.callHandler('GetData', {
-        content_key: 'xiaolin'
-      });
-    } else {
-      // 延时一秒
+    // if (window.WebViewJavascriptBridge) {
+    //   WebViewJavascriptBridge.callHandler('GetData', {
+    //     content_key: 'xiaolin'
+    //   });
+    // } else {
+    //   // 延时一秒
+    //   setTimeout(function () {
+    //     WebViewJavascriptBridge.callHandler('GetData', {
+    //       content_key: 'xiaolin'
+    //     });
+    //   }, 1000);
+    // }
+    var ua = navigator.userAgent.toLowerCase();
+    if (ua.match(/iPhone\sOS/i) == "iphone os") {
+      console.log('苹果')
+      if(window.WebViewJavascriptBridge){
+        WebViewJavascriptBridge.callHandler('GetData', {
+          content_key: 'xiaolin'
+        });
+      }else{
+        // 延时一秒
       setTimeout(function () {
         WebViewJavascriptBridge.callHandler('GetData', {
           content_key: 'xiaolin'
         });
       }, 1000);
+      }
+    } else {
+      console.log('安卓')
+     
     }
+    
 // 查看发布者的信息
 var that=this
   var id = localStorage.getItem('userId')

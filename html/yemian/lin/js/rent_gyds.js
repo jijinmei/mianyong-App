@@ -5,18 +5,37 @@ var vm = new Vue({
   mounted: function mounted() {
 //     this.rentobject = JSON.parse(JSON.stringify(saveObject))
 // return
-    if (window.WebViewJavascriptBridge) {
-      WebViewJavascriptBridge.callHandler('GetData', {
-        content_key: 'xiaolin'
-      });
-    } else {
-      // 延时一秒
-      setTimeout(function () {
-        WebViewJavascriptBridge.callHandler('GetData', {
-          content_key: 'xiaolin'
-        });
-      }, 1000);
-    }
+var ua = navigator.userAgent.toLowerCase();
+if (ua.match(/iPhone\sOS/i) == "iphone os") {
+  console.log('苹果')
+  if(window.WebViewJavascriptBridge){
+    WebViewJavascriptBridge.callHandler('GetData', {
+      content_key: 'xiaolin'
+    });
+  }else{
+    // 延时一秒
+  setTimeout(function () {
+    WebViewJavascriptBridge.callHandler('GetData', {
+      content_key: 'xiaolin'
+    });
+  }, 1000);
+  }
+} else {
+  console.log('安卓')
+ 
+}
+    // if (window.WebViewJavascriptBridge) {
+    //   WebViewJavascriptBridge.callHandler('GetData', {
+    //     content_key: 'xiaolin'
+    //   });
+    // } else {
+    //   // 延时一秒
+    //   setTimeout(function () {
+    //     WebViewJavascriptBridge.callHandler('GetData', {
+    //       content_key: 'xiaolin'
+    //     });
+    //   }, 1000);
+    // }
   },
 
   computed: {
@@ -74,11 +93,11 @@ var vm = new Vue({
     },
     publish: function publish() {
       var that = this
-      WebViewJavascriptBridge.callHandler('SetData', {
-        content_key: 'xiaolin',
-        content: JSON.stringify(this.rentobject)
-      });
-
+      // WebViewJavascriptBridge.callHandler('SetData', {
+      //   content_key: 'xiaolin',
+      //   content: JSON.stringify(this.rentobject)
+      // });
+      setDataxiaolin(this.rentobject)
        // 放租的工业大厦发布必填:照片 租金 建筑面积 实际面积 楼层 景观 装修程度 发布者身份 联络方式
       if (this.rentobject.pics == '' || this.rentobject.pics == null) {
         // alert('照片不能為空');
@@ -112,15 +131,18 @@ var vm = new Vue({
 
         if (!res.message) {
           console.log('发布成功');
-          WebViewJavascriptBridge.callHandler('ClearData', {
-            content_key: 'huancun'
-          })
-          WebViewJavascriptBridge.callHandler('ClearData', {
-            content_key: 'xiaolin'
-          })
-          WebViewJavascriptBridge.callHandler('ClearData', {
-            content_key: 'xiangqingData'
-          })
+          cleardata('huancun')
+          cleardata('xiaolin')
+          cleardata('xiangqingData')
+          // WebViewJavascriptBridge.callHandler('ClearData', {
+          //   content_key: 'huancun'
+          // })
+          // WebViewJavascriptBridge.callHandler('ClearData', {
+          //   content_key: 'xiaolin'
+          // })
+          // WebViewJavascriptBridge.callHandler('ClearData', {
+          //   content_key: 'xiangqingData'
+          // })
           goback(2);
           // 跳转到查看租盘页面
           // window.location.href="../xiangqing/liebiaoZu.html"+location.search;
@@ -130,18 +152,20 @@ var vm = new Vue({
 
     // 添加照片
     addPic: function addPic() {
-      WebViewJavascriptBridge.callHandler('SetData', {
-        content_key: 'xiaolin',
-        content: JSON.stringify(this.rentobject)
-      });
+      setDataxiaolin(this.rentobject)
+      // WebViewJavascriptBridge.callHandler('SetData', {
+      //   content_key: 'xiaolin',
+      //   content: JSON.stringify(this.rentobject)
+      // });
       location.href = 'pic.html?sessiontoken='+locations('sessiontoken')//' + location.search;
     },
     next: function next(name) {
       // 保存数据
-      WebViewJavascriptBridge.callHandler('SetData', {
-        content_key: 'xiaolin',
-        content: JSON.stringify(this.rentobject)
-      });
+      setDataxiaolin(this.rentobject)
+      // WebViewJavascriptBridge.callHandler('SetData', {
+      //   content_key: 'xiaolin',
+      //   content: JSON.stringify(this.rentobject)
+      // });
       console.log('详情预览');
       location.href = 'preview.html?sessiontoken='+locations('sessiontoken')//' + location.search;
     },

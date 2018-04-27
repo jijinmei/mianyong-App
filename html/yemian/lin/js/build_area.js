@@ -35,40 +35,38 @@ var vm = new Vue({
         console.log(item);
         this.rentobject.build_area = item;
 
-        // localStorage.setItem('buildarea', item)
-        // location.href = 'rent_index.html'
-        // setvals(JSON.stringify(this.rentobject))
-        // goback(1)
+    
 
-        WebViewJavascriptBridge.callHandler('SetData', {
-          content_key: 'xiaolin',
-          content: JSON.stringify(this.rentobject)
-        });
+        // WebViewJavascriptBridge.callHandler('SetData', {
+        //   content_key: 'xiaolin',
+        //   content: JSON.stringify(this.rentobject)
+        // });
+        setDataxiaolin(this.rentobject)
+        goback(1)
 
-        WebViewJavascriptBridge.callHandler('goback', {
-          pageNumber: '1',
-          needRefresh: 'YES'
-        });
+        // WebViewJavascriptBridge.callHandler('goback', {
+        //   pageNumber: '1',
+        //   needRefresh: 'YES'
+        // });
       }
     },
     clickLi2: function clickLi2(item, e) {
       e.stopPropagation();
       console.log(item);
       this.rentobject.build_area = item;
-      // localStorage.setItem('buildarea', item)
-      // location.href = 'rent_index.html'+location.search
-      // setvals(JSON.stringify(this.rentobject))
+    
 
 
-      WebViewJavascriptBridge.callHandler('SetData', {
-        content_key: 'xiaolin',
-        content: JSON.stringify(this.rentobject)
-      });
-
-      WebViewJavascriptBridge.callHandler('goback', {
-        pageNumber: '1',
-        needRefresh: 'YES'
-      });
+      // WebViewJavascriptBridge.callHandler('SetData', {
+      //   content_key: 'xiaolin',
+      //   content: JSON.stringify(this.rentobject)
+      // });
+      setDataxiaolin(this.rentobject)
+      goback(1)
+      // WebViewJavascriptBridge.callHandler('goback', {
+      //   pageNumber: '1',
+      //   needRefresh: 'YES'
+      // });
     },
     searchFunc: function searchFunc() {
 
@@ -128,20 +126,30 @@ function getAppLocalData(data) {
 }
 
 // 延时一秒
-setTimeout(function () {
+// setTimeout(function () {
 
-  WebViewJavascriptBridge.callHandler('GetData', {
-    content_key: 'xiaolin'
-  });
-}, 1000);
+//   WebViewJavascriptBridge.callHandler('GetData', {
+//     content_key: 'xiaolin'
+//   });
+// }, 1000);
 
-// vm.$watch('rentobject', function () {
 
-//   console.log('保存数据...', newVal)
-//   WebViewJavascriptBridge.callHandler('SetData', {
-//     content_key: 'xiaolin',
-//     content: JSON.stringify(this.rentobject)
-//   })
-// }, {
-//   deep: true
-// })
+var ua = navigator.userAgent.toLowerCase();
+if (ua.match(/iPhone\sOS/i) == "iphone os") {
+  console.log('苹果')
+  if(window.WebViewJavascriptBridge){
+    WebViewJavascriptBridge.callHandler('GetData', {
+      content_key: 'xiaolin'
+    });
+  }else{
+    // 延时一秒
+  setTimeout(function () {
+    WebViewJavascriptBridge.callHandler('GetData', {
+      content_key: 'xiaolin'
+    });
+  }, 1000);
+  }
+} else {
+  console.log('安卓')
+  
+}

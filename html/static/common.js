@@ -406,3 +406,39 @@ function xiangqing(){
           }
   })
 }
+
+
+
+
+// 我要放租和我要放售的xiaolin的数据存储和清空
+function setDataxiaolin(rentobjects){
+  var ua = navigator.userAgent.toLowerCase();
+  if (ua.match(/iPhone\sOS/i) == "iphone os") {
+    console.log('苹果')
+    WebViewJavascriptBridge.callHandler('SetData', {
+      content_key: 'xiaolin',
+      content: JSON.stringify(rentobjects)
+    });
+  } else {
+    console.log('安卓')
+    window.callHandler.saveResult({content_key:'xiaolin',content:JSON.stringify(rentobjects)});
+  }
+}
+
+
+
+function cleardata(who){
+  var ua = navigator.userAgent.toLowerCase();
+  if (ua.match(/iPhone\sOS/i) == "iphone os") {
+    console.log('苹果')
+     WebViewJavascriptBridge.callHandler('ClearData', {
+            content_key: who
+          })
+  } else {
+    console.log('安卓')
+    
+  }
+
+}
+
+

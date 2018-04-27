@@ -44,25 +44,23 @@ var vm = new Vue({
     },
     goback: function goback() {
 
-      console.log(this.searchVal);
+      console.log(this.searchVal,this.street);
       this.rentobject.build_name = this.searchVal;
       this.rentobject.build_street=this.street;
-      // if(this.rentobject.build_street){
-      //   console.log('已经自己填写了街道信息,则无需预设')
-      // }else{
-      //   this.rentobject.build_street=this.street;
-      // }
+     
       
 
-      WebViewJavascriptBridge.callHandler('SetData', {
-        content_key: 'xiaolin',
-        content: JSON.stringify(this.rentobject)
-      });
+      // WebViewJavascriptBridge.callHandler('SetData', {
+      //   content_key: 'xiaolin',
+      //   content: JSON.stringify(this.rentobject)
+      // });
 
-      WebViewJavascriptBridge.callHandler('goback', {
-        pageNumber: '1',
-        needRefresh: 'YES'
-      });
+      // WebViewJavascriptBridge.callHandler('goback', {
+      //   pageNumber: '1',
+      //   needRefresh: 'YES'
+      // });
+      setDataxiaolin(this.rentobject)
+      goback(1)
     }
   },
   data: {
@@ -86,20 +84,29 @@ function getAppLocalData(data) {
 }
 
 // 延时一秒
-setTimeout(function () {
+// setTimeout(function () {
 
-  WebViewJavascriptBridge.callHandler('GetData', {
-    content_key: 'xiaolin'
-  });
-}, 1000);
+//   WebViewJavascriptBridge.callHandler('GetData', {
+//     content_key: 'xiaolin'
+//   });
+// }, 1000);
 
-// vm.$watch('rentobject', function () {
-
-//   console.log('保存数据...', newVal)
-//   WebViewJavascriptBridge.callHandler('SetData', {
-//     content_key: 'xiaolin',
-//     content: JSON.stringify(this.rentobject)
-//   })
-// }, {
-//   deep: true
-// })
+var ua = navigator.userAgent.toLowerCase();
+if (ua.match(/iPhone\sOS/i) == "iphone os") {
+  console.log('苹果')
+  if(window.WebViewJavascriptBridge){
+    WebViewJavascriptBridge.callHandler('GetData', {
+      content_key: 'xiaolin'
+    });
+  }else{
+    // 延时一秒
+  setTimeout(function () {
+    WebViewJavascriptBridge.callHandler('GetData', {
+      content_key: 'xiaolin'
+    });
+  }, 1000);
+  }
+} else {
+  console.log('安卓')
+  
+}

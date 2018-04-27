@@ -28,11 +28,18 @@ var vm = new Vue({
       });
     },
     goto: function goto(name) {
-
-      WebViewJavascriptBridge.callHandler('SetData', {
-        content_key: 'xiaolin',
-        content: JSON.stringify(this.rentobject)
-      });
+      // var ua = navigator.userAgent.toLowerCase();
+      // if (ua.match(/iPhone\sOS/i) == "iphone os") {
+      //   console.log('苹果')
+      //   WebViewJavascriptBridge.callHandler('SetData', {
+      //     content_key: 'xiaolin',
+      //     content: JSON.stringify(this.rentobject)
+      //   });
+      // } else {
+      //   console.log('安卓')
+        
+      // }
+      setDataxiaolin(this.rentobject)
 
       if (name === 'buildname') {
         location.href = 'build_name.html?sessiontoken='+ locations('sessiontoken');// + location.search;
@@ -49,10 +56,18 @@ var vm = new Vue({
     // 下一步按鈕運行的方法
     nexts: function next() {
 console.log('next')
-      WebViewJavascriptBridge.callHandler('SetData', {
-        content_key: 'xiaolin',
-        content: JSON.stringify(this.rentobject)
-      });
+// var ua = navigator.userAgent.toLowerCase();
+// if (ua.match(/iPhone\sOS/i) == "iphone os") {
+//   console.log('苹果')
+//   WebViewJavascriptBridge.callHandler('SetData', {
+//     content_key: 'xiaolin',
+//     content: JSON.stringify(this.rentobject)
+//   });
+// } else {
+//   console.log('安卓')
+  
+// }
+setDataxiaolin(this.rentobject)
 // 1.当前是放租的 商铺的时候必填项为 类型  地区 街道 出租类型 商铺类型
       if (this.rentobject.type === '商鋪') {
         // 商铺
@@ -263,23 +278,29 @@ function getAppLocalData(data) {
     
   }
 }
-// 如果存在objectId,则说明是从我的楼盘过来的,根据id查询详情,把数据赋值给小林的缓存,图片也要转为base64
-// if(locations(objectId)){
 
-// }else{
+var ua = navigator.userAgent.toLowerCase();
+if (ua.match(/iPhone\sOS/i) == "iphone os") {
+  console.log('苹果')
   if(window.WebViewJavascriptBridge){
-  WebViewJavascriptBridge.callHandler('GetData', {
-    content_key: 'xiaolin'
-  });
-}else{
-  // 延时一秒
-setTimeout(function () {
-  WebViewJavascriptBridge.callHandler('GetData', {
-    content_key: 'xiaolin'
-  });
-}, 1000);
+    WebViewJavascriptBridge.callHandler('GetData', {
+      content_key: 'xiaolin'
+    });
+  }else{
+    // 延时一秒
+  setTimeout(function () {
+    WebViewJavascriptBridge.callHandler('GetData', {
+      content_key: 'xiaolin'
+    });
+  }, 1000);
+  }
+} else {
+  console.log('安卓')
+  window.callHandler.getResult({content_key:'xiaolin'});
+ 
 }
-// }
+
+
 
 
 

@@ -20,10 +20,11 @@ var vm = new Vue({
     rentobject: {
       handler: function handler(newVal) {
         // localStorage.setItem('rentobject', JSON.stringify(newVal))
-        WebViewJavascriptBridge.callHandler('SetData', {
-          content_key: 'xiaolin',
-          content: JSON.stringify(this.rentobject)
-        });
+        // WebViewJavascriptBridge.callHandler('SetData', {
+        //   content_key: 'xiaolin',
+        //   content: JSON.stringify(this.rentobject)
+        // });
+        setDataxiaolin(this.rentobject)
       },
       deep: true
     }
@@ -222,18 +223,20 @@ if(locations('where')){
 
         // this.rentobject.pics = JSON.parse(JSON.stringify(this.imgUrl)))
         this.rentobject.pics = [].concat(this.imgUrl);      
-        WebViewJavascriptBridge.callHandler('SetData', {
-          content_key: 'xiaolin',
-          content: JSON.stringify(this.rentobject)
-        });
+        // WebViewJavascriptBridge.callHandler('SetData', {
+        //   content_key: 'xiaolin',
+        //   content: JSON.stringify(this.rentobject)
+        // });
+        setDataxiaolin(this.rentobject)
         goback(1)
       } else {
         // localStorage.removeItem('pics')
         this.rentobject.pics = [];
-        WebViewJavascriptBridge.callHandler('SetData', {
-          content_key: 'xiaolin',
-          content: JSON.stringify(this.rentobject)
-        });
+        // WebViewJavascriptBridge.callHandler('SetData', {
+        //   content_key: 'xiaolin',
+        //   content: JSON.stringify(this.rentobject)
+        // });
+        setDataxiaolin(this.rentobject)
         goback(1)
 //  // 如果是小吉来添加图片这里,把最新的图片存储到我的缓存里面
 // if(locations('where')){
@@ -442,16 +445,36 @@ function getAppLocalData(data) {
 }
 
 // 延时一秒
-setTimeout(function () {
+// setTimeout(function () {
 
-  var ua = navigator.userAgent.toLowerCase();
-  if (ua.match(/iPhone\sOS/i) == "iphone os") {
+//   var ua = navigator.userAgent.toLowerCase();
+//   if (ua.match(/iPhone\sOS/i) == "iphone os") {
 
+//     WebViewJavascriptBridge.callHandler('GetData', {
+//       content_key: 'xiaolin'
+//     });
+//   }
+// }, 1000);
+var ua = navigator.userAgent.toLowerCase();
+if (ua.match(/iPhone\sOS/i) == "iphone os") {
+  console.log('苹果')
+  if(window.WebViewJavascriptBridge){
     WebViewJavascriptBridge.callHandler('GetData', {
       content_key: 'xiaolin'
     });
+  }else{
+    // 延时一秒
+  setTimeout(function () {
+    WebViewJavascriptBridge.callHandler('GetData', {
+      content_key: 'xiaolin'
+    });
+  }, 1000);
   }
-}, 1000);
+} else {
+  console.log('安卓')
+  
+}
+
 
 function initdata() {
   // 判斷機型, android / ios
