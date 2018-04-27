@@ -50,16 +50,16 @@ var vm = new Vue({
       console.log('this.searchVal,this.street');
       // return
 
-      // WebViewJavascriptBridge.callHandler('SetData', {
-      //   content_key: 'xiaolin',
-      //   content: JSON.stringify(this.rentobject)
-      // });
+      WebViewJavascriptBridge.callHandler('SetData', {
+        content_key: 'xiaolin',
+        content: JSON.stringify(this.rentobject)
+      });
 
       // WebViewJavascriptBridge.callHandler('goback', {
       //   pageNumber: '1',
       //   needRefresh: 'YES'
       // });
-      setDataxiaolin(this.rentobject)
+      // setDataxiaolin(this.rentobject)
       goback(1)
     }
   },
