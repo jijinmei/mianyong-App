@@ -111,14 +111,17 @@ var mescroll;
    }
  };
 
+//  返回的提示框
  function tixing() {
-   var countconfirm = 0; 
+  //  var countconfirm = 0; 
    mui.confirm('離開本頁面將清空當前頁面的內容，確定離開？', 'title', ['離開', '取消'], function (data) {
      console.log("data")
      console.log(data)
     //  return
-     if (data.index == 0&&countconfirm == 0) {
-       countconfirm ++;
+     if (data.index == 0) {
+       
+      // if (data.index == 0&&countconfirm == 0) {
+      //  countconfirm ++;
       var ua = navigator.userAgent.toLowerCase();
       if (ua.match(/iPhone\sOS/i) == "iphone os") {
         // 苹果清缓存
@@ -133,9 +136,9 @@ var mescroll;
                 })
       }else{
        // 安卓清缓存
-       cleardata('huancun')
-       cleardata('xiaolin')
-       cleardata('xiangqingData')
+       window.callHandler.cleardata('huancun')
+       window.callHandler.cleardata('xiaolin')
+       window.callHandler.cleardata('xiangqingData')
       }
       
        // app的返回
@@ -161,10 +164,6 @@ var mescroll;
 
  //1.base64转文件对象
  function commonFiles(files, formData, items) {
-  //  
-  // console.log('base64转文件对象')
-  //  console.log(files)
-  //  return
    for (var i = 0; i < files.length; i++) {
      //base64转换为blob对象
      console.log('files[i]')
@@ -230,37 +229,15 @@ var mescroll;
  	console.log(locations('sessiontoken'))
 //  	 // console.log('个人信息')
 //  },5000)
-// 查看是否是第三方登陆
-function isthree(){ 
-  var id = localStorage.getItem('userId')
-  if (id) {
-    $.get(Boss + 'user/' + id, function (data, status) {
-      if (data.status==true) {
-       if(data.result.phone){
 
-       }else{
-               
-       }
-           
-      }else{
-          
-      }
-    })
-  }
 
-}
-// setTimeout(function(){
-//   isthree()
-// },1000)
 
-function users(){ 
     // // 查看个人资料
+function users(){ 
     var id = localStorage.getItem('userId')
     if (id) {
       $.get(Boss + 'user/' + id, function (data, status) {
         if (data.status==true) {
-          // userData 个人信息
-          // that.userIn=data.result
           console.log('查看了个人资料赋值给了电话及在线咨询')
           console.log(data.result)
           vm.rentobject.phone = data.result.phone
@@ -275,21 +252,7 @@ function users(){
 
   }
 
- //   	//返回的时候提示将清空我要发布模块的发布数据
- // function qingkong(){
- //   		mui.confirm('離開本頁面將清空當前頁面的內容，確定離開？','title',['離開','取消'],function(data){
- //   			console.log(data)
- //   			if(data.index==0){
- //   				//清空我要发布模块发布的字段缓存，并通知手机返回
-
-
-
- //   			}else{
- //                 // 留在当前页面，不通知手机返回
- //   			}
- //   		},'div')
-
- //   	}
+ 
 
  function getBase64(img, lengths, i,data) {
   // var that = this
@@ -419,6 +382,8 @@ initdata()
 
 
 }
+
+
 // 根据id查看详细内容赋值给放租和放售的发布页面xiaolin
 function xiangqing(){
   $.get(Boss + 'agent/' + locations('objectId'),function(data){
@@ -452,6 +417,7 @@ function setDataxiaolin(rentobjects){
   }
 }
 
+// app保存8大模块发布的数据
 function setDatahuancun(rentobjects){
   var ua = navigator.userAgent.toLowerCase();
   if (ua.match(/iPhone\sOS/i) == "iphone os") {
@@ -467,6 +433,7 @@ function setDatahuancun(rentobjects){
 }
 
 
+// app保存详情数据
 function setDataxiangqing(rentobjects){
   var ua = navigator.userAgent.toLowerCase();
   if (ua.match(/iPhone\sOS/i) == "iphone os") {
@@ -482,7 +449,7 @@ function setDataxiangqing(rentobjects){
 }
 
 
-
+// 清空APP的数据
 function cleardata(who){
   var ua = navigator.userAgent.toLowerCase();
   if (ua.match(/iPhone\sOS/i) == "iphone os") {
