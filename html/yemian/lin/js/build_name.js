@@ -66,11 +66,23 @@ var vm = new Vue({
       //   window.callHandler.saveResult({content_key:'xiaolin',content:JSON.stringify(this.rentobject)});
       // }
       setDataxiaolin(this.rentobject)
-      WebViewJavascriptBridge.callHandler('goback', {
-        pageNumber: '1',
-        needRefresh: 'YES'
-      });
-     
+      // WebViewJavascriptBridge.callHandler('goback', {
+      //   pageNumber: '1',
+      //   needRefresh: 'YES'
+      // });
+      var ua = navigator.userAgent.toLowerCase();
+      if (ua.match(/iPhone\sOS/i) == "iphone os") {
+        // 苹果
+        console.log('苹果')
+        WebViewJavascriptBridge.callHandler('goback', {
+          pageNumber:'1',
+          needRefresh: 'YES'
+        })
+      } else {
+        // 安卓
+        console.log('安卓')
+        window.mianyong.goBack(data);
+      }
       // goback(1)
     }
   },
