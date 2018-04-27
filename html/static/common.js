@@ -131,6 +131,9 @@ var mescroll;
                 })
       }else{
        // 安卓清缓存
+       cleardata('huancun')
+       cleardata('xiaolin')
+       cleardata('xiangqingData')
       }
       
        // app的返回
@@ -225,6 +228,28 @@ var mescroll;
  	console.log(locations('sessiontoken'))
 //  	 // console.log('个人信息')
 //  },5000)
+// 查看是否是第三方登陆
+function isthree(){ 
+  var id = localStorage.getItem('userId')
+  if (id) {
+    $.get(Boss + 'user/' + id, function (data, status) {
+      if (data.status==true) {
+       if(data.result.phone){
+
+       }else{
+               
+       }
+           
+      }else{
+          
+      }
+    })
+  }
+
+}
+// setTimeout(function(){
+//   isthree()
+// },1000)
 
 function users(){ 
     // // 查看个人资料
