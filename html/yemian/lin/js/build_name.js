@@ -80,7 +80,7 @@ var vm = new Vue({
         })
       } else {
         // 安卓
-        console.log('安卓')
+        console.log('安卓123')
         window.callHandler.goBack(1);
       }
       // goback(1)
