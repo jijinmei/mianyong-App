@@ -436,7 +436,7 @@ function cleardata(who){
           })
   } else {
     console.log('安卓')
-    
+    window.callHandler.clearDate(who)
   }
 
 }

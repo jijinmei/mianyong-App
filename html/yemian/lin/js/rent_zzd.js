@@ -67,7 +67,7 @@ var vm=new Vue({
       }
     } else {
       console.log('安卓')
-     
+      window.callHandler.getResult('xiaolin');
     }
   },
 

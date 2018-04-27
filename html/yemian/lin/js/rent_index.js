@@ -296,7 +296,7 @@ if (ua.match(/iPhone\sOS/i) == "iphone os") {
   }
 } else {
   console.log('安卓')
-  window.callHandler.getResult({content_key:'xiaolin'});
+  window.callHandler.getResult('xiaolin');
  
 }
 

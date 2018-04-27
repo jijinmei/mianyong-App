@@ -50,17 +50,28 @@ var vm = new Vue({
       console.log('this.searchVal,this.street');
       // return
 
-      WebViewJavascriptBridge.callHandler('SetData', {
-        content_key: 'xiaolin',
-        content: JSON.stringify(this.rentobject)
-      });
-
-      // WebViewJavascriptBridge.callHandler('goback', {
-      //   pageNumber: '1',
-      //   needRefresh: 'YES'
+      // WebViewJavascriptBridge.callHandler('SetData', {
+      //   content_key: 'xiaolin',
+      //   content: JSON.stringify(this.rentobject)
       // });
-      // setDataxiaolin(this.rentobject)
-      goback(1)
+      // var ua = navigator.userAgent.toLowerCase();
+      // if (ua.match(/iPhone\sOS/i) == "iphone os") {
+      //   console.log('苹果')
+      //   WebViewJavascriptBridge.callHandler('SetData', {
+      //     content_key: 'xiaolin',
+      //     content: JSON.stringify(this.rentobject)
+      //   });
+      // } else {
+      //   console.log('安卓')
+      //   window.callHandler.saveResult({content_key:'xiaolin',content:JSON.stringify(this.rentobject)});
+      // }
+      setDataxiaolin(this.rentobject)
+      WebViewJavascriptBridge.callHandler('goback', {
+        pageNumber: '1',
+        needRefresh: 'YES'
+      });
+     
+      // goback(1)
     }
   },
   data: {
@@ -108,5 +119,5 @@ if (ua.match(/iPhone\sOS/i) == "iphone os") {
   }
 } else {
   console.log('安卓')
-  
+  window.callHandler.getResult('xiaolin');
 }
