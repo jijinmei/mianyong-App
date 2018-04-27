@@ -229,7 +229,8 @@
                for (var i = 0; i < that.arrayitem.pics.length; i++) {
                 that.getBase64(that.arrayitem.pics[i], that.arrayitem.pics.length, i)
               }
-                WebViewJavascriptBridge.callHandler('SetData', {content_key: 'huancun', content:JSON.stringify(huancun)})
+                // WebViewJavascriptBridge.callHandler('SetData', {content_key: 'huancun', content:JSON.stringify(huancun)})
+                setDatahuancun(huancun)
                 // WebViewJavascriptBridge.callHandler('ClearData', {content_key: 'xiaolin'})
                 // return
            
@@ -260,10 +261,11 @@
                 'pics': that.xiaolin,
                 'start_time':'123444'
               }
-              WebViewJavascriptBridge.callHandler('SetData', {
-                content_key: 'xiaolin',
-                content: JSON.stringify(aa)
-              })
+              // WebViewJavascriptBridge.callHandler('SetData', {
+              //   content_key: 'xiaolin',
+              //   content: JSON.stringify(aa)
+              // })
+              setDataxiaolin(aa)
               // setTimeout(function(){
                  location.href="../zusouwuye/model8fabu.html?name="+that.arrayitem.section+'&from=wodefabu&sessiontoken='+sessiontoken
               // },1000)

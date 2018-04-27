@@ -55,32 +55,49 @@ var vm = new Vue({
     
   },
   mounted: function mounted() {
-
-    if (window.WebViewJavascriptBridge) {
-      WebViewJavascriptBridge.callHandler('GetData', {
-        content_key: 'xiaolin'
-      });
-    } else {
-      // 延时一秒
+    var ua = navigator.userAgent.toLowerCase();
+    if (ua.match(/iPhone\sOS/i) == "iphone os") {
+      console.log('苹果')
+      if(window.WebViewJavascriptBridge){
+        WebViewJavascriptBridge.callHandler('GetData', {
+          content_key: 'xiaolin'
+        });
+      }else{
+        // 延时一秒
       setTimeout(function () {
         WebViewJavascriptBridge.callHandler('GetData', {
           content_key: 'xiaolin'
         });
       }, 1000);
+      }
+    } else {
+      console.log('安卓')
+      window.callHandler.getResult('xiaolin');
+     
     }
-    // WebViewJavascriptBridge.callHandler('GetData', {
-    //   content_key: 'xiaolin'
-    // });
+    // if (window.WebViewJavascriptBridge) {
+    //   WebViewJavascriptBridge.callHandler('GetData', {
+    //     content_key: 'xiaolin'
+    //   });
+    // } else {
+    //   // 延时一秒
+    //   setTimeout(function () {
+    //     WebViewJavascriptBridge.callHandler('GetData', {
+    //       content_key: 'xiaolin'
+    //     });
+    //   }, 1000);
+    // }
+ 
   },
 
   methods: {
     // 下一步
     next: function next(name) {
-
-      WebViewJavascriptBridge.callHandler('SetData', {
-        content_key: 'xiaolin',
-        content: JSON.stringify(this.rentobject)
-      });
+      setDataxiaolin(this.rentobject)
+      // WebViewJavascriptBridge.callHandler('SetData', {
+      //   content_key: 'xiaolin',
+      //   content: JSON.stringify(this.rentobject)
+      // });
 
       console.log('详情预览');
       location.href = 'preview.html?sessiontoken='+locations('sessiontoken')//' + location.search;
@@ -128,16 +145,18 @@ var vm = new Vue({
 
         if (!res.message) {
           console.log('发布成功');
-          
-          WebViewJavascriptBridge.callHandler('ClearData', {
-            content_key: 'huancun'
-          })
-          WebViewJavascriptBridge.callHandler('ClearData', {
-            content_key: 'xiaolin'
-          })
-          WebViewJavascriptBridge.callHandler('ClearData', {
-            content_key: 'xiangqingData'
-          })
+          cleardata('huancun')
+          cleardata('xiaolin')
+          cleardata('xiangqingData')
+          // WebViewJavascriptBridge.callHandler('ClearData', {
+          //   content_key: 'huancun'
+          // })
+          // WebViewJavascriptBridge.callHandler('ClearData', {
+          //   content_key: 'xiaolin'
+          // })
+          // WebViewJavascriptBridge.callHandler('ClearData', {
+          //   content_key: 'xiangqingData'
+          // })
           goback(2);
           // 跳转到查看售盘页面
           // window.location.href="../xiangqing/liebiaoSou.html"+location.search;
@@ -147,10 +166,11 @@ var vm = new Vue({
 
     // 添加照片
     addPic: function addPic() {
-      WebViewJavascriptBridge.callHandler('SetData', {
-        content_key: 'xiaolin',
-        content: JSON.stringify(this.rentobject)
-      });
+      setDataxiaolin(this.rentobject)
+      // WebViewJavascriptBridge.callHandler('SetData', {
+      //   content_key: 'xiaolin',
+      //   content: JSON.stringify(this.rentobject)
+      // });
       location.href = 'pic.html?sessiontoken='+locations('sessiontoken')//' + location.search;
     },
 

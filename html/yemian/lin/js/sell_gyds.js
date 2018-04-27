@@ -3,19 +3,38 @@ Vue.prototype.$axios = axios;
 var vm = new Vue({
   el: '#app',
   mounted: function mounted() {
-
-    if (window.WebViewJavascriptBridge) {
-      WebViewJavascriptBridge.callHandler('GetData', {
-        content_key: 'xiaolin'
-      });
-    } else {
-      // 延时一秒
+    var ua = navigator.userAgent.toLowerCase();
+    if (ua.match(/iPhone\sOS/i) == "iphone os") {
+      console.log('苹果')
+      if(window.WebViewJavascriptBridge){
+        WebViewJavascriptBridge.callHandler('GetData', {
+          content_key: 'xiaolin'
+        });
+      }else{
+        // 延时一秒
       setTimeout(function () {
         WebViewJavascriptBridge.callHandler('GetData', {
           content_key: 'xiaolin'
         });
       }, 1000);
+      }
+    } else {
+      console.log('安卓')
+      window.callHandler.getResult('xiaolin');
+     
     }
+    // if (window.WebViewJavascriptBridge) {
+    //   WebViewJavascriptBridge.callHandler('GetData', {
+    //     content_key: 'xiaolin'
+    //   });
+    // } else {
+    //   // 延时一秒
+    //   setTimeout(function () {
+    //     WebViewJavascriptBridge.callHandler('GetData', {
+    //       content_key: 'xiaolin'
+    //     });
+    //   }, 1000);
+    // }
   },
 
   computed: {
@@ -98,10 +117,11 @@ var vm = new Vue({
     },
     publish: function publish() {
       var that = this
-      WebViewJavascriptBridge.callHandler('SetData', {
-        content_key: 'xiaolin',
-        content: JSON.stringify(this.rentobject)
-      });
+      setDataxiaolin(this.rentobject)
+      // WebViewJavascriptBridge.callHandler('SetData', {
+      //   content_key: 'xiaolin',
+      //   content: JSON.stringify(this.rentobject)
+      // });
 
       // 放售的工业大厦的发布必填:照片 售价 2个面积 楼层 装修程度 联络方式
       if (this.rentobject.pics == '' || this.rentobject.pics == null) {
@@ -137,15 +157,18 @@ var vm = new Vue({
 
         if (!res.message) {
           console.log('发布成功');
-          WebViewJavascriptBridge.callHandler('ClearData', {
-            content_key: 'huancun'
-          })
-          WebViewJavascriptBridge.callHandler('ClearData', {
-            content_key: 'xiaolin'
-          })
-          WebViewJavascriptBridge.callHandler('ClearData', {
-            content_key: 'xiangqingData'
-          })
+          // WebViewJavascriptBridge.callHandler('ClearData', {
+          //   content_key: 'huancun'
+          // })
+          // WebViewJavascriptBridge.callHandler('ClearData', {
+          //   content_key: 'xiaolin'
+          // })
+          // WebViewJavascriptBridge.callHandler('ClearData', {
+          //   content_key: 'xiangqingData'
+          // })
+          cleardata('huancun')
+          cleardata('xiaolin')
+          cleardata('xiangqingData')
           goback(2);
           // 跳转到查看售盘页面
           // window.location.href = "../xiangqing/liebiaoSou.html" + location.search;
@@ -155,18 +178,20 @@ var vm = new Vue({
 
     // 添加照片
     addPic: function addPic() {
-      WebViewJavascriptBridge.callHandler('SetData', {
-        content_key: 'xiaolin',
-        content: JSON.stringify(this.rentobject)
-      });
+      setDataxiaolin(this.rentobject)
+      // WebViewJavascriptBridge.callHandler('SetData', {
+      //   content_key: 'xiaolin',
+      //   content: JSON.stringify(this.rentobject)
+      // });
       location.href = 'pic.html?sessiontoken='+locations('sessiontoken')//' + location.search;
     },
     next: function next(name) {
       // 保存数据
-      WebViewJavascriptBridge.callHandler('SetData', {
-        content_key: 'xiaolin',
-        content: JSON.stringify(this.rentobject)
-      });
+      setDataxiaolin(this.rentobject)
+      // WebViewJavascriptBridge.callHandler('SetData', {
+      //   content_key: 'xiaolin',
+      //   content: JSON.stringify(this.rentobject)
+      // });
       console.log('详情预览');
       location.href = 'preview.html?sessiontoken='+locations('sessiontoken')//' + location.search;
     },

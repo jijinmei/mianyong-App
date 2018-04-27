@@ -317,10 +317,11 @@ console.log(saveObject)
   //  return          
              
               // 转完后要存储去app
-                WebViewJavascriptBridge.callHandler('SetData', {
-                  content_key: 'xiaolin',
-                  content: JSON.stringify(saveObject)
-                });
+              setDataxiaolin(saveObject)
+                // WebViewJavascriptBridge.callHandler('SetData', {
+                //   content_key: 'xiaolin',
+                //   content: JSON.stringify(saveObject)
+                // });
                 console.log(data)
                 // return
               if(that.arrayitem.category=='rent'){

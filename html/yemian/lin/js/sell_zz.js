@@ -2,19 +2,38 @@
 var vm = new Vue({
   el: '#app',
   mounted: function mounted() {
-
-    if(window.WebViewJavascriptBridge){
-      WebViewJavascriptBridge.callHandler('GetData', {
-        content_key: 'xiaolin'
-      });
-    }else{
-      // 延时一秒
-    setTimeout(function () {
-      WebViewJavascriptBridge.callHandler('GetData', {
-        content_key: 'xiaolin'
-      });
-    }, 1000);
+    var ua = navigator.userAgent.toLowerCase();
+    if (ua.match(/iPhone\sOS/i) == "iphone os") {
+      console.log('苹果')
+      if(window.WebViewJavascriptBridge){
+        WebViewJavascriptBridge.callHandler('GetData', {
+          content_key: 'xiaolin'
+        });
+      }else{
+        // 延时一秒
+      setTimeout(function () {
+        WebViewJavascriptBridge.callHandler('GetData', {
+          content_key: 'xiaolin'
+        });
+      }, 1000);
+      }
+    } else {
+      console.log('安卓')
+      window.callHandler.getResult('xiaolin');
+     
     }
+    // if(window.WebViewJavascriptBridge){
+    //   WebViewJavascriptBridge.callHandler('GetData', {
+    //     content_key: 'xiaolin'
+    //   });
+    // }else{
+    //   // 延时一秒
+    // setTimeout(function () {
+    //   WebViewJavascriptBridge.callHandler('GetData', {
+    //     content_key: 'xiaolin'
+    //   });
+    // }, 1000);
+    // }
   },
  computed:{
   setImg: function setImg() {
@@ -58,10 +77,11 @@ var vm = new Vue({
    
     addPic: function addPic() {
       console.log('添加照片');
-      WebViewJavascriptBridge.callHandler('SetData', {
-        content_key: 'xiaolin',
-        content: JSON.stringify(this.rentobject)
-      });
+      setDataxiaolin(this.rentobject)
+      // WebViewJavascriptBridge.callHandler('SetData', {
+      //   content_key: 'xiaolin',
+      //   content: JSON.stringify(this.rentobject)
+      // });
       location.href = 'pic.html' + location.search;
     },
 
@@ -139,10 +159,11 @@ var vm = new Vue({
     },
     next: function next() {
 var that=this
-      WebViewJavascriptBridge.callHandler('SetData', {
-        content_key: 'xiaolin',
-        content: JSON.stringify(this.rentobject)
-      });
+setDataxiaolin(this.rentobject)
+      // WebViewJavascriptBridge.callHandler('SetData', {
+      //   content_key: 'xiaolin',
+      //   content: JSON.stringify(this.rentobject)
+      // });
 // 放售的住宅第二个页面发布必填:图片 售价 间隔 实用面积 建筑面积 楼层 景观 装修程度
       if (this.rentobject.pics == '' || this.rentobject.pics == null) {
         // mui.toast('照片不能為空');

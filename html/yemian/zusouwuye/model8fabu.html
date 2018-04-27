@@ -564,10 +564,11 @@ vm.users()
           }
 
           // window.localStorage.setItem('huancun', JSON.stringify(huancun))
-          WebViewJavascriptBridge.callHandler('SetData', {
-            content_key: 'huancun',
-            content: JSON.stringify(huancun)
-          })
+          // WebViewJavascriptBridge.callHandler('SetData', {
+          //   content_key: 'huancun',
+          //   content: JSON.stringify(huancun)
+          // })
+          setDatahuancun(huancun)
           // 如果hh1是空，则代表当前是http的图片路径或者还没选择图片，这个时候要转64存在小林的数组
           // 自己的缓存没有图片并且小林的也没有，则当前是全新进入的页面
           location.href = "../lin/pic.html?where=ji"        
@@ -639,10 +640,11 @@ vm.users()
 
           console.log(xiangqingData)
           // 跳转到详情页面
-          WebViewJavascriptBridge.callHandler('SetData', {
-            content_key: 'xiangqingData',
-            content: JSON.stringify(xiangqingData)
-          })
+          setDataxiangqing(xiangqingData)
+          // WebViewJavascriptBridge.callHandler('SetData', {
+          //   content_key: 'xiangqingData',
+          //   content: JSON.stringify(xiangqingData)
+          // })
           location.href = httplu + 'xiangqing/xiangqing.html?jianju=no&objectId=no&name=' + that.names
 
         },
@@ -725,15 +727,18 @@ if(this.content){
               })
               .done(function (data, textStatus, jqXHR) {
                 if (data.status) {
-                  WebViewJavascriptBridge.callHandler('ClearData', {
-                    content_key: 'huancun'
-                  })
-                  WebViewJavascriptBridge.callHandler('ClearData', {
-                    content_key: 'xiaolin'
-                  })
-                  WebViewJavascriptBridge.callHandler('ClearData', {
-                    content_key: 'xiangqingData'
-                  })
+                  cleardata('huancun')
+                  cleardata('xiaolin')
+                  cleardata('xiangqingData')
+                  // WebViewJavascriptBridge.callHandler('ClearData', {
+                  //   content_key: 'huancun'
+                  // })
+                  // WebViewJavascriptBridge.callHandler('ClearData', {
+                  //   content_key: 'xiaolin'
+                  // })
+                  // WebViewJavascriptBridge.callHandler('ClearData', {
+                  //   content_key: 'xiangqingData'
+                  // })
                   that.isending = true //正在发布，请稍后
                 
                   goback(1)
@@ -847,23 +852,50 @@ if(this.content){
           console.log(that.Fenlei)
           //获取填写的东西，必须等请求完后才调用获取方法
           // 一个是字段数据，一个是小林的图片
-          if(window.WebViewJavascriptBridge){
-                      WebViewJavascriptBridge.callHandler('GetData', {
-                        content_key: 'huancun'
-                      })
-                      WebViewJavascriptBridge.callHandler('GetData', {
-                        content_key: 'xiaolin'
-                      })
-          }else{
-            setTimeout(function(){
-                      WebViewJavascriptBridge.callHandler('GetData', {
-                        content_key: 'huancun'
-                      })
-                      WebViewJavascriptBridge.callHandler('GetData', {
-                        content_key: 'xiaolin'
-                      })
-            },1000)
-          }
+          var ua = navigator.userAgent.toLowerCase();
+if (ua.match(/iPhone\sOS/i) == "iphone os") {
+  console.log('苹果')
+  if(window.WebViewJavascriptBridge){
+    WebViewJavascriptBridge.callHandler('GetData', {
+      content_key: 'huancun'
+    });
+    WebViewJavascriptBridge.callHandler('GetData', {
+      content_key: 'xiaolin'
+    });
+  }else{
+    // 延时一秒
+  setTimeout(function () {
+    WebViewJavascriptBridge.callHandler('GetData', {
+      content_key: 'huancun'
+    });
+    WebViewJavascriptBridge.callHandler('GetData', {
+      content_key: 'xiaolin'
+    });
+  }, 1000);
+  }
+} else {
+  console.log('安卓')
+  window.callHandler.getResult('huancun');
+  window.callHandler.getResult('xiaolin');
+ 
+}
+          // if(window.WebViewJavascriptBridge){
+          //             WebViewJavascriptBridge.callHandler('GetData', {
+          //               content_key: 'huancun'
+          //             })
+          //             WebViewJavascriptBridge.callHandler('GetData', {
+          //               content_key: 'xiaolin'
+          //             })
+          // }else{
+          //   setTimeout(function(){
+          //             WebViewJavascriptBridge.callHandler('GetData', {
+          //               content_key: 'huancun'
+          //             })
+          //             WebViewJavascriptBridge.callHandler('GetData', {
+          //               content_key: 'xiaolin'
+          //             })
+          //   },1000)
+          // }
          
 
         })

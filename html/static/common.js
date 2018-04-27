@@ -425,6 +425,35 @@ function setDataxiaolin(rentobjects){
   }
 }
 
+function setDatahuancun(rentobjects){
+  var ua = navigator.userAgent.toLowerCase();
+  if (ua.match(/iPhone\sOS/i) == "iphone os") {
+    console.log('苹果')
+    WebViewJavascriptBridge.callHandler('SetData', {
+      content_key: 'huancun',
+      content: JSON.stringify(rentobjects)
+    });
+  } else {
+    console.log('安卓')
+    window.callHandler.saveResult({content_key:'huancun',content:JSON.stringify(rentobjects)});
+  }
+}
+
+
+function setDataxiangqing(rentobjects){
+  var ua = navigator.userAgent.toLowerCase();
+  if (ua.match(/iPhone\sOS/i) == "iphone os") {
+    console.log('苹果')
+    WebViewJavascriptBridge.callHandler('SetData', {
+      content_key: 'xiangqingData',
+      content: JSON.stringify(rentobjects)
+    });
+  } else {
+    console.log('安卓')
+    window.callHandler.saveResult({content_key:'xiangqingData',content:JSON.stringify(rentobjects)});
+  }
+}
+
 
 
 function cleardata(who){
