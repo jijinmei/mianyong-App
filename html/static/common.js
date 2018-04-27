@@ -84,7 +84,9 @@ var mescroll;
    } else {
      // 安卓
      console.log('安卓')
-     window.mianyong.goBack(data);
+    //  window.mianyong.goBack(data);
+    window.callHandler.goBack(data);
+    
    }
 
  };
@@ -105,7 +107,7 @@ var mescroll;
    } else {
      // 安卓
      console.log('安卓')
-     window.mianyong.gotoChat(JSON.stringify(data));
+     window.callHandler.gotoChat(JSON.stringify(data));
    }
  };
 
