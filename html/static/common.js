@@ -446,7 +446,7 @@ function setDataxiaolin(rentobjects){
     });
   } else {
     console.log('安卓')
-    window.callHandler.saveResult({content_key:'xiaolin',content:JSON.stringify(rentobjects)});
+    window.callHandler.saveResult('xiaolin',JSON.stringify(rentobjects));
   }
 }
 
@@ -460,7 +460,7 @@ function setDatahuancun(rentobjects){
     });
   } else {
     console.log('安卓')
-    window.callHandler.saveResult({content_key:'huancun',content:JSON.stringify(rentobjects)});
+    window.callHandler.saveResult('huancun',JSON.stringify(rentobjects));
   }
 }
 
@@ -475,7 +475,7 @@ function setDataxiangqing(rentobjects){
     });
   } else {
     console.log('安卓')
-    window.callHandler.saveResult({content_key:'xiangqingData',content:JSON.stringify(rentobjects)});
+    window.callHandler.saveResult('xiangqingData',JSON.stringify(rentobjects));
   }
 }
 
