@@ -644,6 +644,14 @@
 
     },
     mounted() {  
+      // 添加叉子
+$('#__MUI_PREVIEWIMAGE').append('<img src="../../assets/img/login/cazhi.png"  class="absolute cursor w40 padding0 T25 R40">')
+$(document).on('click','#__MUI_PREVIEWIMAGE',function(){
+  $('#__MUI_PREVIEWIMAGE').removeClass('mui-preview-in')
+  $('#__MUI_PREVIEWIMAGE').addClass('mui-preview-out')
+})
+
+
       if (window.WebViewJavascriptBridge) {
       WebViewJavascriptBridge.callHandler('GetData', {
         content_key: 'two_badge'

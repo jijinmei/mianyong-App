@@ -126,6 +126,7 @@ var mescroll;
       var ua = navigator.userAgent.toLowerCase();
       if (ua.match(/iPhone\sOS/i) == "iphone os") {
         // 苹果清缓存
+        console.log('苹果')
                 WebViewJavascriptBridge.callHandler('ClearData', {
                   content_key: 'huancun'
                 })
@@ -137,6 +138,7 @@ var mescroll;
                 })
       }else{
        // 安卓清缓存
+       console.log('安卓')
        window.callHandler.cleardata('huancun')
        window.callHandler.cleardata('xiaolin')
        window.callHandler.cleardata('xiangqingData')

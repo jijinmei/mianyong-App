@@ -652,6 +652,12 @@
       }
     },
     mounted() {
+      // 添加叉子
+$('#__MUI_PREVIEWIMAGE').append('<img src="../../assets/img/login/cazhi.png"  class="absolute cursor w40 padding0 T25 R40">')
+$(document).on('click','#__MUI_PREVIEWIMAGE',function(){
+  $('#__MUI_PREVIEWIMAGE').removeClass('mui-preview-in')
+  $('#__MUI_PREVIEWIMAGE').addClass('mui-preview-out')
+})
       //全局的id  点击讨论区列表的跳转id
       this.objectId = locations('objectId')
       //查看讨论区贴文详情
