@@ -230,7 +230,7 @@ var mescroll;
 
 
  setInterval(function() {
-   console.log(locations('sessiontoken'))
+   console.log('每个页面都要获取地址栏的sessiontoken:::')
    console.log(location.href)
 //  	 // console.log('个人信息')
  },8000)
