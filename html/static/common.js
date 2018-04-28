@@ -83,7 +83,7 @@ var mescroll;
      })
    } else {
      // 安卓
-     console.log('安卓')
+     console.log('安卓(1代刷新 -1代表不刷新)')
     //  window.mianyong.goBack(data);
     // 1代刷新 -1代表不刷新
     window.callHandler.goBack(data,1);
@@ -226,7 +226,7 @@ var mescroll;
 
  var sessiontoken = locations('sessiontoken')
  console.log('第一次进来的时候是否有sessiontoken'+sessiontoken)
- 
+
  // 检测用户是否可发布
  function checker(who, callback) {
    // 检测点，posts = 帖，agents = 楼盘

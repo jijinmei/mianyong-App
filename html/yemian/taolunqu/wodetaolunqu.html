@@ -179,7 +179,7 @@
                  <!-- 下边框线 -->
                 <span class="spjz xia" :class="{xialv:curNavIndex==1||curNavIndex==2,xiabai:curNavIndex!=1&&curNavIndex!=2}"></span>
                 <!-- 红点 -->
-                <span v-if="appgood>0" style="height:0.18rem;width:0.18rem;bottom:-0.25rem;background: red;right:0.28rem;" class="czjz radius50"></span>
+                <span v-if="appgood!=0" style="height:0.18rem;width:0.18rem;bottom:-0.25rem;background: red;right:0.28rem;" class="czjz radius50"></span>
                 <!-- 左右的边框线 -->
                 <span style="width:0;height:0.3rem;left:0;margin-top:0.05rem;" class="czjz border-l"></span>
                 <span style="width:0;height:0.3rem;right:0;margin-top:0.05rem;" class="czjz border-l"></span>
@@ -189,7 +189,7 @@
                <!-- 下边框线 -->
                 <span class="spjz xia" :class="{xialv:curNavIndex==3||curNavIndex==4,xiabai:curNavIndex!=3||curNavIndex!=4}"></span>
                  <!-- 红点 -->
-            <span v-if="appcomment>0" style="height:0.18rem;width:0.18rem;bottom:-0.25rem;background: red;right:0.28rem;" class="czjz radius50"></span>
+            <span v-if="appcomment!=0" style="height:0.18rem;width:0.18rem;bottom:-0.25rem;background: red;right:0.28rem;" class="czjz radius50"></span>
             </p>
            
           </div>
@@ -203,7 +203,8 @@
           <button   v-if="curNavIndex==4||curNavIndex==3" @click="qiehuan($event,3)" i="3"    type="button" :class="{muiBtnGreen:tab3Idx==1,muiBtnGrey:tab3Idx==2}" class="mui-btn" style="margin-right:1.9rem;border-radius:0.3rem;padding:0.12rem 0.34rem !important;">已發出</button>
           <button   v-if="curNavIndex==4||curNavIndex==3" @click="qiehuan($event,4)" i="4"  type="button" :class="{muiBtnGreen:tab3Idx==2,muiBtnGrey:tab3Idx==1}" class="mui-btn" style="border-radius:0.3rem;padding:0.12rem 0.34rem !important;">已收到</button> 
           <!--收到的信息量-->
-          <span  v-if="appcomment>0"  class="mui-badge mui-btn-red absolute bold" style="background:red;color:white;right:0.5rem;top:-0.01rem;">{{appcomment}}</span>
+          <span  v-if="appgood!=0&&(curNavIndex==1||curNavIndex==2)"  class="mui-badge mui-btn-red absolute bold" style="background:red;color:white;right:0.5rem;top:-0.01rem;">{{appgood}</span>
+          <span  v-if="appcomment!=0&&(curNavIndex==4||curNavIndex==3)"  class="mui-badge mui-btn-red absolute bold" style="background:red;color:white;right:0.5rem;top:-0.01rem;">{{appcomment}}</span>
         </p>
 
 

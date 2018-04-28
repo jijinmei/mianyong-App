@@ -69,6 +69,10 @@
               <p class="mui-ellipsis fz17 c666666">發佈時間:{{datas.createdAt}}</p>
               <p class="fz30 c000000" style="white-space: normal;word-break: break-all;"><button type="button" class="mui-btn mui-btn-green" style="font-size: 0.21rem;margin-right:0.1rem;">{{datas.tag}}</button>{{datas.title}}</p>
               <div class="fz25 c333333" style="white-space: normal;word-break: break-all;">{{datas.content}}</div>
+                <!-- 具体某个人的在线聊天 -->
+<p class="h40 relative">
+                <button @tap="im(datas,datas.objectId,'more')"  type="button" class="czjz mui-btn-green mui-btn-outlined fz19" style="right:0;padding:0.03rem 0.06rem !important;">在線咨詢</button>
+</p>
               <img :src="item.url" alt="" class="mui-block" style="margin:0.45rem 0;width:100%;" data-preview-src="" :data-preview-group="'tlqxq'" v-for="(item,index) in datas.pics" />
             </div>
           </a>
@@ -139,10 +143,17 @@
                         </div>
                         <div class="mui-media-body fz23 ">
                           <span class="c282828">{{item.user!=undefined&&item.user.nickname!=undefined?item.user.nickname:' '}}</span>
-                          <!--具体的点击某个人回复-->
-                          <button @tap="whoIds(item.user.nickname,item.objectId)" type="button" class="absolute mui-btn-green mui-btn-outlined fz19" style="top:0.2;right:0.2rem;padding:0.03rem 0.06rem !important;">回復</button>
+                         
+
                           <p class="mui-ellipsis fz19 c666666">發佈時間:{{item.createdAt}}</p>
                           <p class="fz25 c333333" style="white-space: normal;">{{item.comment}}</p>
+
+                          <p class="fz25 c333333 h50 relative" style="white-space: normal;">
+                                   <!--具体的点击某个人回复-->
+                                  <button @tap="whoIds(item.user.nickname,item.objectId)" type="button" class="czjz mui-btn-green mui-btn-outlined fz19" style="right:0rem;padding:0.03rem 0.06rem !important;">回復</button>
+                                  <!-- 具体某个人的在线聊天 -->
+                                  <button @tap="im(item,item.objectId,'one')"  type="button" class="czjz mui-btn-green mui-btn-outlined fz19" style="right:1rem;padding:0.03rem 0.06rem !important;">在線咨詢</button>
+                          </p>
 
                         </div>
                       </a>
@@ -277,6 +288,26 @@
               }
       
       },
+            //在线咨询
+            im(data,objectId,who) {
+              if (sessiontoken && sessiontoken != 'null') {
+                console.log('进来了' + sessiontoken)
+                // 判断是否是发布者 不是则调用手机聊天接口  是则弹出提示框
+                var whos=(who=='one'?data.user.objectId:this.datas.user.objectId)
+                if (sessiontoken == whos) {
+                  mui.alert('您是本盤的發佈者，不能進行在線諮詢', ' ', ['好的'])
+                } else {
+                  // window.webkit.messageHandlers.gotoChat.postMessage(this.datas)
+                  console.log("数据" + this.datas)
+                  gotoChat(objectId)
+                }
+    
+              } else {
+                console.log('还没进来了' + sessiontoken)
+                mui.toast('請先到【我的】登入')
+              }
+    
+            },
       //具体点击的某个人的回复框
       whoIds(name, id) {
         if(sessiontoken==''){
