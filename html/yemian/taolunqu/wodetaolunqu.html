@@ -442,6 +442,7 @@
 </div>
 <script>
     function getAppLocalData(data) {
+      console.log(data)
       if (data) {
         console.log('有值传过来', data)
         vm.appgood=JSON.parse(data).good_latest_flag
