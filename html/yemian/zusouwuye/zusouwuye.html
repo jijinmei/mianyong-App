@@ -247,6 +247,8 @@ body{background: #ebebeb !important;}
                 
         }else if(index==3){
           if(sessiontoken){
+            location.href='../lin/sell_index.html?sessiontoken='+sessiontoken
+            return
             var id = localStorage.getItem('userId')
               if (id) {
                 $.get(Boss + 'user/' + id, function (data, status) {
