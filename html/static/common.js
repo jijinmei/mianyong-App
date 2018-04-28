@@ -146,7 +146,7 @@ var mescroll;
       }
       
        // app的返回
-      //  goback(1)
+       goback(1)
        
      }else{
       console.log('留下')
