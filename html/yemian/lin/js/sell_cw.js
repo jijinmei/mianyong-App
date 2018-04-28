@@ -143,7 +143,7 @@ var vm = new Vue({
       this.isending = false;
       this.$axios.post('/agent', getFormDataFun(this.rentobject)).then(function (res) {
 
-        if (!res.message) {
+        if (res.status) {
           console.log('发布成功');
           cleardata('huancun')
           cleardata('xiaolin')
@@ -160,6 +160,9 @@ var vm = new Vue({
           goback(2);
           // 跳转到查看售盘页面
           // window.location.href="../xiangqing/liebiaoSou.html"+location.search;
+        }else{
+          that.isending=true
+          mui.toast(res.result.message)
         }
       });
     },

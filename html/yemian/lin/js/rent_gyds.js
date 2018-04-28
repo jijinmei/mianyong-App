@@ -129,7 +129,7 @@ if (ua.match(/iPhone\sOS/i) == "iphone os") {
       this.isending = false;
       this.$axios.post('/agent', getFormDataFun(this.rentobject)).then(function (res) {
 
-        if (!res.message) {
+        if (res.status) {
           console.log('发布成功');
           cleardata('huancun')
           cleardata('xiaolin')
@@ -146,6 +146,9 @@ if (ua.match(/iPhone\sOS/i) == "iphone os") {
           goback(2);
           // 跳转到查看租盘页面
           // window.location.href="../xiangqing/liebiaoZu.html"+location.search;
+        }else{
+          that.isending=true
+          mui.toast(res.result.message)
         }
       });
     },

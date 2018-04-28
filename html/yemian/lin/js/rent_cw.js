@@ -144,7 +144,7 @@ var vm = new Vue({
       this.isending = false;
       this.$axios.post('/agent', getFormDataFun(this.rentobject)).then(function (res) {
 
-        if (!res.message) {
+        if (res.status==true) {
           console.log('发布成功');
           cleardata('huancun')
           cleardata('xiaolin')
@@ -161,6 +161,9 @@ var vm = new Vue({
           goback(2);
            // 跳转到查看租盘页面
           //  window.location.href="../xiangqing/liebiaoZu.html"+location.search;
+        }else{
+          that.isending=true
+          mui.toast(res.result.message)
         }
       });
     },
