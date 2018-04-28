@@ -172,6 +172,7 @@ setTimeout(function(){
 // mui.toast('通知手机执行返回事件')
     goback(1)
     }else{
+      that.isending=true//正在发布，请稍后
       mui.toast(data.result.message)
     }
     

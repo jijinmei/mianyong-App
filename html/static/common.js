@@ -229,11 +229,11 @@ var mescroll;
  }
 
 
-//  setInterval(function() {
+ setInterval(function() {
    console.log(locations('sessiontoken'))
    console.log(location.href)
 //  	 // console.log('个人信息')
-//  },5000)
+ },8000)
 
 
 
