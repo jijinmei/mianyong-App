@@ -610,7 +610,10 @@
       //3我的攒好已收到
       newshoudao2() {
             // 清空app的数据
-            if(window.WebViewJavascriptBridge){
+            var ua = navigator.userAgent.toLowerCase();
+    if (ua.match(/iPhone\sOS/i) == "iphone os") {
+      console.log('苹果')
+      if(window.WebViewJavascriptBridge){
                WebViewJavascriptBridge.callHandler('ClearData', {
                   content_key: 'good_latest_flag'
                 })
@@ -621,13 +624,31 @@
                 })
               },1000)
             }
+  }else{
+    console.log('安卓')
+    window.callHandler.clearUnRead('good_latest_flag');
+  }  
+            // if(window.WebViewJavascriptBridge){
+            //    WebViewJavascriptBridge.callHandler('ClearData', {
+            //       content_key: 'good_latest_flag'
+            //     })
+            // }else{
+            //   setTimeout(function(){
+            //     WebViewJavascriptBridge.callHandler('ClearData', {
+            //       content_key: 'good_latest_flag'
+            //     })
+            //   },1000)
+            // }
            
             this.appgood=0
       },
       //3我的回复已收到
       newshoudao3() {
             // 清空app的数据
-            if(window.WebViewJavascriptBridge){
+            var ua = navigator.userAgent.toLowerCase();
+    if (ua.match(/iPhone\sOS/i) == "iphone os") {
+      console.log('苹果')
+      if(window.WebViewJavascriptBridge){
                WebViewJavascriptBridge.callHandler('ClearData', {
                   content_key: 'comment_latest_flag'
                 })
@@ -638,6 +659,21 @@
                 })
               },1000)
             }
+  }else{
+    console.log('安卓')
+    window.callHandler.clearUnRead('comment_latest_flag');
+  } 
+            // if(window.WebViewJavascriptBridge){
+            //    WebViewJavascriptBridge.callHandler('ClearData', {
+            //       content_key: 'comment_latest_flag'
+            //     })
+            // }else{
+            //   setTimeout(function(){
+            //     WebViewJavascriptBridge.callHandler('ClearData', {
+            //       content_key: 'comment_latest_flag'
+            //     })
+            //   },1000)
+            // }
                 this.appcomment=0
       }
      
@@ -651,7 +687,9 @@ $(document).on('click','#__MUI_PREVIEWIMAGE',function(){
   $('#__MUI_PREVIEWIMAGE').addClass('mui-preview-out')
 })
 
-
+var ua = navigator.userAgent.toLowerCase();
+    if (ua.match(/iPhone\sOS/i) == "iphone os") {
+      console.log('苹果')
       if (window.WebViewJavascriptBridge) {
       WebViewJavascriptBridge.callHandler('GetData', {
         content_key: 'two_badge'
@@ -664,8 +702,10 @@ $(document).on('click','#__MUI_PREVIEWIMAGE',function(){
         });
       }, 1000);
     }
-      //调用刷新和加载
-      // this.refresh()
+  }else{
+    console.log('安卓')
+    window.callHandler.postUnReadMsg();
+  }  
          
     }
     })
