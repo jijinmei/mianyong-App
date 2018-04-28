@@ -160,7 +160,8 @@ setTimeout(function(){
 })
 .done(function(data, textStatus, jqXHR) {
     console.log("HTTP Request Succeeded: " + jqXHR.status);
-    that.tdate=[]
+    if(data.statue){
+      that.tdate=[]
     that.$store.state.tdate=[]
     that.btnindex=-1
     that.title=''
@@ -170,6 +171,10 @@ setTimeout(function(){
     // 通知手机执行返回事件
 // mui.toast('通知手机执行返回事件')
     goback(1)
+    }else{
+      mui.toast(data.result.message)
+    }
+    
 })
 .fail(function(jqXHR, textStatus, errorThrown) {
     console.log("HTTP Request Failed");

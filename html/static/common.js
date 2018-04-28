@@ -158,7 +158,7 @@ var mescroll;
 
  // 所有页面进来的时候手机都请求
  function information(objectId) {
-   console.log('个人信息的objectId' + objectId)
+   console.log('个人信息的objectId:::' + objectId)
    if (objectId) {
      window.localStorage.setItem('userId', objectId)
     //  console.log(window.localStorage.getItem('userId'))
