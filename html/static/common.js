@@ -221,11 +221,12 @@ var mescroll;
   console.log('每个页面都要获取地址栏的sessiontoken:::')
   console.log(location.href)
 //  	 // console.log('个人信息')
-},8000) 
+},10000) 
 
 
  var sessiontoken = locations('sessiontoken')
  console.log('第一次进来的时候是否有sessiontoken'+sessiontoken)
+ 
  // 检测用户是否可发布
  function checker(who, callback) {
    // 检测点，posts = 帖，agents = 楼盘
