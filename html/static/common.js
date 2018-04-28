@@ -146,7 +146,7 @@ var mescroll;
       }
       
        // app的返回
-       goback(1)
+      //  goback(1)
        
      }else{
       console.log('留下')
@@ -465,7 +465,7 @@ function cleardata(who){
           })
   } else {
     console.log('安卓')
-    window.callHandler.clearDate(who)
+    window.callHandler.cleardata(who)
   }
 
 }
