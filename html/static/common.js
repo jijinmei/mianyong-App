@@ -118,9 +118,10 @@ var mescroll;
    mui.confirm('離開本頁面將清空當前頁面的內容，確定離開？', 'title', ['離開', '取消'], function (data) {
      console.log("data")
      console.log(data)
+     console.log('提醒框')
     //  return
      if (data.index == 0) {
-       
+      console.log('离开')
       // if (data.index == 0&&countconfirm == 0) {
       //  countconfirm ++;
       var ua = navigator.userAgent.toLowerCase();
@@ -147,6 +148,8 @@ var mescroll;
        // app的返回
        goback(1)
        
+     }else{
+      console.log('留下')
      }
     //  mui.close(data)
    }, 'div')
