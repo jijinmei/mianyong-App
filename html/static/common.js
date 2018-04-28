@@ -85,7 +85,8 @@ var mescroll;
      // 安卓
      console.log('安卓')
     //  window.mianyong.goBack(data);
-    window.callHandler.goBack(data);
+    // 1代刷新 -1代表不刷新
+    window.callHandler.goBack(data,1);
     
    }
 
