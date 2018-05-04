@@ -430,7 +430,8 @@
           if (sessiontoken && sessiontoken != 'null') {
             console.log('进来了' + sessiontoken)
             // 判断是否是发布者 不是则调用手机聊天接口  是则弹出提示框
-            if (sessiontoken == this.datas.user.objectId) {
+            var ob=window.localStorage.getItem('userId') 
+            if (ob == this.datas.user.objectId) {
               mui.alert('您是本盤的發佈者，不能進行在線諮詢', ' ', ['好的'])
             } else {
               // window.webkit.messageHandlers.gotoChat.postMessage(this.datas)
