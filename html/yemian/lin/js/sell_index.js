@@ -142,7 +142,7 @@ setDataxiaolin(this.rentobject)
         }
       }, this);
     },
-    // 选择类型
+    // 选择类型1
     selectTypeItem: function selectTypeItem(index) {
       // 所有的编辑都不能更改类型
       if(this.rentobject.objectId){
