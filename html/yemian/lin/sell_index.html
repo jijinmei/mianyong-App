@@ -21,7 +21,7 @@
     <div class="lei-xing">
       <p class="title">
         <span>*</span>類型</p>
-      <div class="main">
+      <div class="main"  :style="{opacity:rentobject.objectId==''?'0.5':'1'}">
         <div class="item" v-for="(item, index) in typeData" :style="{backgroundImage: `url(${item.state ? item.imgurl1 : item.imgurl2})`}"
           @click="selectTypeItem(index)">
           <i :class="{active: item.state ? true : false}">{{item.text}}</i>

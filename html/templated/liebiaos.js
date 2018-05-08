@@ -10,7 +10,7 @@ template: `
 	
 		<!--2.帅选出来的列表内容-->
 		<ul id="LIST"  class="before00 after00 bgebebeb mui-table-view relative LIEBIAOS" style="background:#ebebeb;z-index:1;margin-top:0.7rem;" >
-			<li  v-for="(item,index) in datas" :class="{mg10:who=='wodefabu'}"  @click="xiangqings(item.objectId,item)"  class="before00 after00  mui-table-view-cell mui-media bai listLiebiao padding20" >
+			<li  v-for="(item,index) in datas" :class="{mg10:who=='wodefabu'}"  @click="xiangqings(item.objectId,item)"  class="before00  mui-table-view-cell mui-media bai listLiebiao padding20" >
 				
 					<!--我的发布特有的封盘按钮@click.stop="fengpan(item.title,index,item.objectId)"-->
 				 <p v-show="who=='wodefabu'" @click.stop="caozuos2(item.objectId,item,item.status,index)" class="border-b relative fz25 c555555 center" style="top:-0.2rem;height:0.6rem;line-height:0.6rem;">

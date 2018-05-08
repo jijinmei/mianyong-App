@@ -153,7 +153,10 @@ setDataxiaolin(this.rentobject)
     },
     // 选择类型
     selectTypeItem: function selectTypeItem(index) {
-
+      // 所有的编辑都不能更改类型
+      if(this.rentobject.objectId){
+              return;
+      };
       this.typeData.forEach(function (_item, _index) {
         if (index === _index) {
           if (!_item.state) {

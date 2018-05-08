@@ -204,7 +204,7 @@
           <button   v-if="curNavIndex==4||curNavIndex==3" @click="qiehuan($event,3)" i="3"    type="button" :class="{muiBtnGreen:tab3Idx==1,muiBtnGrey:tab3Idx==2}" class="mui-btn" style="margin-right:1.9rem;border-radius:0.3rem;padding:0.12rem 0.34rem !important;">已發出</button>
           <button   v-if="curNavIndex==4||curNavIndex==3" @click="qiehuan($event,4)" i="4"  type="button" :class="{muiBtnGreen:tab3Idx==2,muiBtnGrey:tab3Idx==1}" class="mui-btn" style="border-radius:0.3rem;padding:0.12rem 0.34rem !important;">已收到</button> 
           <!--收到的信息量-->
-          <span  v-if="appgood!=0&&(curNavIndex==1||curNavIndex==2)"  class="mui-badge mui-btn-red absolute bold" style="background:red;color:white;right:0.5rem;top:-0.01rem;">{{appgood}</span>
+          <span  v-if="appgood!=0&&(curNavIndex==1||curNavIndex==2)"  class="mui-badge mui-btn-red absolute bold" style="background:red;color:white;right:0.5rem;top:-0.01rem;">{{appgood}}</span>
           <span  v-if="appcomment!=0&&(curNavIndex==4||curNavIndex==3)"  class="mui-badge mui-btn-red absolute bold" style="background:red;color:white;right:0.5rem;top:-0.01rem;">{{appcomment}}</span>
         </p>
 
