@@ -12,8 +12,8 @@ var mescroll;
 //  计算器页面的变量
  var data_jj = 1.03;
  var H = 0;
- var httplu = 'http://stg-static-macaucf.leanapp.cn/html/yemian/'
-
+ var httplu = 'http://stg-static-macaucf.leanapp.cn/html/yemian/';
+ var httproot='http://stg-static-macaucf.leanapp.cn/html/';
 
  console.log('common.js common.js common.js common.js')
 
