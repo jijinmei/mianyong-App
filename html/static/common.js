@@ -106,7 +106,7 @@ var mescroll;
        document.getElementById("returnValue").value = response;
      });
    } else {
-     // 安卓
+     // 安卓1
      console.log('安卓')
      window.callHandler.gotoChat(JSON.stringify(data));
    }

@@ -160,6 +160,6 @@ template: `
 
 		},
 		mounted() {
-
+        console.log('到底执行了liebiao的组件')
 	}
 		}
