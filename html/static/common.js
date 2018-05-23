@@ -116,17 +116,17 @@
  function tixing() {
    console.log("mui")
 // 针对安卓的,因为安卓所有发布页面的返回都调用了这个
-   try {
-     //在这里运行代码
-     if (mui == false) {
-      goback(1)
-       return
-     }
-   } catch (err) {
-     //在这里处理错误
-     goback(1)
-     return
-   }
+  //  try {
+  //    //在这里运行代码
+  //    if (mui == false) {
+  //     goback(1)
+  //      return
+  //    }
+  //  } catch (err) {
+  //    //在这里处理错误
+  //    goback(1)
+  //    return
+  //  }
    //  var countconfirm = 0; 
    mui.confirm('離開本頁面將清空當前頁面的內容，確定離開？', 'title', ['離開', '取消'], function (data) {
      console.log("data")
