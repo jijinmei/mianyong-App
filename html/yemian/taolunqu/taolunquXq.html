@@ -302,6 +302,10 @@
                   var ua = navigator.userAgent.toLowerCase();
                  if (ua.match(/iPhone\sOS/i) == "iphone os") {
                   console.log('苹果')
+                  console.log(data)
+                  WebViewJavascriptBridge.callHandler('gotoChat',data, function (response) {
+                    document.getElementById("returnValue").value = response;
+                  });
                  }else{
                   console.log('安卓')
                   window.callHandler.onlinechat(JSON.stringify(data));
