@@ -33,7 +33,11 @@
     opacity: 0.7;
     box-shadow: none;
   }*/
-  .mui-popup-out{-webkit-transition-duration:1ms !important;transition-duration:1ms  !important;}
+
+    .mui-popup-out {
+      -webkit-transition-duration: 1ms !important;
+      transition-duration: 1ms !important;
+    }
 
     .mui-table-view-cell:after {
       left: 0 !important;
@@ -66,7 +70,6 @@
     .mui-badge {
       border-radius: 0.1rem !important;
     }
-
   </style>
 </head>
 
@@ -87,7 +90,7 @@
               data-preview-group="indexs2" style="min-width: 6.4rem;min-height: 3rem;">
             <!--预览的详情不能拼接远程的七牛地址-->
             <img v-if="jianju=='no'" :src="item.url!=undefined?item.url:''" class="jz" :data-preview-src="item.url" data-preview-group="indexs3"
-             style="width:100%;min-height:3rem;" >
+              style="width:100%;min-height:3rem;">
           </div>
         </div>
         <!-- Add Pagination -->
@@ -207,7 +210,7 @@
       <!--1.配套设施-->
       <ul v-if="datas.category=='rent'&&datas.templeId==undefined" class="after00 left mui-table-view fz27 c666666 mg10 peitao">
         <li class="mui-table-view-cell overflow" style="padding-left:0.18rem;">
-          <p  class="fz27 mui-pull-left">配套設備：</p>
+          <p class="fz27 mui-pull-left">配套設備：</p>
           <ul class="c000000 mui-pull-left left overflow" style="width: 4.3rem;">
             <li class="lf" :class="{mR21:idxs1==1||idxs1==4,mL21:idxs1==1||idxs1==4}" v-if="dos1!=''" v-for="(dos1,idxs1) in peitao">
               <img src="../../assets/img/xiangqing/gouxuan.png" alt="" class="mR07" />{{dos1}}
@@ -297,12 +300,12 @@
           <img style="width: 1.62rem;margin-top: 0.19rem;" src="../../assets/img/xiangqing/logo.png" alt="" />
           <p class="c000000 fz31 relative" style="margin-top: 0.2rem;">{{returns(datas.user.displayname)}}{{datas.user.call=='miss'?'小姐':(datas.user.call=='mrs'?'太太':'先生')}}
             <!-- 租盘的身份 -->
-            <span v-if="datas.category=='rent'&&datas.from!=''&&datas.from!='轉租客'"
-              class="mui-badge fz17 cffffff czjz" :class="{bg36c748:datas.from=='業主',bgff4d00:datas.from=='中介'}" style="margin-left: 0.05rem;">{{datas.from}}</span>
-               <!-- 搜盘的身份 -->
-              <span v-if="datas.category=='sell'"
-              class="mui-badge fz17 cffffff czjz" :class="{bg36c748:datas.from=='',bgff4d00:datas.from=='中介'}" style="margin-left: 0.05rem;">{{datas.from==''?'業主':'中介'}}</span>
-               <!-- 8大模块不用显示的身份 -->
+            <span v-if="datas.category=='rent'&&datas.from!=''&&datas.from!='轉租客'" class="mui-badge fz17 cffffff czjz" :class="{bg36c748:datas.from=='業主',bgff4d00:datas.from=='中介'}"
+              style="margin-left: 0.05rem;">{{datas.from}}</span>
+            <!-- 搜盘的身份 -->
+            <span v-if="datas.category=='sell'" class="mui-badge fz17 cffffff czjz" :class="{bg36c748:datas.from=='',bgff4d00:datas.from=='中介'}"
+              style="margin-left: 0.05rem;">{{datas.from==''?'業主':'中介'}}</span>
+            <!-- 8大模块不用显示的身份 -->
           </p>
           <p class="c888888 fz20">
             <img src="../../assets/img/xiangqing/phone_gx.png" alt="" style="width:0.17rem;" />手機號碼已驗證</p>
@@ -327,7 +330,7 @@
             <span v-if="datas.from!='中介'&&datas.category=='sell'">{{datas.from==''?'業主':''}} </span>
             聯絡人
           </p>
-           
+
           <p class="fz30 cffffff mui-ellipsis" style="width:2.5rem;">
             {{datas.contacts}}{{datas.call=='miss'?'小姐':(datas.call=='mrs'?'太太':'先生')}}
           </p>
@@ -349,7 +352,8 @@
       </div>
 
       <!--3.联系人电话：纯绿色：左边联络人文字+右边电话图标 8大模块的预览不用写身份-->
-      <div v-if="datas!='no'&&objectId=='no'&&datas.contactType==1" style="position:fixed;left:0;bottom:0;width:6.4rem;height: 0.98rem;" class="bai">
+      <div v-if="datas!='no'&&objectId=='no'&&datas.contactType==1" style="position:fixed;left:0;bottom:0;width:6.4rem;height: 0.98rem;"
+        class="bai">
         <div @click='tel(datas.phone)' class="bg36c748 relative" style="height:100%;padding:0.1rem 0.2rem;">
           <div style="width:3.12rem;margin:0 auto;height:100%;" class="relative">
             <p class="fz24 cff4d00 margin0" v-if="datas.from!='中介'">聯絡人</p>
@@ -393,7 +397,7 @@
       if (data) {
         console.log('有值传过来1')
         // console.log(data)
-        vm.xiangqingData = JSON.parse(data.replace(/\n/g,"\\n").replace(/\r/g,"\\r"))
+        vm.xiangqingData = JSON.parse(data.replace(/\n/g, "\\n").replace(/\r/g, "\\r"))
         // vm.datas.content=vm.datas.content.replace(/\\n/g,"\n").replace(/\\r/g,"\r")
         vm.xiangqing()
       } else {
@@ -431,7 +435,7 @@
           if (sessiontoken && sessiontoken != 'null') {
             console.log('进来了' + sessiontoken)
             // 判断是否是发布者 不是则调用手机聊天接口  是则弹出提示框
-            var ob=window.localStorage.getItem('userId') 
+            var ob = window.localStorage.getItem('userId')
             if (ob == this.datas.user.objectId) {
               mui.alert('您是本盤的發佈者，不能進行在線諮詢', ' ', ['好的'])
             } else {
@@ -487,7 +491,7 @@
         xiangqing() {
           var that = this
           //如果是预览的则拿缓存的数据
-          if (locations('objectId') == 'no') {            
+          if (locations('objectId') == 'no') {
             var aa = this.xiangqingData
             console.log('aa')
             console.log(aa)
@@ -605,33 +609,58 @@
         isyulan(locations('jianju'))
         // 预览的时候才调用手机的存储
         if (locations('objectId') == 'no') {
-          if (window.WebViewJavascriptBridge) {
-            // mui.toast('yes1')
-            WebViewJavascriptBridge.callHandler('GetData', {
-              content_key: 'xiangqingData'
-            })
-          } else {
-            // mui.toast('no1')
-            setTimeout(function () {
+          var ua = navigator.userAgent.toLowerCase();
+          if (ua.match(/iPhone\sOS/i) == "iphone os") {
+            console.log('苹果')
+            if (window.WebViewJavascriptBridge) {
               WebViewJavascriptBridge.callHandler('GetData', {
                 content_key: 'xiangqingData'
-              })
-            }, 1000)
+              });
+            } else {
+              // 延时一秒
+              setTimeout(function () {
+                WebViewJavascriptBridge.callHandler('GetData', {
+                  content_key: 'xiangqingData'
+                });
+              }, 1000);
+            }
+          } else {
+            console.log('安卓')
+            window.callHandler.getResult('xiangqingData');
+
           }
 
 
+
+
+          // if (window.WebViewJavascriptBridge) {
+          //   // mui.toast('yes1')
+          //   WebViewJavascriptBridge.callHandler('GetData', {
+          //     content_key: 'xiangqingData'
+          //   })
+          // } else {
+          //   // mui.toast('no1')
+          //   setTimeout(function () {
+          //     WebViewJavascriptBridge.callHandler('GetData', {
+          //       content_key: 'xiangqingData'
+          //     })
+          //   }, 1000)
+          // }
+
+
         } else {
-          // 否则直接调用id去查数据
+          // 否则直接调用id去查数据1
           this.xiangqing()
         }
 
 
-// 添加叉子
-$('#__MUI_PREVIEWIMAGE').append('<img src="../../assets/img/login/cazhi.png"  class="absolute cursor w40 padding0 T25 R40">')
-$(document).on('click','#__MUI_PREVIEWIMAGE',function(){
-  $('#__MUI_PREVIEWIMAGE').removeClass('mui-preview-in')
-  $('#__MUI_PREVIEWIMAGE').addClass('mui-preview-out')
-})
+        // 添加叉子
+        $('#__MUI_PREVIEWIMAGE').append(
+          '<img src="../../assets/img/login/cazhi.png"  class="absolute cursor w40 padding0 T25 R40">')
+        $(document).on('click', '#__MUI_PREVIEWIMAGE', function () {
+          $('#__MUI_PREVIEWIMAGE').removeClass('mui-preview-in')
+          $('#__MUI_PREVIEWIMAGE').addClass('mui-preview-out')
+        })
 
       }
 

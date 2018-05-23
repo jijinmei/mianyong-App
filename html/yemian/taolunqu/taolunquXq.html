@@ -328,6 +328,7 @@
       //底部的攒好按钮
       bottomzan() {
         var that=this
+        console.log(sessiontoken)
         this.datasIdx=1
         $("#item1").addClass('mui-active')
         $("#item2").removeClass('mui-active')
@@ -401,7 +402,7 @@
       },
       //发送按钮
       fasongs() {
-
+       console.log(sessiontoken)
         var that = this
         var val=that.values
         if(that.values.length == 0) {
@@ -502,10 +503,9 @@
                              that.datas.comments=data.result.count
                             count=that.count2
                             length=that.datas2.length
-                            
                           }
                         setTimeout(function(){
-                                                     self.endPullDownToRefresh();//关闭刷新
+                          self.endPullDownToRefresh();//关闭刷新
                         },1000)
                                                 
                         }else{
