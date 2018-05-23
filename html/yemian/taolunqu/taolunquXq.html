@@ -303,7 +303,7 @@
                  if (ua.match(/iPhone\sOS/i) == "iphone os") {
                   console.log('苹果')
                   console.log(data)
-                  WebViewJavascriptBridge.callHandler('gotoChat',data, function (response) {
+                  WebViewJavascriptBridge.callHandler('gotoServer',data.user.objectId, function (response) {
                     document.getElementById("returnValue").value = response;
                   });
                  }else{
