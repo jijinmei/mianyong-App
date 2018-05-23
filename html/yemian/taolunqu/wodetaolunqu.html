@@ -168,7 +168,8 @@
   <body>
 
 <div id="app" v-cloak>
-  		<!--标题-->
+      <!--标题-->
+      <!-- <p>{{curNavIndex}}</p> -->
       <div class="header ">
           <div class="nav">
             <p @click="qiehuan($event,0)" class="active relative hahaha" i="0" :class="{c36c748:curNavIndex==0}">我的貼文
@@ -198,11 +199,22 @@
 
 
         <p v-if="curNavIndex!=0"  class="center fz23 overflown fixed T80 bgebebeb h80 lh80" style="width:100%;z-index:100;margin-bottom:0;padding-top:0.05rem;">
-          <button v-if="curNavIndex==1||curNavIndex==2" @click="qiehuan($event,1)" i="1"   type="button" :class="{muiBtnGreen:tab2Idx==1,muiBtnGrey:tab2Idx==2}" class="mui-btn" style="margin-right:1.9rem;border-radius:0.3rem;padding:0.12rem 0.34rem !important;">已發出</button>
-          <button  v-if="curNavIndex==1||curNavIndex==2" @click="qiehuan($event,2)" i="2" type="button" :class="{muiBtnGreen:tab2Idx==2,muiBtnGrey:tab2Idx==1}" class="mui-btn" style="border-radius:0.3rem;padding:0.12rem 0.34rem !important;">已收到</button>
+          <button v-if="curNavIndex==1||curNavIndex==2" @click.stop="qiehuan($event,1)" i="1"   type="button" :class="{muiBtnGreen:curNavIndex==1,muiBtnGrey:curNavIndex==2}" class="mui-btn" style="margin-right:1.9rem;border-radius:0.3rem;padding:0.12rem 0.34rem !important;">已發出</button>
+          <button  v-if="curNavIndex==1||curNavIndex==2" @click.stop="qiehuan($event,2)" i="2" type="button" :class="{muiBtnGreen:curNavIndex==2,muiBtnGrey:curNavIndex==1}" class="mui-btn" style="border-radius:0.3rem;padding:0.12rem 0.34rem !important;">已收到</button>
+          
 
-          <button   v-if="curNavIndex==4||curNavIndex==3" @click="qiehuan($event,3)" i="3"    type="button" :class="{muiBtnGreen:tab3Idx==1,muiBtnGrey:tab3Idx==2}" class="mui-btn" style="margin-right:1.9rem;border-radius:0.3rem;padding:0.12rem 0.34rem !important;">已發出</button>
-          <button   v-if="curNavIndex==4||curNavIndex==3" @click="qiehuan($event,4)" i="4"  type="button" :class="{muiBtnGreen:tab3Idx==2,muiBtnGrey:tab3Idx==1}" class="mui-btn" style="border-radius:0.3rem;padding:0.12rem 0.34rem !important;">已收到</button> 
+
+          <button v-if="curNavIndex==3||curNavIndex==4" @click.stop="qiehuan($event,3)" i="3"   type="button" :class="{muiBtnGreen:curNavIndex==3,muiBtnGrey:curNavIndex==4}" class="mui-btn" style="margin-right:1.9rem;border-radius:0.3rem;padding:0.12rem 0.34rem !important;">已發出</button>
+          <button  v-if="curNavIndex==3||curNavIndex==4" @click.stop="qiehuan($event,4)" i="4" type="button" :class="{muiBtnGreen:curNavIndex==4,muiBtnGrey:curNavIndex==3}" class="mui-btn" style="border-radius:0.3rem;padding:0.12rem 0.34rem !important;">已收到</button>
+
+
+
+          <!-- <button   v-if="curNavIndex==4||curNavIndex==3" @click.stop="qiehuan($event,3)" i="3"    type="button" :class="{muiBtnGreen:curNavIndex==3,muiBtnGrey:curNavIndex==4}" class="mui-btn" style="margin-right:1.9rem;border-radius:0.3rem;padding:0.12rem 0.34rem !important;">已發出</button>
+          <button   v-if="curNavIndex==4||curNavIndex==3" @click.stop="qiehuan($event,4)" i="4"  type="button"  :class="{muiBtnGreen:curNavIndex==4,muiBtnGrey:curNavIndex==3}" class="mui-btn" style="border-radius:0.3rem;padding:0.12rem 0.34rem !important;">已收到{{curNavIndex}}</button>  -->
+
+          
+          <!-- <button   v-if="curNavIndex==3" @click.stop="qiehuan($event,3)" i="3"  type="button"  class="mui-btn muiBtnGrey" style="border-radius:0.3rem;padding:0.12rem 0.34rem !important;">已收到</button> 
+          <button   v-if="curNavIndex==4" @click.stop="qiehuan($event,4)" i="4"  type="button"  class="mui-btn muiBtnGreen" style="border-radius:0.3rem;padding:0.12rem 0.34rem !important;">已收到</button>  -->
           <!--收到的信息量-->
           <span  v-if="appgood!=0&&(curNavIndex==1||curNavIndex==2)"  class="mui-badge mui-btn-red absolute bold" style="background:red;color:white;right:0.5rem;top:-0.01rem;">{{appgood}}</span>
           <span  v-if="appcomment!=0&&(curNavIndex==4||curNavIndex==3)"  class="mui-badge mui-btn-red absolute bold" style="background:red;color:white;right:0.5rem;top:-0.01rem;">{{appcomment}}</span>
@@ -559,20 +571,24 @@
         var that=this;
         if(index==1){
           this.tab2Idx=1
+          // alert(1)
         }else  if(index==2){
           this.tab2Idx=2
           this.newshoudao2()
+          // alert(2)
         }else  if(index==3){
           this.tab3Idx=1
+          // alert(3)
         }else  if(index==4){
           this.tab3Idx=2
+          // alert(4)
           this.newshoudao3()
         }
+        
         var i=index;
-        console.log(33333333333)
+        console.log(this.tab3Idx)
 				if(that.curNavIndex!=i) {
           //更改列表条件
-         
 					$(".hahaha").removeClass("active");
 					$(e.currentTarget).addClass("active");
 					//隐藏当前列表和回到顶部按钮
@@ -614,6 +630,7 @@
     
       //3我的攒好已收到
       newshoudao2() {
+        // return
         this.appgood=0
         // return
             // 清空app的数据
@@ -656,13 +673,13 @@
                 console.log('苹果')
                 if (window.WebViewJavascriptBridge) {
                 WebViewJavascriptBridge.callHandler('GetData', {
-                  content_key: 'two_badge'
+                  content_key: 'four_time'
                 });
               } else {
                 // 延时一秒
                 setTimeout(function () {
                   WebViewJavascriptBridge.callHandler('GetData', {
-                    content_key: 'two_badge'
+                    content_key: 'four_time'
                   });
                 }, 1000);
               }
@@ -674,6 +691,7 @@
       },
       //3我的回复已收到
       newshoudao3() {
+        // return
         this.appcomment=0
         // return
             // 清空app的数据
@@ -724,13 +742,13 @@ $(document).on('click','#__MUI_PREVIEWIMAGE',function(){
       console.log('苹果')
       if (window.WebViewJavascriptBridge) {
       WebViewJavascriptBridge.callHandler('GetData', {
-        content_key: 'two_badge'
+        content_key: 'four_time'
       });
     } else {
       // 延时一秒
       setTimeout(function () {
         WebViewJavascriptBridge.callHandler('GetData', {
-          content_key: 'two_badge'
+          content_key: 'four_time'
         });
       }, 1000);
     }
