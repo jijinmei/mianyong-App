@@ -114,6 +114,9 @@ var mescroll;
 
 //  返回的提示框
  function tixing() {
+   if(mui){
+
+   
   //  var countconfirm = 0; 
    mui.confirm('離開本頁面將清空當前頁面的內容，確定離開？', 'title', ['離開', '取消'], function (data) {
      console.log("data")
@@ -153,6 +156,9 @@ var mescroll;
      }
     //  mui.close(data)
    }, 'div')
+  }else{
+    return
+  }
  };
 
 
