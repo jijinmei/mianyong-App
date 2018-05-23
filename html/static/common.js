@@ -115,14 +115,16 @@
  //  返回的提示框
  function tixing() {
    console.log("mui")
-
+// 针对安卓的,因为安卓所有发布页面的返回都调用了这个
    try {
      //在这里运行代码
      if (mui == false) {
+      goback(1)
        return
      }
    } catch (err) {
      //在这里处理错误
+     goback(1)
      return
    }
    //  var countconfirm = 0; 
