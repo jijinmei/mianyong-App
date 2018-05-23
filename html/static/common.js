@@ -4,16 +4,16 @@
  var Boss = 'http://boss-macaucf-beta.leanapp.cn/api/v1/' //测试
  var Boss2 = 'http://boss-macaucf-beta.leanapp.cn/' //测试
  var Boss3 = 'http://boss-macaucf-beta.leanapp.cn/api/v1/' //测试接口
-// 初始化刷新和加载插件的全局变量
-var mescroll;
+ // 初始化刷新和加载插件的全局变量
+ var mescroll;
 
  var limit20 = 20;
 
-//  计算器页面的变量
+ //  计算器页面的变量
  var data_jj = 1.03;
  var H = 0;
  var httplu = 'http://stg-static-macaucf.leanapp.cn/html/yemian/';
- var httproot='http://stg-static-macaucf.leanapp.cn/html/';
+ var httproot = 'http://stg-static-macaucf.leanapp.cn/html/';
 
  console.log('common.js common.js common.js common.js')
 
@@ -72,7 +72,7 @@ var mescroll;
 
  //返回
  function goback(data) {
-  //  console.log(data)
+   //  console.log(data)
    var ua = navigator.userAgent.toLowerCase();
    if (ua.match(/iPhone\sOS/i) == "iphone os") {
      // 苹果
@@ -84,10 +84,10 @@ var mescroll;
    } else {
      // 安卓
      console.log('安卓(1代刷新 -1代表不刷新)')
-    //  window.mianyong.goBack(data);
-    // 1代刷新 -1代表不刷新
-    window.callHandler.goBack(data,1);
-    
+     //  window.mianyong.goBack(data);
+     // 1代刷新 -1代表不刷新
+     window.callHandler.goBack(data, 1);
+
    }
 
  };
@@ -112,51 +112,59 @@ var mescroll;
    }
  };
 
-//  返回的提示框
+ //  返回的提示框
  function tixing() {
-  if(mui==false){
-    return
-  }
-  //  var countconfirm = 0; 
+   console.log("mui")
+
+   try {
+     //在这里运行代码
+     if (mui == false) {
+       return
+     }
+   } catch (err) {
+     //在这里处理错误
+     return
+   }
+   //  var countconfirm = 0; 
    mui.confirm('離開本頁面將清空當前頁面的內容，確定離開？', 'title', ['離開', '取消'], function (data) {
      console.log("data")
      console.log(data)
      console.log('提醒框')
-    //  return
+     //  return
      if (data.index == 0) {
-      console.log('离开')
-      // if (data.index == 0&&countconfirm == 0) {
-      //  countconfirm ++;
-      var ua = navigator.userAgent.toLowerCase();
-      if (ua.match(/iPhone\sOS/i) == "iphone os") {
-        // 苹果清缓存
-        console.log('苹果')
-                WebViewJavascriptBridge.callHandler('ClearData', {
-                  content_key: 'huancun'
-                })
-                WebViewJavascriptBridge.callHandler('ClearData', {
-                  content_key: 'xiangqingData'
-                })
-                WebViewJavascriptBridge.callHandler('ClearData', {
-                  content_key: 'xiaolin'
-                })
-      }else{
-       // 安卓清缓存
-       console.log('安卓')
-       window.callHandler.cleardata('huancun')
-       window.callHandler.cleardata('xiaolin')
-       window.callHandler.cleardata('xiangqingData')
-      }
-      
+       console.log('离开')
+       // if (data.index == 0&&countconfirm == 0) {
+       //  countconfirm ++;
+       var ua = navigator.userAgent.toLowerCase();
+       if (ua.match(/iPhone\sOS/i) == "iphone os") {
+         // 苹果清缓存
+         console.log('苹果')
+         WebViewJavascriptBridge.callHandler('ClearData', {
+           content_key: 'huancun'
+         })
+         WebViewJavascriptBridge.callHandler('ClearData', {
+           content_key: 'xiangqingData'
+         })
+         WebViewJavascriptBridge.callHandler('ClearData', {
+           content_key: 'xiaolin'
+         })
+       } else {
+         // 安卓清缓存
+         console.log('安卓')
+         window.callHandler.cleardata('huancun')
+         window.callHandler.cleardata('xiaolin')
+         window.callHandler.cleardata('xiangqingData')
+       }
+
        // app的返回
        goback(1)
-       
-     }else{
-      console.log('留下')
+
+     } else {
+       console.log('留下')
      }
-    //  mui.close(data)
+     //  mui.close(data)
    }, 'div')
-  
+
  };
 
 
@@ -165,7 +173,7 @@ var mescroll;
    console.log('个人信息的objectId:::' + objectId)
    if (objectId) {
      window.localStorage.setItem('userId', objectId)
-    //  console.log(window.localStorage.getItem('userId'))
+     //  console.log(window.localStorage.getItem('userId'))
    }
  }
 
@@ -199,8 +207,8 @@ var mescroll;
      }
      //循环项目名称，依次添加项目
      formData.append(items, blob); //依次添加的项目名称 
-     console.log('转完文件对象后提交到后台的文件大小')  
-     console.log(blob)                
+     console.log('转完文件对象后提交到后台的文件大小')
+     console.log(blob)
 
    }
  }
@@ -221,15 +229,15 @@ var mescroll;
  }
 
 
- setInterval(function() {
-  console.log('每个页面都要获取地址栏的sessiontoken:::')
-  console.log(location.href)
-//  	 // console.log('个人信息')
-},10000) 
+ setInterval(function () {
+   console.log('每个页面都要获取地址栏的sessiontoken:::')
+   console.log(location.href)
+   //  	 // console.log('个人信息')
+ }, 10000)
 
 
  var sessiontoken = locations('sessiontoken')
- console.log('第一次进来的时候是否有sessiontoken'+sessiontoken)
+ console.log('第一次进来的时候是否有sessiontoken' + sessiontoken)
 
  // 检测用户是否可发布
  function checker(who, callback) {
@@ -247,236 +255,234 @@ var mescroll;
 
 
 
-    // // 查看个人资料
-function users(){ 
-    var id = localStorage.getItem('userId')
-    if (id) {
-      $.get(Boss + 'user/' + id, function (data, status) {
-        if (data.status==true) {
-          console.log('查看了个人资料赋值给了电话及在线咨询')
-          console.log(data.result)
-          vm.rentobject.phone = data.result.phone
-          vm.rentobject.contacts = data.result.displayname
-          vm.rentobject.call =data.result.call
-          initdata()
-        }else{
-          initdata()
-        }
-      })
-    }
+ // // 查看个人资料
+ function users() {
+   var id = localStorage.getItem('userId')
+   if (id) {
+     $.get(Boss + 'user/' + id, function (data, status) {
+       if (data.status == true) {
+         console.log('查看了个人资料赋值给了电话及在线咨询')
+         console.log(data.result)
+         vm.rentobject.phone = data.result.phone
+         vm.rentobject.contacts = data.result.displayname
+         vm.rentobject.call = data.result.call
+         initdata()
+       } else {
+         initdata()
+       }
+     })
+   }
 
-  }
-
- 
-
- function getBase64(img, lengths, i,data) {
-  // var that = this
-  //传入图片路径，返回base64
-  function getBase64Image(img, width, height) { //width、height调用时传入具体像素值，控制大小 ,不传则默认图像大小
-    var canvas = document.createElement("canvas");
-    canvas.width = width ? width : img.width;
-    canvas.height = height ? height : img.height;
-
-    var ctx = canvas.getContext("2d");
-    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-    var dataURL = canvas.toDataURL();
-
-    // 
-    console.log('转换为base64')
-    vm.xiaolin.push(dataURL)
-    // console.log(that.xiaolin)
-
-if (i == lengths - 1) {
-var space1
-if(data.space){
-for(var ii=0;ii<data.space.length;ii++){
-if(isNaN(data.space[ii])){
-// console.log(data.space[i])
-}else{
-if(ii==0){  
-space1='房間:'+data.space[ii]
-}
-if(ii==2){
-space1=space1+',客廳:'+data.space[ii]
-}
-if(ii==4){
-space1=space1+',洗手間:'+data.space[ii]
-}
-}
-}
-}else{
-space1='房間:1,客廳:0,洗手間:0'
-};
-// console.log(space1)
-var feature1
-if(data.features&&data.features.length==0){
-feature1=''
-}else{
-feature1=JSON.stringify(data.features).replace(/,/g,'、').replace('[','').replace(']','').replace(/"/g,'')
-}
-var infrastructure1
-if(data.infrastructure&&data.infrastructure.length==0){
-infrastructure1=''
-}else{
-infrastructure1=JSON.stringify(data.infrastructure).replace(/,/g,'、').replace('[','').replace(']','').replace(/"/g,'')
-}
-var home1
-if(data.home_infrastructure){
-home1=data.home_infrastructure.replace(/,/g,'、')
-}else{
-home1=''
-}
-
-var location1
-if(data.location_infrastructure){
-location1=data.location_infrastructure.replace(/,/g,'、')
-
-}else{
-location1=''
-} 
-var saveObject = {
-objectId:data.objectId,
-category: data.category,
-type:data.type,
-build_name:data.build_name,
-build_area:data.build_area,
-build_street:data.build_street,
-rent_type:data.rent_type,
-build_status:data.build_status,
-shop_type:data.shop_type,
-pics:vm.xiaolin,
-price:data.price,
-space:space1,
-area:data.area,
-useable_area:data.useable_area,
-floor:data.floor,
-code:data.code,
-direct:data.direct,
-landscape:data.landscape,
-decoration:data.decoration,
-cook:data.cook,
-pet: data.pet,
-start_time:data.start_time,
-infrastructure:infrastructure1,
-features:feature1,
-home_infrastructure:home1,
-location_infrastructure:location1,
-contactType:data.contactType,
-contacts:data.contacts,
-phone: data.phone,
-call:data.call,
-remark: data.remark,
-from: data.from
-};
-console.log(space1)
-console.log(saveObject)
-vm.rentobject=saveObject
-if(!vm.rentobject.call&&!vm.rentobject.contacts&&!vm.rentobject.phone){
-  console.log('电话及在线咨询同时无')
-users()//在users里面调用initdata
-}else{
-console.log('电话及在线咨询同时有')
-initdata()
- 
-}
-    }
+ }
 
 
 
-  }
-  var image = new Image();
-  image.crossOrigin = '';
-  image.src = img;
-  var deferred = $.Deferred();
-  if (img) {
-    image.onload = function () {
-      deferred.resolve(getBase64Image(image)); //将base64传给done上传处理
-    }
-    return deferred.promise(); //问题要让onload完成后再return sessionStorage['imgTest']
-  }
+ function getBase64(img, lengths, i, data) {
+   // var that = this
+   //传入图片路径，返回base64
+   function getBase64Image(img, width, height) { //width、height调用时传入具体像素值，控制大小 ,不传则默认图像大小
+     var canvas = document.createElement("canvas");
+     canvas.width = width ? width : img.width;
+     canvas.height = height ? height : img.height;
+
+     var ctx = canvas.getContext("2d");
+     ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+     var dataURL = canvas.toDataURL();
+
+     // 
+     console.log('转换为base64')
+     vm.xiaolin.push(dataURL)
+     // console.log(that.xiaolin)
+
+     if (i == lengths - 1) {
+       var space1
+       if (data.space) {
+         for (var ii = 0; ii < data.space.length; ii++) {
+           if (isNaN(data.space[ii])) {
+             // console.log(data.space[i])
+           } else {
+             if (ii == 0) {
+               space1 = '房間:' + data.space[ii]
+             }
+             if (ii == 2) {
+               space1 = space1 + ',客廳:' + data.space[ii]
+             }
+             if (ii == 4) {
+               space1 = space1 + ',洗手間:' + data.space[ii]
+             }
+           }
+         }
+       } else {
+         space1 = '房間:1,客廳:0,洗手間:0'
+       };
+       // console.log(space1)
+       var feature1
+       if (data.features && data.features.length == 0) {
+         feature1 = ''
+       } else {
+         feature1 = JSON.stringify(data.features).replace(/,/g, '、').replace('[', '').replace(']', '').replace(/"/g, '')
+       }
+       var infrastructure1
+       if (data.infrastructure && data.infrastructure.length == 0) {
+         infrastructure1 = ''
+       } else {
+         infrastructure1 = JSON.stringify(data.infrastructure).replace(/,/g, '、').replace('[', '').replace(']', '').replace(/"/g, '')
+       }
+       var home1
+       if (data.home_infrastructure) {
+         home1 = data.home_infrastructure.replace(/,/g, '、')
+       } else {
+         home1 = ''
+       }
+
+       var location1
+       if (data.location_infrastructure) {
+         location1 = data.location_infrastructure.replace(/,/g, '、')
+
+       } else {
+         location1 = ''
+       }
+       var saveObject = {
+         objectId: data.objectId,
+         category: data.category,
+         type: data.type,
+         build_name: data.build_name,
+         build_area: data.build_area,
+         build_street: data.build_street,
+         rent_type: data.rent_type,
+         build_status: data.build_status,
+         shop_type: data.shop_type,
+         pics: vm.xiaolin,
+         price: data.price,
+         space: space1,
+         area: data.area,
+         useable_area: data.useable_area,
+         floor: data.floor,
+         code: data.code,
+         direct: data.direct,
+         landscape: data.landscape,
+         decoration: data.decoration,
+         cook: data.cook,
+         pet: data.pet,
+         start_time: data.start_time,
+         infrastructure: infrastructure1,
+         features: feature1,
+         home_infrastructure: home1,
+         location_infrastructure: location1,
+         contactType: data.contactType,
+         contacts: data.contacts,
+         phone: data.phone,
+         call: data.call,
+         remark: data.remark,
+         from: data.from
+       };
+       console.log(space1)
+       console.log(saveObject)
+       vm.rentobject = saveObject
+       if (!vm.rentobject.call && !vm.rentobject.contacts && !vm.rentobject.phone) {
+         console.log('电话及在线咨询同时无')
+         users() //在users里面调用initdata
+       } else {
+         console.log('电话及在线咨询同时有')
+         initdata()
+
+       }
+     }
 
 
-}
+
+   }
+   var image = new Image();
+   image.crossOrigin = '';
+   image.src = img;
+   var deferred = $.Deferred();
+   if (img) {
+     image.onload = function () {
+       deferred.resolve(getBase64Image(image)); //将base64传给done上传处理
+     }
+     return deferred.promise(); //问题要让onload完成后再return sessionStorage['imgTest']
+   }
 
 
-// 根据id查看详细内容赋值给放租和放售的发布页面xiaolin
-function xiangqing(){
-  $.get(Boss + 'agent/' + locations('objectId'),function(data){
-    if (data.status == true) {
-      console.log(data.result)
-      // return
-             for (var i = 0; i < data.result.pics.length; i++) {
-            getBase64(data.result.pics[i].url, data.result.pics.length, i,data.result)
-          }
-    }else{
-            mui.toast(data.result.message)
-          }
-  })
-}
+ }
+
+
+ // 根据id查看详细内容赋值给放租和放售的发布页面xiaolin
+ function xiangqing() {
+   $.get(Boss + 'agent/' + locations('objectId'), function (data) {
+     if (data.status == true) {
+       console.log(data.result)
+       // return
+       for (var i = 0; i < data.result.pics.length; i++) {
+         getBase64(data.result.pics[i].url, data.result.pics.length, i, data.result)
+       }
+     } else {
+       mui.toast(data.result.message)
+     }
+   })
+ }
 
 
 
 
-// 我要放租和我要放售的xiaolin的数据存储和清空
-function setDataxiaolin(rentobjects){
-  var ua = navigator.userAgent.toLowerCase();
-  if (ua.match(/iPhone\sOS/i) == "iphone os") {
-    console.log('苹果')
-    WebViewJavascriptBridge.callHandler('SetData', {
-      content_key: 'xiaolin',
-      content: JSON.stringify(rentobjects)
-    });
-  } else {
-    console.log('安卓')
-    window.callHandler.saveResult('xiaolin',JSON.stringify(rentobjects));
-  }
-}
+ // 我要放租和我要放售的xiaolin的数据存储和清空
+ function setDataxiaolin(rentobjects) {
+   var ua = navigator.userAgent.toLowerCase();
+   if (ua.match(/iPhone\sOS/i) == "iphone os") {
+     console.log('苹果')
+     WebViewJavascriptBridge.callHandler('SetData', {
+       content_key: 'xiaolin',
+       content: JSON.stringify(rentobjects)
+     });
+   } else {
+     console.log('安卓')
+     window.callHandler.saveResult('xiaolin', JSON.stringify(rentobjects));
+   }
+ }
 
-// app保存8大模块发布的数据
-function setDatahuancun(rentobjects){
-  var ua = navigator.userAgent.toLowerCase();
-  if (ua.match(/iPhone\sOS/i) == "iphone os") {
-    console.log('苹果')
-    WebViewJavascriptBridge.callHandler('SetData', {
-      content_key: 'huancun',
-      content: JSON.stringify(rentobjects)
-    });
-  } else {
-    console.log('安卓')
-    window.callHandler.saveResult('huancun',JSON.stringify(rentobjects));
-  }
-}
-
-
-// app保存详情数据
-function setDataxiangqing(rentobjects){
-  var ua = navigator.userAgent.toLowerCase();
-  if (ua.match(/iPhone\sOS/i) == "iphone os") {
-    console.log('苹果')
-    WebViewJavascriptBridge.callHandler('SetData', {
-      content_key: 'xiangqingData',
-      content: JSON.stringify(rentobjects)
-    });
-  } else {
-    console.log('安卓')
-    window.callHandler.saveResult('xiangqingData',JSON.stringify(rentobjects));
-  }
-}
+ // app保存8大模块发布的数据
+ function setDatahuancun(rentobjects) {
+   var ua = navigator.userAgent.toLowerCase();
+   if (ua.match(/iPhone\sOS/i) == "iphone os") {
+     console.log('苹果')
+     WebViewJavascriptBridge.callHandler('SetData', {
+       content_key: 'huancun',
+       content: JSON.stringify(rentobjects)
+     });
+   } else {
+     console.log('安卓')
+     window.callHandler.saveResult('huancun', JSON.stringify(rentobjects));
+   }
+ }
 
 
-// 清空APP的数据
-function cleardata(who){
-  var ua = navigator.userAgent.toLowerCase();
-  if (ua.match(/iPhone\sOS/i) == "iphone os") {
-    console.log('苹果')
+ // app保存详情数据
+ function setDataxiangqing(rentobjects) {
+   var ua = navigator.userAgent.toLowerCase();
+   if (ua.match(/iPhone\sOS/i) == "iphone os") {
+     console.log('苹果')
+     WebViewJavascriptBridge.callHandler('SetData', {
+       content_key: 'xiangqingData',
+       content: JSON.stringify(rentobjects)
+     });
+   } else {
+     console.log('安卓')
+     window.callHandler.saveResult('xiangqingData', JSON.stringify(rentobjects));
+   }
+ }
+
+
+ // 清空APP的数据
+ function cleardata(who) {
+   var ua = navigator.userAgent.toLowerCase();
+   if (ua.match(/iPhone\sOS/i) == "iphone os") {
+     console.log('苹果')
      WebViewJavascriptBridge.callHandler('ClearData', {
-            content_key: who
-          })
-  } else {
-    console.log('安卓')
-    window.callHandler.cleardata(who)
-  }
+       content_key: who
+     })
+   } else {
+     console.log('安卓')
+     window.callHandler.cleardata(who)
+   }
 
-}
-
-
+ }
