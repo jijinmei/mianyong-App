@@ -231,7 +231,8 @@
 <body>
 
   <div id="app" v-cloak>
-      <p>{{latest_goodAt}},{{latest_refresh_good_timestampe}},{{latest_commentAt}},{{latest_refresh_comment_timestampe}}</p>
+      <!-- <p>{{latest_goodAt}},{{latest_refresh_good_timestampe}},{{latest_commentAt}},{{latest_refresh_comment_timestampe}}</p>
+      <p>{{mess}}</p> -->
     <!--标题-->
     <!-- <p>{{curNavIndex}}</p> -->
     <div class="header ">
@@ -542,6 +543,7 @@
       if (data) {
         // console.log('有值传过来', data)
         console.log('有值传过来', data)
+        vm.mess=data
         vm.latest_goodAt = data.latest_goodAt
         vm.latest_refresh_good_timestampe = data.latest_refresh_good_timestampe
         vm.latest_commentAt = data.latest_commentAt
@@ -612,6 +614,7 @@
             tab2page2: 0, //2.当前我的攒好的已收出
             tab3page1: 0, //3.当前我的回复的已发出
             tab3page2: 0, //3.当前我的回复的已收出
+            mess:null,
             // text: '点点滴滴呃呃呃滴答滴答滴答滴答的的点点滴滴的点点滴滴呃呃鹅鹅鹅饿饿鹅鹅鹅饿饿的的点点滴滴的点点滴滴的的点点滴滴的点点滴滴搜索事实是搜索事实是搜索搜索事实是搜索事实是',
             tab2Idx: 1, //我的攒好的已发出已收到按钮下标
             tab3Idx: 1 //我的回复的已发出已收到按钮下标 1.已发出的回复=查看用户发出的帖文回复 2.已收到的回复=查看用户帖文回复收信箱
@@ -858,7 +861,7 @@
         //3我的攒好已收到
         newshoudao2() {
             // 点击 已收到，用now更新相应的refresh 
-            this.latest_refresh_good_timestampe=Math.round(new Date().getTime()/1000).toString();
+            this.latest_refresh_good_timestampe=Math.round(new Date().getTime())
         },
         // 2、	每60秒从服务器获取两个latest
         interval: function () {
@@ -874,7 +877,7 @@
         //3我的回复已收到
         newshoudao3() {
              // 点击 已收到，用now更新相应的refresh 
-             this.latest_refresh_comment_timestampe=Math.round(new Date().getTime()/1000).toString();
+             this.latest_refresh_comment_timestampe=Math.round(new Date().getTime())
         }
 
 
@@ -1006,9 +1009,9 @@
                       that.latest_commentAt=data.result.latest_commentAt
                       that.latest_goodAt=data.result.latest_goodAt
                       if(curNavIndex==2){
-                        vm.latest_refresh_good_timestampe=Math.round(new Date().getTime()/1000).toString();
+                        vm.latest_refresh_good_timestampe=Math.round(new Date().getTime())
                       }else if(curNavIndex==4){
-                        vm.latest_refresh_comment_timestampe=Math.round(new Date().getTime()/1000).toString();
+                        vm.latest_refresh_comment_timestampe=Math.round(new Date().getTime())
                       }
             })
 
