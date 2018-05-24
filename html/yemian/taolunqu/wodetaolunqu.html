@@ -232,9 +232,9 @@
 
   <div id="app" v-cloak>
     <div class="spjz red" style="top:1rem;z-index:10000;background:white;padding:0.3rem;">
-      <p>{{latest_goodAt}},{{good_timestampe}},{{latest_commentAt}},{{comment_timestampe}}</p>
-      <p>攒好:{{latest_goodAt>good_timestampe?'you':'wu'}}
-        回复:{{latest_commentAt>comment_timestampe?'you':'wu'}}
+      <p>{{latestgoodAt}},{{goodtimestampe}},{{latestcommentAt}},{{commenttimestampe}}</p>
+      <p>攒好:{{latestgoodAt>goodtimestampe?'you':'wu'}}
+        回复:{{latestcommentAt>commenttimestampe?'you':'wu'}}
       </p>
     </div>
     <!--标题11-->
@@ -250,7 +250,7 @@
           <!-- 下边框线 -->
           <span class="spjz xia" :class="{xialv:curNavIndex==1||curNavIndex==2,xiabai:curNavIndex!=1&&curNavIndex!=2}"></span>
           <!-- 红点 appgood!=0-->
-          <span v-if="((latest_goodAt)>(good_timestampe))&&latest_goodAt!=null" style="height:0.18rem;width:0.18rem;bottom:-0.25rem;background: red;right:0.28rem;"
+          <span v-if="((latestgoodAt)>(goodtimestampe))&&latestgoodAt!=null" style="height:0.18rem;width:0.18rem;bottom:-0.25rem;background: red;right:0.28rem;"
             class="czjz radius50"></span>
           <!-- 左右的边框线 -->
           <span style="width:0;height:0.3rem;left:0;margin-top:0.05rem;" class="czjz border-l"></span>
@@ -261,7 +261,7 @@
           <!-- 下边框线 -->
           <span class="spjz xia" :class="{xialv:curNavIndex==3||curNavIndex==4,xiabai:curNavIndex!=3||curNavIndex!=4}"></span>
           <!-- 红点appcomment!=0 -->
-          <span v-if="((latest_commentAt)>(comment_timestampe))&&latest_commentAt!=null" style="height:0.18rem;width:0.18rem;bottom:-0.25rem;background: red;right:0.28rem;"
+          <span v-if="((latestcommentAt)>(commenttimestampe))&&latestcommentAt!=null" style="height:0.18rem;width:0.18rem;bottom:-0.25rem;background: red;right:0.28rem;"
             class="czjz radius50"></span>
         </p>
 
@@ -282,9 +282,9 @@
       <button v-if="curNavIndex==3||curNavIndex==4" @click.stop="qiehuan($event,4)" i="4" type="button" :class="{muiBtnGreen:curNavIndex==4,muiBtnGrey:curNavIndex==3}"
         class="mui-btn" style="border-radius:0.3rem;padding:0.12rem 0.34rem !important;">已收到</button>
       <!--收到的信息量-->
-      <span v-if="good_timestampe<latest_goodAt&&(curNavIndex==1||curNavIndex==2)" class="mui-badge mui-btn-red absolute bold"
+      <span v-if="(latestgoodAt>goodtimestampe)&&(curNavIndex==1||curNavIndex==2)" class="mui-badge mui-btn-red absolute bold"
         style="height:0.18rem;width:0.18rem;background:red;color:white;right:0.5rem;top:-0.01rem;"></span>
-      <span v-if="comment_timestampe<latest_commentAt&&(curNavIndex==4||curNavIndex==3)" class="mui-badge mui-btn-red absolute bold"
+      <span v-if="(latestcommentAt>commenttimestampe)&&(curNavIndex==4||curNavIndex==3)" class="mui-badge mui-btn-red absolute bold"
         style="height:0.18rem;width:0.18rem;background:red;color:white;right:0.5rem;top:-0.01rem;"></span>
     </p>
 
@@ -535,11 +535,12 @@
         // console.log('有值传过来', data)
         console.log('有值传过来', data)
         vm.mess=data
-        vm.latest_goodAt=data.latest_goodAt
-        vm.good_timestampe=data.latest_refresh_good_timestampe
-        vm.latest_commentAt=data.latest_commentAt
-        vm.comment_timestampe=data.latest_refresh_comment_timestampe
-        console.log(vm.latest_goodAt,vm.good_timestampe,vm.latest_commentAt,vm.comment_timestampe)
+        vm.latestgoodAt=data.latest_goodAt
+        vm.goodtimestampe=data.latest_refresh_good_timestampe
+        vm.latestcommentAt=data.latest_commentAt
+        vm.commenttimestampe=data.latest_refresh_comment_timestampe
+        console.log("赋值后输出的"+vm.latestgoodAt,vm.goodtimestampe,vm.latestcommentAt,vm.commenttimestampe)
+        console.log("app输出的"+data.latestgoodAt,data.goodtimestampe,data.latestcommentAt,data.commenttimestampe)
    
       } else {
         console.log('没有传值过来')
@@ -574,10 +575,10 @@
     var vm = new Vue({
           el: '#app',
           data: {
-            latest_goodAt: null,
-            good_timestampe: null,
-            latest_commentAt: null,
-            comment_timestampe: null,
+            latestgoodAt: null,
+            goodtimestampe: null,
+            latestcommentAt: null,
+            commenttimestampe: null,
             curNavIndex: 0,
             imageView1: '?imageView2/1/w/' + parseInt(500 * w0) + '/h/' + parseInt(500 * w0),
             imageView2: '?imageView2/1/w/' + parseInt(245 * w0) + '/h/' + parseInt(245 * w0),
@@ -607,7 +608,7 @@
           watch: {
             // watch(){
             // 监听四个时间是否有变化
-            latest_goodAt(val, oldVal) { //普通的watch监听
+            latestgoodAt(val, oldVal) { //普通的watch监听
        
               // console.log("服务器的攒好时间监听")
               if(oldVal!=null){
@@ -615,7 +616,7 @@
               }
              
             },
-            good_timestampe(val, oldVal) { //普通的watch监听
+            goodtimestampe(val, oldVal) { //普通的watch监听
       
               if(oldVal!=null){
                 this.refreshgoodAts()
@@ -623,7 +624,7 @@
               }
              
             },
-            latest_commentAt(val, oldVal) { //普通的watch监听
+            latestcommentAt(val, oldVal) { //普通的watch监听
               
               if(oldVal!=null){
                 this.commentAts()
@@ -632,7 +633,7 @@
              
               
             },
-           comment_timestampe(val, oldVal) { //普通的watch监听
+           commenttimestampe(val, oldVal) { //普通的watch监听
             
               if(oldVal!=null){
                 this.refreshcommentAts()
@@ -746,13 +747,13 @@
                 if (window.WebViewJavascriptBridge) {
                   WebViewJavascriptBridge.callHandler('SetData', {
                     content_key: 'latest_goodAt',
-                    content:that.latest_goodAt
+                    content:that.latestgoodAt
                   })
                 } else {
                   setTimeout(function () {
                     WebViewJavascriptBridge.callHandler('SetData', {
                       content_key: 'latest_goodAt',
-                      content:that.latest_goodAt
+                      content:that.latestgoodAt
                     })
                   }, 1000)
                 }
@@ -770,13 +771,13 @@
                 if (window.WebViewJavascriptBridge) {
                   WebViewJavascriptBridge.callHandler('SetData', {
                     content_key: 'latest_refresh_good_timestampe',
-                    content: that.good_timestampe
+                    content: that.goodtimestampe
                   })
                 } else {
                   setTimeout(function () {
                     WebViewJavascriptBridge.callHandler('SetData', {
                       content_key: 'latest_refresh_good_timestampe',
-                      content: that.good_timestampe
+                      content: that.goodtimestampe
                     })
                   }, 1000)
                 }
@@ -795,14 +796,14 @@
                 if (window.WebViewJavascriptBridge) {
                   WebViewJavascriptBridge.callHandler('SetData', {
                     content_key: 'latest_commentAt',
-                    content:that.latest_commentAt
+                    content:that.latestcommentAt
                   })
 
                 } else {
                   setTimeout(function () {
                     WebViewJavascriptBridge.callHandler('SetData', {
                       content_key: 'latest_commentAt',
-                      content: that.latest_commentAt
+                      content: that.latestcommentAt
                     })
 
                   }, 1000)
@@ -821,14 +822,14 @@
               if (window.WebViewJavascriptBridge) {
                 WebViewJavascriptBridge.callHandler('SetData', {
                   content_key: 'latest_refresh_comment_timestampe',
-                  content: comment_timestampe
+                  content: commenttimestampe
                 })
 
               } else {
                 setTimeout(function () {
                   WebViewJavascriptBridge.callHandler('SetData', {
                     content_key: 'latest_refresh_comment_timestampe',
-                    content:that.comment_timestampe
+                    content:that.commenttimestampe
                   })
 
                 }, 1000)
@@ -841,7 +842,7 @@
         //3我的攒好已收到
         newshoudao2() {
             // 点击 已收到，用now更新相应的refresh 
-            this.good_timestampe=Math.round(new Date().getTime())
+            this.goodtimestampe=Math.round(new Date().getTime())
         },
         // 2、	每60秒从服务器获取两个latest
         interval: function () {
@@ -849,15 +850,15 @@
           setInterval(function () {
             $.get("http://boss-macaucf-beta.leanapp.cn/api/v1/user/message_tips?sessiontoken="+sessiontoken,function(data){
                       // console.log(data)
-                      that.latest_commentAt=data.result.latest_commentAt
-                      that.latest_goodAt=data.result.latest_goodAt
+                      that.latestcommentAt=data.result.latest_commentAt
+                      that.latestgoodAt=data.result.latest_goodAt
             })
           }, 60000)
         },
         //3我的回复已收到
         newshoudao3() {
              // 点击 已收到，用now更新相应的refresh 
-             this.latest_refresh_comment_timestampe=Math.round(new Date().getTime())
+             this.commenttimestampe=Math.round(new Date().getTime())
         }
 
 
@@ -936,17 +937,17 @@ var that=this;
     /*联网加载列表数据  page = {num:1, size:10}; num:当前页 从1开始, size:每页数据条数 */
     function getListData(page) {
             // 4.下拉刷新，从服务器获取两个latest，用now更新相应的refresh
-            $.get("http://boss-macaucf-beta.leanapp.cn/api/v1/user/message_tips?sessiontoken="+sessiontoken,function(data){
-                      console.log(data)
-                      console.log("1.插件从服务器获取两个latest")
-                      that.latest_commentAt=data.result.latest_commentAt
-                      that.latest_goodAt=data.result.latest_goodAt
-                      if(that.curNavIndex==2){
-                        that.good_timestampe=Math.round(new Date().getTime())
-                      }else if(that.curNavIndex==4){
-                        that.comment_timestampe=Math.round(new Date().getTime())
-                      }
-            })
+            // $.get("http://boss-macaucf-beta.leanapp.cn/api/v1/user/message_tips?sessiontoken="+sessiontoken,function(data){
+            //           console.log(data)
+            //           console.log("1.插件从服务器获取两个latest")
+            //           that.latestcommentAt=data.result.latest_commentAt
+            //           that.latestgoodAt=data.result.latest_goodAt
+            //           if(that.curNavIndex==2){
+            //             that.goodtimestampe=Math.round(new Date().getTime())
+            //           }else if(that.curNavIndex==4){
+            //             that.commenttimestampe=Math.round(new Date().getTime())
+            //           }
+            // })
 
 
 
