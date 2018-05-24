@@ -539,6 +539,7 @@
     function getAppLocalData(data) {
       console.log(data)
       if (data) {
+        // console.log('有值传过来', data)
         console.log('有值传过来', data)
         vm.latest_goodAt = data.latest_goodAt
         vm.latest_refresh_good_timestampe = data.latest_refresh_good_timestampe
@@ -619,20 +620,24 @@
             // watch(){
             // 监听四个时间是否有变化
             latest_goodAt(val, oldVal) { //普通的watch监听
-              console.log("latest_goodAt11: " + val, oldVal);
+              // console.log("latest_goodAt11: " + val, oldVal);
+              console.log("服务器的攒好时间监听")
               this.goodAts()
             },
             latest_refresh_good_timestampe(val, oldVal) { //普通的watch监听
-              console.log("latest_refresh_good_timestampe11: " + val, oldVal);
+              // console.log("latest_refresh_good_timestampe11: " + val, oldVal);
               this.refreshgoodAts()
+              console.log("攒好更新时间监听")
             },
             latest_commentAt(val, oldVal) { //普通的watch监听
-              console.log("latest_commentAt11: " + val, oldVal);
+              // console.log("latest_commentAt11: " + val, oldVal);
               this.commentAts()
+              console.log("服务器的回复时间监听")
             },
             latest_refresh_comment_timestampe(val, oldVal) { //普通的watch监听
-              console.log("latest_refresh_comment_timestampe11: " + val, oldVal);
+              // console.log("latest_refresh_comment_timestampe11: " + val, oldVal);
               this.refreshcommentAts()
+              console.log("回复更新时间监听")
             }
             // latest_goodAt
             // latest_refresh_good_timestampe
@@ -845,7 +850,7 @@
           var that=this;
           setInterval(function () {
             $.get("http://boss-macaucf-beta.leanapp.cn/api/v1/user/message_tips?sessiontoken="+sessiontoken,function(data){
-                      console.log(data)
+                      // console.log(data)
                       that.latest_commentAt=data.result.latest_commentAt
                       that.latest_goodAt=data.result.latest_goodAt
             })
@@ -870,7 +875,7 @@
 // 1、	进入页面，从原生获取四个时间
         var ua = navigator.userAgent.toLowerCase();
         if (ua.match(/iPhone\sOS/i) == "iphone os") {
-          console.log('苹果')
+          // console.log('苹果')
           if (window.WebViewJavascriptBridge) {
             WebViewJavascriptBridge.callHandler('GetData', {
               content_key: 'four_time'
@@ -982,7 +987,7 @@
       // 4.下拉刷新，从服务器获取两个latest，用now更新相应的refresh
             $.get("http://boss-macaucf-beta.leanapp.cn/api/v1/user/message_tips?sessiontoken="+sessiontoken,function(data){
                       console.log(data)
-                      console.log("1.从服务器获取两个latest")
+                      console.log("1.插件从服务器获取两个latest")
                       that.latest_commentAt=data.result.latest_commentAt
                       that.latest_goodAt=data.result.latest_goodAt
                       if(curNavIndex==2){

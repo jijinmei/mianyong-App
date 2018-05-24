@@ -231,11 +231,11 @@
  }
 
 
- setInterval(function () {
-   console.log('每个页面都要获取地址栏的sessiontoken:::')
-   console.log(location.href)
-   //  	 // console.log('个人信息')
- }, 10000)
+//  setInterval(function () {
+//    console.log('每个页面都要获取地址栏的sessiontoken:::')
+//    console.log(location.href)
+//    //  	 // console.log('个人信息')
+//  }, 10000)
 
 
  var sessiontoken = locations('sessiontoken')
