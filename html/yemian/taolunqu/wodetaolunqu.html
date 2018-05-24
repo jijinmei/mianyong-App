@@ -231,7 +231,7 @@
 <body>
 
   <div id="app" v-cloak>
-      <!-- <p>{{latest_goodAt}},{{latest_refresh_good_timestampe}},{{latest_commentAt}},{{latest_refresh_comment_timestampe}}</p> -->
+      <p>{{latest_goodAt}},{{latest_refresh_good_timestampe}},{{latest_commentAt}},{{latest_refresh_comment_timestampe}}</p>
     <!--标题-->
     <!-- <p>{{curNavIndex}}</p> -->
     <div class="header ">
@@ -276,15 +276,6 @@
         class="mui-btn" style="margin-right:1.9rem;border-radius:0.3rem;padding:0.12rem 0.34rem !important;">已發出</button>
       <button v-if="curNavIndex==3||curNavIndex==4" @click.stop="qiehuan($event,4)" i="4" type="button" :class="{muiBtnGreen:curNavIndex==4,muiBtnGrey:curNavIndex==3}"
         class="mui-btn" style="border-radius:0.3rem;padding:0.12rem 0.34rem !important;">已收到</button>
-
-
-
-      <!-- <button   v-if="curNavIndex==4||curNavIndex==3" @click.stop="qiehuan($event,3)" i="3"    type="button" :class="{muiBtnGreen:curNavIndex==3,muiBtnGrey:curNavIndex==4}" class="mui-btn" style="margin-right:1.9rem;border-radius:0.3rem;padding:0.12rem 0.34rem !important;">已發出</button>
-          <button   v-if="curNavIndex==4||curNavIndex==3" @click.stop="qiehuan($event,4)" i="4"  type="button"  :class="{muiBtnGreen:curNavIndex==4,muiBtnGrey:curNavIndex==3}" class="mui-btn" style="border-radius:0.3rem;padding:0.12rem 0.34rem !important;">已收到{{curNavIndex}}</button>  -->
-
-
-      <!-- <button   v-if="curNavIndex==3" @click.stop="qiehuan($event,3)" i="3"  type="button"  class="mui-btn muiBtnGrey" style="border-radius:0.3rem;padding:0.12rem 0.34rem !important;">已收到</button> 
-          <button   v-if="curNavIndex==4" @click.stop="qiehuan($event,4)" i="4"  type="button"  class="mui-btn muiBtnGreen" style="border-radius:0.3rem;padding:0.12rem 0.34rem !important;">已收到</button>  -->
       <!--收到的信息量-->
       <span v-if="latest_refresh_good_timestampe<latest_goodAt&&(curNavIndex==1||curNavIndex==2)" class="mui-badge mui-btn-red absolute bold"
         style="height:0.18rem;width:0.18rem;background:red;color:white;right:0.5rem;top:-0.01rem;"></span>
