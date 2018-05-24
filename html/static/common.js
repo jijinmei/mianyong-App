@@ -278,21 +278,22 @@
  }
 
 
-  // // 查看个人资料
-  var getuserd
-  function getusers() {
-    var id ='58e07c0a61ff4b00616a65c8'// localStorage.getItem('userId')
-    if (id) {
-      $.get(Boss + 'user/' + id, function (data, status) {
-        if (data.status == true) {
-          console.log('查看了个人资料赋值给了电话及在线咨询')
-          getuserd=data.result
-        }
-      })
-    }
+//   // // 查看个人资料
+//   var getuserd
+//   function getusers() {
+//     var id ='58e07c0a61ff4b00616a65c8'// localStorage.getItem('userId')
+//     if (id) {
+//       $.get(Boss + 'user/' + id, function (data, status) {
+//         if (data.status == true) {
+//           alert(1)
+//           console.log('查看了个人资料赋值给了电话及在线咨询')
+//           getuserd=data.result
+//         }
+//       })
+//     }
  
-  }
-getusers()
+//   }
+// getusers()
 
  function getBase64(img, lengths, i, data) {
    // var that = this
