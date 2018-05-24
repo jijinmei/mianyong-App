@@ -232,6 +232,9 @@
 
   <div id="app" v-cloak>
       <p>{{latest_goodAt}},{{latest_refresh_good_timestampe}},{{latest_commentAt}},{{latest_refresh_comment_timestampe}}</p>
+      <p>攒好:{{latest_goodAt>latest_refresh_good_timestampe?'you':'wu'}}
+        回复:{{latest_commentAt>latest_refresh_comment_timestampe?'you':'wu'}}
+      </p>
     <!--标题-->
     <!-- <p>{{curNavIndex}}</p> -->
     <div class="header ">
@@ -245,7 +248,7 @@
           <!-- 下边框线 -->
           <span class="spjz xia" :class="{xialv:curNavIndex==1||curNavIndex==2,xiabai:curNavIndex!=1&&curNavIndex!=2}"></span>
           <!-- 红点 appgood!=0-->
-          <span v-if="latest_refresh_good_timestampe<latest_goodAt" style="height:0.18rem;width:0.18rem;bottom:-0.25rem;background: red;right:0.28rem;"
+          <span v-if="(latest_goodAt)>(latest_refresh_good_timestampe)" style="height:0.18rem;width:0.18rem;bottom:-0.25rem;background: red;right:0.28rem;"
             class="czjz radius50"></span>
           <!-- 左右的边框线 -->
           <span style="width:0;height:0.3rem;left:0;margin-top:0.05rem;" class="czjz border-l"></span>
@@ -256,7 +259,7 @@
           <!-- 下边框线 -->
           <span class="spjz xia" :class="{xialv:curNavIndex==3||curNavIndex==4,xiabai:curNavIndex!=3||curNavIndex!=4}"></span>
           <!-- 红点appcomment!=0 -->
-          <span v-if="latest_refresh_comment_timestampe<latest_commentAt" style="height:0.18rem;width:0.18rem;bottom:-0.25rem;background: red;right:0.28rem;"
+          <span v-if="(latest_commentAt)>(latest_refresh_comment_timestampe)" style="height:0.18rem;width:0.18rem;bottom:-0.25rem;background: red;right:0.28rem;"
             class="czjz radius50"></span>
         </p>
 
