@@ -286,9 +286,9 @@
           <button   v-if="curNavIndex==4" @click.stop="qiehuan($event,4)" i="4"  type="button"  class="mui-btn muiBtnGreen" style="border-radius:0.3rem;padding:0.12rem 0.34rem !important;">已收到</button>  -->
       <!--收到的信息量-->
       <span v-if="latest_refresh_good_timestampe<latest_goodAt&&(curNavIndex==1||curNavIndex==2)" class="mui-badge mui-btn-red absolute bold"
-        style="background:red;color:white;right:0.5rem;top:-0.01rem;"></span>
+        style="height:0.18rem;width:0.18rem;background:red;color:white;right:0.5rem;top:-0.01rem;"></span>
       <span v-if="latest_refresh_comment_timestampe<latest_commentAt&&(curNavIndex==4||curNavIndex==3)" class="mui-badge mui-btn-red absolute bold"
-        style="background:red;color:white;right:0.5rem;top:-0.01rem;"></span>
+        style="height:0.18rem;width:0.18rem;background:red;color:white;right:0.5rem;top:-0.01rem;"></span>
     </p>
 
 
@@ -620,15 +620,19 @@
             // 监听四个时间是否有变化
             latest_goodAt(val, oldVal) { //普通的watch监听
               console.log("latest_goodAt: " + val, oldVal);
+              this.goodAts()
             },
             latest_refresh_good_timestampe(val, oldVal) { //普通的watch监听
               console.log("latest_refresh_good_timestampe: " + val, oldVal);
+              this.refreshgoodAts()
             },
             latest_commentAt(val, oldVal) { //普通的watch监听
               console.log("latest_commentAt: " + val, oldVal);
+              this.commentAts()
             },
             latest_refresh_comment_timestampe(val, oldVal) { //普通的watch监听
               console.log("latest_refresh_comment_timestampe: " + val, oldVal);
+              this.refreshcommentAts()
             }
             // latest_goodAt
             // latest_refresh_good_timestampe
@@ -832,10 +836,14 @@
             // 点击 已收到，用now更新相应的refresh 
             this.latest_refresh_good_timestampe=Math.round(new Date().getTime()/1000).toString();
         },
+        // 2、	每60秒从服务器获取两个latest
         interval: function () {
+          var that=this;
           setInterval(function () {
             $.get("http://boss-macaucf-beta.leanapp.cn/api/v1/user/message_tips?sessiontoken="+sessiontoken,function(data){
                       console.log(data)
+                      that.latest_commentAt=data.result.latest_commentAt
+                      that.latest_goodAt=data.result.latest_goodAt
             })
           }, 60000)
         },
@@ -855,7 +863,7 @@
           $('#__MUI_PREVIEWIMAGE').removeClass('mui-preview-in')
           $('#__MUI_PREVIEWIMAGE').addClass('mui-preview-out')
         })
-
+// 1、	进入页面，从原生获取四个时间
         var ua = navigator.userAgent.toLowerCase();
         if (ua.match(/iPhone\sOS/i) == "iphone os") {
           console.log('苹果')
@@ -967,6 +975,22 @@
      实际项目以您服务器接口返回的数据为准,无需本地处理分页.
      * */
     function getListDataFromNet(curNavIndex, pages, successCallback, errorCallback) {
+      // 4.下拉刷新，从服务器获取两个latest，用now更新相应的refresh
+            $.get("http://boss-macaucf-beta.leanapp.cn/api/v1/user/message_tips?sessiontoken="+sessiontoken,function(data){
+                      console.log(data)
+                      that.latest_commentAt=data.result.latest_commentAt
+                      that.latest_goodAt=data.result.latest_goodAt
+                      if(curNavIndex==1||curNavIndex==2){
+                        vm.latest_refresh_good_timestampe=Math.round(new Date().getTime()/1000).toString();
+                      }else if(curNavIndex==3||curNavIndex==4){
+                        vm.latest_refresh_comment_timestampe=Math.round(new Date().getTime()/1000).toString();
+                      }
+            })
+
+
+
+
+
       var url = ''
       var category
       if (curNavIndex == 0) { //1.我的帖文
