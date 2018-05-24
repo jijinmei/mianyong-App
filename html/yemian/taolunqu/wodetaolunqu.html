@@ -229,7 +229,7 @@
 </head>
 
 <body>
-
+<p>{{latest_goodAt}},{{latest_refresh_good_timestampe}},{{latest_commentAt}},{{latest_refresh_comment_timestampe}}</p>
   <div id="app" v-cloak>
     <!--标题-->
     <!-- <p>{{curNavIndex}}</p> -->
@@ -621,23 +621,37 @@
             // 监听四个时间是否有变化
             latest_goodAt(val, oldVal) { //普通的watch监听
               // console.log("latest_goodAt11: " + val, oldVal);
-              console.log("服务器的攒好时间监听")
-              this.goodAts()
+              // console.log("服务器的攒好时间监听")
+              if(oldVal!=null){
+                this.goodAts()
+              }
+             
             },
             latest_refresh_good_timestampe(val, oldVal) { //普通的watch监听
               // console.log("latest_refresh_good_timestampe11: " + val, oldVal);
-              this.refreshgoodAts()
-              console.log("攒好更新时间监听")
+              if(oldVal!=null){
+                this.refreshgoodAts()
+              // console.log("攒好更新时间监听")
+              }
+             
             },
             latest_commentAt(val, oldVal) { //普通的watch监听
               // console.log("latest_commentAt11: " + val, oldVal);
-              this.commentAts()
-              console.log("服务器的回复时间监听")
+              if(oldVal!=null){
+                this.commentAts()
+                // console.log("服务器的回复时间监听")
+              }
+             
+              
             },
             latest_refresh_comment_timestampe(val, oldVal) { //普通的watch监听
               // console.log("latest_refresh_comment_timestampe11: " + val, oldVal);
-              this.refreshcommentAts()
-              console.log("回复更新时间监听")
+              if(oldVal!=null){
+                this.refreshcommentAts()
+                // console.log("回复更新时间监听")
+              }
+             
+             
             }
             // latest_goodAt
             // latest_refresh_good_timestampe
