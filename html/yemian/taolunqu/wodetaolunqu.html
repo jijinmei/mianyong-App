@@ -619,19 +619,19 @@
             // watch(){
             // 监听四个时间是否有变化
             latest_goodAt(val, oldVal) { //普通的watch监听
-              console.log("latest_goodAt: " + val, oldVal);
+              console.log("latest_goodAt11: " + val, oldVal);
               this.goodAts()
             },
             latest_refresh_good_timestampe(val, oldVal) { //普通的watch监听
-              console.log("latest_refresh_good_timestampe: " + val, oldVal);
+              console.log("latest_refresh_good_timestampe11: " + val, oldVal);
               this.refreshgoodAts()
             },
             latest_commentAt(val, oldVal) { //普通的watch监听
-              console.log("latest_commentAt: " + val, oldVal);
+              console.log("latest_commentAt11: " + val, oldVal);
               this.commentAts()
             },
             latest_refresh_comment_timestampe(val, oldVal) { //普通的watch监听
-              console.log("latest_refresh_comment_timestampe: " + val, oldVal);
+              console.log("latest_refresh_comment_timestampe11: " + val, oldVal);
               this.refreshcommentAts()
             }
             // latest_goodAt
@@ -736,19 +736,20 @@
             },
         
             goodAts() {
+              var that=this;
               var ua = navigator.userAgent.toLowerCase();
               if (ua.match(/iPhone\sOS/i) == "iphone os") {
                 console.log('苹果')
                 if (window.WebViewJavascriptBridge) {
                   WebViewJavascriptBridge.callHandler('SetData', {
                     content_key: 'latest_goodAt',
-                    content: latest_goodAt
+                    content:that.latest_goodAt
                   })
                 } else {
                   setTimeout(function () {
                     WebViewJavascriptBridge.callHandler('SetData', {
                       content_key: 'latest_goodAt',
-                      content: latest_goodAt
+                      content:that.latest_goodAt
                     })
                   }, 1000)
                 }
@@ -759,19 +760,20 @@
               }
             },
             refreshgoodAts() {
+              var that=this;
               var ua = navigator.userAgent.toLowerCase();
               if (ua.match(/iPhone\sOS/i) == "iphone os") {
                 console.log('苹果')
                 if (window.WebViewJavascriptBridge) {
                   WebViewJavascriptBridge.callHandler('SetData', {
                     content_key: 'latest_refresh_good_timestampe',
-                    content: latest_refresh_good_timestampe
+                    content: that.latest_refresh_good_timestampe
                   })
                 } else {
                   setTimeout(function () {
                     WebViewJavascriptBridge.callHandler('SetData', {
                       content_key: 'latest_refresh_good_timestampe',
-                      content: latest_refresh_good_timestampe
+                      content: that.latest_refresh_good_timestampe
                     })
                   }, 1000)
                 }
@@ -783,20 +785,21 @@
             },
             commentAts() {
               // 清空app的数据
+              var that=this;
               var ua = navigator.userAgent.toLowerCase();
               if (ua.match(/iPhone\sOS/i) == "iphone os") {
                 console.log('苹果')
                 if (window.WebViewJavascriptBridge) {
                   WebViewJavascriptBridge.callHandler('SetData', {
                     content_key: 'latest_commentAt',
-                    content:latest_commentAt
+                    content:that.latest_commentAt
                   })
 
                 } else {
                   setTimeout(function () {
                     WebViewJavascriptBridge.callHandler('SetData', {
                       content_key: 'latest_commentAt',
-                      content: latest_commentAt
+                      content: that.latest_commentAt
                     })
 
                   }, 1000)
@@ -808,20 +811,21 @@
           },
           refreshcommentAts() {
             // 清空app的数据
+            var that=this;
             var ua = navigator.userAgent.toLowerCase();
             if (ua.match(/iPhone\sOS/i) == "iphone os") {
               console.log('苹果')
               if (window.WebViewJavascriptBridge) {
                 WebViewJavascriptBridge.callHandler('SetData', {
                   content_key: 'latest_refresh_comment_timestampe',
-                  content: latest_refresh_comment_timestampe
+                  content: that.latest_refresh_comment_timestampe
                 })
 
               } else {
                 setTimeout(function () {
                   WebViewJavascriptBridge.callHandler('SetData', {
                     content_key: 'latest_refresh_comment_timestampe',
-                    content: latest_refresh_comment_timestampe
+                    content: that.latest_refresh_comment_timestampe
                   })
 
                 }, 1000)
