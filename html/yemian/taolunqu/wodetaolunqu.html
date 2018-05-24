@@ -395,7 +395,7 @@
 
     <div id="mescroll2" class="mescroll hide">
       <ul id="dataList2" class="data-list mui-table-view before00 after00">
-        <li @tap="xiangqing(item.objectId)" class="mui-table-view-cell taolunquli taolunquli2" v-for="(item,index) in datas22">
+        <li v-if="datas22.length!=0" @tap="xiangqing(item.objectId)" class="mui-table-view-cell taolunquli taolunquli2" v-for="(item,index) in datas22">
 
           <ul class="mui-table-view before00 after00">
             <li class="mui-table-view-cell mui-media before00 after00">
@@ -434,7 +434,7 @@
     <!--3.我的回復-->
 
     <div id="mescroll3" class="mescroll hide">
-      <ul id="dataList3" class="data-list mui-table-view before00 after00">
+      <ul  id="dataList3" class="data-list mui-table-view before00 after00">
         <li @tap="xiangqing(item.objectId)" class="mui-table-view-cell taolunquli taolunquli3" v-for="(item,index) in datas31" v-if="item.isDelete!=1">
           <ul class="mui-table-view before00 after00">
             <li class="mui-table-view-cell mui-media before00 after00">
@@ -466,7 +466,7 @@
       </ul>
     </div>
     <div id="mescroll4" class="mescroll hide">
-      <ul id="dataList4" class="data-list mui-table-view before00 after00">
+      <ul v-if="datas32.length!=0" id="dataList4" class="data-list mui-table-view before00 after00">
         <li @tap="xiangqing(item.objectId)" class="mui-table-view-cell taolunquli taolunquli3" v-for="(item,index) in datas32" v-if="item.isDelete!=1">
           <ul class="mui-table-view before00 after00">
             <li class="mui-table-view-cell mui-media before00 after00">
@@ -597,7 +597,7 @@
             imageView1: '?imageView2/1/w/' + parseInt(500 * w0) + '/h/' + parseInt(500 * w0),
             imageView2: '?imageView2/1/w/' + parseInt(245 * w0) + '/h/' + parseInt(245 * w0),
             imageView3: '?imageView2/1/w/' + parseInt(163 * w0) + '/h/' + parseInt(163 * w0),
-            user: user, //个人资料
+            user: getuserd, //个人资料
             datasIdx: 1,
             zhezhaoceng: false, //个人头像弹出框
             tab2s: false,
