@@ -946,10 +946,10 @@
                       console.log("1.插件从服务器获取两个latest")
                       that.latest_commentAt=data.result.latest_commentAt
                       that.latest_goodAt=data.result.latest_goodAt
-                      if(curNavIndex==2){
-                        vm.latest_refresh_good_timestampe=Math.round(new Date().getTime())
-                      }else if(curNavIndex==4){
-                        vm.latest_refresh_comment_timestampe=Math.round(new Date().getTime())
+                      if(that.curNavIndex==2){
+                        that.latest_refresh_good_timestampe=Math.round(new Date().getTime())
+                      }else if(that.curNavIndex==4){
+                        that.latest_refresh_comment_timestampe=Math.round(new Date().getTime())
                       }
             })
 
