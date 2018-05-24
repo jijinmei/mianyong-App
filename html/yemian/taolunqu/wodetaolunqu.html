@@ -231,10 +231,12 @@
 <body>
 
   <div id="app" v-cloak>
+    <div class="spjz red" style="top:1rem;z-index:10000;background:white;padding:0.3rem;">
       <p>{{latest_goodAt}},{{latest_refresh_good_timestampe}},{{latest_commentAt}},{{latest_refresh_comment_timestampe}}</p>
       <p>攒好:{{latest_goodAt>latest_refresh_good_timestampe?'you':'wu'}}
         回复:{{latest_commentAt>latest_refresh_comment_timestampe?'you':'wu'}}
       </p>
+    </div>
     <!--标题-->
     <!-- <p>{{curNavIndex}}</p> -->
     <div class="header ">
