@@ -231,8 +231,7 @@
 <body>
 
   <div id="app" v-cloak>
-      <!-- <p>{{latest_goodAt}},{{latest_refresh_good_timestampe}},{{latest_commentAt}},{{latest_refresh_comment_timestampe}}</p>
-      <p>{{mess}}</p> -->
+      <!-- <p>{{latest_goodAt}},{{latest_refresh_good_timestampe}},{{latest_commentAt}},{{latest_refresh_comment_timestampe}}</p> -->
     <!--标题-->
     <!-- <p>{{curNavIndex}}</p> -->
     <div class="header ">
@@ -559,8 +558,8 @@
 
     }
   </script>
-  <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script> -->
-  <script src="../../static/vue.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
+  <!-- <script src="../../static/vue.min.js"></script> -->
   <script src="../../static/vconsole.min.js"></script>
   <script src="../../static/mui.min.js"></script>
   <script src="../../templated/liebiao.js"></script>
@@ -941,6 +940,21 @@
 
     /*联网加载列表数据  page = {num:1, size:10}; num:当前页 从1开始, size:每页数据条数 */
     function getListData(page) {
+            // 4.下拉刷新，从服务器获取两个latest，用now更新相应的refresh
+            $.get("http://boss-macaucf-beta.leanapp.cn/api/v1/user/message_tips?sessiontoken="+sessiontoken,function(data){
+                      console.log(data)
+                      console.log("1.插件从服务器获取两个latest")
+                      that.latest_commentAt=data.result.latest_commentAt
+                      that.latest_goodAt=data.result.latest_goodAt
+                      if(curNavIndex==2){
+                        vm.latest_refresh_good_timestampe=Math.round(new Date().getTime())
+                      }else if(curNavIndex==4){
+                        vm.latest_refresh_comment_timestampe=Math.round(new Date().getTime())
+                      }
+            })
+
+
+
       if (page.num == 1) {
         if (that.curNavIndex == 0) {
           that.datas1 = []
@@ -1002,18 +1016,7 @@
      实际项目以您服务器接口返回的数据为准,无需本地处理分页.
      * */
     function getListDataFromNet(curNavIndex, pages, successCallback, errorCallback) {
-      // 4.下拉刷新，从服务器获取两个latest，用now更新相应的refresh
-            $.get("http://boss-macaucf-beta.leanapp.cn/api/v1/user/message_tips?sessiontoken="+sessiontoken,function(data){
-                      console.log(data)
-                      console.log("1.插件从服务器获取两个latest")
-                      that.latest_commentAt=data.result.latest_commentAt
-                      that.latest_goodAt=data.result.latest_goodAt
-                      if(curNavIndex==2){
-                        vm.latest_refresh_good_timestampe=Math.round(new Date().getTime())
-                      }else if(curNavIndex==4){
-                        vm.latest_refresh_comment_timestampe=Math.round(new Date().getTime())
-                      }
-            })
+
 
 
 
