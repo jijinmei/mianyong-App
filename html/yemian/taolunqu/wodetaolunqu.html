@@ -982,11 +982,12 @@
       // 4.下拉刷新，从服务器获取两个latest，用now更新相应的refresh
             $.get("http://boss-macaucf-beta.leanapp.cn/api/v1/user/message_tips?sessiontoken="+sessiontoken,function(data){
                       console.log(data)
+                      console.log("1.从服务器获取两个latest")
                       that.latest_commentAt=data.result.latest_commentAt
                       that.latest_goodAt=data.result.latest_goodAt
-                      if(curNavIndex==1||curNavIndex==2){
+                      if(curNavIndex==2){
                         vm.latest_refresh_good_timestampe=Math.round(new Date().getTime()/1000).toString();
-                      }else if(curNavIndex==3||curNavIndex==4){
+                      }else if(curNavIndex==4){
                         vm.latest_refresh_comment_timestampe=Math.round(new Date().getTime()/1000).toString();
                       }
             })
