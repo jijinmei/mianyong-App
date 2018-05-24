@@ -1,381 +1,386 @@
 <!DOCTYPE html>
 <html>
 
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta content="yes" name="apple-mobile-web-app-capable" />
-    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
-    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
-    <title>我的討論區</title>
-    <!-- <script typet="text/javascript" src="https://cdn.bootcss.com/jquery/2.2.0/jquery.min.js"></script> -->
-    <script typet="text/javascript" src="../../static/jquery-2.2.0.js"></script>
-    <script typet="text/javascript" src="../../static/common.js"></script>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta content="yes" name="apple-mobile-web-app-capable" />
+  <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+  <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+  <title>我的討論區</title>
+  <!-- <script typet="text/javascript" src="https://cdn.bootcss.com/jquery/2.2.0/jquery.min.js"></script> -->
+  <script typet="text/javascript" src="../../static/jquery-2.2.0.js"></script>
+  <script typet="text/javascript" src="../../static/common.js"></script>
 
-    <link href="https://cdn.bootcss.com/Swiper/3.4.2/css/swiper.css" rel="stylesheet">
-    <script src="https://cdn.bootcss.com/Swiper/3.4.2/js/swiper.jquery.min.js"></script>
-    <link href="../../static/common.css" rel="stylesheet">
-    <link href="../../static/commonS.css" rel="stylesheet">
-   
-    <link rel="stylesheet" href="../../static/mui.min.css">
-    <link rel="stylesheet" href="../../static/mescroll.min.css">
-<style scoped>
-  /*下面的列表*/
-  /*讨论区的标题*/
-.mui-btn-green, .muiBtnGreen, .mui-btn-positive, .mui-btn-success{
+  <link href="https://cdn.bootcss.com/Swiper/3.4.2/css/swiper.css" rel="stylesheet">
+  <script src="https://cdn.bootcss.com/Swiper/3.4.2/js/swiper.jquery.min.js"></script>
+  <link href="../../static/common.css" rel="stylesheet">
+  <link href="../../static/commonS.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="../../static/mui.min.css">
+  <link rel="stylesheet" href="../../static/mescroll.min.css">
+  <style scoped>
+    /*下面的列表*/
+
+    /*讨论区的标题*/
+
+    .mui-btn-green,
+    .muiBtnGreen,
+    .mui-btn-positive,
+    .mui-btn-success {
       color: #fff !important;
-    border: 1px solid #36C748 !important;
-    background-color: #36C748 !important;
-}
-.mui-btn-grey, .muiBtnGrey{
-  color: #656565 !important;
-    border: 1px solid #656565 !important;
-    background-color: white;
-}
-  .taolunqu .mui-segmented-control.mui-segmented-control-inverted .mui-control-item {
-    color: #000000;
-    font-weight: 500;
-    border-bottom: 0.07rem solid #FFFFFF;
-  }
-  
-  .taolunquli {
-    padding: 0;
-  }
-  
-  .taolunqu .mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active {
-    color: #36C748;
-  }
-  /*#sliderSegmentedControl{padding:0 0.2rem;}*/
-  
-  .taolunqu .mui-slider-indicator.mui-segmented-control {
-    background: white;
-  }
-  
-  .taolunqu .mui-segmented-control.mui-scroll-wrapper,
-  .taolunqu .mui-segmented-control.mui-scroll-wrapper .mui-scroll {
-    height: 0.7rem;
-  }
-  /*.taolunqu .mui-segmented-control .mui-control-item{height: 0.4rem;line-height: 0.4rem;}*/
-  /*顶部标题*/
-  
-  .taolunqu .mui-segmented-control.mui-scroll-wrapper .mui-control-item {
-    width: 33%;
-  }
-  
-  .mui-fullscreen .mui-segmented-control~.mui-slider-group {
-    top: 0.8rem !important;
-    transform: none !important;
-  }
-  
-  .taolunqu .mui-card-footer:before {
-    height: 0;
-  }
-  
-  .taolunqu .mui-card-footer {
-    padding: 0;
-    min-height: 0.35rem;
-  }
-  
-  .taolunqu .mui-table-view-cell:after {
-    left: 0;
-  }
-  
-  .tapa {
-    height: 0.7rem !important;
-    line-height: 0.7rem !important;
-    overflow: visible !important;
-  }
-  /*我的回复*/
-  
-  .taolunquli2:after,
-  .taolunquli3:after {
-    left: 1.3rem !important;
-  }
-  
-  /*列表图片的张数*/
-.onepic{width:5rem;height:5rem;}
-.twopic{width:2.45rem;height:2.45rem;}
-.pics>.twopic:first-child{margin-right:0.05rem;}
-.morepic{width:1.63rem;height:1.63rem;margin-bottom:0.05rem;}
-.pics>.morepic:nth-child(2){margin-left:0.05rem;margin-right:0.05rem;}
-.pics>.morepic:nth-child(5){margin-left:0.05rem;margin-right:0.05rem;}
-.pics>.morepic:nth-child(8){margin-left:0.05rem;margin-right:0.05rem;}
-.pics>.morepic:nth-child(11){margin-left:0.05rem;margin-right:0.05rem;}
+      border: 1px solid #36C748 !important;
+      background-color: #36C748 !important;
+    }
 
-.mui-slider-group>.mui-control-content.mui-active{
-  display:inline-block !important;
-}
-.mui-slider-group>.mui-control-content{
-  display:none !important;
-}
+    .mui-btn-grey,
+    .muiBtnGrey {
+      color: #656565 !important;
+      border: 1px solid #656565 !important;
+      background-color: white;
+    }
 
-/*菜单*/
-    .header{
-				z-index: 10;
-				position: relative;
-				top: 0;
-				left: 0;
-			}
-     .header .nav{
-           height:0.8rem;
-           background:white;
-           border-bottom:0.1rem solid #ebebeb;
-           line-height:0.7rem;
-          
-			}
-			.header .nav p{
-        display: inline-block;
-        text-align:center;
-        width: 32%;
-        font-size:0.25rem;
-				/* padding: 5px 0; */
-      }
-      .header .nav .xia{
-        width:0.5rem;
-        
-        bottom:0rem;
-      }
-      .header .nav .xiabai{border-bottom:0.05rem solid white;}
-      .header .nav .xialv{border-bottom:0.05rem solid #36c748;}
+    .taolunqu .mui-segmented-control.mui-segmented-control-inverted .mui-control-item {
+      color: #000000;
+      font-weight: 500;
+      border-bottom: 0.07rem solid #FFFFFF;
+    }
 
+    .taolunquli {
+      padding: 0;
+    }
 
-	
-			/*列表*/
-      .mescroll{
-				position: fixed;
-        top: 0;
-        padding-top:1.6rem;
-				bottom: 0;
-				height: auto !important;
-      }
-			#mescroll0.mescroll{
-				position: fixed;
-        top: 0;
-        padding-top:0.8rem;
-				bottom: 0;
-				height: auto !important;
-      }
-     
-      		/*隐藏*/
-      .hide{display: none;}
-      .downwarp-content{margin-bottom:0.3rem !important;}
-</style>
+    .taolunqu .mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active {
+      color: #36C748;
+    }
 
-  </head>
+    /*#sliderSegmentedControl{padding:0 0.2rem;}*/
 
-  <body>
+    .taolunqu .mui-slider-indicator.mui-segmented-control {
+      background: white;
+    }
 
-<div id="app" v-cloak>
-      <!--标题-->
-      <!-- <p>{{curNavIndex}}</p> -->
-      <div class="header ">
-          <div class="nav">
-            <p @click="qiehuan($event,0)" class="active relative hahaha" i="0" :class="{c36c748:curNavIndex==0}">我的貼文
-               <!-- 下边框线 -->
-                <span class="spjz xia" :class="{xialv:curNavIndex==0,xiabai:curNavIndex!=0}"></span>
-                
-            </p>
-            <p  @click="qiehuan($event,1)" i="1"  class="relative hahaha" :class="{c36c748:curNavIndex==1||curNavIndex==2}">我的讃好
-                 <!-- 下边框线 -->
-                <span class="spjz xia" :class="{xialv:curNavIndex==1||curNavIndex==2,xiabai:curNavIndex!=1&&curNavIndex!=2}"></span>
-                <!-- 红点 -->
-                <span v-if="appgood!=0" style="height:0.18rem;width:0.18rem;bottom:-0.25rem;background: red;right:0.28rem;" class="czjz radius50"></span>
-                <!-- 左右的边框线 -->
-                <span style="width:0;height:0.3rem;left:0;margin-top:0.05rem;" class="czjz border-l"></span>
-                <span style="width:0;height:0.3rem;right:0;margin-top:0.05rem;" class="czjz border-l"></span>
-            </p>
-           
-            <p  @click="qiehuan($event,3)" i="3"   class="relative hahaha" :class="{c36c748:curNavIndex==3||curNavIndex==4}">我的回復
-               <!-- 下边框线 -->
-                <span class="spjz xia" :class="{xialv:curNavIndex==3||curNavIndex==4,xiabai:curNavIndex!=3||curNavIndex!=4}"></span>
-                 <!-- 红点 -->
-            <span v-if="appcomment!=0" style="height:0.18rem;width:0.18rem;bottom:-0.25rem;background: red;right:0.28rem;" class="czjz radius50"></span>
-            </p>
-           
-          </div>
-        </div>
+    .taolunqu .mui-segmented-control.mui-scroll-wrapper,
+    .taolunqu .mui-segmented-control.mui-scroll-wrapper .mui-scroll {
+      height: 0.7rem;
+    }
 
+    /*.taolunqu .mui-segmented-control .mui-control-item{height: 0.4rem;line-height: 0.4rem;}*/
 
-        <p v-if="curNavIndex!=0"  class="center fz23 overflown fixed T80 bgebebeb h80 lh80" style="width:100%;z-index:100;margin-bottom:0;padding-top:0.05rem;">
-          <button v-if="curNavIndex==1||curNavIndex==2" @click.stop="qiehuan($event,1)" i="1"   type="button" :class="{muiBtnGreen:curNavIndex==1,muiBtnGrey:curNavIndex==2}" class="mui-btn" style="margin-right:1.9rem;border-radius:0.3rem;padding:0.12rem 0.34rem !important;">已發出</button>
-          <button  v-if="curNavIndex==1||curNavIndex==2" @click.stop="qiehuan($event,2)" i="2" type="button" :class="{muiBtnGreen:curNavIndex==2,muiBtnGrey:curNavIndex==1}" class="mui-btn" style="border-radius:0.3rem;padding:0.12rem 0.34rem !important;">已收到</button>
-          
+    /*顶部标题*/
 
+    .taolunqu .mui-segmented-control.mui-scroll-wrapper .mui-control-item {
+      width: 33%;
+    }
 
-          <button v-if="curNavIndex==3||curNavIndex==4" @click.stop="qiehuan($event,3)" i="3"   type="button" :class="{muiBtnGreen:curNavIndex==3,muiBtnGrey:curNavIndex==4}" class="mui-btn" style="margin-right:1.9rem;border-radius:0.3rem;padding:0.12rem 0.34rem !important;">已發出</button>
-          <button  v-if="curNavIndex==3||curNavIndex==4" @click.stop="qiehuan($event,4)" i="4" type="button" :class="{muiBtnGreen:curNavIndex==4,muiBtnGrey:curNavIndex==3}" class="mui-btn" style="border-radius:0.3rem;padding:0.12rem 0.34rem !important;">已收到</button>
+    .mui-fullscreen .mui-segmented-control~.mui-slider-group {
+      top: 0.8rem !important;
+      transform: none !important;
+    }
+
+    .taolunqu .mui-card-footer:before {
+      height: 0;
+    }
+
+    .taolunqu .mui-card-footer {
+      padding: 0;
+      min-height: 0.35rem;
+    }
+
+    .taolunqu .mui-table-view-cell:after {
+      left: 0;
+    }
+
+    .tapa {
+      height: 0.7rem !important;
+      line-height: 0.7rem !important;
+      overflow: visible !important;
+    }
+
+    /*我的回复*/
+
+    .taolunquli2:after,
+    .taolunquli3:after {
+      left: 1.3rem !important;
+    }
+
+    /*列表图片的张数*/
+
+    .onepic {
+      width: 5rem;
+      height: 5rem;
+    }
+
+    .twopic {
+      width: 2.45rem;
+      height: 2.45rem;
+    }
+
+    .pics>.twopic:first-child {
+      margin-right: 0.05rem;
+    }
+
+    .morepic {
+      width: 1.63rem;
+      height: 1.63rem;
+      margin-bottom: 0.05rem;
+    }
+
+    .pics>.morepic:nth-child(2) {
+      margin-left: 0.05rem;
+      margin-right: 0.05rem;
+    }
+
+    .pics>.morepic:nth-child(5) {
+      margin-left: 0.05rem;
+      margin-right: 0.05rem;
+    }
+
+    .pics>.morepic:nth-child(8) {
+      margin-left: 0.05rem;
+      margin-right: 0.05rem;
+    }
+
+    .pics>.morepic:nth-child(11) {
+      margin-left: 0.05rem;
+      margin-right: 0.05rem;
+    }
+
+    .mui-slider-group>.mui-control-content.mui-active {
+      display: inline-block !important;
+    }
+
+    .mui-slider-group>.mui-control-content {
+      display: none !important;
+    }
+
+    /*菜单*/
+
+    .header {
+      z-index: 10;
+      position: relative;
+      top: 0;
+      left: 0;
+    }
+
+    .header .nav {
+      height: 0.8rem;
+      background: white;
+      border-bottom: 0.1rem solid #ebebeb;
+      line-height: 0.7rem;
+
+    }
+
+    .header .nav p {
+      display: inline-block;
+      text-align: center;
+      width: 32%;
+      font-size: 0.25rem;
+      /* padding: 5px 0; */
+    }
+
+    .header .nav .xia {
+      width: 0.5rem;
+
+      bottom: 0rem;
+    }
+
+    .header .nav .xiabai {
+      border-bottom: 0.05rem solid white;
+    }
+
+    .header .nav .xialv {
+      border-bottom: 0.05rem solid #36c748;
+    }
 
 
 
-          <!-- <button   v-if="curNavIndex==4||curNavIndex==3" @click.stop="qiehuan($event,3)" i="3"    type="button" :class="{muiBtnGreen:curNavIndex==3,muiBtnGrey:curNavIndex==4}" class="mui-btn" style="margin-right:1.9rem;border-radius:0.3rem;padding:0.12rem 0.34rem !important;">已發出</button>
-          <button   v-if="curNavIndex==4||curNavIndex==3" @click.stop="qiehuan($event,4)" i="4"  type="button"  :class="{muiBtnGreen:curNavIndex==4,muiBtnGrey:curNavIndex==3}" class="mui-btn" style="border-radius:0.3rem;padding:0.12rem 0.34rem !important;">已收到{{curNavIndex}}</button>  -->
+    /*列表*/
 
-          
-          <!-- <button   v-if="curNavIndex==3" @click.stop="qiehuan($event,3)" i="3"  type="button"  class="mui-btn muiBtnGrey" style="border-radius:0.3rem;padding:0.12rem 0.34rem !important;">已收到</button> 
-          <button   v-if="curNavIndex==4" @click.stop="qiehuan($event,4)" i="4"  type="button"  class="mui-btn muiBtnGreen" style="border-radius:0.3rem;padding:0.12rem 0.34rem !important;">已收到</button>  -->
-          <!--收到的信息量-->
-          <span  v-if="appgood!=0&&(curNavIndex==1||curNavIndex==2)"  class="mui-badge mui-btn-red absolute bold" style="background:red;color:white;right:0.5rem;top:-0.01rem;">{{appgood}}</span>
-          <span  v-if="appcomment!=0&&(curNavIndex==4||curNavIndex==3)"  class="mui-badge mui-btn-red absolute bold" style="background:red;color:white;right:0.5rem;top:-0.01rem;">{{appcomment}}</span>
+    .mescroll {
+      position: fixed;
+      top: 0;
+      padding-top: 1.6rem;
+      bottom: 0;
+      height: auto !important;
+    }
+
+    #mescroll0.mescroll {
+      position: fixed;
+      top: 0;
+      padding-top: 0.8rem;
+      bottom: 0;
+      height: auto !important;
+    }
+
+    /*隐藏*/
+
+    .hide {
+      display: none;
+    }
+
+    .downwarp-content {
+      margin-bottom: 0.3rem !important;
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <div id="app" v-cloak>
+    <!--标题-->
+    <!-- <p>{{curNavIndex}}</p> -->
+    <div class="header ">
+      <div class="nav">
+        <p @click="qiehuan($event,0)" class="active relative hahaha" i="0" :class="{c36c748:curNavIndex==0}">我的貼文
+          <!-- 下边框线 -->
+          <span class="spjz xia" :class="{xialv:curNavIndex==0,xiabai:curNavIndex!=0}"></span>
+
+        </p>
+        <p @click="qiehuan($event,1)" i="1" class="relative hahaha" :class="{c36c748:curNavIndex==1||curNavIndex==2}">我的讃好
+          <!-- 下边框线 -->
+          <span class="spjz xia" :class="{xialv:curNavIndex==1||curNavIndex==2,xiabai:curNavIndex!=1&&curNavIndex!=2}"></span>
+          <!-- 红点 appgood!=0-->
+          <span v-if="latest_refresh_good_timestampe<latest_goodAt" style="height:0.18rem;width:0.18rem;bottom:-0.25rem;background: red;right:0.28rem;"
+            class="czjz radius50"></span>
+          <!-- 左右的边框线 -->
+          <span style="width:0;height:0.3rem;left:0;margin-top:0.05rem;" class="czjz border-l"></span>
+          <span style="width:0;height:0.3rem;right:0;margin-top:0.05rem;" class="czjz border-l"></span>
         </p>
 
+        <p @click="qiehuan($event,3)" i="3" class="relative hahaha" :class="{c36c748:curNavIndex==3||curNavIndex==4}">我的回復
+          <!-- 下边框线 -->
+          <span class="spjz xia" :class="{xialv:curNavIndex==3||curNavIndex==4,xiabai:curNavIndex!=3||curNavIndex!=4}"></span>
+          <!-- 红点appcomment!=0 -->
+          <span v-if="latest_refresh_comment_timestampe<latest_commentAt" style="height:0.18rem;width:0.18rem;bottom:-0.25rem;background: red;right:0.28rem;"
+            class="czjz radius50"></span>
+        </p>
+
+      </div>
+    </div>
 
 
-	<!--1.我的贴文-->
-  <div id="mescroll0" class="mescroll">
-			<ul id="dataList0" class="data-list mui-table-view before00 after00">
-              <li class="mui-table-view-cell taolunquli" v-for="(item,index) in datas1">
-                <ul class="mui-table-view">
-                  <li class="mui-table-view-cell mui-media padding20">
-                    <a href="javascript:;" class="padding0 margin0">
-                      <div @tap="zhezhaocengs(item)" class="mui-media-object mui-pull-left relative center" style="max-width:0.8rem;width:0.8rem;height:1.5rem;margin-right:0.15rem;">
-                        <!--个人头像-->
-                        <div class="radius50 overflow" style="max-width:0.8rem;width:0.8rem;height:0.8rem;">
-                          <img :src="item.user.avatar!=undefined&&item.user!=undefined?item.user.avatar.url:'../../assets/img/taolunqu/head.png'" style="width:100%;">
-                        </div>
+    <p v-if="curNavIndex!=0" class="center fz23 overflown fixed T80 bgebebeb h80 lh80" style="width:100%;z-index:100;margin-bottom:0;padding-top:0.05rem;">
+      <button v-if="curNavIndex==1||curNavIndex==2" @click.stop="qiehuan($event,1)" i="1" type="button" :class="{muiBtnGreen:curNavIndex==1,muiBtnGrey:curNavIndex==2}"
+        class="mui-btn" style="margin-right:1.9rem;border-radius:0.3rem;padding:0.12rem 0.34rem !important;">已發出</button>
+      <button v-if="curNavIndex==1||curNavIndex==2" @click.stop="qiehuan($event,2)" i="2" type="button" :class="{muiBtnGreen:curNavIndex==2,muiBtnGrey:curNavIndex==1}"
+        class="mui-btn" style="border-radius:0.3rem;padding:0.12rem 0.34rem !important;">已收到</button>
 
-                        <img src="../../assets/img/taolunqu/zong.png" alt="" class="spjz" style="margin-top:0.05rem;width:0.3rem;" />
-                        <span class="fz23 cff4d00 mui-block spjz" style="height:0.4rem;line-height: 0.4rem;margin-top:0.4rem;">{{item.user.likes}}</span>
 
-                      </div>
-                      <div class="mui-media-body fz23 cff4d00">
-                        {{(!isNaN(item.user.nickname)==false?item.user.nickname:item.user.nickname.substring(0,2)+'****'+item.user.nickname.substring(item.user.nickname.length,item.user.nickname.length-2))}}
-                        <p @tap="xiangqing(item.objectId)" class="mui-ellipsis fz30 c000000 relative bold"  :class="{pL55:item.tag!='綜合'}" style="height:0.5rem;line-height:0.5rem;">
-                          <button v-if="item.tag!='綜合'" type="button" class="mui-btn mui-btn-green czjz" style="font-size: 0.21rem;left:0rem;">{{item.tag}}
-                                    </button> {{item.title}}
 
-                        </p>
-                        <p @tap="xiangqing(item.objectId)" class="mui-ellipsis-2 fz25 c888888" style="margin-top:0.1rem;">{{item.content}}</p>
-                        <div style="margin:0.15rem 0 0 0;">
-                          <!--列表大图-->
-                          <div class="mui-card-content">
-                            <ul class="overflow pics">
-                              <li class="mui-pull-left overflow relative" v-for="(pic,idx) in item.pics" :class="{onepic:item.pics.length==1,twopic:item.pics.length==2,morepic:item.pics.length>2}">
-                                <img v-lazy="item.pics.length==1?pic.url+imageView1:(item.pics.length==2?pic.url+imageView2:pic.url+imageView3)" alt="" :data-preview-src="pic.url" :data-preview-group="'1'+index" style="min-width:100%;min-height:100%;" class="jz" />
-                              </li>
-                            </ul>
+      <button v-if="curNavIndex==3||curNavIndex==4" @click.stop="qiehuan($event,3)" i="3" type="button" :class="{muiBtnGreen:curNavIndex==3,muiBtnGrey:curNavIndex==4}"
+        class="mui-btn" style="margin-right:1.9rem;border-radius:0.3rem;padding:0.12rem 0.34rem !important;">已發出</button>
+      <button v-if="curNavIndex==3||curNavIndex==4" @click.stop="qiehuan($event,4)" i="4" type="button" :class="{muiBtnGreen:curNavIndex==4,muiBtnGrey:curNavIndex==3}"
+        class="mui-btn" style="border-radius:0.3rem;padding:0.12rem 0.34rem !important;">已收到</button>
 
-                          </div>
-                          <!--页脚，放置补充信息或支持的操作-->
-                          <div class="mui-card-footer fz21 c666666 before00 pB00" @tap="xiangqing(item.objectId)">
-                            <span>{{item.createdAt}}</span>
 
-                            <span>
-                                <img src="../../assets/img/taolunqu/zan.png"  alt="" style="width:0.3rem;top:0.05rem;" class="relative"/>
-                                  <span class="fz25 c666666">{{item.goods}}</span>
-                            </span>
-                            <span>
-                                 <img src="../../assets/img/taolunqu/reply.png" alt="" style="width:0.3rem;top:0.05rem;" class="relative"/>
-                                 <span class="fz25 c666666">{{item.comments}}</span>
-                            </span>
 
-                          </div>
-                        </div>
-                      </div>
-                    </a>
-                  </li>
+      <!-- <button   v-if="curNavIndex==4||curNavIndex==3" @click.stop="qiehuan($event,3)" i="3"    type="button" :class="{muiBtnGreen:curNavIndex==3,muiBtnGrey:curNavIndex==4}" class="mui-btn" style="margin-right:1.9rem;border-radius:0.3rem;padding:0.12rem 0.34rem !important;">已發出</button>
+          <button   v-if="curNavIndex==4||curNavIndex==3" @click.stop="qiehuan($event,4)" i="4"  type="button"  :class="{muiBtnGreen:curNavIndex==4,muiBtnGrey:curNavIndex==3}" class="mui-btn" style="border-radius:0.3rem;padding:0.12rem 0.34rem !important;">已收到{{curNavIndex}}</button>  -->
 
-                </ul>
-              </li>
-            </ul>
-		</div>
-		
-      <!--2.我的讃好-->
- 
-    <div id="mescroll1" class="mescroll hide">
-              <ul id="dataList1" class="data-list mui-table-view before00 after00" >
-              <li @tap="xiangqing(item.objectId)" class="mui-table-view-cell taolunquli taolunquli2" v-for="(item,index) in datas21">
-                
-                                <ul class="mui-table-view before00 after00">
-                                  <li class="mui-table-view-cell mui-media before00 after00">
-                                    <a href="javascript:;">
-                                      <div  class="mui-media-object mui-pull-left radius50 overflow" style="max-width:0.8rem;width:0.8rem;height:0.8rem;">
-                                        <!--个人头像-->
-                                        <!--已发出都是拿显示自己的资料-->
-                                        <img v-if="tab2Idx==1" :src="user.avatar!=undefined&&user!=undefined?user.avatar.url:'../../assets/img/taolunqu/head.png'"  style="width:100%;">
-                                        <!--已收到都是拿循环的数据-->
-                                        <img  v-if="tab2Idx==2"  :src="item.user.avatar!=undefined&&item.user!=undefined?item.user.avatar.url:'../../assets/img/taolunqu/head.png'"  style="width:100%;">
-                                        
-                                      </div>
-                                      <div class="mui-media-body fz23 c282828">
-                                        <!--已发出都是拿显示自己的资料-->
-                                         {{tab2Idx==1?isnan(user.nickname):isnan(item.user.nickname)}}
-                                        <p class="fz18 c666666">{{item.goodAt}}</p>
-                                        <p><img src="../../assets/img/taolunqu/dilanzanlv.png" alt="" style="width:0.35rem;" /></p>
-                                        <p class="relative fz25 c777777 whiteSpace bgeeeeee radius" style="margin-top:0.1rem;padding:0.2rem;">
-                                          <img class="absolute" src="../../assets/img/taolunqu/san.png" alt="" style="top:-0.1rem;left:0.3rem;width:0.3rem;" /> 
-                                          回復{{returns(item.user.nickname)}}的主題：{{item.title}}
-                                        </p>
-                                      </div>
-                                    </a>
-                                  </li>
-              
-                          </ul>
+
+      <!-- <button   v-if="curNavIndex==3" @click.stop="qiehuan($event,3)" i="3"  type="button"  class="mui-btn muiBtnGrey" style="border-radius:0.3rem;padding:0.12rem 0.34rem !important;">已收到</button> 
+          <button   v-if="curNavIndex==4" @click.stop="qiehuan($event,4)" i="4"  type="button"  class="mui-btn muiBtnGreen" style="border-radius:0.3rem;padding:0.12rem 0.34rem !important;">已收到</button>  -->
+      <!--收到的信息量-->
+      <span v-if="latest_refresh_good_timestampe<latest_goodAt&&(curNavIndex==1||curNavIndex==2)" class="mui-badge mui-btn-red absolute bold"
+        style="background:red;color:white;right:0.5rem;top:-0.01rem;"></span>
+      <span v-if="latest_refresh_comment_timestampe<latest_commentAt&&(curNavIndex==4||curNavIndex==3)" class="mui-badge mui-btn-red absolute bold"
+        style="background:red;color:white;right:0.5rem;top:-0.01rem;"></span>
+    </p>
+
+
+
+    <!--1.我的贴文-->
+    <div id="mescroll0" class="mescroll">
+      <ul id="dataList0" class="data-list mui-table-view before00 after00">
+        <li class="mui-table-view-cell taolunquli" v-for="(item,index) in datas1">
+          <ul class="mui-table-view">
+            <li class="mui-table-view-cell mui-media padding20">
+              <a href="javascript:;" class="padding0 margin0">
+                <div @tap="zhezhaocengs(item)" class="mui-media-object mui-pull-left relative center" style="max-width:0.8rem;width:0.8rem;height:1.5rem;margin-right:0.15rem;">
+                  <!--个人头像-->
+                  <div class="radius50 overflow" style="max-width:0.8rem;width:0.8rem;height:0.8rem;">
+                    <img :src="item.user.avatar!=undefined&&item.user!=undefined?item.user.avatar.url:'../../assets/img/taolunqu/head.png'" style="width:100%;">
+                  </div>
+
+                  <img src="../../assets/img/taolunqu/zong.png" alt="" class="spjz" style="margin-top:0.05rem;width:0.3rem;" />
+                  <span class="fz23 cff4d00 mui-block spjz" style="height:0.4rem;line-height: 0.4rem;margin-top:0.4rem;">{{item.user.likes}}</span>
+
+                </div>
+                <div class="mui-media-body fz23 cff4d00">
+                  {{(!isNaN(item.user.nickname)==false?item.user.nickname:item.user.nickname.substring(0,2)+'****'+item.user.nickname.substring(item.user.nickname.length,item.user.nickname.length-2))}}
+                  <p @tap="xiangqing(item.objectId)" class="mui-ellipsis fz30 c000000 relative bold" :class="{pL55:item.tag!='綜合'}" style="height:0.5rem;line-height:0.5rem;">
+                    <button v-if="item.tag!='綜合'" type="button" class="mui-btn mui-btn-green czjz" style="font-size: 0.21rem;left:0rem;">{{item.tag}}
+                    </button> {{item.title}}
+
+                  </p>
+                  <p @tap="xiangqing(item.objectId)" class="mui-ellipsis-2 fz25 c888888" style="margin-top:0.1rem;">{{item.content}}</p>
+                  <div style="margin:0.15rem 0 0 0;">
+                    <!--列表大图-->
+                    <div class="mui-card-content">
+                      <ul class="overflow pics">
+                        <li class="mui-pull-left overflow relative" v-for="(pic,idx) in item.pics" :class="{onepic:item.pics.length==1,twopic:item.pics.length==2,morepic:item.pics.length>2}">
+                          <img v-lazy="item.pics.length==1?pic.url+imageView1:(item.pics.length==2?pic.url+imageView2:pic.url+imageView3)" alt="" :data-preview-src="pic.url"
+                            :data-preview-group="'1'+index" style="min-width:100%;min-height:100%;" class="jz" />
                         </li>
+                      </ul>
 
-        </ul>
-</div>
+                    </div>
+                    <!--页脚，放置补充信息或支持的操作-->
+                    <div class="mui-card-footer fz21 c666666 before00 pB00" @tap="xiangqing(item.objectId)">
+                      <span>{{item.createdAt}}</span>
 
-<div id="mescroll2" class="mescroll hide">
-    <ul id="dataList2" class="data-list mui-table-view before00 after00" >
-      <li @tap="xiangqing(item.objectId)" class="mui-table-view-cell taolunquli taolunquli2" v-for="(item,index) in datas22">
-        
-                        <ul class="mui-table-view before00 after00">
-                          <li class="mui-table-view-cell mui-media before00 after00">
-                            <a href="javascript:;">
-                              <div  class="mui-media-object mui-pull-left radius50 overflow" style="max-width:0.8rem;width:0.8rem;height:0.8rem;">
-                                <!--个人头像-->
-                                <!--已发出都是拿显示自己的资料-->
-                                <img v-if="tab2Idx==1" :src="user.avatar!=undefined&&user!=undefined?user.avatar.url:'../../assets/img/taolunqu/head.png'"  style="width:100%;">
-                                <!--已收到都是拿循环的数据-->
-                                <img  v-if="tab2Idx==2"  :src="item.user.avatar!=undefined&&item.user!=undefined?item.user.avatar.url:'../../assets/img/taolunqu/head.png'"  style="width:100%;">
-                                
-                              </div>
-                              <div class="mui-media-body fz23 c282828">
-                                <!--已发出都是拿显示自己的资料-->
-                                 {{tab2Idx==1?isnan(user.nickname):isnan(item.user.nickname)}}
-                                <p class="fz18 c666666">{{item.goodAt}}</p>
-                                <p><img src="../../assets/img/taolunqu/dilanzanlv.png" alt="" style="width:0.35rem;" /></p>
-                                <p class="relative fz25 c777777 whiteSpace bgeeeeee radius" style="margin-top:0.1rem;padding:0.2rem;">
-                                  <img class="absolute" src="../../assets/img/taolunqu/san.png" alt="" style="top:-0.1rem;left:0.3rem;width:0.3rem;" /> 
-                                  回復{{returns(item.user.nickname)}}的主題：{{item.title}}
-                                </p>
-                              </div>
-                            </a>
-                          </li>
-      
-                  </ul>
-                </li>
-    </ul>
-</div>
+                      <span>
+                        <img src="../../assets/img/taolunqu/zan.png" alt="" style="width:0.3rem;top:0.05rem;" class="relative" />
+                        <span class="fz25 c666666">{{item.goods}}</span>
+                      </span>
+                      <span>
+                        <img src="../../assets/img/taolunqu/reply.png" alt="" style="width:0.3rem;top:0.05rem;" class="relative" />
+                        <span class="fz25 c666666">{{item.comments}}</span>
+                      </span>
 
-		
-		
-  <!--3.我的回復-->
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </li>
 
-		<div id="mescroll3" class="mescroll hide">
-			<ul id="dataList3" class="data-list mui-table-view before00 after00">
-        <li @tap="xiangqing(item.objectId)" class="mui-table-view-cell taolunquli taolunquli3" v-for="(item,index) in datas31" v-if="item.isDelete!=1">
+          </ul>
+        </li>
+      </ul>
+    </div>
+
+    <!--2.我的讃好-->
+
+    <div id="mescroll1" class="mescroll hide">
+      <ul id="dataList1" class="data-list mui-table-view before00 after00">
+        <li @tap="xiangqing(item.objectId)" class="mui-table-view-cell taolunquli taolunquli2" v-for="(item,index) in datas21">
+
           <ul class="mui-table-view before00 after00">
-            <li class="mui-table-view-cell mui-media before00 after00" >
+            <li class="mui-table-view-cell mui-media before00 after00">
               <a href="javascript:;">
                 <div class="mui-media-object mui-pull-left radius50 overflow" style="max-width:0.8rem;width:0.8rem;height:0.8rem;">
                   <!--个人头像-->
                   <!--已发出都是拿显示自己的资料-->
-                  <img v-if="tab3Idx==1" :src="user.avatar!=undefined&&user!=undefined?user.avatar.url:'../../assets/img/taolunqu/head.png'"  style="width:100%;">
+                  <img v-if="tab2Idx==1" :src="user.avatar!=undefined&&user!=undefined?user.avatar.url:'../../assets/img/taolunqu/head.png'"
+                    style="width:100%;">
                   <!--已收到都是拿循环的数据-->
-                  <img  v-if="tab3Idx==2"  :src="item.user.avatar!=undefined&&item.user!=undefined?item.user.avatar.url:'../../assets/img/taolunqu/head.png'"  style="width:100%;">
-                  </div>
+                  <img v-if="tab2Idx==2" :src="item.user.avatar!=undefined&&item.user!=undefined?item.user.avatar.url:'../../assets/img/taolunqu/head.png'"
+                    style="width:100%;">
+
+                </div>
                 <div class="mui-media-body fz23 c282828">
                   <!--已发出都是拿显示自己的资料-->
-                    {{tab3Idx==1?isnan(user.nickname):isnan(item.user.nickname)}}
-                  <p class="fz18 c666666">{{item.createdAt}}</p>
-                  <div class="fz25 c333333" style="white-space: normal;">
-                    {{item.comment}}                                                                                                </div>
-                  <p class="relative fz25 c777777 whiteSpace bgeeeeee radius" style="margin-top:0.2rem;padding:0.2rem;">
-                    <img class="absolute" src="../../assets/img/taolunqu/san.png" alt="" style="top:-0.1rem;left:0.3rem;width:0.3rem;" /> 
-                    回復{{returns2(item.post.user.nickname)}}主題：{{item.post.title}}                       
+                  {{tab2Idx==1?isnan(user.nickname):isnan(item.user.nickname)}}
+                  <p class="fz18 c666666">{{item.goodAt}}</p>
+                  <p>
+                    <img src="../../assets/img/taolunqu/dilanzanlv.png" alt="" style="width:0.35rem;" />
+                  </p>
+                  <p class="relative fz25 c777777 whiteSpace bgeeeeee radius" style="margin-top:0.1rem;padding:0.2rem;">
+                    <img class="absolute" src="../../assets/img/taolunqu/san.png" alt="" style="top:-0.1rem;left:0.3rem;width:0.3rem;" /> 回復{{returns(item.user.nickname)}}的主題：{{item.title}}
                   </p>
                 </div>
               </a>
@@ -383,531 +388,643 @@
 
           </ul>
         </li>
-          </ul>
+
+      </ul>
     </div>
-    <div id="mescroll4" class="mescroll hide">
-    <ul id="dataList4" class="data-list mui-table-view before00 after00">
-      <li @tap="xiangqing(item.objectId)" class="mui-table-view-cell taolunquli taolunquli3" v-for="(item,index) in datas32" v-if="item.isDelete!=1">
-        <ul class="mui-table-view before00 after00">
-          <li class="mui-table-view-cell mui-media before00 after00" >
-            <a href="javascript:;">
-              <div class="mui-media-object mui-pull-left radius50 overflow" style="max-width:0.8rem;width:0.8rem;height:0.8rem;">
-                <!--个人头像-->
-                <!--已发出都是拿显示自己的资料-->
-                <img v-if="tab3Idx==1" :src="user.avatar!=undefined&&user!=undefined?user.avatar.url:'../../assets/img/taolunqu/head.png'"  style="width:100%;">
-                <!--已收到都是拿循环的数据-->
-                <img  v-if="tab3Idx==2"  :src="item.user.avatar!=undefined&&item.user!=undefined?item.user.avatar.url:'../../assets/img/taolunqu/head.png'"  style="width:100%;">
+
+    <div id="mescroll2" class="mescroll hide">
+      <ul id="dataList2" class="data-list mui-table-view before00 after00">
+        <li @tap="xiangqing(item.objectId)" class="mui-table-view-cell taolunquli taolunquli2" v-for="(item,index) in datas22">
+
+          <ul class="mui-table-view before00 after00">
+            <li class="mui-table-view-cell mui-media before00 after00">
+              <a href="javascript:;">
+                <div class="mui-media-object mui-pull-left radius50 overflow" style="max-width:0.8rem;width:0.8rem;height:0.8rem;">
+                  <!--个人头像-->
+                  <!--已发出都是拿显示自己的资料-->
+                  <img v-if="tab2Idx==1" :src="user.avatar!=undefined&&user!=undefined?user.avatar.url:'../../assets/img/taolunqu/head.png'"
+                    style="width:100%;">
+                  <!--已收到都是拿循环的数据-->
+                  <img v-if="tab2Idx==2" :src="item.user.avatar!=undefined&&item.user!=undefined?item.user.avatar.url:'../../assets/img/taolunqu/head.png'"
+                    style="width:100%;">
+
                 </div>
-              <div class="mui-media-body fz23 c282828">
-                <!--已发出都是拿显示自己的资料-->
-                  {{tab3Idx==1?isnan(user.nickname):isnan(item.user.nickname)}}
-                <p class="fz18 c666666">{{item.createdAt}}</p>
-                <div class="fz25 c333333" style="white-space: normal;">
-                  {{item.comment}}                                                                                                </div>
-                <p class="relative fz25 c777777 whiteSpace bgeeeeee radius" style="margin-top:0.2rem;padding:0.2rem;">
-                  <img class="absolute" src="../../assets/img/taolunqu/san.png" alt="" style="top:-0.1rem;left:0.3rem;width:0.3rem;" /> 
-                  回復{{returns2(item.post.user.nickname)}}主題：{{item.post.title}}                       
-                </p>
-              </div>
-            </a>
-          </li>
+                <div class="mui-media-body fz23 c282828">
+                  <!--已发出都是拿显示自己的资料-->
+                  {{tab2Idx==1?isnan(user.nickname):isnan(item.user.nickname)}}
+                  <p class="fz18 c666666">{{item.goodAt}}</p>
+                  <p>
+                    <img src="../../assets/img/taolunqu/dilanzanlv.png" alt="" style="width:0.35rem;" />
+                  </p>
+                  <p class="relative fz25 c777777 whiteSpace bgeeeeee radius" style="margin-top:0.1rem;padding:0.2rem;">
+                    <img class="absolute" src="../../assets/img/taolunqu/san.png" alt="" style="top:-0.1rem;left:0.3rem;width:0.3rem;" /> 回復{{returns(item.user.nickname)}}的主題：{{item.title}}
+                  </p>
+                </div>
+              </a>
+            </li>
 
-        </ul>
-      </li>
-
-        </ul>
-  </div>
-
-
-
-
-<!--弹出框个人资料-->
-  <div class="mui-backdrop" v-if="zhezhaoceng==true">
-    <div class="radius bai jz" style="width:6rem;height:5.23rem;padding:0.7rem 0.25rem;">
-       <img @tap="closes()" src="../../assets/img/taolunqu/close.png" alt="" class="absolute" style="width:0.52rem;top:0.25rem;right:0.25rem;"/>
-       <div style="height:1.64rem;width:1.64rem;" class="radius50 overflow center margin">
-               <img :src="zhezhaocengItem.user.avatar!=undefined&&zhezhaocengItem.user!=undefined?zhezhaocengItem.user.avatar.url:'../../assets/img/taolunqu/head.png'"  alt=""  style="width:1.64rem;"/>
-       </div>
-       <p class="fz30 c000000 center" style="margin:0.27rem 0 0.15rem 0;">
-         {{(!isNaN(zhezhaocengItem.user.nickname)==false?zhezhaocengItem.user.nickname:zhezhaocengItem.user.nickname.substring(0,2)+'****'+zhezhaocengItem.user.nickname.substring(zhezhaocengItem.user.nickname.length,zhezhaocengItem.user.nickname.length-2))}}
-       </p>
-       <p class="fz25 c888888 center">
-        <img src="../../assets/img/xiangqing/phone_gx.png" alt="" style="width:0.2rem;"/>
-        手機號碼已驗證
-       </p>
-      <ul class="overflow fz23 c888888" style="margin-top:0.4rem;">
-        <li class="mui-pull-left center border-r" style="width:50%;">
-          <p>註冊時間</p>
-          <img src="../../assets/img/taolunqu/time.png" alt="" style="width:0.23rem;top:0.05rem;" class="relative"/> 
-          <span class="fz25 c888888">{{zhezhaocengItem.user.createdAt.substring(0,10)}}</span>    
-        </li>
-        <li class="mui-pull-right center" style="width:50%;">
-          <p>總讃數</p>
-          <img src="../../assets/img/taolunqu/zong.png" alt="" style="width:0.23rem;top:0.05rem;" class="relative"/> 
-          <span class="fz25 cff4d00">{{zhezhaocengItem.user.likes}}</span>    
+          </ul>
         </li>
       </ul>
-
     </div>
-  </div>
-  
 
- 
-</div>
-<script>
+
+
+    <!--3.我的回復-->
+
+    <div id="mescroll3" class="mescroll hide">
+      <ul id="dataList3" class="data-list mui-table-view before00 after00">
+        <li @tap="xiangqing(item.objectId)" class="mui-table-view-cell taolunquli taolunquli3" v-for="(item,index) in datas31" v-if="item.isDelete!=1">
+          <ul class="mui-table-view before00 after00">
+            <li class="mui-table-view-cell mui-media before00 after00">
+              <a href="javascript:;">
+                <div class="mui-media-object mui-pull-left radius50 overflow" style="max-width:0.8rem;width:0.8rem;height:0.8rem;">
+                  <!--个人头像-->
+                  <!--已发出都是拿显示自己的资料-->
+                  <img v-if="tab3Idx==1" :src="user.avatar!=undefined&&user!=undefined?user.avatar.url:'../../assets/img/taolunqu/head.png'"
+                    style="width:100%;">
+                  <!--已收到都是拿循环的数据-->
+                  <img v-if="tab3Idx==2" :src="item.user.avatar!=undefined&&item.user!=undefined?item.user.avatar.url:'../../assets/img/taolunqu/head.png'"
+                    style="width:100%;">
+                </div>
+                <div class="mui-media-body fz23 c282828">
+                  <!--已发出都是拿显示自己的资料-->
+                  {{tab3Idx==1?isnan(user.nickname):isnan(item.user.nickname)}}
+                  <p class="fz18 c666666">{{item.createdAt}}</p>
+                  <div class="fz25 c333333" style="white-space: normal;">
+                    {{item.comment}} </div>
+                  <p class="relative fz25 c777777 whiteSpace bgeeeeee radius" style="margin-top:0.2rem;padding:0.2rem;">
+                    <img class="absolute" src="../../assets/img/taolunqu/san.png" alt="" style="top:-0.1rem;left:0.3rem;width:0.3rem;" /> 回復{{returns2(item.post.user.nickname)}}主題：{{item.post.title}}
+                  </p>
+                </div>
+              </a>
+            </li>
+
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <div id="mescroll4" class="mescroll hide">
+      <ul id="dataList4" class="data-list mui-table-view before00 after00">
+        <li @tap="xiangqing(item.objectId)" class="mui-table-view-cell taolunquli taolunquli3" v-for="(item,index) in datas32" v-if="item.isDelete!=1">
+          <ul class="mui-table-view before00 after00">
+            <li class="mui-table-view-cell mui-media before00 after00">
+              <a href="javascript:;">
+                <div class="mui-media-object mui-pull-left radius50 overflow" style="max-width:0.8rem;width:0.8rem;height:0.8rem;">
+                  <!--个人头像-->
+                  <!--已发出都是拿显示自己的资料-->
+                  <img v-if="tab3Idx==1" :src="user.avatar!=undefined&&user!=undefined?user.avatar.url:'../../assets/img/taolunqu/head.png'"
+                    style="width:100%;">
+                  <!--已收到都是拿循环的数据-->
+                  <img v-if="tab3Idx==2" :src="item.user.avatar!=undefined&&item.user!=undefined?item.user.avatar.url:'../../assets/img/taolunqu/head.png'"
+                    style="width:100%;">
+                </div>
+                <div class="mui-media-body fz23 c282828">
+                  <!--已发出都是拿显示自己的资料-->
+                  {{tab3Idx==1?isnan(user.nickname):isnan(item.user.nickname)}}
+                  <p class="fz18 c666666">{{item.createdAt}}</p>
+                  <div class="fz25 c333333" style="white-space: normal;">
+                    {{item.comment}} </div>
+                  <p class="relative fz25 c777777 whiteSpace bgeeeeee radius" style="margin-top:0.2rem;padding:0.2rem;">
+                    <img class="absolute" src="../../assets/img/taolunqu/san.png" alt="" style="top:-0.1rem;left:0.3rem;width:0.3rem;" /> 回復{{returns2(item.post.user.nickname)}}主題：{{item.post.title}}
+                  </p>
+                </div>
+              </a>
+            </li>
+
+          </ul>
+        </li>
+
+      </ul>
+    </div>
+
+
+
+
+    <!--弹出框个人资料-->
+    <div class="mui-backdrop" v-if="zhezhaoceng==true">
+      <div class="radius bai jz" style="width:6rem;height:5.23rem;padding:0.7rem 0.25rem;">
+        <img @tap="closes()" src="../../assets/img/taolunqu/close.png" alt="" class="absolute" style="width:0.52rem;top:0.25rem;right:0.25rem;"
+        />
+        <div style="height:1.64rem;width:1.64rem;" class="radius50 overflow center margin">
+          <img :src="zhezhaocengItem.user.avatar!=undefined&&zhezhaocengItem.user!=undefined?zhezhaocengItem.user.avatar.url:'../../assets/img/taolunqu/head.png'"
+            alt="" style="width:1.64rem;" />
+        </div>
+        <p class="fz30 c000000 center" style="margin:0.27rem 0 0.15rem 0;">
+          {{(!isNaN(zhezhaocengItem.user.nickname)==false?zhezhaocengItem.user.nickname:zhezhaocengItem.user.nickname.substring(0,2)+'****'+zhezhaocengItem.user.nickname.substring(zhezhaocengItem.user.nickname.length,zhezhaocengItem.user.nickname.length-2))}}
+        </p>
+        <p class="fz25 c888888 center">
+          <img src="../../assets/img/xiangqing/phone_gx.png" alt="" style="width:0.2rem;" /> 手機號碼已驗證
+        </p>
+        <ul class="overflow fz23 c888888" style="margin-top:0.4rem;">
+          <li class="mui-pull-left center border-r" style="width:50%;">
+            <p>註冊時間</p>
+            <img src="../../assets/img/taolunqu/time.png" alt="" style="width:0.23rem;top:0.05rem;" class="relative" />
+            <span class="fz25 c888888">{{zhezhaocengItem.user.createdAt.substring(0,10)}}</span>
+          </li>
+          <li class="mui-pull-right center" style="width:50%;">
+            <p>總讃數</p>
+            <img src="../../assets/img/taolunqu/zong.png" alt="" style="width:0.23rem;top:0.05rem;" class="relative" />
+            <span class="fz25 cff4d00">{{zhezhaocengItem.user.likes}}</span>
+          </li>
+        </ul>
+
+      </div>
+    </div>
+
+
+
+  </div>
+  <script>
     function getAppLocalData(data) {
       console.log(data)
       if (data) {
         console.log('有值传过来', data)
-        vm.appgood=JSON.parse(data).good_latest_flag
-        vm.appcomment=JSON.parse(data).comment_latest_flag
+        vm.latest_goodAt = data.latest_goodAt
+        vm.latest_refresh_good_timestampe = data.latest_refresh_good_timestampe
+        vm.latest_commentAt = data.latest_commentAt
+        vm.latest_refresh_comment_timestampe = data.latest_refresh_comment_timestampe
+        // vm.appgood=JSON.parse(data).good_latest_flag
+        // vm.appcomment=JSON.parse(data).comment_latest_flag
+        // latest_refresh_good_timestampe<latest_goodAt
+        // latest_refresh_comment_timestampe<latest_commentAt
       } else {
         console.log('没有传值过来')
-        
+
       }
 
     }
   </script>
-<!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script> -->
-<script src="../../static/vue.min.js"></script>
-    <script src="../../static/vconsole.min.js"></script>
-    <script src="../../static/mui.min.js"></script>
-    <script src="../../templated/liebiao.js"></script>
-    <script src="../../static/mescroll.min.js" type="text/javascript" charset="utf-8"></script>
-    <script src="../../static/mui.zoom.js"></script>
-    <script src="../../static/mui.previewimage.js"></script>
-    <script src="../../static/vue-lazyload.js"></script>
-    <!-- <script src=" https://unpkg.com/vue-lazyload/vue-lazyload.js"></script> -->
-    <script type="text/javascript">
-    Vue.use(VueLazyload,{
-  // error:'../../assets/img/taolunqu/loading(2).gif',
-  // loading:'../../assets/img/taolunqu/loading.gif'
-  })
-      // 初始化previewImage
-      mui.previewImage();
-      mui.init();
-      var mescroll;
-      var mescrollArr;
-      // var objectId = '58bd0b8b1b69e6006b274f76' //'587f3b29570c352201193d6e'
-      var user = '';
-    </script>
-<script>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script> -->
+  <script src="../../static/vue.min.js"></script>
+  <script src="../../static/vconsole.min.js"></script>
+  <script src="../../static/mui.min.js"></script>
+  <script src="../../templated/liebiao.js"></script>
+  <script src="../../static/mescroll.min.js" type="text/javascript" charset="utf-8"></script>
+  <script src="../../static/mui.zoom.js"></script>
+  <script src="../../static/mui.previewimage.js"></script>
+  <script src="../../static/vue-lazyload.js"></script>
+  <!-- <script src=" https://unpkg.com/vue-lazyload/vue-lazyload.js"></script> -->
+  <script type="text/javascript">
+    Vue.use(VueLazyload, {
+      // error:'../../assets/img/taolunqu/loading(2).gif',
+      // loading:'../../assets/img/taolunqu/loading.gif'
+    })
+    // 初始化previewImage
+    mui.previewImage();
+    mui.init();
+    var mescroll;
+    var mescrollArr;
+    // var objectId = '58bd0b8b1b69e6006b274f76' //'587f3b29570c352201193d6e'
+    var user = '';
+  </script>
+  <script>
     var vm = new Vue({
-        el: '#app',
-        data: {
-          curNavIndex:0,
-          appgood:'',
-          appcomment:'',
-       imageView1:'?imageView2/1/w/'+parseInt(500*w0)+'/h/'+parseInt(500*w0),
-        imageView2:'?imageView2/1/w/'+parseInt(245*w0)+'/h/'+parseInt(245*w0),
-        imageView3:'?imageView2/1/w/'+parseInt(163*w0)+'/h/'+parseInt(163*w0),
-        user:user,//个人资料
-        datasIdx: 1,
-        zhezhaoceng: false, //个人头像弹出框
-        tab2s:false,
-        tab3s:false,
-        datas1: [], //我的贴文
-        datas2: [], //我的攒好
+          el: '#app',
+          data: {
+            latest_goodAt: null,
+            latest_refresh_good_timestampe: null,
+            latest_commentAt: null,
+            latest_refresh_comment_timestampe: null,
+            //   latest_goodAt>latest_refresh_good_timestampe
+            // latest_commentAt>latest_refresh_comment_timestampe
+            curNavIndex: 0,
+            // appgood:'',
+            // appcomment:'',
+            imageView1: '?imageView2/1/w/' + parseInt(500 * w0) + '/h/' + parseInt(500 * w0),
+            imageView2: '?imageView2/1/w/' + parseInt(245 * w0) + '/h/' + parseInt(245 * w0),
+            imageView3: '?imageView2/1/w/' + parseInt(163 * w0) + '/h/' + parseInt(163 * w0),
+            user: user, //个人资料
+            datasIdx: 1,
+            zhezhaoceng: false, //个人头像弹出框
+            tab2s: false,
+            tab3s: false,
+            datas1: [], //我的贴文
+            datas2: [], //我的攒好
             datas21: [], //我的攒好已发出
             datas22: [], //我的攒好已收到
-        datas3: [], //我的回复
+            datas3: [], //我的回复
             datas31: [], //我的回复已发出
             datas32: [], //我的回复已收到
-        tab2page1: 0,//2.当前我的攒好的已发出
-        tab2page2: 0,//2.当前我的攒好的已收出
-        tab3page1: 0,//3.当前我的回复的已发出
-        tab3page2: 0,//3.当前我的回复的已收出
-        // text: '点点滴滴呃呃呃滴答滴答滴答滴答的的点点滴滴的点点滴滴呃呃鹅鹅鹅饿饿鹅鹅鹅饿饿的的点点滴滴的点点滴滴的的点点滴滴的点点滴滴搜索事实是搜索事实是搜索搜索事实是搜索事实是',
-        tab2Idx: 1, //我的攒好的已发出已收到按钮下标
-        tab3Idx: 1 //我的回复的已发出已收到按钮下标 1.已发出的回复=查看用户发出的帖文回复 2.已收到的回复=查看用户帖文回复收信箱
+            tab2page1: 0, //2.当前我的攒好的已发出
+            tab2page2: 0, //2.当前我的攒好的已收出
+            tab3page1: 0, //3.当前我的回复的已发出
+            tab3page2: 0, //3.当前我的回复的已收出
+            // text: '点点滴滴呃呃呃滴答滴答滴答滴答的的点点滴滴的点点滴滴呃呃鹅鹅鹅饿饿鹅鹅鹅饿饿的的点点滴滴的点点滴滴的的点点滴滴的点点滴滴搜索事实是搜索事实是搜索搜索事实是搜索事实是',
+            tab2Idx: 1, //我的攒好的已发出已收到按钮下标
+            tab3Idx: 1 //我的回复的已发出已收到按钮下标 1.已发出的回复=查看用户发出的帖文回复 2.已收到的回复=查看用户帖文回复收信箱
 
-      },
-       methods: {
-      //个人资料弹出框
-      zhezhaocengs(item){
-        this.zhezhaocengItem=item
-        this.zhezhaoceng=true
-      },
-      //禁止轮播左右滑动
-      sliders(e){
-          this.datasIdx=e.detail.slideNumber+1
-      },
-      //
-      returns(name){
-        if(this.tab2Idx==2){
-          return '我的'
-        }else{
-             if(!isNaN(name)==false){
-                     return name
-              }else{
-                    return name.substring(0,2)+'****'+name.substring(name.length,name.length-2)
-              }
-        }
-        
-      },
-      returns2(name){
-        if(this.tab3Idx==2){
-          return '我的'
-        }else{
-             if(!isNaN(name)==false){
-                     return name
-              }else{
-                    return name.substring(0,2)+'****'+name.substring(name.length,name.length-2)
-              }
-        }
-        
-      },
-      //判断用户名是否含数字
-      isnan(name){
-        if(!isNaN(name)==false){
-          return name
-        }else{
-          return name.substring(0,2)+'****'+name.substring(name.length,name.length-2)
-        }
-          
-      },
-      //点击标签切换
-      qiehuan(e,index) {
-        var that=this;
-        if(index==1){
-          this.tab2Idx=1
-          // alert(1)
-        }else  if(index==2){
-          this.tab2Idx=2
-          this.newshoudao2()
-          // alert(2)
-        }else  if(index==3){
-          this.tab3Idx=1
-          // alert(3)
-        }else  if(index==4){
-          this.tab3Idx=2
-          // alert(4)
-          this.newshoudao3()
-        }
-        
-        var i=index;
-        console.log(this.tab3Idx)
-				if(that.curNavIndex!=i) {
-          //更改列表条件
-					$(".hahaha").removeClass("active");
-					$(e.currentTarget).addClass("active");
-					//隐藏当前列表和回到顶部按钮
-					$("#mescroll"+that.curNavIndex).hide();
-					mescrollArr[that.curNavIndex].hideTopBtn();
-					//显示对应的列表
-					$("#mescroll"+i).show();
-					//取出菜单所对应的mescroll对象,如果未初始化则初始化
-					if(mescrollArr[i]==null){
-            console.log('初始化')
-						mescrollArr[i]=initMescroll("mescroll"+i, "dataList"+i);
-					}
-					//更新标记
-					that.curNavIndex=i;
-				}
-			
-
-      },
-      //点击关闭个人资料弹出框的叉子
-      closes() {
-        this.zhezhaoceng = false
-      },
-
-      //点击题目和描述跳到对应的讨论区详情
-      xiangqing(n) {
-        location.href="taolunquXq.html?objectId="+n+'&sessiontoken='+sessiontoken
-        // if(isAPP){
-        //   locationClick('taolunquXq/'+n)
-        // }else{
-        //   this.$router.push({name:'taolunquXq',params:{objectId:n}})
-        // }
-//        this.$router.push({
-//          name: 'taolunquXq',
-//          params: {
-//            objectId: n
-//          }
-//        })
-      },
-    
-      //3我的攒好已收到
-      newshoudao2() {
-        // return
-        this.appgood=0
-        // return
-            // 清空app的数据
-            var ua = navigator.userAgent.toLowerCase();
-    if (ua.match(/iPhone\sOS/i) == "iphone os") {
-      console.log('苹果')
-      if(window.WebViewJavascriptBridge){
-               WebViewJavascriptBridge.callHandler('ClearData', {
-                  content_key: 'good_latest_flag'
-                })
-            }else{
-              setTimeout(function(){
-                WebViewJavascriptBridge.callHandler('ClearData', {
-                  content_key: 'good_latest_flag'
-                })
-              },1000)
+          },
+          watch: {
+            // watch(){
+            // 监听四个时间是否有变化
+            latest_goodAt(val, oldVal) { //普通的watch监听
+              console.log("latest_goodAt: " + val, oldVal);
+            },
+            latest_refresh_good_timestampe(val, oldVal) { //普通的watch监听
+              console.log("latest_refresh_good_timestampe: " + val, oldVal);
+            },
+            latest_commentAt(val, oldVal) { //普通的watch监听
+              console.log("latest_commentAt: " + val, oldVal);
+            },
+            latest_refresh_comment_timestampe(val, oldVal) { //普通的watch监听
+              console.log("latest_refresh_comment_timestampe: " + val, oldVal);
             }
-  }else{
-    console.log('安卓')
-    window.callHandler.clearUnRead('good_latest_flag');
-  }  
-            // if(window.WebViewJavascriptBridge){
-            //    WebViewJavascriptBridge.callHandler('ClearData', {
-            //       content_key: 'good_latest_flag'
-            //     })
-            // }else{
-            //   setTimeout(function(){
-            //     WebViewJavascriptBridge.callHandler('ClearData', {
-            //       content_key: 'good_latest_flag'
-            //     })
-            //   },1000)
+            // latest_goodAt
+            // latest_refresh_good_timestampe
+            // latest_commentAt
+            // latest_refresh_comment_timestampe
             // }
-           
-       
-      },
-      interval:function(){
-            setInterval(function(){
+          },
+          methods: {
+            //个人资料弹出框
+            zhezhaocengs(item) {
+              this.zhezhaocengItem = item
+              this.zhezhaoceng = true
+            },
+            //禁止轮播左右滑动
+            sliders(e) {
+              this.datasIdx = e.detail.slideNumber + 1
+            },
+            //
+            returns(name) {
+              if (this.tab2Idx == 2) {
+                return '我的'
+              } else {
+                if (!isNaN(name) == false) {
+                  return name
+                } else {
+                  return name.substring(0, 2) + '****' + name.substring(name.length, name.length - 2)
+                }
+              }
+
+            },
+            returns2(name) {
+              if (this.tab3Idx == 2) {
+                return '我的'
+              } else {
+                if (!isNaN(name) == false) {
+                  return name
+                } else {
+                  return name.substring(0, 2) + '****' + name.substring(name.length, name.length - 2)
+                }
+              }
+
+            },
+            //判断用户名是否含数字
+            isnan(name) {
+              if (!isNaN(name) == false) {
+                return name
+              } else {
+                return name.substring(0, 2) + '****' + name.substring(name.length, name.length - 2)
+              }
+
+            },
+            //点击标签切换
+            qiehuan(e, index) {
+              var that = this;
+              if (index == 1) {
+                this.tab2Idx = 1
+                // alert(1)
+              } else if (index == 2) {
+                this.tab2Idx = 2
+                this.newshoudao2()
+                // alert(2)
+              } else if (index == 3) {
+                this.tab3Idx = 1
+                // alert(3)
+              } else if (index == 4) {
+                this.tab3Idx = 2
+                // alert(4)
+                this.newshoudao3()
+              }
+
+              var i = index;
+              console.log(this.tab3Idx)
+              if (that.curNavIndex != i) {
+                //更改列表条件
+                $(".hahaha").removeClass("active");
+                $(e.currentTarget).addClass("active");
+                //隐藏当前列表和回到顶部按钮
+                $("#mescroll" + that.curNavIndex).hide();
+                mescrollArr[that.curNavIndex].hideTopBtn();
+                //显示对应的列表
+                $("#mescroll" + i).show();
+                //取出菜单所对应的mescroll对象,如果未初始化则初始化
+                if (mescrollArr[i] == null) {
+                  console.log('初始化')
+                  mescrollArr[i] = initMescroll("mescroll" + i, "dataList" + i);
+                }
+                //更新标记
+                that.curNavIndex = i;
+              }
+
+
+            },
+            //点击关闭个人资料弹出框的叉子
+            closes() {
+              this.zhezhaoceng = false
+            },
+
+            //点击题目和描述跳到对应的讨论区详情
+            xiangqing(n) {
+              location.href = "taolunquXq.html?objectId=" + n + '&sessiontoken=' + sessiontoken
+            },
+        
+            goodAts() {
               var ua = navigator.userAgent.toLowerCase();
               if (ua.match(/iPhone\sOS/i) == "iphone os") {
                 console.log('苹果')
                 if (window.WebViewJavascriptBridge) {
-                WebViewJavascriptBridge.callHandler('GetData', {
-                  content_key: 'four_time'
-                });
+                  WebViewJavascriptBridge.callHandler('SetData', {
+                    content_key: 'latest_goodAt',
+                    content: latest_goodAt
+                  })
+                } else {
+                  setTimeout(function () {
+                    WebViewJavascriptBridge.callHandler('SetData', {
+                      content_key: 'latest_goodAt',
+                      content: latest_goodAt
+                    })
+                  }, 1000)
+                }
+
               } else {
-                // 延时一秒
-                setTimeout(function () {
-                  WebViewJavascriptBridge.callHandler('GetData', {
-                    content_key: 'four_time'
-                  });
-                }, 1000);
+                console.log('安卓')
+                window.callHandler.clearUnRead('good_latest_flag');
               }
-            }else{
-              console.log('安卓')
-              window.callHandler.postUnReadMsg();
-            }  
-            },60000)
-      },
-      //3我的回复已收到
-      newshoudao3() {
-        // return
-        this.appcomment=0
-        // return
+            },
+            refreshgoodAts() {
+              var ua = navigator.userAgent.toLowerCase();
+              if (ua.match(/iPhone\sOS/i) == "iphone os") {
+                console.log('苹果')
+                if (window.WebViewJavascriptBridge) {
+                  WebViewJavascriptBridge.callHandler('SetData', {
+                    content_key: 'latest_refresh_good_timestampe',
+                    content: latest_refresh_good_timestampe
+                  })
+                } else {
+                  setTimeout(function () {
+                    WebViewJavascriptBridge.callHandler('SetData', {
+                      content_key: 'latest_refresh_good_timestampe',
+                      content: latest_refresh_good_timestampe
+                    })
+                  }, 1000)
+                }
+
+              } else {
+                console.log('安卓')
+                window.callHandler.clearUnRead('good_latest_flag');
+              }
+            },
+            commentAts() {
+              // 清空app的数据
+              var ua = navigator.userAgent.toLowerCase();
+              if (ua.match(/iPhone\sOS/i) == "iphone os") {
+                console.log('苹果')
+                if (window.WebViewJavascriptBridge) {
+                  WebViewJavascriptBridge.callHandler('SetData', {
+                    content_key: 'latest_commentAt',
+                    content:latest_commentAt
+                  })
+
+                } else {
+                  setTimeout(function () {
+                    WebViewJavascriptBridge.callHandler('SetData', {
+                      content_key: 'latest_commentAt',
+                      content: latest_commentAt
+                    })
+
+                  }, 1000)
+                }
+              } else {
+                console.log('安卓')
+                window.callHandler.clearUnRead('comment_latest_flag');
+              }
+          },
+          refreshcommentAts() {
             // 清空app的数据
             var ua = navigator.userAgent.toLowerCase();
-    if (ua.match(/iPhone\sOS/i) == "iphone os") {
-      console.log('苹果')
-      if(window.WebViewJavascriptBridge){
-               WebViewJavascriptBridge.callHandler('ClearData', {
-                  content_key: 'comment_latest_flag'
+            if (ua.match(/iPhone\sOS/i) == "iphone os") {
+              console.log('苹果')
+              if (window.WebViewJavascriptBridge) {
+                WebViewJavascriptBridge.callHandler('SetData', {
+                  content_key: 'latest_refresh_comment_timestampe',
+                  content: latest_refresh_comment_timestampe
                 })
-            }else{
-              setTimeout(function(){
-                WebViewJavascriptBridge.callHandler('ClearData', {
-                  content_key: 'comment_latest_flag'
-                })
-              },1000)
+
+              } else {
+                setTimeout(function () {
+                  WebViewJavascriptBridge.callHandler('SetData', {
+                    content_key: 'latest_refresh_comment_timestampe',
+                    content: latest_refresh_comment_timestampe
+                  })
+
+                }, 1000)
+              }
+            } else {
+              console.log('安卓')
+              window.callHandler.clearUnRead('comment_latest_flag');
             }
-  }else{
-    console.log('安卓')
-    window.callHandler.clearUnRead('comment_latest_flag');
-  } 
-            // if(window.WebViewJavascriptBridge){
-            //    WebViewJavascriptBridge.callHandler('ClearData', {
-            //       content_key: 'comment_latest_flag'
-            //     })
-            // }else{
-            //   setTimeout(function(){
-            //     WebViewJavascriptBridge.callHandler('ClearData', {
-            //       content_key: 'comment_latest_flag'
-            //     })
-            //   },1000)
-            // }
-               
-      }
-     
+        },
+        //3我的攒好已收到
+        newshoudao2() {
+            // 点击 已收到，用now更新相应的refresh 
+            this.latest_refresh_good_timestampe=Math.round(new Date().getTime()/1000).toString();
+        },
+        interval: function () {
+          setInterval(function () {
+            $.get("http://boss-macaucf-beta.leanapp.cn/api/v1/user/message_tips?sessiontoken="+sessiontoken,function(data){
+                      console.log(data)
+            })
+          }, 60000)
+        },
+        //3我的回复已收到
+        newshoudao3() {
+             // 点击 已收到，用now更新相应的refresh 
+             this.latest_refresh_comment_timestampe=Math.round(new Date().getTime()/1000).toString();
+        }
 
-    },
-    mounted() {  
-      // 添加叉子
-$('#__MUI_PREVIEWIMAGE').append('<img src="../../assets/img/login/cazhi.png"  class="absolute cursor w40 padding0 T25 R40">')
-$(document).on('click','#__MUI_PREVIEWIMAGE',function(){
-  $('#__MUI_PREVIEWIMAGE').removeClass('mui-preview-in')
-  $('#__MUI_PREVIEWIMAGE').addClass('mui-preview-out')
-})
 
-    var ua = navigator.userAgent.toLowerCase();
-    if (ua.match(/iPhone\sOS/i) == "iphone os") {
-      console.log('苹果')
-      if (window.WebViewJavascriptBridge) {
-      WebViewJavascriptBridge.callHandler('GetData', {
-        content_key: 'four_time'
-      });
-    } else {
-      // 延时一秒
-      setTimeout(function () {
-        WebViewJavascriptBridge.callHandler('GetData', {
-          content_key: 'four_time'
-        });
-      }, 1000);
-    }
-  }else{
-    console.log('安卓')
-    window.callHandler.postUnReadMsg();
-  }  
-this.interval()         
-    }
-    })
+      },
+      mounted() {
+        // 添加叉子
+        $('#__MUI_PREVIEWIMAGE').append(
+          '<img src="../../assets/img/login/cazhi.png"  class="absolute cursor w40 padding0 T25 R40">')
+        $(document).on('click', '#__MUI_PREVIEWIMAGE', function () {
+          $('#__MUI_PREVIEWIMAGE').removeClass('mui-preview-in')
+          $('#__MUI_PREVIEWIMAGE').addClass('mui-preview-out')
+        })
 
-  </script> 
-<script>
-    
-          var that=vm;
-        mescrollArr=new Array(5);//4个菜单所对应的4个mescroll对象
-			//初始化首页
-			mescrollArr[0]=initMescroll("mescroll0", "dataList0");		
-			/*创建MeScroll对象*/
-			function initMescroll(mescrollId,clearEmptyId){
-				//创建MeScroll对象,内部已默认开启下拉刷新,自动执行up.callback,刷新列表数据;
-				 mescroll = new MeScroll(mescrollId, {
-					//上拉加载的配置项
-					up: {
-            offset:1000,
-						callback: getListData, //上拉回调,此处可简写; 相当于 callback: function (page) { getListData(page); }
-						isBounce: false, //此处禁止ios回弹,解析(务必认真阅读,特别是最后一点): http://www.mescroll.com/qa.html#q10
-						noMoreSize:1, //如果列表已无数据,可设置列表的总数量要大于半页才显示无更多数据;避免列表数据过少(比如只有一条数据),显示无更多数据会不好看; 默认5
-						clearEmptyId: clearEmptyId, //相当于同时设置了clearId和empty.warpId; 简化写法;默认null
-						toTop:{ //配置回到顶部按钮
-							src : "mescroll-totop.png", //默认滚动到1000px显示,可配置offset修改
-							//offset : 1000
-						}
-					}
-				});
-				return mescroll;
-			}
-			
-			/*联网加载列表数据  page = {num:1, size:10}; num:当前页 从1开始, size:每页数据条数 */
-			function getListData(page){
-        if(page.num==1){
-          if(that.curNavIndex==0){
-            that.datas1=[]
-          }else if(that.curNavIndex==1){
-            that.datas21=[]
-          }else if(that.curNavIndex==2){
-            that.datas22=[]
-          }else if(that.curNavIndex==3){
-            that.datas31=[]
-          }else if(that.curNavIndex==4){
-            that.datas32=[]
+        var ua = navigator.userAgent.toLowerCase();
+        if (ua.match(/iPhone\sOS/i) == "iphone os") {
+          console.log('苹果')
+          if (window.WebViewJavascriptBridge) {
+            WebViewJavascriptBridge.callHandler('GetData', {
+              content_key: 'four_time'
+            });
+          } else {
+            // 延时一秒
+            setTimeout(function () {
+              WebViewJavascriptBridge.callHandler('GetData', {
+                content_key: 'four_time'
+              });
+            }, 1000);
           }
-                    
-       }  
-                // 1.如果插件本身这个时候页数是1说明刷新了当前页面,则赋值给对应标签的页数为0
-				//联网加载数据
-				var dataIndex=that.curNavIndex; //记录当前联网的nav下标,防止快速切换时,联网回来curNavIndex已经改变的情况;
-				getListDataFromNet(dataIndex,page.num, function(pageData){
-      // if(page.num==1){
-        				mescrollArr[dataIndex].endSuccess(pageData.length);
-					//设置列表数据
-					setListData(pageData,page.num,dataIndex);
-      // }
+        } else {
+          console.log('安卓')
+          window.callHandler.postUnReadMsg();
+        }
+        this.interval()
+      }
+    })
+  </script>
+  <script>
+    var that = vm;
+    mescrollArr = new Array(5); //4个菜单所对应的4个mescroll对象
+    //初始化首页
+    mescrollArr[0] = initMescroll("mescroll0", "dataList0");
+    /*创建MeScroll对象*/
+    function initMescroll(mescrollId, clearEmptyId) {
+      //创建MeScroll对象,内部已默认开启下拉刷新,自动执行up.callback,刷新列表数据;
+      mescroll = new MeScroll(mescrollId, {
+        //上拉加载的配置项
+        up: {
+          offset: 1000,
+          callback: getListData, //上拉回调,此处可简写; 相当于 callback: function (page) { getListData(page); }
+          isBounce: false, //此处禁止ios回弹,解析(务必认真阅读,特别是最后一点): http://www.mescroll.com/qa.html#q10
+          noMoreSize: 1, //如果列表已无数据,可设置列表的总数量要大于半页才显示无更多数据;避免列表数据过少(比如只有一条数据),显示无更多数据会不好看; 默认5
+          clearEmptyId: clearEmptyId, //相当于同时设置了clearId和empty.warpId; 简化写法;默认null
+          toTop: { //配置回到顶部按钮
+            src: "mescroll-totop.png", //默认滚动到1000px显示,可配置offset修改
+            //offset : 1000
+          }
+        }
+      });
+      return mescroll;
+    }
 
-				}, function(){
-          //联网失败的回调,隐藏下拉刷新和上拉加载的状态;
-          //  alert('cuowu')
-	                mescrollArr[dataIndex].endErr();
-				});
-			}
-			
-			/*设置列表数据
-			 * pageData 当前页的数据
-			 * dataIndex 数据属于哪个nav */
-			function setListData(curPageData,pages,curNavIndex){
+    /*联网加载列表数据  page = {num:1, size:10}; num:当前页 从1开始, size:每页数据条数 */
+    function getListData(page) {
+      if (page.num == 1) {
+        if (that.curNavIndex == 0) {
+          that.datas1 = []
+        } else if (that.curNavIndex == 1) {
+          that.datas21 = []
+        } else if (that.curNavIndex == 2) {
+          that.datas22 = []
+        } else if (that.curNavIndex == 3) {
+          that.datas31 = []
+        } else if (that.curNavIndex == 4) {
+          that.datas32 = []
+        }
+
+      }
+      // 1.如果插件本身这个时候页数是1说明刷新了当前页面,则赋值给对应标签的页数为0
+      //联网加载数据
+      var dataIndex = that.curNavIndex; //记录当前联网的nav下标,防止快速切换时,联网回来curNavIndex已经改变的情况;
+      getListDataFromNet(dataIndex, page.num, function (pageData) {
+        // if(page.num==1){
+        mescrollArr[dataIndex].endSuccess(pageData.length);
+        //设置列表数据
+        setListData(pageData, page.num, dataIndex);
+        // }
+
+      }, function () {
+        //联网失败的回调,隐藏下拉刷新和上拉加载的状态;
+        //  alert('cuowu')
+        mescrollArr[dataIndex].endErr();
+      });
+    }
+
+    /*设置列表数据
+     * pageData 当前页的数据
+     * dataIndex 数据属于哪个nav */
+    function setListData(curPageData, pages, curNavIndex) {
 
 
-        for (var i = 0; i <curPageData.length; i++) {
-                if(curNavIndex==0){
-                  that.datas1.push(curPageData[i])         
-                }else if(curNavIndex==1){
-                  that.datas21.push(curPageData[i])
-                }else if(curNavIndex==2){
-                  that.datas22.push(curPageData[i])
-                }else if(curNavIndex==3){
-                  that.datas31.push(curPageData[i])
-                }else if(curNavIndex==4){
-                  that.datas32.push(curPageData[i])
-                }
-               
-            }
-        }//setListData函数
-        
-			
-			
-			/*联网加载列表数据
-			 在您的实际项目中,请参考官方写法: http://www.mescroll.com/api.html#tagUpCallback
-			 请忽略getListDataFromNet的逻辑,这里仅仅是在本地模拟分页数据,本地演示用
-			 实际项目以您服务器接口返回的数据为准,无需本地处理分页.
-			 * */
-			function getListDataFromNet(curNavIndex,pages,successCallback,errorCallback) {
-                    var url = ''
-                    var category
-                    if(curNavIndex== 0) { //1.我的帖文
-                              url = 'user/post' //get
-                    } else if(curNavIndex== 1) { //2.我的攒好
-                               url = 'user/good/posts'
-                              //url='agent'
-                              //category='sell'
-                           
-                    } else if(curNavIndex== 2) { //3.我的回复
-                       url = 'user/posts/good'
-                             // url='agent'
-                             // category='rent'
-                    }else if(curNavIndex== 3) { //3.我的回复
-                       url = 'user/comment'
-                      //url='agent'
-                      //category='sell'
-                    }else if(curNavIndex== 4) { //3.我的回复
-                       url = 'user/inbox/comment'
-                     // url='agent'
-                     // category='rent'
-                    }
+      for (var i = 0; i < curPageData.length; i++) {
+        if (curNavIndex == 0) {
+          that.datas1.push(curPageData[i])
+        } else if (curNavIndex == 1) {
+          that.datas21.push(curPageData[i])
+        } else if (curNavIndex == 2) {
+          that.datas22.push(curPageData[i])
+        } else if (curNavIndex == 3) {
+          that.datas31.push(curPageData[i])
+        } else if (curNavIndex == 4) {
+          that.datas32.push(curPageData[i])
+        }
 
-                	$.ajax({
-		                type: 'GET',
-                    //  url: Boss+'discuss',
-                    // data:{
-                    //   tag:tag,
-                    //   sort:sort,
-                    //   page:pageNum,
-                    //   limit:limit20,
-                    //   sessiontoken:sessiontoken
-                    // },
-                      url:Boss + url,
-                    data: {
-                        // category:category,
-                        page:pages,
-                        limit: limit20,
-                        sessiontoken: sessiontoken
-                      },
-		                dataType: 'json',
-		                success: function(data){
-                      if(data.status){
-                         successCallback(data.result.data);
-                      }else{
-                        mescrollArr[curNavIndex].endErr();
-                       mui.toast(data.result.message)
-                      }
-                         
-		                },
-		                error: errorCallback
-		            });
-			}
-</script>
+      }
+    } //setListData函数
 
 
 
+    /*联网加载列表数据
+     在您的实际项目中,请参考官方写法: http://www.mescroll.com/api.html#tagUpCallback
+     请忽略getListDataFromNet的逻辑,这里仅仅是在本地模拟分页数据,本地演示用
+     实际项目以您服务器接口返回的数据为准,无需本地处理分页.
+     * */
+    function getListDataFromNet(curNavIndex, pages, successCallback, errorCallback) {
+      var url = ''
+      var category
+      if (curNavIndex == 0) { //1.我的帖文
+        url = 'user/post' //get
+      } else if (curNavIndex == 1) { //2.我的攒好
+        url = 'user/good/posts'
+        //url='agent'
+        //category='sell'
 
-  </body>
+      } else if (curNavIndex == 2) { //3.我的回复
+        url = 'user/posts/good'
+        // url='agent'
+        // category='rent'
+      } else if (curNavIndex == 3) { //3.我的回复
+        url = 'user/comment'
+        //url='agent'
+        //category='sell'
+      } else if (curNavIndex == 4) { //3.我的回复
+        url = 'user/inbox/comment'
+        // url='agent'
+        // category='rent'
+      }
+
+      $.ajax({
+        type: 'GET',
+        //  url: Boss+'discuss',
+        // data:{
+        //   tag:tag,
+        //   sort:sort,
+        //   page:pageNum,
+        //   limit:limit20,
+        //   sessiontoken:sessiontoken
+        // },
+        url: Boss + url,
+        data: {
+          // category:category,
+          page: pages,
+          limit: limit20,
+          sessiontoken: sessiontoken
+        },
+        dataType: 'json',
+        success: function (data) {
+          if (data.status) {
+            successCallback(data.result.data);
+          } else {
+            mescrollArr[curNavIndex].endErr();
+            mui.toast(data.result.message)
+          }
+
+        },
+        error: errorCallback
+      });
+    }
+  </script>
+
+
+
+
+</body>
 
 </html>
