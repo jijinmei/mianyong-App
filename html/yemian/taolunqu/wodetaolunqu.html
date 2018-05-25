@@ -938,7 +938,8 @@ var that=this;
     /*联网加载列表数据  page = {num:1, size:10}; num:当前页 从1开始, size:每页数据条数 */
     function getListData(page) {
             // 4.下拉刷新，从服务器获取两个latest，用now更新相应的refresh
-            $.get("http://boss-macaucf-beta.leanapp.cn/api/v1/user/message_tips?sessiontoken="+sessiontoken,function(data){
+            if(that.latestgoodAt!=null){
+              $.get("http://boss-macaucf-beta.leanapp.cn/api/v1/user/message_tips?sessiontoken="+sessiontoken,function(data){
                       console.log(data)
                       console.log("1.插件从服务器获取两个latest")
                       that.latestcommentAt=data.result.latest_commentAt
@@ -949,6 +950,8 @@ var that=this;
                         that.commenttimestampe=Math.round(new Date().getTime())
                       }
             })
+            }
+           
 
 
 
