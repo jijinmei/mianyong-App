@@ -111,10 +111,11 @@
                       <a href="javascript:;">
                         <div class="mui-media-object mui-pull-left radius50 overflow" style="max-width:0.8rem;width:0.8rem;height:0.8rem;">
                           <!--个人头像-->
-                          <img @tap="zhezhaoceng=true" :src="item.user!=undefined&&item.user.avatar!=undefined?item.user.avatar.url:'../../assets/img/taolunqu/head.png'" style="width:100%;">
+                          <!-- 对比id是否相同就知道当前点赞的是否是发帖子的本人 -->
+                          <img  @tap="zhezhaoceng=true" :src="item.avatar!=undefined?item.avatar.url:'../../assets/img/taolunqu/head.png'" style="width:100%;">
                         </div>
                         <div class="czjz mui-media-body fz23 c282828" style="left:1.2rem;">
-                          <span class="">
+                          <span>
                             {{(!isNaN(item.nickname)==false?item.nickname:item.nickname.substring(0,2)+'****'+item.nickname.substring(item.nickname.length,item.nickname.length-2))}}
                           </span>
                         </div>
