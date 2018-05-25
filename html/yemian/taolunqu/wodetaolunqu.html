@@ -536,12 +536,13 @@
         console.log('有值传过来', data)
         var data=JSON.parse(data)
         vm.mess=data
+        vm.isfirst=false
         vm.latestgoodAt=data.latest_goodAt
         vm.goodtimestampe=data.latest_refresh_good_timestampe
         vm.latestcommentAt=data.latest_commentAt
         vm.commenttimestampe=data.latest_refresh_comment_timestampe
-        console.log("赋值后输出的"+vm.latestgoodAt,vm.goodtimestampe,vm.latestcommentAt,vm.commenttimestampe)
-        console.log("app输出的"+data.latestgoodAt,data.goodtimestampe,data.latestcommentAt,data.commenttimestampe)
+        // console.log("赋值后输出的"+vm.latestgoodAt,vm.goodtimestampe,vm.latestcommentAt,vm.commenttimestampe)
+        // console.log("app输出的"+data.latestgoodAt,data.goodtimestampe,data.latestcommentAt,data.commenttimestampe)
    
       } else {
         console.log('没有传值过来')
@@ -576,6 +577,7 @@
     var vm = new Vue({
           el: '#app',
           data: {
+            isfirst:true,//是否是已经拿过原生的数据了
             latestgoodAt: null,
             goodtimestampe: null,
             latestcommentAt: null,
@@ -938,7 +940,7 @@ var that=this;
     /*联网加载列表数据  page = {num:1, size:10}; num:当前页 从1开始, size:每页数据条数 */
     function getListData(page) {
             // 4.下拉刷新，从服务器获取两个latest，用now更新相应的refresh
-            if(that.latestgoodAt!=null){
+            if(page==1&&that.isfirst==false){
               $.get("http://boss-macaucf-beta.leanapp.cn/api/v1/user/message_tips?sessiontoken="+sessiontoken,function(data){
                       console.log(data)
                       console.log("1.插件从服务器获取两个latest")
