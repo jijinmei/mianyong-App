@@ -534,6 +534,7 @@
       if (data) {
         // console.log('有值传过来', data)
         console.log('有值传过来', data)
+        var data=JSON.parse(data)
         vm.mess=data
         vm.latestgoodAt=data.latest_goodAt
         vm.goodtimestampe=data.latest_refresh_good_timestampe
