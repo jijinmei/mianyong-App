@@ -231,12 +231,12 @@
 <body>
 
   <div id="app" v-cloak>
-    <div class="spjz red" style="top:1rem;z-index:10000;background:white;padding:0.3rem;">
+    <!-- <div class="spjz red" style="top:1rem;z-index:10000;background:white;padding:0.3rem;">
       <p>{{latestgoodAt}},{{goodtimestampe}},{{latestcommentAt}},{{commenttimestampe}}</p>
       <p>攒好:{{latestgoodAt>goodtimestampe?'you':'wu'}}
         回复:{{latestcommentAt>commenttimestampe?'you':'wu'}}
       </p>
-    </div>
+    </div> -->
     <!--标题11-->
     <!-- <p>{{curNavIndex}}</p> -->
     <div class="header ">
@@ -823,7 +823,7 @@
               if (window.WebViewJavascriptBridge) {
                 WebViewJavascriptBridge.callHandler('SetData', {
                   content_key: 'latest_refresh_comment_timestampe',
-                  content: commenttimestampe
+                  content:that.commenttimestampe
                 })
 
               } else {
@@ -938,17 +938,17 @@ var that=this;
     /*联网加载列表数据  page = {num:1, size:10}; num:当前页 从1开始, size:每页数据条数 */
     function getListData(page) {
             // 4.下拉刷新，从服务器获取两个latest，用now更新相应的refresh
-            // $.get("http://boss-macaucf-beta.leanapp.cn/api/v1/user/message_tips?sessiontoken="+sessiontoken,function(data){
-            //           console.log(data)
-            //           console.log("1.插件从服务器获取两个latest")
-            //           that.latestcommentAt=data.result.latest_commentAt
-            //           that.latestgoodAt=data.result.latest_goodAt
-            //           if(that.curNavIndex==2){
-            //             that.goodtimestampe=Math.round(new Date().getTime())
-            //           }else if(that.curNavIndex==4){
-            //             that.commenttimestampe=Math.round(new Date().getTime())
-            //           }
-            // })
+            $.get("http://boss-macaucf-beta.leanapp.cn/api/v1/user/message_tips?sessiontoken="+sessiontoken,function(data){
+                      console.log(data)
+                      console.log("1.插件从服务器获取两个latest")
+                      that.latestcommentAt=data.result.latest_commentAt
+                      that.latestgoodAt=data.result.latest_goodAt
+                      if(that.curNavIndex==2){
+                        that.goodtimestampe=Math.round(new Date().getTime())
+                      }else if(that.curNavIndex==4){
+                        that.commenttimestampe=Math.round(new Date().getTime())
+                      }
+            })
 
 
 
