@@ -764,7 +764,7 @@
 
               } else {
                 console.log('安卓')
-                window.callHandler.clearUnRead('latest_goodAt');
+                window.callHandler.clearUnRead('latest_goodAt',that.latestgoodAt);
               }
             },
             refreshgoodAts() {
@@ -788,7 +788,7 @@
 
               } else {
                 console.log('安卓')
-                window.callHandler.clearUnRead('latest_refresh_good_timestampe');
+                window.callHandler.clearUnRead('latest_refresh_good_timestampe',that.goodtimestampe);
               }
             },
             commentAts() {
@@ -814,7 +814,7 @@
                 }
               } else {
                 console.log('安卓')
-                window.callHandler.clearUnRead('latest_commentAt');
+                window.callHandler.clearUnRead('latest_commentAt',that.latestcommentAt);
               }
           },
           refreshcommentAts() {
@@ -840,7 +840,7 @@
               }
             } else {
               console.log('安卓')
-              window.callHandler.clearUnRead('latest_refresh_comment_timestampe');
+              window.callHandler.clearUnRead('latest_refresh_comment_timestampe',that.commenttimestampe);
             }
         },
         //3我的攒好已收到
