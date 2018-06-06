@@ -1,7 +1,7 @@
 'use strict';
 
 //  axios.defaults.baseURL = 'http://192.168.0.142:9000/api/v1/'// 正式
-axios.defaults.baseURL = 'http://boss-macaucf-beta.leanapp.cn/api/v1'; // 开发
+axios.defaults.baseURL = 'http://stg-boss-macaucf.leanapp.cn/api/v1'; // 开发
 
 
 // 添加请求拦截器

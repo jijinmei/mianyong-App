@@ -1,9 +1,9 @@
  var w = $(window).width() / 640 * 100;
  var w0 = $(window).width() / 640;
  document.getElementsByTagName('html')[0].style.fontSize = w + "px"
- var Boss = 'http://boss-macaucf-beta.leanapp.cn/api/v1/' //测试
- var Boss2 = 'http://boss-macaucf-beta.leanapp.cn/' //测试
- var Boss3 = 'http://boss-macaucf-beta.leanapp.cn/api/v1/' //测试接口
+ var Boss = 'http://stg-boss-macaucf.leanapp.cn/api/v1/' //测试
+ var Boss2 = 'http://stg-boss-macaucf.leanapp.cn/' //测试
+ var Boss3 = 'http://stg-boss-macaucf.leanapp.cn/api/v1/' //测试接口
  // 初始化刷新和加载插件的全局变量
  var mescroll;
 
@@ -15,7 +15,7 @@
  var httplu = 'http://stg-static-macaucf.leanapp.cn/html/yemian/';
  var httproot = 'http://stg-static-macaucf.leanapp.cn/html/';
 
- console.log('common.js common.js common.js common.js')
+ console.log('common.js common.js common.js common.js1')
 
  //2.js调用ios原生的方法
  function setupWebViewJavascriptBridge(callback) {
@@ -158,7 +158,7 @@
          window.callHandler.cleardata('xiangqingData')
        }
 
-       // app的返回
+       // app的返回1
        goback(1)
 
      } else {

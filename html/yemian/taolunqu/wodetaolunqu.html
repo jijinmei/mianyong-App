@@ -852,7 +852,7 @@
         interval: function () {
           var that=this;
           setInterval(function () {
-            $.get("http://boss-macaucf-beta.leanapp.cn/api/v1/user/message_tips?sessiontoken="+sessiontoken,function(data){
+            $.get("http://stg-boss-macaucf.leanapp.cn/api/v1/user/message_tips?sessiontoken="+sessiontoken,function(data){
                       // console.log(data)
                       that.latestcommentAt=data.result.latest_commentAt
                       that.latestgoodAt=data.result.latest_goodAt
@@ -942,7 +942,7 @@ var that=this;
     function getListData(page) {
             // 4.下拉刷新，从服务器获取两个latest，用now更新相应的refresh
             if(page.num==1&&that.isfirst==false){
-              $.get("http://boss-macaucf-beta.leanapp.cn/api/v1/user/message_tips?sessiontoken="+sessiontoken,function(data){
+              $.get("http://stg-boss-macaucf.leanapp.cn/api/v1/user/message_tips?sessiontoken="+sessiontoken,function(data){
                       console.log(data)
                       console.log("1.插件从服务器获取两个latest")
                       that.latestcommentAt=data.result.latest_commentAt
