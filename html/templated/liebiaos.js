@@ -109,33 +109,48 @@ template: `
 					}else if(data.index==1){
 						//点击了确定
 					var formData = new FormData();             
-                    formData.append("sessiontoken",sessiontoken);
-                    formData.append("objectId",objectId);
-                    formData.append("action",action);
-                   jQuery.ajax({
-                        url: Boss3 + 'article/'+objectId+"/status",
-                        type: "POST",
-                         async:false,
-                        processData: false,
-                        contentType: false,
-                        data: formData,
+                    // formData.append("sessiontoken",sessiontoken);
+                    // formData.append("objectId",objectId);
+                    // formData.append("action",action);
+                    $.post(Boss3 + 'article/'+objectId+"/status",{
+                      sessiontoken:sessiontoken,
+                      objectId:objectId,
+                      action:action
+                    },function(data){
+                      console.log(data);
+                      //1.服务器返回响应，根据响应结果，分析是否登录成功；
+                         if(data.status == true) {
+                           //修改对应的发布状态 改为已下架
+                             that.datas[index].status='-2'
+                                                 
+                         }else{
+                          mui.toast("HTTP Request Failed")
+                         }
                     })
-                    .done(function(data, textStatus, jqXHR) {
-                        console.log("HTTP Request Succeeded: " + jqXHR.status);
-                        console.log(data);
-                     //1.服务器返回响应，根据响应结果，分析是否登录成功；
-												if(data.status == true) {
-													//修改对应的发布状态 改为已下架
-														that.datas[index].status='-2'
+                  //  jQuery.ajax({
+                  //       url: Boss3 + 'article/'+objectId+"/status",
+                  //       type: "POST",
+                  //        async:false,
+                  //       processData: false,
+                  //       contentType: false,
+                  //       data: formData,
+                  //   })
+                  //   .done(function(data, textStatus, jqXHR) {
+                  //       console.log("HTTP Request Succeeded: " + jqXHR.status);
+                  //       console.log(data);
+                  //    //1.服务器返回响应，根据响应结果，分析是否登录成功；
+									// 			if(data.status == true) {
+									// 				//修改对应的发布状态 改为已下架
+									// 					that.datas[index].status='-2'
                                                 
-												}
+									// 			}
                        
-                    })
-                    .fail(function(jqXHR, textStatus, errorThrown) {
-                        console.log("HTTP Request Failed");
-                        mui.toast("HTTP Request Failed")
-                    })
-                    .always(function() {});
+                  //   })
+                  //   .fail(function(jqXHR, textStatus, errorThrown) {
+                  //       console.log("HTTP Request Failed");
+                  //       mui.toast("HTTP Request Failed")
+                  //   })
+                  //   .always(function() {});
 					
 					
 					
