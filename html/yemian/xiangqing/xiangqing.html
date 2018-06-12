@@ -212,7 +212,7 @@
         <li class="mui-table-view-cell overflow" style="padding-left:0.18rem;">
           <p class="fz27 mui-pull-left">配套設備：</p>
           <ul class="c000000 mui-pull-left left overflow" style="width: 4.3rem;">
-            <li class="lf" :class="{mR21:idxs1==1||idxs1==4,mL21:idxs1==1||idxs1==4}" v-if="dos1!=''" v-for="(dos1,idxs1) in peitao">
+            <li class="lf" :class="{mR21:idxs1==1||idxs1==4||idxs1==7,mL21:idxs1==1||idxs1==4||idxs1==7}" v-if="dos1!=''" v-for="(dos1,idxs1) in peitao">
               <img src="../../assets/img/xiangqing/gouxuan.png" alt="" class="mR07" />{{dos1}}
             </li>
             <li class="lf" v-if="peitao.length==0">
