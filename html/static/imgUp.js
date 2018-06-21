@@ -14,7 +14,7 @@
         var height = img.height;
         //如果图片大于四百万像素，计算压缩比并将大小压至400万以下
         var ratio;
-        if ((ratio = width * height / 4000000) > 1) {
+        if ((ratio = width * height / 1000000) > 1) {
             ratio = Math.sqrt(ratio);
             width /= ratio;
             height /= ratio;
