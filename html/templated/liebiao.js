@@ -31,7 +31,7 @@ template: `
 
 					<div class="mui-media-body relative">
 						<div class="fz33 c36c748 overflow" >
-							<p class="mui-pull-left c36c748 mui-ellipsis fz33"  style="width:2rem;font-weight:none;">{{item.title}}</p>
+							<p class="mui-pull-left c000000 bold mui-ellipsis fz33"  style="width:2rem;font-weight:none;">{{item.title}}</p>
 							<p class="mui-pull-right" style="overflow:visible;">
 										<div class="right relative" style="height:0.35rem;">
 											   
