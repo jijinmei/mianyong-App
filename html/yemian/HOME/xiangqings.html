@@ -61,7 +61,13 @@
       //最新消息詳細內容
      xiangqings(){
       var that=this
-      $.get(Boss3+'news/'+locations('objectId'),{sessiontoken:sessiontoken},function(data){
+      var url=''
+      if(locations('name')=='hots'){
+        url='discuss/'
+      }else if(locations('name')=='news'){
+        url='news/'
+      }
+      $.get(Boss3+url+locations('objectId'),{sessiontoken:sessiontoken},function(data){
         console.log(data.result)
         if(data.status==true){
            that.datas=data.result

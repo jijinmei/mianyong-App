@@ -291,6 +291,8 @@
       },
             //在线咨询
             onlinechat(data,objectId,who) {
+              console.log(data)
+              // return
               if (sessiontoken && sessiontoken != 'null') {
                 console.log('进来了' + sessiontoken)
                 // 判断是否是发布者 不是则调用手机聊天接口  是则弹出提示框
@@ -310,6 +312,7 @@
                   });
                  }else{
                   console.log('安卓')
+                  console.log(data)
                   window.callHandler.onlinechat(JSON.stringify(data));
                  }
                  
