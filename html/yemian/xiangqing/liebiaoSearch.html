@@ -304,7 +304,7 @@
                     wheredata['type']=that.type
                   }
                   if(that.from!='不限'){
-                    wheredata['from']=that.from
+                    wheredata['from']=(that.from=='個人'?'base_user':(that.from=='中介'?'estate_agent':''))
                   }
                   wheredata['limit']=limit20
                   wheredata['page']=page
