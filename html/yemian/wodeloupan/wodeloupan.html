@@ -120,7 +120,8 @@
           </li>
           <li class="second tap mui-table-view-cell mui-collapse mui-pull-right center" style="width:50%;">
               <a @tap="zzc2($event)"  class="mui-navigate-right tap2 fz23 center"  href="#"  :class="{c36c748:youitem!=0,jiantou0:youitem==0,jiantou1:youitem==1,jiantou2:youitem==2}" >
-              {{youitem==0?'全部狀態':(youitem==1?'審核中':(youitem==2?'已發佈':(youitem==3?'不通過':'已封盤')))}}
+              <!-- {{youitem==0?'全部狀態':(youitem==1?'審核中':(youitem==2?'已發佈':(youitem==3?'不通過':'已封盤')))}} -->
+              {{youitem==0?'全部狀態':(youitem==1?'未封盤 已通過':(youitem==2?'未封盤 待審核':(youitem==3?'未封盤 不通過':(youitem==4?'已封盤 已通過':(youitem==5?'已封盤 待審核':'已封盤 不通過')))))}} 
               </a>
               <div class="mui-collapse-content margint0 center" >
                   <ul class="mui-table-view list fz27 margint0">
@@ -188,7 +189,8 @@
         name:'wodeloupan',
         zuoitem:0,//当前选择的类型
         zuo:['全部類型','租盤','售盤'],
-        you:['全部狀態','審核中','已發佈','不通過','已封盤'],
+        you:['全部狀態', '未封盤 已通過', '未封盤 待審核', '未封盤 不通過', '已封盤 已通過', '已封盤 待審核', '已封盤 不通過'],
+        // you:['全部狀態','審核中','已發佈','不通過','已封盤'],
         youitem:0,//当前选择的状态
         backdrop:false,
         datas: []
@@ -448,18 +450,24 @@ refresh(){
             wheredata['category']='sell'
           }
         }
-        // 0=审核中，1=已发布，-1=不通过，-2=已封盘
-        if(that.youitem!=0){//全部状态不用传字段
-                if(that.youitem==1){
-            wheredata['status']='0'//审核中
-          }else if(that.youitem==2){
-              wheredata['status']='1'//已发布
-          }else if(that.youitem==3){
-              wheredata['status']='-1'//不通过
-          }else if(that.youitem==4){
-              wheredata['status']='-2'//已封盘
-          }
-        }
+
+
+      var show=(that.youitem==1||that.youitem==2||that.youitem==3)?1:(that.youitem==0?'':0)
+      var status=(that.youitem==0?'':(that.youitem==1||that.youitem==4?1:(that.youitem==2||that.youitem==5?0:-1)))
+      wheredata['show']=show
+      wheredata['status']=status
+        // // 0=审核中，1=已发布，-1=不通过，-2=已封盘
+        // if(that.youitem!=0){//全部状态不用传字段
+        //         if(that.youitem==1){
+        //     wheredata['status']='0'//审核中
+        //   }else if(that.youitem==2){
+        //       wheredata['status']='1'//已发布
+        //   }else if(that.youitem==3){
+        //       wheredata['status']='-1'//不通过
+        //   }else if(that.youitem==4){
+        //       wheredata['status']='-2'//已封盘
+        //   }
+        // }
         wheredata['limit']=limit20
         wheredata['page']=page
         wheredata['sessiontoken']=sessiontoken         
