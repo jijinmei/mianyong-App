@@ -186,7 +186,9 @@
         name:'wodefabu',
         zuoitem:'全部分類',//当前选择的类型
         zuo:'',
-        you:['全部狀態','審核中','已發佈','不通過','已下架'],
+        statusIdx:0,
+        you:['全部狀態', '已上架 已通過', '已上架 待審核', '已上架 不通過', '已下架 已通過', '已下架 待審核', '已下架 不通過'],
+        // you:['全部狀態','審核中','已發佈','不通過','已下架'],
         youitem:'全部狀態',//当前选择的状态
         backdrop:false,
         datas: []
@@ -328,6 +330,8 @@ type(index,item){
 },
 //全部状态
 status(index,item){
+  // mui.toast(index)
+  this.statusIdx=index
   this.youitem=item
   this.backdrop=false
   $('.second').toggleClass('mui-active')
@@ -384,22 +388,25 @@ status(index,item){
 			/*1.联网加载列表数据
 			 * */
 			function getListDataFromNet(page,successCallback,errorCallback) {
+        var show=(that.statusIdx==1||that.statusIdx==2||that.statusIdx==3)?1:(that.statusIdx==0?'':0)
+        var status=(that.statusIdx==0?'':(that.statusIdx==1||that.statusIdx==4?1:(that.statusIdx==2||that.statusIdx==5?0:-1)))
                          //判断状态['全部狀態','審核中','已發佈','不通過','已下架'],
-                      var statu=''
-                      if(that.youitem=='審核中'){
-                        statu='0'
-                      }else if(that.youitem=='已發佈'){
-                        statu='1'
-                      }else if(that.youitem=='不通過'){
-                        statu='-1'
-                      }else if(that.youitem=='已下架'){
-                        statu='-2'
-                      }
+                      // var statu=''
+                      // if(that.youitem=='審核中'){
+                      //   statu='0'
+                      // }else if(that.youitem=='已發佈'){
+                      //   statu='1'
+                      // }else if(that.youitem=='不通過'){
+                      //   statu='-1'
+                      // }else if(that.youitem=='已下架'){
+                      //   statu='-2'
+                      // }
+
                      
                 	$.ajax({
                     type: 'GET',
 		                url:Boss3 + 'user/article',
-                    data:{'page':page,'limit':limit20,'sessiontoken':sessiontoken,'title':that.zuoitem,'status':statu},
+                    data:{'page':page,'limit':limit20,'sessiontoken':sessiontoken,'title':that.zuoitem,'status':status,'show':show},
 		                dataType: 'json',
 		                success: function(dataAll){
                       if(dataAll.status){

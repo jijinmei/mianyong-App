@@ -14,7 +14,12 @@ template: `
 				
 					<!--我的发布特有的封盘按钮@click.stop="fengpan(item.title,index,item.objectId)"-->
 				 <p v-show="who=='wodefabu'" @click.stop="caozuos2(item.objectId,item,item.status,index)" class="border-b relative fz25 c555555 center" style="top:-0.2rem;height:0.6rem;line-height:0.6rem;">
-				 	<span class="czjz fz25" style="left:0;" :class="{cff0000:bb=item.status=='-1',cff4d00:item.status=='0',c999999:item.status=='-2',c36c748:item.status=='1'}">{{item.status=='-1'?'不通過':(item.status=='0'?'審核中':(item.status=='1'?'已發佈':'已下架'))}}</span>
+           <span class="czjz fz25" style="left:0;" :class="{cff0000:bb=item.status=='-1',cff4d00:item.status=='0',c999999:item.status=='-2',c36c748:item.status=='1'}">
+           <!--<p>{{item.status=='-1'?'不通過':(item.status=='0'?'審核中':(item.status=='1'?'已發佈':'已下架'))}}</p>-->
+           {{item.show==0?'已下架':'已上架'}}
+           {{item.status==-1?'不通過':(item.status==0?'待審核':'已通過')}}
+
+           </span>
 				 	<img  src="../../assets/img/me/caozuo.png" alt="" style="width:0.29rem;right:0.6rem;" class="czjz" />
 				 	<span  class="czjz fz25 c000000" style="right:0;">操作</span>
 				 </p>
