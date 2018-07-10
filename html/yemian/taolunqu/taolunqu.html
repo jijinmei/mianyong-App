@@ -309,7 +309,7 @@
                   <div @tap="zhezhaocengs(item)" class="mui-media-object mui-pull-left relative center" style="max-width:0.8rem;width:0.8rem;height:1.5rem;margin-right:0.15rem;">
                     <!--个人头像-->
                     <div class="radius50 overflow" style="max-width:0.8rem;width:0.8rem;height:0.8rem;">
-                      <img :src="item.user.avatar!=undefined&&item.user!=undefined?item.user.avatar.url:'../../assets/img/taolunqu/head.png'" style="width:100%;">
+                      <img :src="item.user.avatar!=undefined&&item.user!=undefined?item.user.avatar.url+imageView80:'../../assets/img/taolunqu/head.png'" style="width:100%;">
                     </div>
 
                     <img src="../../assets/img/taolunqu/zong.png" alt="" class="spjz" style="margin-top:0.05rem;width:0.3rem;" />
@@ -463,6 +463,7 @@
         imageView2: '?imageView2/1/w/' + parseInt(245 * w0) + '/h/' + parseInt(245 * w0),
         imageView3: '?imageView2/1/w/' + parseInt(163 * w0) + '/h/' + parseInt(163 * w0),
         imageView: '?imageView2/2/w/' + parseInt(640 * w0),
+        imageView80: '?imageView2/1/w/' + parseInt(80 * w0) + '/h/' + parseInt(80 * w0),
         bb: '',
         paixu1: 'default', //综合记录的排序方式
         paixu2: 'default', //求盤记录的排序方式
