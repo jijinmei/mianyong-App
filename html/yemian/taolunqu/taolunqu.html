@@ -309,7 +309,7 @@
                   <div @tap="zhezhaocengs(item)" class="mui-media-object mui-pull-left relative center" style="max-width:0.8rem;width:0.8rem;height:1.5rem;margin-right:0.15rem;">
                     <!--个人头像-->
                     <div class="radius50 overflow" style="max-width:0.8rem;width:0.8rem;height:0.8rem;">
-                      <img :src="item.user.avatar!=undefined&&item.user!=undefined?item.user.avatar.url+imageView80:'../../assets/img/taolunqu/head.png'" style="width:100%;">
+                      <img  v-lazy="item.user.avatar!=undefined&&item.user!=undefined?item.user.avatar.url+imageView80:'../../assets/img/taolunqu/head.png'"  style="width:100%;">
                     </div>
 
                     <img src="../../assets/img/taolunqu/zong.png" alt="" class="spjz" style="margin-top:0.05rem;width:0.3rem;" />
