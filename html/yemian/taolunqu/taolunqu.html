@@ -251,20 +251,20 @@
           <!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
           <div class="mui-slider-item mui-slider-item-duplicate">
             <a @click="go(slideimg[slideimg.length-1].url)" style="width:6.4rem;height:3.8rem;">
-              <img :src="slideimg[slideimg.length-1].cover.url">
+              <img v-lazy="slideimg[slideimg.length-1].cover.url" >
             </a>
           </div>
 
           <!-- 第n张 -->
           <div class="mui-slider-item relative" v-for="(item,index) in slideimg">
             <a @click="go(item.url)" style="width:6.4rem;height:3.8rem;">
-              <img :src="item.cover.url" class="jz">
+              <img  v-lazy="item.cover.url"  class="jz">
             </a>
           </div>
           <!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
           <div class="mui-slider-item mui-slider-item-duplicate">
             <a @click="go(slideimg[0].url)" style="width:6.4rem;height:3.8rem;">
-              <img :src="slideimg[0].cover.url">
+              <img   v-lazy="slideimg[0].cover.url" >
             </a>
           </div>
         </div>
@@ -464,6 +464,7 @@
         imageView3: '?imageView2/1/w/' + parseInt(163 * w0) + '/h/' + parseInt(163 * w0),
         imageView: '?imageView2/2/w/' + parseInt(640 * w0),
         imageView80: '?imageView2/1/w/' + parseInt(80 * w0) + '/h/' + parseInt(80 * w0),
+        imageView640: '?imageView2/1/w/' + parseInt(640 * w0) ,
         bb: '',
         paixu1: 'default', //综合记录的排序方式
         paixu2: 'default', //求盤记录的排序方式

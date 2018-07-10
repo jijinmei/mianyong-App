@@ -31,7 +31,7 @@ body{background: #ebebeb !important;}
 
   <body>
 
-    <div id="app" v-cloak>
+    <div id="app">
 
   <div>
     <!--A.4个模块的跳转-->
@@ -60,7 +60,7 @@ body{background: #ebebeb !important;}
             <li @click="xiangqings(item.objectId,item)" v-if="zu!='no'" v-for="(item,index) in zu" :class="{lf:index==0||index==2,rf:index==1||index==3}" class="mui-table-view-cell padding0 border after0" style="margin-bottom:0.2rem;width:2.91rem;height:3rem;">
                 <div id="" class="relative overflow" style="height:1.7rem;">
                   <img :src="item.cover+imageView2" alt="" style="" class="jz" style="min-height:1.7rem;"/>
-                  <button v-cloak type="button" class="mui-btn mui-btn-blue absolute fz19 cffffff" style="padding:0.05rem 0.1rem;border-radius:0;border:none;right: 0;top: 0;background-color: rgba(0,0,0,0.4);">
+                  <button  type="button" class="mui-btn mui-btn-blue absolute fz19 cffffff" style="padding:0.05rem 0.1rem;border-radius:0;border:none;right: 0;top: 0;background-color: rgba(0,0,0,0.4);">
                     {{item.pics.length}}張
             </button>
             <button type="button" class="mui-btn absolute fz21 cffffff" style="padding:0.05rem 0.1rem;border-radius:0;border:none;right: 0;bottom: 0;background-color: rgba(0,0,0,0.4);">
@@ -104,7 +104,7 @@ body{background: #ebebeb !important;}
             <li @click="xiangqings(item.objectId,item)" v-if="zu!='no'" v-for="(item,index) in sou" :class="{lf:index==0||index==2,rf:index==1||index==3}" class="mui-table-view-cell padding0 border after0" style="margin-bottom:0.2rem;width:2.91rem;height:3rem;">
                 <div id="" class="relative overflow" style="height:1.7rem;">
                   <img :src="item.cover+imageView2" alt="" style="" class="jz" style="min-height:1.7rem;"/>
-                  <button v-cloak type="button" class="mui-btn mui-btn-blue absolute fz19 cffffff" style="padding:0.05rem 0.1rem;border-radius:0;border:none;right: 0;top: 0;background-color: rgba(0,0,0,0.4);">
+                  <button  type="button" class="mui-btn mui-btn-blue absolute fz19 cffffff" style="padding:0.05rem 0.1rem;border-radius:0;border:none;right: 0;top: 0;background-color: rgba(0,0,0,0.4);">
               {{item.pics.length}}張
             </button>
             <button type="button" class="mui-btn absolute fz21 cffffff" style="padding:0.05rem 0.1rem;border-radius:0;border:none;right: 0;bottom: 0;background-color: rgba(0,0,0,0.4);">
