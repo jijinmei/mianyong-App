@@ -494,7 +494,7 @@ vm.users()
           var id = localStorage.getItem('userId')
           // alert(id)
           if (id) {
-            $.get(Boss + 'user/' + id, function (data, status) {
+            $.get(Boss + 'user/' + id,{'sessiontoken':sessiontoken}, function (data, status) {
               if (data.status==true) {
                 // userData 个人信息
                 console.log(data.result)

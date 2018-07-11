@@ -206,7 +206,7 @@ body{background: #ebebeb !important;}
           if(sessiontoken){
             var id = localStorage.getItem('userId')
               if (id) {
-                $.get(Boss + 'user/' + id, function (data, status) {
+                $.get(Boss + 'user/' + id,{'sessiontoken':sessiontoken},  function (data, status) {
                   if (data.status==true) {
                   if(data.result.phone){
                      //检测用户是否可发布   检测点，posts = 帖，agents = 楼盘
@@ -250,7 +250,7 @@ body{background: #ebebeb !important;}
            
             var id = localStorage.getItem('userId')
               if (id) {
-                $.get(Boss + 'user/' + id, function (data, status) {
+                $.get(Boss + 'user/' + id,{'sessiontoken':sessiontoken},  function (data, status) {
                   if (data.status==true) {
                   if(data.result.phone){
                      //检测用户是否可发布   检测点，posts = 帖，agents = 楼盘

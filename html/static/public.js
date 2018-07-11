@@ -6,7 +6,7 @@ function MYgetPersonalInfo (sessionToken, objectId) {
   console.log("sessiontoken:"+sessiontoken)
   // objectId
   localStorage.setItem('objectId', objectId)
-  $.get(Boss+'user/'+objectId, function (data, status) {
+  $.get(Boss+'user/'+objectId, {'sessiontoken':sessiontoken}, function (data, status) {
     if (!data.result.message) {
       // userData 个人信息
       localStorage.setItem('userData', JSON.stringify(data.result))

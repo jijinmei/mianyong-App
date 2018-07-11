@@ -48,7 +48,7 @@ var vm=new Vue({
 var that=this
   var id = localStorage.getItem('userId')
   if (id) {
-    $.get(Boss + 'user/' + id, function (data, status) {
+    $.get(Boss + 'user/' + id,{'sessiontoken':sessiontoken}, function (data, status) {
       if (!data.result.message) {
         console.log('查看了个人资料赋值给了电话及在线咨询')
         console.log(data)
