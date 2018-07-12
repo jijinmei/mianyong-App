@@ -140,16 +140,16 @@
             mui.toast('請輸入檢舉內容')
             return
           }
-       
+          // mui.toast(sessiontoken)
           $.post(Boss+'agent/'+locations('objectId')+'/report',{
             remark:this.content,
             sessiontoken:sessiontoken
           },function(data){
-             if(data.status==true){
+             if(data.status){
               //返回上一步
               goback(1)
              }else{
-              mui.toast('網絡問題檢舉失敗')
+              mui.toast(data.result.message)
              }
           })
          }
