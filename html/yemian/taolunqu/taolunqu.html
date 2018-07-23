@@ -840,14 +840,8 @@
               success: function (data) {
                 if (data.status) {
                   //回调
-                  that.slideimg = data.result.slider
-                  //获得slider插件对象
-                  setTimeout(function () {
-                    var gallery = mui('.xiangqingSlider');
-                    gallery.slider({
-                      interval: 3000 //自动轮播周期，若为0则不自动播放，默认为0；
-                    });
-                  }, 100)
+                  
+             
                   successCallback(data.result.data, pages, curNavIndex, data.result.pages);
                 } else {
                   //联网失败的回调,隐藏下拉刷新和上拉加载的状态;
@@ -869,6 +863,22 @@
 
       },
       mounted() {
+        var that=this;
+        // 单独请求幻灯片
+        $.get(Boss+'slider',{'channel':"discuss",'sessiontoken':sessiontoken},function(data){
+          if(data.status){
+            that.slideimg = data.result.data
+                 //获得slider插件对象
+                 setTimeout(function () {
+                    var gallery = mui('.xiangqingSlider');
+                    gallery.slider({
+                      interval: 3000 //自动轮播周期，若为0则不自动播放，默认为0；
+                    });
+                  }, 100)
+          }
+          
+        })
+       
         //调用刷新和加载
         this.refresh()
 // 添加叉子
