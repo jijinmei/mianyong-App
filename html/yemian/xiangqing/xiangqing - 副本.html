@@ -83,14 +83,10 @@
         <div class="swiper-wrapper" style="height:3rem;">
           <div class="swiper-slide" v-for="(item,index) in slideimg" style="width:6.4rem;height:3rem;">
             <!--租售的详情-->
-            <!-- <img v-if="jianju=='yes'&&datas.templeId==undefined" :src="item.url!=undefined?item.url+imageView2:''" class="jz" :data-preview-src="item.url+imageView2"
-              data-preview-group="indexs1" style="min-width: 6.4rem;min-height: 3rem;"> -->
-              <img v-if="datas.templeId==undefined" :src="item.url!=undefined?item.url+imageView2:''" class="jz" :data-preview-src="item.url+imageView2"
+            <img v-if="jianju=='yes'&&datas.templeId==undefined" :src="item.url!=undefined?item.url+imageView2:''" class="jz" :data-preview-src="item.url+imageView2"
               data-preview-group="indexs1" style="min-width: 6.4rem;min-height: 3rem;">
             <!--8大服务的详情-->
-            <!-- <img v-if="jianju=='yes'&&datas.templeId!=undefined" :src="item+imageView2" class="jz" :data-preview-src="item+imageView2"
-              data-preview-group="indexs2" style="min-width: 6.4rem;min-height: 3rem;"> -->
-              <img v-if="datas.templeId!=undefined" :src="item+imageView2" class="jz" :data-preview-src="item+imageView2"
+            <img v-if="jianju=='yes'&&datas.templeId!=undefined" :src="item+imageView2" class="jz" :data-preview-src="item+imageView2"
               data-preview-group="indexs2" style="min-width: 6.4rem;min-height: 3rem;">
             <!--预览的详情不能拼接远程的七牛地址-->
             <img v-if="jianju=='no'" :src="item.url!=undefined?item.url:''" class="jz" :data-preview-src="item.url" data-preview-group="indexs3"
@@ -527,12 +523,14 @@
           //否则使用服务的地址请求
           var url = ''
           var wheres = ''
-          var url2 = ''
-          var wheres2 = ''
-          // if (locations('name') == 'zusou') {
+          if (locations('name') == 'zusou') {
             url = Boss + 'agent/' + locations('objectId')
             where = 'agent'
-            mui.ajax(url, {
+          } else {
+            url = Boss3 + 'article/' + locations('objectId')
+            where = 'article'
+          }
+          mui.ajax(url, {
             // data: {
             //   sessiontoken: sessiontoken
             // },
@@ -584,7 +582,7 @@
 
 
               } else {
-                // mui.toast(data.result.message)
+                mui.toast(data.result.message)
               }
 
 
@@ -597,84 +595,6 @@
               })
             }
           });
-
-          // } else {
-            url2 = Boss3 + 'article/' + locations('objectId')
-            where2 = 'article'
-            mui.ajax(url2, {
-            // data: {
-            //   sessiontoken: sessiontoken
-            // },
-            dataType: 'json', //服务器返回json格式数据
-            type: 'GET', //HTTP请求类型
-            timeout: 10000, //超时时间设置为10秒；
-            //  headers:{'Content-Type':'application/json'},
-            success: function (data) {
-              //1.服务器返回响应，根据响应结果，分析是否登录成功；
-              if (data.status == true) {
-                console.log(JSON.stringify(data))
-                that.datas = data.result
-                // 调用app的方法
-                // data_all({'objectId':locations('objectId'),'wheres':wheres})
-                //0.轮播图片
-                that.slideimg = data.result.pics
-                //当图片挂载后就初始化获得slider插件对象
-                setTimeout(function () {
-                  var swiper = new Swiper('.swiper6', {
-                    pagination: '.swiper-pagination6',
-                    autoplay: 3000,
-                    autoplayDisableOnInteraction: false,
-                    observer: true
-                    // loop : true
-
-                  });
-                }, 500)
-
-                //1.配套設備：
-
-                if (data.result.infrastructure != undefined && data.result.infrastructure.length > 0) {
-                  var peitao = data.result.infrastructure
-                  that.peitao = peitao
-                }
-                //2.屋苑設施：  
-                if (data.result.home_infrastructure != undefined && data.result.home_infrastructure.length >
-                  0) {
-                  var wuyuan = data.result.home_infrastructure.split(",")
-                  that.wuyuan = wuyuan
-                }
-
-                //3.附近設施：：
-                if (data.result.location_infrastructure != undefined && data.result.location_infrastructure.length >
-                  0) {
-                  var fujin = data.result.location_infrastructure.split(",")
-                  that.fujin = fujin
-                }
-
-
-
-              } else {
-                // mui.toast(data.result.message)
-              }
-
-
-            },
-            error: function (xhr, type, errorThrown) {
-              //异常处理；
-              mui.toast(errorThrown, {
-                duration: 'long',
-                type: 'div'
-              })
-            }
-          });
-
-          // }
-         
-
-
-
-
-
-
         },
         //?帮助问号
         helps() {
