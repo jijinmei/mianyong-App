@@ -163,8 +163,9 @@
           //     mui.toast(data.result.message)
           //    }
           // })
+          var urls=locations('type')=='agent'?'agent/':'article/';
           jQuery.ajax({
-              url: Boss + 'agent/' + locations('objectId') + '/report',
+              url: Boss + urls + locations('objectId') + '/report',
               type: "POST",
               headers: {
                 "Content-Type": "application/x-www-form-urlencoded; charset=utf-8",
