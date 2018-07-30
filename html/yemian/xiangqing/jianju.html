@@ -163,6 +163,7 @@
           //     mui.toast(data.result.message)
           //    }
           // })
+          // 楼盘的检举和8大板块的检举
           var urls=locations('type')=='agent'?'agent/':'article/';
           jQuery.ajax({
               url: Boss + urls + locations('objectId') + '/report',
