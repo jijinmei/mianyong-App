@@ -54,8 +54,8 @@
 
     <div id="app">
 <div v-cloak class="mui-scroll-wrapper XIANGQING" style="padding-bottom:1rem;">
-    <div class="mui-scroll" @scroll="scrolls($event)">
-      <!--1.讨论区详情的列表描述-->
+    <div class="mui-scroll" >
+      <!--1.讨论区详情的列表描述@scroll="scrolls($event)"-->
       <ul class="mui-table-view" v-if="datas!='no'" v-cloak>
         <li class="mui-table-view-cell mui-media">
           <a href="javascript:;">
@@ -171,14 +171,14 @@
     
       <!--2.讨论区详情的评论区-->
 
-      <div id="sliderSegmentedControl" class="sliderSegmentedControlfixed fixed aaa hasscrollbar mg10 mui-slider-indicator mui-segmented-control mui-segmented-control-inverted margin0" style="background:white;height:1rem;z-index:1000;">
+      <!-- <div id="sliderSegmentedControl" class="sliderSegmentedControlfixed fixed aaa hasscrollbar mg10 mui-slider-indicator mui-segmented-control mui-segmented-control-inverted margin0" style="background:white;height:1rem;z-index:1000;">
         <div class="bai" style="width: 100%;" v-if="datas!='no'">
           <a @tap="titlezan()" href="#item1" style="width:50%;line-height:0.3rem;" class="mui-control-item mg10 border-r center mui-pull-left" data-index='1'>
             <img :src="datasIdx==1?'../../assets/img/taolunqu/tablv.png':'../../assets/img/taolunqu/tabhui.png'" alt="" style="width:0.36rem;top:0.05rem;" class="relative" />
             <span class="fz25"  :class="{c666666:datasIdx==2,c36c748:datasIdx==1}">{{datas.goods}}</span>
 
           </a>
-          <!--留言-->
+         
           <a @tap="titlereply" href="#item2" style="width:50%;line-height:0.3rem;" class="mg10 mui-control-item center mui-active mui-control-item mui-pull-right" data-index='2'>
             <img :src="datasIdx==1?'../../assets/img/taolunqu/tabhui2.png':'../../assets/img/taolunqu/tablv2.png'" alt="" style="width:0.36rem;top:0.05rem;" class="relative" />
             <span class="fz25" :class="{c666666:datasIdx==1,c36c748:datasIdx==2}">{{datas.comments}}</span>
@@ -190,7 +190,7 @@
         <img v-show="datasIdx==2" src="../../assets/img/taolunqu/replyyou.png" alt="" class="" style="width:6.4rem;" />
 
       </div>
-      
+       -->
       
     <!--底部固定的攒好和回复-->
     <ul class="fixed bai center fz30 c666666" style="z-index:998;bottom:0;left:0;width:100%;height:0.98rem;padding:0.25rem 0;box-shadow: 0 0 0.1rem #EBEBEB;">
@@ -258,16 +258,16 @@
 
       },
           methods: {
-      scrolls(e){
-        var top=$(".aaa").offset().top
-//               console.log($(".aaa").offset().top)
-                 if(top>0){
-                    $('.sliderSegmentedControlfixed').css({'display':'none'}) 
-                 }else{
-                  $('.sliderSegmentedControlfixed').css({'display':'block'})
-                 }
+//       scrolls(e){
+//         var top=$(".aaa").offset().top
+// //               console.log($(".aaa").offset().top)
+//                  if(top>0){
+//                     $('.sliderSegmentedControlfixed').css({'display':'none'}) 
+//                  }else{
+//                   $('.sliderSegmentedControlfixed').css({'display':'block'})
+//                  }
 
-      },
+//       },
       //标题点击赞让输入框消失
       titlezan() {
         this.datasIdx = 1
@@ -465,97 +465,97 @@
             $.each(document.querySelectorAll('.mui-scroll'), function(index, pullRefreshEl) {
               $(pullRefreshEl).pullToRefresh({
                 //刷新              
-                // down: {     
-                //   auto: true, //可选,默认false.首次加载自动下拉刷新一次
-                //   callback: function() {
-                //     var self = this;
-                //     that.self=self
-                //     var url = ''
-                //     var mask=mui.createMask();//遮罩层
-                //     //                  alert('刷新：'+that.objectId)
-                //     if(that.datasIdx == 1) {
-                //       that.page1 = 1
-                //       that.datas1=[]
-                //       console.log('当前的是赞1')
-                //       url = 'discuss/' + that.objectId + '/good'
-                //     } else if(that.datasIdx == 2) {
-                //       that.datas2=[]
-                //       that.page2 = 1
-                //       console.log('当前的是回复2')
-                //       url = 'discuss/' + that.objectId + '/comment'
-                //     }
-                //     mui.ajax(Boss + url, {
-                //       data: {
-                //         page: 1,
-                //         limit: limit20,
-                //         sessiontoken: sessiontoken
-                //       },
-                //       dataType: 'json', //服务器返回json格式数据
-                //       type: 'GET', //HTTP请求类型
-                //       timeout: 10000, //超时时间设置为10秒；
-                //       //  headers:{'Content-Type':'application/json'},
-                //     success: function(data) {
-                //         //1.服务器返回响应，根据响应结果，分析是否登录成功；
-                //         if(data.status == true) {
-                //           var count=''
-                //           length=''
-                //           if(that.datasIdx == 1) {
-                //             that.count1 = data.result.count
-                //             that.datas1 = data.result.data
+                down: {     
+                  auto: true, //可选,默认false.首次加载自动下拉刷新一次
+                  callback: function() {
+                    var self = this;
+                    that.self=self
+                    var url = ''
+                    var mask=mui.createMask();//遮罩层
+                    //                  alert('刷新：'+that.objectId)
+                    if(that.datasIdx == 1) {
+                      that.page1 = 1
+                      that.datas1=[]
+                      console.log('当前的是赞1')
+                      url = 'discuss/' + that.objectId + '/good'
+                    } else if(that.datasIdx == 2) {
+                      that.datas2=[]
+                      that.page2 = 1
+                      console.log('当前的是回复2')
+                      url = 'discuss/' + that.objectId + '/comment'
+                    }
+                    mui.ajax(Boss + url, {
+                      data: {
+                        page: 1,
+                        limit: limit20,
+                        sessiontoken: sessiontoken
+                      },
+                      dataType: 'json', //服务器返回json格式数据
+                      type: 'GET', //HTTP请求类型
+                      timeout: 10000, //超时时间设置为10秒；
+                      //  headers:{'Content-Type':'application/json'},
+                    success: function(data) {
+                        //1.服务器返回响应，根据响应结果，分析是否登录成功；
+                        if(data.status == true) {
+                          var count=''
+                          length=''
+                          if(that.datasIdx == 1) {
+                            that.count1 = data.result.count
+                            that.datas1 = data.result.data
 
-                //             count=that.count1
-                //             length=that.datas1.length
+                            count=that.count1
+                            length=that.datas1.length
                         
-                //           } else if(that.datasIdx == 2) {
-                //             that.count2 = data.result.count
-                //             that.datas2 = data.result.data
-                //              that.datas.comments=data.result.count
-                //             count=that.count2
-                //             length=that.datas2.length
-                //           }
-                //         setTimeout(function(){
-                //           self.endPullDownToRefresh();//关闭刷新
-                //         },1000)
+                          } else if(that.datasIdx == 2) {
+                            that.count2 = data.result.count
+                            that.datas2 = data.result.data
+                             that.datas.comments=data.result.count
+                            count=that.count2
+                            length=that.datas2.length
+                          }
+                        setTimeout(function(){
+                          self.endPullDownToRefresh();//关闭刷新
+                        },1000)
                                                 
-                //         }else{
-                //           if(that.datasIdx == 1) {
-                //             that.count1 =0
-                //             that.datas1 =[]
-                //             that.page1=0
-                //           } else if(that.datasIdx == 2) {
-                //             that.count2 =0
-                //             that.datas2 =[]
-                //             that.page2=0
+                        }else{
+                          if(that.datasIdx == 1) {
+                            that.count1 =0
+                            that.datas1 =[]
+                            that.page1=0
+                          } else if(that.datasIdx == 2) {
+                            that.count2 =0
+                            that.datas2 =[]
+                            that.page2=0
                             
-                //           }
-                //           mui.toast(data.result.message)
-                //            self.endPullDownToRefresh();//关闭刷新
-                //         }
+                          }
+                          mui.toast(data.result.message)
+                           self.endPullDownToRefresh();//关闭刷新
+                        }
                         
 
-                //       },
-                //       error: function(xhr, type, errorThrown) {
-                //         //异常处理；
-                //         if(that.datasIdx == 1) {
-                //             that.count1 =0
-                //             that.datas1 =[]
-                //             that.page1=0
-                //           } else if(that.datasIdx == 2) {
-                //             that.count2 =0
-                //             that.datas2 =[]
-                //             that.page2=0
+                      },
+                      error: function(xhr, type, errorThrown) {
+                        //异常处理；
+                        if(that.datasIdx == 1) {
+                            that.count1 =0
+                            that.datas1 =[]
+                            that.page1=0
+                          } else if(that.datasIdx == 2) {
+                            that.count2 =0
+                            that.datas2 =[]
+                            that.page2=0
                             
-                //           }
-                //         self.endPullDownToRefresh();//关闭刷新
-                //         mui.toast(errorThrown, {
-                //           duration: 'long',
-                //           type: 'div'
-                //         })
-                //       }
-                //     });
+                          }
+                        self.endPullDownToRefresh();//关闭刷新
+                        mui.toast(errorThrown, {
+                          duration: 'long',
+                          type: 'div'
+                        })
+                      }
+                    });
 
-                //   }
-                // },
+                  }
+                },
                 //滚动加载
                 up: { 
                   auto: true, //可选,默认false.首次自动加载一次
