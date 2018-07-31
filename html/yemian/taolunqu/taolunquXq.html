@@ -118,8 +118,8 @@
       </ul>
       <!--2.讨论区详情的评论区悬浮块  titlezan()titlereply-->
 
-      <div id="navWarp" class="mg10" style="background:white;height: 0.8rem;">
-        <div class="bai" style="width: 100%;"  id="navContent">
+      <div id="navWarp" class="mg10" style="background:white;height: 0.73rem;">
+        <div class="bai relative" style="width: 100%;"  id="navContent">
           <a @tap="qiehuan($event, 0)"  style="width:50%;line-height:0.3rem;" class="mui-control-item mg10 border-r center mui-pull-left" >
             <img :src="curNavIndex==0?'../../assets/img/taolunqu/tablv.png':'../../assets/img/taolunqu/tabhui.png'" alt="" style="width:0.36rem;top:0.05rem;" class="relative" />
             <span class="fz25"  :class="{c666666:curNavIndex==1,c36c748:curNavIndex==0}">{{datas.goods}}</span>
@@ -133,8 +133,8 @@
           </a>
 
         </div>
-        <img v-show="curNavIndex==0" src="../../assets/img/taolunqu/zanzuo.png" alt="" style="width:6.4rem;" />
-        <img v-show="curNavIndex==1" src="../../assets/img/taolunqu/replyyou.png" alt="" style="width:6.4rem;" />
+        <img v-show="curNavIndex==0" src="../../assets/img/taolunqu/zanzuo.png" alt="" style="width:6.4rem;" class="absolute B00 L00"/>
+        <img v-show="curNavIndex==1" src="../../assets/img/taolunqu/replyyou.png" alt="" style="width:6.4rem;" class="absolute B00 L00"/>
 
       </div>
 
