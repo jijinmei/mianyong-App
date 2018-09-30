@@ -851,11 +851,18 @@
         // 2、	每60秒从服务器获取两个latest
         interval: function () {
           var that=this;
+          $.get("http://stg-boss-macaucf.leanapp.cn/api/v1/user/message_tips?sessiontoken="+sessiontoken,function(data){
+                      // console.log(data)
+                      that.latestcommentAt=data.result.latest_commentAt
+                      that.latestgoodAt=data.result.latest_goodAt
+                      console.log('已经执行了,手机到底有没有1')
+            })
           setInterval(function () {
             $.get("http://stg-boss-macaucf.leanapp.cn/api/v1/user/message_tips?sessiontoken="+sessiontoken,function(data){
                       // console.log(data)
                       that.latestcommentAt=data.result.latest_commentAt
                       that.latestgoodAt=data.result.latest_goodAt
+                      console.log('已经执行了,手机到底有没有60')
             })
           }, 60000)
         },
