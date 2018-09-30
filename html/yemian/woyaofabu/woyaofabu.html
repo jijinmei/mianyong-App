@@ -81,7 +81,8 @@
   <p class="fz22 c888888 bai pL20">最多可上傳9張圖片</p>
   <p class="center pB100">
     <span class="display:none;">{{watch}}</span>
-<button type="button" @click="woyaofabu" class="mui-btn mT74 fz019 border0" :style="{'background':btnindex!=-1&&title!=''&&content!=''&&tdate.length>0?'#36c748':'#aaaaaa'}" style="color:white;padding:0.15rem 0.39rem;">發佈</button>
+    <!-- &&tdate.length>0 -->
+<button type="button" @click="woyaofabu" class="mui-btn mT74 fz019 border0" :style="{'background':btnindex!=-1&&title!=''&&content!=''?'#36c748':'#aaaaaa'}" style="color:white;padding:0.15rem 0.39rem;">發佈</button>
 </p>
 </div>
 <!--正在發佈-->
@@ -139,7 +140,8 @@
       },
       woyaofabu(){
 var that=this
-if(this.btnindex!=-1&&this.title!=''&&this.content!=''&&this.tdate.length>0){
+// &&this.tdate.length>0
+if(this.btnindex!=-1&&this.title!=''&&this.content!=''){
 that.isending=false//正在发布，请稍后
 var formData = new FormData();
 for (var i = 0; i < this.tdate.length; i++) {
