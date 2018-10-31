@@ -1,6 +1,9 @@
- var w = $(window).width() / 640 * 100;
- var w0 = $(window).width() / 640;
- document.getElementsByTagName('html')[0].style.fontSize = w + "px"
+//  var w = $(window).width() / 640 * 100;
+//  var w0 = $(window).width() / 640;
+//  document.getElementsByTagName('html')[0].style.fontSize = w + "px"
+var w = innerWidth/640 * 100;
+var w0 =innerWidth/640;
+document.getElementsByTagName('html')[0].style.fontSize = w + "px"
  var Boss = 'http://stg-boss-macaucf.leanapp.cn/api/v1/' //测试
  var Boss2 = 'http://stg-boss-macaucf.leanapp.cn/' //测试
  var Boss3 = 'http://stg-boss-macaucf.leanapp.cn/api/v1/' //测试接口
@@ -93,6 +96,27 @@
  };
 
 
+  //返回
+  function goback2(data) {
+     console.log('调用原生刷新:::::::')
+    var ua = navigator.userAgent.toLowerCase();
+    if (ua.match(/iPhone\sOS/i) == "iphone os") {
+      // 苹果
+      console.log('苹果')
+      WebViewJavascriptBridge.callHandler('goback', {
+        pageNumber: data,
+        needRefresh: 'YES'
+      })
+    } else {
+      // 安卓
+      console.log('安卓(1代刷新 -1代表不刷新)')
+      //  window.mianyong.goBack(data);
+      // 1代刷新 -1代表不刷新
+      window.callHandler.goBack(data, 1);
+ 
+    }
+ 
+  };
 
 
  // 聊天
