@@ -5,11 +5,11 @@ template: `
 		<ul id="LIST" class="List bgebebeb mui-table-view relative before00 after00" style="background:#ebebeb;z-index:1;margin-top:0.7rem;" >
 			<li @click="xiangqings(item.objectId,item)" :class="{mg10:name=='wodeloupan'}" class="mui-table-view-cell mui-media bai listLiebiao padding20" v-for="(item,index) in datas">
 					
-					<!--我的楼盘特有的封盘按钮-->
-				 <p v-if="name=='wodeloupan'"  @click.stop="caozuos(item.objectId,item,item.status,index)" class="border-b relative fz25 c555555 center" style="top:-0.2rem;height:0.6rem;line-height:0.6rem;">
+					<!--我的楼盘特有的封盘按钮 @click.stop="caozuos(item.objectId,item,item.status,index)"-->
+				 <p v-if="name=='wodeloupan'"  @click.stop="caozuos(item.objectId,item,item.show,index)" class="border-b relative fz25 c555555 center" style="top:-0.2rem;height:0.6rem;line-height:0.6rem;">
 				 	<span class="czjz fz25" style="left:0;" :class="{cff0000:bb=item.status=='-1',cff4d00:item.status=='0',c999999:item.status=='-2',c36c748:item.status=='1'}">
-           <!-- <p>{{item.status=='-1'?'不通過':(item.status=='0'?'審核中':(item.status=='1'?'已發佈':(item.status=='-2'?'已封盘':'')))}}</p>-->
-           {{item.show==0?'已封盤':'未封盤'}}
+     
+           {{item.show==0?'已封盤':'已開盤'}}
            {{item.status==-1?'不通過':(item.status==0?'待審核':'已通過')}}
 
 				 	</span>
@@ -100,26 +100,43 @@ template: `
 				// 	this.$router.push({name:'xiangqing',params:{objectId:objectId,name:'zusou'}})
 				// }
 				
-			},
-			//我的楼盘操作事件
+      },
+      	//我的楼盘操作事件
 			caozuos(id,item,bb,index){
+        
+          if(bb=='1'){
+            //1.可以封盘+编辑(灰)
+            this.$parent.keep=1
+          }else if(bb=='0'){
+            //2.可以开盘+编辑
+            this.$parent.keep=2
+          }
+          //改变父元素
+          
+          this.$parent.tanchukuang=true
+          this.$parent.arrayitem=item
+          this.$parent.index=index
+        },
+        
+			// //我的楼盘操作事件
+			// caozuos(id,item,bb,index){
 			
-				if(bb=='1'||bb=='-1'){
-					//1.可以编辑加封盘
-					this.$parent.keep=2
-				}else if(bb=='0'){
-					//2.可以封盘
-					this.$parent.keep=1
-				}else if(bb=='-2'){
-					//3.编辑（不可修改）
-					this.$parent.keep=0
-				}
-				//改变父元素
+			// 	if(bb=='1'||bb=='-1'){
+			// 		//1.可以编辑加封盘
+			// 		this.$parent.keep=2
+			// 	}else if(bb=='0'){
+			// 		//2.可以封盘
+			// 		this.$parent.keep=1
+			// 	}else if(bb=='-2'){
+			// 		//3.编辑（不可修改）
+			// 		this.$parent.keep=0
+			// 	}
+			// 	//改变父元素
 				
-				this.$parent.tanchukuang=true
-				this.$parent.arrayitem=item
-				this.$parent.index=index
-			},
+			// 	this.$parent.tanchukuang=true
+			// 	this.$parent.arrayitem=item
+			// 	this.$parent.index=index
+			// },
 			
 			//封盘
 			fengpan(name,index,objectId){
@@ -155,6 +172,44 @@ template: `
 												})
 											}
 										});
+						
+					}
+				},'div')
+      },
+      			//开盘
+			kaipan(name,index,objectId){
+				var that=this
+				var title='確認【開盤】'+name+'此盤源嗎？'
+				mui.confirm(title,'  ',['取消','確認'],function(data){
+					console.log(data)
+					if(data.index==0){
+						//点击了取消
+					}else if(data.index==1){
+						//点击了确定  暂无接口
+									// mui.ajax(Boss + 'agent/'+objectId, {
+									// 		data:{
+									// 			sessiontoken:sessiontoken
+									// 		},
+									// 		dataType: 'json', //服务器返回json格式数据
+									// 		type: 'DELETE', //HTTP请求类型
+									// 		timeout: 10000, //超时时间设置为10秒；
+   								// 	success: function(data) {
+									// 			//1.服务器返回响应，根据响应结果，分析是否登录成功；
+									// 			if(data.status == true) {
+									// 					that.datas.splice(index,1)
+                                                
+									// 			}
+												
+
+									// 		},
+									// 		error: function(xhr, type, errorThrown) {
+									// 			//异常处理；
+									// 			mui.toast(errorThrown, {
+									// 				duration: 'long',
+									// 				type: 'div'
+									// 			})
+									// 		}
+									// 	});
 						
 					}
 				},'div')

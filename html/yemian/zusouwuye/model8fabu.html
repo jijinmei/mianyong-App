@@ -295,7 +295,7 @@
       </div>
       <div id="" class="fixed h98 w640 B00 L00 bai center pT15 pB15 shadow">
         <button @click="savemessage" type="button" class="mui-btn mui-btn-green mui-btn-outlined fz30 h68 lh68 pL25 pR25 mR63">詳情預覽</button>
-        <button @click="fabu" type="button" class="mui-btn mui-btn-green fz30 h68 pL25 pR25 lh68">立即發布</button>
+        <button @click="fabu" type="button" class="mui-btn mui-btn-green fz30 h68 pL25 pR25 lh68">{{objectId=='no'?'立即發布':'保存修改'}}</button>
       </div>
       <!--正在發佈-->
       <div class="wai_kuangs" v-if="isending==false">
@@ -536,7 +536,8 @@ vm.users()
           this.content = hh.content
           this.title = hh.title //名称
           this.values = hh.values //输入框的价格
-          this.price = hh.price
+          // this.price = (hh.price=='面議 '?'-1':hh.price)
+           this.price = hh.price
           this.call = hh.call //先生1 小姐2  太太3 mr miss mrs 
           this.contactType = hh.contactType //联繁方式, 1=电话; 0= 仅在线 
           this.phone = hh.phone //联系电话

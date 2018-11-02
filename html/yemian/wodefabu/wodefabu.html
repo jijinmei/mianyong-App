@@ -143,8 +143,13 @@
     <!--点击操作的弹出框-->
 <div @click="tanchukuang=false" v-if="tanchukuang==true" class="wai_kuangs" style="z-index:2000;">
 <ul class="bai w497 center radius spjz" style="top:3rem;">
-  <li v-show="keep==0||keep==2" @click.stop="gobianji" class="fz33 c000000" :class="{h100:keep==2,h150:keep==0,lh100:keep==2,lh150:keep==0,'border-b':keep==2}">編輯</li>
-  <li v-show="keep==1||keep==2" @click.stop="xiajia"  class="fz33 c000000"  :class="{h100:keep==2,h150:keep==1,lh100:keep==2,lh150:keep==1}">下架</li>
+    <li v-show="keep==1" @click.stop="xiajia"  class="fz33 c000000 h100 lh100 border-b"  >下架</li>
+    <li v-show="keep==1"  class="fz33 ceeeeee h100 lh100" >編輯(下架後可編輯)</li>
+    
+    <li v-show="keep==2" @click.stop="shangjia"  class="fz33 c000000 h100 lh100 border-b"  >上架</li>
+    <li v-show="keep==2" @click.stop="gobianji" class="fz33 c000000 h100 lh100" >編輯</li>
+  <!-- <li v-show="keep==0||keep==2" @click.stop="gobianji" class="fz33 c000000" :class="{h100:keep==2,h150:keep==0,lh100:keep==2,lh150:keep==0,'border-b':keep==2}">編輯</li>
+  <li v-show="keep==1||keep==2" @click.stop="xiajia"  class="fz33 c000000"  :class="{h100:keep==2,h150:keep==1,lh100:keep==2,lh150:keep==1}">下架</li> -->
 </ul>
 </div>
 
@@ -208,6 +213,13 @@
         this.$refs.xiajia.xiajia(this.arrayitem.title,this.index,this.arrayitem.objectId,'-1')
         
     },
+     //点击上架
+     shangjia(){
+      
+          this.tanchukuang=false
+        this.$refs.xiajia.shangjia(this.arrayitem.title,this.index,this.arrayitem.objectId,'-1')
+        
+    },
     //点击编辑跳去8大模块的对应的发布页面
     gobianji(){
               //存我的楼盘的对应商品的数量
@@ -216,7 +228,7 @@
               // setTimeout(function(){
                 var price=''
                 var values=''
-                if(that.arrayitem.price=='-1'){
+                if(that.arrayitem.price=='-1'||that.arrayitem.price=='面議'){
                    price='-1'
                    values=''
                 }else{

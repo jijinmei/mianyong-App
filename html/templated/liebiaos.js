@@ -12,8 +12,8 @@ template: `
 		<ul id="LIST"  class="before00 after00 bgebebeb mui-table-view relative LIEBIAOS" style="background:#ebebeb;z-index:1;margin-top:0.7rem;" >
 			<li  v-for="(item,index) in datas" :class="{mg10:who=='wodefabu'}"  @click="xiangqings(item.objectId,item)"  class="before00  mui-table-view-cell mui-media bai listLiebiao padding20" >
 				
-					<!--我的发布特有的封盘按钮@click.stop="fengpan(item.title,index,item.objectId)"-->
-				 <p v-show="who=='wodefabu'" @click.stop="caozuos2(item.objectId,item,item.status,index)" class="border-b relative fz25 c555555 center" style="top:-0.2rem;height:0.6rem;line-height:0.6rem;">
+					<!--我的发布特有的封盘按钮 @click.stop="caozuos2(item.objectId,item,item.status,index)" @click.stop="fengpan(item.title,index,item.objectId)"-->
+				 <p v-show="who=='wodefabu'" @click.stop="caozuos2(item.objectId,item,item.show,index)" class="border-b relative fz25 c555555 center" style="top:-0.2rem;height:0.6rem;line-height:0.6rem;">
            <span class="czjz fz25" style="left:0;" :class="{cff0000:bb=item.status=='-1',cff4d00:item.status=='0',c999999:item.status=='-2',c36c748:item.status=='1'}">
            <!--<p>{{item.status=='-1'?'不通過':(item.status=='0'?'審核中':(item.status=='1'?'已發佈':'已下架'))}}</p>-->
            {{item.show==0?'已下架':'已上架'}}
@@ -29,7 +29,10 @@ template: `
 						<img class="jz" v-lazy="item.pics!=undefined?item.pics[0]+imageView2:''" style="min-width:2.45rem;min-height:2.15rem;" >
 						<button type="button" class="mui-btn mui-btn-blue absolute fz19 cffffff" style="padding:0.05rem 0.1rem;border-radius:0;border:none;right: 0;top: 0;background-color: rgba(0,0,0,0.4);">
 							{{item.pics.length}}張
-						</button>
+            </button>
+            <button type="button" class="mui-btn mui-btn-blue absolute fz19 cffffff" style="padding:0.05rem 0.1rem;border-radius:0;border:none;right: 0;bottom: 0;background-color: rgba(0,0,0,0.4);">
+            {{item.section}}
+          </button>
 						
 					</div>
 
@@ -42,8 +45,9 @@ template: `
 							
 							
 							<p v-if="item.templeId=='content_02'"  class="mui-pull-right right cff4d00 fz35 relative"  style="height:0.43rem;line-height:0.43rem;width:100%;font-weight:none;">
-								<span class="fz16 c666666 absolute" style="left:0;bottom:0.03rem;line-height:0.2rem;">{{item.createdAt}}</span>
-								{{item.price==-1?'面議':item.price}}<span class="fz25 c666666" v-if="item.price!=-1">元</span>
+                <span class="fz16 c666666 absolute" style="left:0;bottom:0.03rem;line-height:0.2rem;">{{item.createdAt}}</span>
+               
+								{{item.price==-1||item.price=='面議'?'面議':(item.price+'元')}}
 							</p>
 							
 						
@@ -52,7 +56,8 @@ template: `
 					</div>
 				</a>
 				 <!-- contactType=0  仅在线咨询  -->
-					<img @click.stop="call(item.phone)" v-if="item.templeId=='content_01'&&item.contactType==1" src="../../assets/img/wuyebangzhu/phone1.png" style="width:1.15rem;right:0.2rem;bottom:0.2rem;" class="absolute"/>
+          <img @click.stop="call(item.phone)" v-if="item.templeId=='content_01'&&item.contactType==1" src="../../assets/img/wuyebangzhu/phone1.png" style="width:1.15rem;right:0.2rem;bottom:0.2rem;" class="absolute"/>
+       
 			</li>
 
 		</ul>
@@ -86,23 +91,37 @@ template: `
         	// location.href="tel:13411615134"
         }
       },
-			//我的发布操作事件
+      	//我的发布操作事件
 			caozuos2(id,item,bb,index){
-				if(bb=='-1'||bb=='1'){
-					//1.可以编辑加下架
-					this.$parent.keep=2
-				}else if(bb=='0'){
-					//2.可以下架
+				if(bb=='1'){
+					//1.可以下架+编辑灰
 					this.$parent.keep=1
-				}else if(bb=='-2'){
-					//3.编辑（不可修改）
-					this.$parent.keep=0
+				}else if(bb=='0'){
+					//2.可以上架+编辑
+					this.$parent.keep=2
 				}
 				//改变父元素
 				this.$parent.tanchukuang=true
 				this.$parent.arrayitem=item
 				this.$parent.index=index
 			},
+			// //我的发布操作事件
+			// caozuos2(id,item,bb,index){
+			// 	if(bb=='-1'||bb=='1'){
+			// 		//1.可以编辑加下架
+			// 		this.$parent.keep=2
+			// 	}else if(bb=='0'){
+			// 		//2.可以下架
+			// 		this.$parent.keep=1
+			// 	}else if(bb=='-2'){
+			// 		//3.编辑（不可修改）
+			// 		this.$parent.keep=0
+			// 	}
+			// 	//改变父元素
+			// 	this.$parent.tanchukuang=true
+			// 	this.$parent.arrayitem=item
+			// 	this.$parent.index=index
+			// },
 			//下架
 			xiajia(name,index,objectId,action){
 				var that=this
@@ -131,37 +150,37 @@ template: `
                          }else{
                           mui.toast("HTTP Request Failed")
                          }
-                    })
-                  //  jQuery.ajax({
-                  //       url: Boss3 + 'article/'+objectId+"/status",
-                  //       type: "POST",
-                  //        async:false,
-                  //       processData: false,
-                  //       contentType: false,
-                  //       data: formData,
-                  //   })
-                  //   .done(function(data, textStatus, jqXHR) {
-                  //       console.log("HTTP Request Succeeded: " + jqXHR.status);
-                  //       console.log(data);
-                  //    //1.服务器返回响应，根据响应结果，分析是否登录成功；
-									// 			if(data.status == true) {
-									// 				//修改对应的发布状态 改为已下架
-									// 					that.datas[index].status='-2'
-                                                
-									// 			}
-                       
-                  //   })
-                  //   .fail(function(jqXHR, textStatus, errorThrown) {
-                  //       console.log("HTTP Request Failed");
-                  //       mui.toast("HTTP Request Failed")
-                  //   })
-                  //   .always(function() {});
-					
-					
-					
-					
-					
-						
+                    })               																	
+					}
+				},'div')
+      },
+      			//下架
+			shangjia(name,index,objectId,action){
+				var that=this
+				var title='確認【上架】此商店嗎？'
+				mui.confirm(title,'  ',['取消','確認'],function(data){
+					console.log(data)
+					if(data.index==0){
+						//点击了取消
+					}else if(data.index==1){
+						//点击了确定
+					// var formData = new FormData();             
+                 
+          //           $.post(Boss3 + 'article/'+objectId+"/status",{
+          //             sessiontoken:sessiontoken,
+          //             objectId:objectId,
+          //             action:action
+          //           },function(data){
+          //             console.log(data);
+          //             //1.服务器返回响应，根据响应结果，分析是否登录成功；
+          //                if(data.status == true) {
+          //                  //修改对应的发布状态 改为已下架
+          //                    that.datas[index].status='-2'
+                                                 
+          //                }else{
+          //                 mui.toast("HTTP Request Failed")
+          //                }
+          //           })               																	
 					}
 				},'div')
 			},

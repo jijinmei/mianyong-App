@@ -24,7 +24,7 @@
           <ul class="ul">
             <li v-for="(urlstr, index) in imgUrl"><span class="pic-r"></span><img :src="urlstr" alt="" @click="clickImg(index, $event)"><span class="slc-style" @click="cancelSlc(index, $event)"></span></li>
             <li :style="setStyle" v-if="showAdd">
-              <input type="file" id="input" @change="change($event)" accept="image/jpg,image/jpeg,image/png,image/bmp,image/JPG,image/JPEG,image/PNG,image/BMP"  ref="input" multiple="multiple" >
+              <input type="file" id="input" name="file" @change="change($event)" accept="image/*"  ref="input" multiple >
               <!-- <input  type="file" name="file" id="file" class="file addsfile" value="" 
               accept="image/jpg,image/jpeg,image/png,image/bmp,image/JPG,image/JPEG,image/PNG,image/BMP" multiple /> -->
             </li>

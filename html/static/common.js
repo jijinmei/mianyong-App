@@ -1,9 +1,10 @@
-//  var w = $(window).width() / 640 * 100;
-//  var w0 = $(window).width() / 640;
-//  document.getElementsByTagName('html')[0].style.fontSize = w + "px"
-var w = innerWidth/640 * 100;
-var w0 =innerWidth/640;
-document.getElementsByTagName('html')[0].style.fontSize = w + "px"
+ var w = $(window).width() / 640 * 100;
+ var w0 = $(window).width() / 640;
+ document.getElementsByTagName('html')[0].style.fontSize = w + "px"
+// var w = innerWidth/640 * 100;
+// var w0 =innerWidth/640;
+// document.getElementsByTagName('html')[0].style.fontSize = w + "px"
+// document.getElementsByTagName("html")[0].style.fontSize = (0.0444*innerWidth)+"px";
  var Boss = 'http://stg-boss-macaucf.leanapp.cn/api/v1/' //测试
  var Boss2 = 'http://stg-boss-macaucf.leanapp.cn/' //测试
  var Boss3 = 'http://stg-boss-macaucf.leanapp.cn/api/v1/' //测试接口
