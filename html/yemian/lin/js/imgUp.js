@@ -1,207 +1,295 @@
 // 图片压缩代码区域
   //    用于压缩图片的canvas
-    var canvas = document.createElement("canvas");
-    var ctx = canvas.getContext('2d');
-    //    瓦片canvas
-    var tCanvas = document.createElement("canvas");
-    var tctx = tCanvas.getContext("2d");
-    var maxsize = 100 * 1024;
-     //    使用canvas对大图片进行压缩
-    function compress(img) {
-      console.log('大图片进行压缩')
-        var initSize = img.src.length;
-        var width = img.width;
-        var height = img.height;
-        //如果图片大于四百万像素，计算压缩比并将大小压至400万以下
-        var ratio;
-        if ((ratio = width * height / 1000000) > 1) {
-            ratio = Math.sqrt(ratio);
-            width /= ratio;
-            height /= ratio;
-        } else {
-            ratio = 1;
-        }
-        canvas.width = width;
-        canvas.height = height;
-//        铺底色
-        ctx.fillStyle = "#fff";
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        //如果图片像素大于100万则使用瓦片绘制
-        var count;
-        if ((count = width * height / 1000000) > 1) {
-            count = ~~(Math.sqrt(count) + 1); //计算要分成多少块瓦片
-//            计算每块瓦片的宽和高
-            var nw = ~~(width / count);
-            var nh = ~~(height / count);
-            tCanvas.width = nw;
-            tCanvas.height = nh;
-            for (var i = 0; i < count; i++) {
-                for (var j = 0; j < count; j++) {
-                    tctx.drawImage(img, i * nw * ratio, j * nh * ratio, nw * ratio, nh * ratio, 0, 0, nw, nh);
-                    ctx.drawImage(tCanvas, i * nw, j * nh, nw, nh);
-                }
-            }
-        } else {
-            ctx.drawImage(img, 0, 0, width, height);
-        }
-        //进行最小压缩
-        var ndata = canvas.toDataURL('image/jpeg', 0.5);
-        console.log('压缩前：' + initSize);
-        console.log('压缩后：' + ndata.length);
-        console.log('压缩率：' + ~~(100 * (initSize - ndata.length) / initSize) + "%");
-        tCanvas.width = tCanvas.height = canvas.width = canvas.height = 0;
-        return ndata;
-    }    
-    //    图片上传，将base64的图片转成二进制对象，塞进formdata上传
-    function upload(basestr, type) {
-      console.log("开始转换fordata 压缩完后进行转base64")
-        var text = window.atob(basestr.split(",")[1]);
-        var buffer = new ArrayBuffer(text.length);
-        var ubuffer = new Uint8Array(buffer);
-        var pecent = 0 , loop = null;
-        for (var i = 0; i < text.length; i++) {
-            ubuffer[i] = text.charCodeAt(i);
-        }
-        var Builder = window.WebKitBlobBuilder || window.MozBlobBuilder;
-        var blob;
-        if (Builder) {
-            var builder = new Builder();
-            builder.append(buffer);
-            blob = builder.getBlob(type);
-        } else {
-            blob = new window.Blob([buffer], {type: type});
-        }
-// 逻辑代码
-        // vm.files.push(blob)
-        vm.imgUrl.push(basestr)
-        console.log('压缩完后的大小')
-        // console.log(blob)
-        // console.log(vm.files)
-       console.log("转换完成！") 
-    }
- /**
-     * 获取blob对象的兼容性写法
-     * @param buffer
-     * @param format
-     * @returns {*}
-     */
-    function getBlob(buffer, format) {
-        try {
-            return new Blob(buffer, {type: format});
-        } catch (e) {
-            var bb = new (window.BlobBuilder || window.WebKitBlobBuilder || window.MSBlobBuilder);
-            buffer.forEach(function(buf) {
-                bb.append(buf);
-            });
-            return bb.getBlob(format);
-        }
-    }
-    /**
-     * 获取formdata
-     */
-    function getFormData() {
-        var isNeedShim = ~navigator.userAgent.indexOf('Android')
-            && ~navigator.vendor.indexOf('Google')
-            && !~navigator.userAgent.indexOf('Chrome')
-            && navigator.userAgent.match(/AppleWebKit\/(\d+)/).pop() <= 534;
-        return isNeedShim ? new FormDataShim() : new FormData()
-    }
-    /**
-     * formdata 补丁, 给不支持formdata上传blob的android机打补丁
-     * @constructor
-     */
-    function FormDataShim() {
-        console.warn('using formdata shim');
-        var o = this,
-            parts = [],
-            boundary = Array(21).join('-') + (+new Date() * (1e16 * Math.random())).toString(36),
-            oldSend = XMLHttpRequest.prototype.send;
-        this.append = function(name, value, filename) {
-            parts.push('--' + boundary + '\r\nContent-Disposition: form-data; name="' + name + '"');
-            if (value instanceof Blob) {
-                parts.push('; filename="' + (filename || 'blob') + '"\r\nContent-Type: ' + value.type + '\r\n\r\n');
-                parts.push(value);
-            }
-            else {
-                parts.push('\r\n\r\n' + value);
-            }
-            parts.push('\r\n');
-        };
-        // Override XHR send()
-        XMLHttpRequest.prototype.send = function(val) {
-            var fr,
-                data,
-                oXHR = this;
-            if (val === o) {
-                // Append the final boundary string
-                parts.push('--' + boundary + '--\r\n');
-                // Create the blob
-                data = getBlob(parts);
-                // Set up and read the blob into an array to be sent
-                fr = new FileReader();
-                fr.onload = function() {
-                    oldSend.call(oXHR, fr.result);
-                };
-                fr.onerror = function(err) {
-                    throw err;
-                };
-                fr.readAsArrayBuffer(data);
-                // Set the multipart content type and boudary
-                this.setRequestHeader('Content-Type', 'multipart/form-data; boundary=' + boundary);
-                XMLHttpRequest.prototype.send = oldSend;
-            }
-            else {
-                oldSend.call(this, val);
-            }
-        };
-    }
-// 图片压缩代码区域
-console.log('图片压缩代码区域')
-	var delParent;
-	var defaults = {
-		fileType         : ["jpg","png","PNG","JPG","bmp","BMP","jpeg","JPEG"],   // 上传文件的类型
-		fileSize         : 1024 * 1024 * 10                  // 上传文件的大小 10M
-	};
-		/*点击图片的文本框*/
-        	
-		function validateUp(files){
-      console.log('validateUp 判断上传的类型是否有错')  
-      var arrFiles = [];//替换的文件数组
-      console.log(files)
-			for(var i = 0, file; file = files[i]; i++){
-				//获取文件上传的后缀名
-				var newStr = file.name.split("").reverse().join("");
-				if(newStr.split(".")[0] != null){
-						var type = newStr.split(".")[0].split("").reverse().join("");
-						console.log(type+"===type===");
-						if(jQuery.inArray(type, defaults.fileType) > -1){
-							// 类型符合，可以上传
-							if (file.size >= defaults.fileSize) {
-								// alert(file.size);
-								mui.toast('您这个"'+ file.name +'"文件大小过大');	
-							} else {
-								// 在这里需要判断当前所有文件中
-								arrFiles.push(file);	
-							}
-						}else{
-							mui.toast('您这个"'+ file.name +'"上传类型不符合');	
-						}
-					}else{
-						mui.toast('您这个"'+ file.name +'"没有类型, 无法识别');	
-					}
+  var canvas = document.createElement("canvas");
+  var ctx = canvas.getContext('2d');
+  //    瓦片canvas
+  var tCanvas = document.createElement("canvas");
+  var tctx = tCanvas.getContext("2d");
+  var maxsize = 100 * 1024;
+   //    使用canvas对大图片进行压缩
+  function compress(img) {
+    console.log('大图片进行压缩')
+      var initSize = img.src.length;
+      var width = img.width;
+      var height = img.height;
+      //如果图片大于四百万像素，计算压缩比并将大小压至400万以下
+      var ratio;
+      if ((ratio = width * height / 1000000) > 1) {
+          ratio = Math.sqrt(ratio);
+          width /= ratio;
+          height /= ratio;
+      } else {
+          ratio = 1;
       }
-      console.log('validateUp:arrFiles')
-			console.log(arrFiles)
-			return arrFiles;
-		}	
-	
+      canvas.width = width;
+      canvas.height = height;
+//        铺底色
+      ctx.fillStyle = "#fff";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      //如果图片像素大于100万则使用瓦片绘制
+      var count;
+      if ((count = width * height / 1000000) > 1) {
+          count = ~~(Math.sqrt(count) + 1); //计算要分成多少块瓦片
+//            计算每块瓦片的宽和高
+          var nw = ~~(width / count);
+          var nh = ~~(height / count);
+          tCanvas.width = nw;
+          tCanvas.height = nh;
+          for (var i = 0; i < count; i++) {
+              for (var j = 0; j < count; j++) {
+                  tctx.drawImage(img, i * nw * ratio, j * nh * ratio, nw * ratio, nh * ratio, 0, 0, nw, nh);
+                  ctx.drawImage(tCanvas, i * nw, j * nh, nw, nh);
+              }
+          }
+      } else {
+          ctx.drawImage(img, 0, 0, width, height);
+      }
+      //进行最小压缩
+      var ndata = canvas.toDataURL('image/jpeg', 0.5);
+      console.log('压缩前：' + initSize);
+      console.log('压缩后：' + ndata.length);
+      console.log('压缩率：' + ~~(100 * (initSize - ndata.length) / initSize) + "%");
+      tCanvas.width = tCanvas.height = canvas.width = canvas.height = 0;
+      return ndata;
+  }
+  //    图片上传，将base64的图片转成二进制对象，塞进formdata上传
+  function upload(basestr, type) {
+    console.log("开始转换fordata")
+      var text = window.atob(basestr.split(",")[1]);
+      var buffer = new ArrayBuffer(text.length);
+      var ubuffer = new Uint8Array(buffer);
+      var pecent = 0 , loop = null;
+      for (var i = 0; i < text.length; i++) {
+          ubuffer[i] = text.charCodeAt(i);
+      }
+      var Builder = window.WebKitBlobBuilder || window.MozBlobBuilder;
+      var blob;
+      if (Builder) {
+          var builder = new Builder();
+          builder.append(buffer);
+          blob = builder.getBlob(type);
+      } else {
+          blob = new window.Blob([buffer], {type: type});
+      }
+      // tdate.unshift(blob)
+      // window.store.state.tdate.push(blob)
+      // console.log(window.store.state.tdate)
+         vm.imgUrl.push(basestr);
+     console.log("转换完成！")
+  }
+/**
+   * 获取blob对象的兼容性写法
+   * @param buffer
+   * @param format
+   * @returns {*}
+   */
+  function getBlob(buffer, format) {
+      try {
+          return new Blob(buffer, {type: format});
+      } catch (e) {
+          var bb = new (window.BlobBuilder || window.WebKitBlobBuilder || window.MSBlobBuilder);
+          buffer.forEach(function(buf) {
+              bb.append(buf);
+          });
+          return bb.getBlob(format);
+      }
+  }
+  /**
+   * 获取formdata
+   */
+  function getFormData() {
+      var isNeedShim = ~navigator.userAgent.indexOf('Android')
+          && ~navigator.vendor.indexOf('Google')
+          && !~navigator.userAgent.indexOf('Chrome')
+          && navigator.userAgent.match(/AppleWebKit\/(\d+)/).pop() <= 534;
+      return isNeedShim ? new FormDataShim() : new FormData()
+  }
+  /**
+   * formdata 补丁, 给不支持formdata上传blob的android机打补丁
+   * @constructor
+   */
+  function FormDataShim() {
+      console.warn('using formdata shim');
+      var o = this,
+          parts = [],
+          boundary = Array(21).join('-') + (+new Date() * (1e16 * Math.random())).toString(36),
+          oldSend = XMLHttpRequest.prototype.send;
+      this.append = function(name, value, filename) {
+          parts.push('--' + boundary + '\r\nContent-Disposition: form-data; name="' + name + '"');
+          if (value instanceof Blob) {
+              parts.push('; filename="' + (filename || 'blob') + '"\r\nContent-Type: ' + value.type + '\r\n\r\n');
+              parts.push(value);
+          }
+          else {
+              parts.push('\r\n\r\n' + value);
+          }
+          parts.push('\r\n');
+      };
+      // Override XHR send()
+      XMLHttpRequest.prototype.send = function(val) {
+          var fr,
+              data,
+              oXHR = this;
+          if (val === o) {
+              // Append the final boundary string
+              parts.push('--' + boundary + '--\r\n');
+              // Create the blob
+              data = getBlob(parts);
+              // Set up and read the blob into an array to be sent
+              fr = new FileReader();
+              fr.onload = function() {
+                  oldSend.call(oXHR, fr.result);
+              };
+              fr.onerror = function(err) {
+                  throw err;
+              };
+              fr.readAsArrayBuffer(data);
+              // Set the multipart content type and boudary
+              this.setRequestHeader('Content-Type', 'multipart/form-data; boundary=' + boundary);
+              XMLHttpRequest.prototype.send = oldSend;
+          }
+          else {
+              oldSend.call(this, val);
+          }
+      };
+  }
+// 图片压缩代码区域
 
+    console.log('引用了')
+$(function(){
+// var delParent;
+var defaults = {
+  fileType         : ["jpg","png","PNG","JPG","bmp","BMP","jpeg","JPEG"],   // 上传文件的类型
+  fileSize         : 1024 * 1024 * 10                  // 上传文件的大小 10M
+};
+  /*点击图片的文本框*/
+      console.log('引用了imgup。js')
+$(document).on('change','#input',function(){
+      console.log('files点击了图片上传框,粗发了事件sssssssssss')
+  var idFile = $(this).attr("id");
+  var file = document.getElementById("input");
+  var imgContainer = $(this).parents().parents(".ul"); //存放图片的父亲元素
+  var fileList = file.files; //获取的图片文件
+  // console.log(fileList+"======filelist=====");
+  var input = $(this).parent();//文本框的父亲元素
+  var imgArr = [];
+  //遍历得到的图片文件
+  var numUp = imgContainer.find(".alltu").length;//之前上传的存在页面上的
+  var totalNum = numUp + fileList.length;  //总的数量=之前上传的+现在上传的
+      
+      console.log('上传前存在页面上的数量,上传前的数量加上现在上传的数量')
+      if(locations('where')){
+// 不能超过9张图片
+        var maxlength=9
+      }else{
+        // 不能超过12张图片
+        var maxlength=12
+      }
+console.log(numUp,totalNum,maxlength)
+  if(totalNum> maxlength){
+    // alert("上传图片数目不可以超过"+vm.$store.state.maxLength+"个，请重新选择");  //一次选择上传超过5个 或者是已经上传和这次上传的到的总数也不可以超过5个
+    mui.toast('图片不能超过'+maxlength+'张,请重新选择!')
+      }
+  else if(totalNum <= maxlength){
+    fileList = validateUp(fileList);
+    console.log('fileList')
+console.log(fileList)
+    fileList.forEach(function(file, i) {
+          var reader = new FileReader();
+//          获取图片大小
+
+          // console.log(fileList[i])
+          reader.onload = function() {
+             var result = this.result;
+             // console.log(fileList[i])
+              var img = new Image();
+              img.src = result;
+
+              //如果图片大小小于100kb，则直接上传
+              if (result.length <= maxsize) {
+                  img = null;
+
+                  upload(result,fileList[i].type);
+                  return;
+              }
+//      图片加载完毕之后进行压缩，然后上传
+              if (img.complete) {
+                  callback();
+              } else {
+                  img.onload = callback;
+              }
+              function callback() {
+                  var data = compress(img);
+                  // console.log(data)
+                  upload(data, fileList[i].type);
+                  img = null;
+              }
+          };
+          reader.readAsDataURL(fileList[i]);
+
+      // tdate.unshift(fileList[i])
+       console.log('fileList[i]')
+      console.log(fileList[i])
+     var imgUrl = window.URL.createObjectURL(fileList[i]);
+     console.log(imgUrl)
+      console.log(imgArr)
+        //  imgArr.push(imgUrl);
+        //  逻辑代码:存放图片路径的地方
+          // vm.imgUrl.push(imgUrl);
+
+
+
+  })
+
+   numUp = imgContainer.find(".up-section").length;
+  if(numUp >= 9){//如果图片大于9张则隐藏上传框
+    // $(this).parent().hide();
+  }
+  //input内容清空
+  // $(this).val("");
+  console.log('处理上传文件完成')
+}
+
+});
+
+
+
+
+
+  function validateUp(files){
+    var arrFiles = [];//替换的文件数组
+    for(var i = 0, file; file = files[i]; i++){
+      //获取文件上传的后缀名
+      var newStr = file.name.split("").reverse().join("");
+      if(newStr.split(".")[0] != null){
+          var type = newStr.split(".")[0].split("").reverse().join("");
+          console.log(type+"===type===");
+          if(jQuery.inArray(type, defaults.fileType) > -1){
+            // 类型符合，可以上传
+            if (file.size >= defaults.fileSize) {
+              // alert(file.size);
+              alert('您这个"'+ file.name +'"文件大小过大');
+            } else {
+              // 在这里需要判断当前所有文件中
+              arrFiles.push(file);
+            }
+          }else{
+            alert('您这个"'+ file.name +'"上传类型不符合');
+          }
+        }else{
+          alert('您这个"'+ file.name +'"没有类型, 无法识别');
+        }
+    }
+    // console.log(arrFiles)
+    return arrFiles;
+  }
+
+})
 
 
 //如果图片大于9张则隐藏上传框    270
 //如果要限定上传的张数则在这里限制 185
 //如果要设置压缩的比例，比例越大图片越清晰   49
-// 逻辑代码赋予路径和文本对象 74
 
 
 

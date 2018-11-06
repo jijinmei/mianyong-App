@@ -6,6 +6,7 @@
 // document.getElementsByTagName('html')[0].style.fontSize = w + "px"
 // document.getElementsByTagName("html")[0].style.fontSize = (0.0444*innerWidth)+"px";
  var Boss = 'http://stg-boss-macaucf.leanapp.cn/api/v1/' //测试
+ var Boss22 = 'http://boss-macaucf.leanapp.cn/api/v1/' //测试
  var Boss2 = 'http://stg-boss-macaucf.leanapp.cn/' //测试
  var Boss3 = 'http://stg-boss-macaucf.leanapp.cn/api/v1/' //测试接口
  // 初始化刷新和加载插件的全局变量

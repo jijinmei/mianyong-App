@@ -1,3 +1,82 @@
+
+// 判断图片旋转的函数
+function getPhotoOrientation(img) {
+  var orient;
+  EXIF.getData(img, function () {
+     orient = EXIF.getTag(this, 'Orientation');
+  });
+  return orient;
+}
+
+function rotateImg(img, direction,canvas,fileType,step) {
+  console.log('进入了实际的旋转出来rotateImg')
+  // //img的高度和宽度不能在img元素隐藏后获取，否则会出错
+  var height = img.height;
+  var width = img.width;
+  var degree = step * 90 * Math.PI / 180;
+  var ctx = canvas.getContext('2d');
+  switch (step) {
+      case 0://1或者无或者其他
+      var ratio;
+      if ((ratio = width * height / 1000000) > 1) {
+          ratio = Math.sqrt(ratio);
+          width /= ratio;
+          height /= ratio;
+      } else {
+          ratio = 1;
+      }
+          canvas.width = width;
+          canvas.height = height;
+          ctx.drawImage(img, 0, 0,width,height);
+          break;
+      case 1://6
+              var ratio;
+        if ((ratio = width * height / 1000000) > 1) {
+            ratio = Math.sqrt(ratio);
+            width /= ratio;
+            height /= ratio;
+        } else {
+            ratio = 1;
+        }
+          canvas.width = height;
+          canvas.height = width;
+          ctx.rotate(degree);
+          ctx.drawImage(img, 0, -height,width,height);
+          break;
+      case 2://3
+      var ratio;
+      if ((ratio = width * height / 1000000) > 1) {
+          ratio = Math.sqrt(ratio);
+          width /= ratio;
+          height /= ratio;
+      } else {
+          ratio = 1;
+      }
+          canvas.width = width;
+          canvas.height = height;
+          ctx.rotate(degree);
+          ctx.drawImage(img, -width, -height,width,height);
+          break;
+      case 3://8
+      var ratio;
+      if ((ratio = width * height / 1000000) > 1) {
+          ratio = Math.sqrt(ratio);
+          width /= ratio;
+          height /= ratio;
+      } else {
+          ratio = 1;
+      }
+          canvas.width = height;
+          canvas.height = width;
+          ctx.rotate(degree);
+          ctx.drawImage(img, -width, 0,width,height);
+          break;
+  }
+  upload(canvas.toDataURL('image/jpeg',0.75), fileType);
+  // return canvas.toDataURL('image/jpeg',0.5);
+}
+
+
 // 图片压缩代码区域
   //    用于压缩图片的canvas
     var canvas = document.createElement("canvas");
@@ -6,52 +85,42 @@
     var tCanvas = document.createElement("canvas");
     var tctx = tCanvas.getContext("2d");
     var maxsize = 100 * 1024;
-     //    使用canvas对大图片进行压缩
-    function compress(img) {
-      console.log('大图片进行压缩')
-        var initSize = img.src.length;
-        var width = img.width;
-        var height = img.height;
-        //如果图片大于四百万像素，计算压缩比并将大小压至400万以下
-        var ratio;
-        if ((ratio = width * height / 1000000) > 1) {
-            ratio = Math.sqrt(ratio);
-            width /= ratio;
-            height /= ratio;
-        } else {
-            ratio = 1;
-        }
-        canvas.width = width;
-        canvas.height = height;
-//        铺底色
-        ctx.fillStyle = "#fff";
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        //如果图片像素大于100万则使用瓦片绘制
-        var count;
-        if ((count = width * height / 1000000) > 1) {
-            count = ~~(Math.sqrt(count) + 1); //计算要分成多少块瓦片
-//            计算每块瓦片的宽和高
-            var nw = ~~(width / count);
-            var nh = ~~(height / count);
-            tCanvas.width = nw;
-            tCanvas.height = nh;
-            for (var i = 0; i < count; i++) {
-                for (var j = 0; j < count; j++) {
-                    tctx.drawImage(img, i * nw * ratio, j * nh * ratio, nw * ratio, nh * ratio, 0, 0, nw, nh);
-                    ctx.drawImage(tCanvas, i * nw, j * nh, nw, nh);
-                }
-            }
-        } else {
-            ctx.drawImage(img, 0, 0, width, height);
-        }
-        //进行最小压缩
-        var ndata = canvas.toDataURL('image/jpeg', 0.5);
-        console.log('压缩前：' + initSize);
-        console.log('压缩后：' + ndata.length);
-        console.log('压缩率：' + ~~(100 * (initSize - ndata.length) / initSize) + "%");
-        tCanvas.width = tCanvas.height = canvas.width = canvas.height = 0;
-        return ndata;
-    }    
+
+
+    function compress(img, fileType) {
+      console.log('进入了compress')
+      var canvas = document.createElement("canvas");
+      var rotateshow;
+      EXIF.getData(img, function(){
+          EXIF.getAllTags(img);
+          Orientation = EXIF.getTag(img,'Orientation');
+          switch (Orientation){
+              case 6:
+               rotateshow = rotateImg(img,'left',canvas,fileType,1); 
+              // rotateImg(img,'left',canvas,fileType); 
+               console.log(6);
+                  break;
+              case 8:
+               rotateshow = rotateImg(img,'right',canvas,fileType,3); 
+               console.log(8);
+                  break;
+              case 3:
+                  // rotateImg(img,'right',canvas,fileType);
+                   rotateshow = rotateImg(img,'right',canvas,fileType,2); 
+                   console.log(3);
+                  break;
+              default:
+                  //  rotateshow = img.src;
+                   rotateshow = rotateImg(img,'',canvas,fileType,0); 
+                  //  upload(canvas.toDataURL('image/jpeg',0.75), fileType);
+
+                   
+          }
+          
+      
+      });
+  }
+   
     //    图片上传，将base64的图片转成二进制对象，塞进formdata上传
     function upload(basestr, type) {
       console.log("开始转换fordata")
@@ -73,7 +142,8 @@
         }
         // tdate.unshift(blob)
         window.store.state.tdate.push(blob)
-        console.log(window.store.state.tdate)
+        $('#uuu').attr('src',basestr)
+        $('#ddd').val(basestr)
        console.log("转换完成！") 
     }
  /**
@@ -210,9 +280,19 @@ $(function(){
                     img.onload = callback;
                 }
                 function callback() {
-                    var data = compress(img);
-                    console.log(data)
-                    upload(data, fileList[i].type);
+                    // var data = compress(img,fileList[i].type);
+                    compress(img,fileList[i].type);
+                    // console.log('大文件的压缩后的图片路径')
+                    // console.log(data)
+                    // console.log('大文件的压缩后的图片路径')
+                    // setTimeout(function(){
+                    //   console.log('大文件的压缩后的图片路径')
+                    //   console.log(data)
+                    //   console.log('大文件的压缩后的图片路径')
+                    // },10000)
+                 
+                    // return
+                    // upload(data, fileList[i].type);
                     img = null;
                 }
             };

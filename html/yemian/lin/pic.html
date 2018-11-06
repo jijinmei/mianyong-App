@@ -18,11 +18,12 @@
 
 <body style="background:white;">
     <div id="app" v-cloak>
+      <!-- <div style="display:none;">{{pics}}</div> -->
       <div ref="temp">
         <!-- <cp-nav @back="back" title="添加照片"></cp-nav> -->
         <div class="main">
           <ul class="ul">
-            <li v-for="(urlstr, index) in imgUrl"><span class="pic-r"></span><img :src="urlstr" alt="" @click="clickImg(index, $event)"><span class="slc-style" @click="cancelSlc(index, $event)"></span></li>
+            <li v-for="(urlstr, index) in imgUrl" class="alltu"><span class="pic-r"></span><img :src="urlstr" alt="" @click="clickImg(index, $event)"><span class="slc-style" @click="cancelSlc(index, $event)"></span></li>
             <li :style="setStyle" v-if="showAdd">
               <input type="file" id="input" name="file" @change="change($event)" accept="image/*"  ref="input" multiple >
               <!-- <input  type="file" name="file" id="file" class="file addsfile" value="" 

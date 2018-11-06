@@ -145,7 +145,8 @@ template: `
                       //1.服务器返回响应，根据响应结果，分析是否登录成功；
                          if(data.status == true) {
                            //修改对应的发布状态 改为已下架
-                             that.datas[index].status='-2'
+                           that.datas[index].show=0
+                            //  that.datas[index].status='-2'
                                                  
                          }else{
                           mui.toast("HTTP Request Failed")
@@ -154,7 +155,7 @@ template: `
 					}
 				},'div')
       },
-      			//下架
+      			//上架
 			shangjia(name,index,objectId,action){
 				var that=this
 				var title='確認【上架】此商店嗎？'
@@ -164,23 +165,24 @@ template: `
 						//点击了取消
 					}else if(data.index==1){
 						//点击了确定
-					// var formData = new FormData();             
+					var formData = new FormData();             
                  
-          //           $.post(Boss3 + 'article/'+objectId+"/status",{
-          //             sessiontoken:sessiontoken,
-          //             objectId:objectId,
-          //             action:action
-          //           },function(data){
-          //             console.log(data);
-          //             //1.服务器返回响应，根据响应结果，分析是否登录成功；
-          //                if(data.status == true) {
-          //                  //修改对应的发布状态 改为已下架
-          //                    that.datas[index].status='-2'
+                    $.post(Boss3 + 'article/'+objectId+"/status",{
+                      sessiontoken:sessiontoken,
+                      objectId:objectId,
+                      action:action
+                    },function(data){
+                      console.log(data);
+                      //1.服务器返回响应，根据响应结果，分析是否登录成功；
+                         if(data.status == true) {
+                           //修改对应的发布状态 改为已上架
+                             that.datas[index].show=1
+                            //  that.datas[index].status='-2'
                                                  
-          //                }else{
-          //                 mui.toast("HTTP Request Failed")
-          //                }
-          //           })               																	
+                         }else{
+                          mui.toast("HTTP Request Failed")
+                         }
+                    })               																	
 					}
 				},'div')
 			},

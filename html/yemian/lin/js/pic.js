@@ -37,6 +37,7 @@ var vm = new Vue({
     },
 // 添加图片
 change: function change(e) {
+  return
   console.log('files点击了图片上传框,粗发了事件')
   var file = document.getElementById("input");
   var fileList = file.files //获取的图片文件

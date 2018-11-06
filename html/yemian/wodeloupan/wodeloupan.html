@@ -148,7 +148,7 @@
 <div  @click="tanchukuang=false" v-if="tanchukuang==true" class="wai_kuangs" style="z-index:2000;">
 <ul class="bai w497 center radius spjz" style="top:3rem;">
     <li v-show="keep==1" @click.stop="fengpan"  class="fz33 c000000 h100 lh100 border-b"  >封盤</li>
-    <li v-show="keep==1"  class="fz33 ceeeeee h100 lh100" >編輯(封盤後可編輯)</li>
+    <li v-show="keep==1"  class="fz33 h100 lh100" style="opacity:0.3;">編輯(封盤後可編輯)</li>
     
     <li v-show="keep==2" @click.stop="kaipan"  class="fz33 c000000 h100 lh100 border-b"  >開盤</li>
     <li v-show="keep==2" @click.stop="gobianji" class="fz33 c000000 h100 lh100" >編輯</li>

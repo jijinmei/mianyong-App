@@ -144,7 +144,7 @@
 <div @click="tanchukuang=false" v-if="tanchukuang==true" class="wai_kuangs" style="z-index:2000;">
 <ul class="bai w497 center radius spjz" style="top:3rem;">
     <li v-show="keep==1" @click.stop="xiajia"  class="fz33 c000000 h100 lh100 border-b"  >下架</li>
-    <li v-show="keep==1"  class="fz33 ceeeeee h100 lh100" >編輯(下架後可編輯)</li>
+    <li v-show="keep==1"  class="fz33 h100 lh100" style="opacity:0.3;">編輯(下架後可編輯)</li>
     
     <li v-show="keep==2" @click.stop="shangjia"  class="fz33 c000000 h100 lh100 border-b"  >上架</li>
     <li v-show="keep==2" @click.stop="gobianji" class="fz33 c000000 h100 lh100" >編輯</li>
@@ -217,7 +217,7 @@
      shangjia(){
       
           this.tanchukuang=false
-        this.$refs.xiajia.shangjia(this.arrayitem.title,this.index,this.arrayitem.objectId,'-1')
+        this.$refs.xiajia.shangjia(this.arrayitem.title,this.index,this.arrayitem.objectId,'1')
         
     },
     //点击编辑跳去8大模块的对应的发布页面
@@ -414,11 +414,11 @@ status(index,item){
                       //   statu='-2'
                       // }
 
-                     
+                    
                 	$.ajax({
                     type: 'GET',
 		                url:Boss3 + 'user/article',
-                    data:{'page':page,'limit':limit20,'sessiontoken':sessiontoken,'title':that.zuoitem,'status':status,'show':show},
+                    data:{'page':page,'limit':limit20,'sessiontoken':sessiontoken,'section':(that.zuoitem=='全部分類'?'':that.zuoitem),'status':status,'show':show},
 		                dataType: 'json',
 		                success: function(dataAll){
                       if(dataAll.status){

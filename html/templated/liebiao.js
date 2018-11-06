@@ -138,7 +138,45 @@ template: `
 			// 	this.$parent.index=index
 			// },
 			
-			//封盘
+			// //封盘
+			// fengpan(name,index,objectId){
+			// 	var that=this
+			// 	var title='確認【封盤】'+name+'此盤源嗎？'
+			// 	mui.confirm(title,'  ',['取消','確認'],function(data){
+			// 		console.log(data)
+			// 		if(data.index==0){
+			// 			//点击了取消
+			// 		}else if(data.index==1){
+			// 			//点击了确定
+			// 						mui.ajax(Boss + 'agent/'+objectId, {
+			// 								data:{
+			// 									sessiontoken:sessiontoken
+			// 								},
+			// 								dataType: 'json', //服务器返回json格式数据
+			// 								type: 'DELETE', //HTTP请求类型
+			// 								timeout: 10000, //超时时间设置为10秒；
+   		// 							success: function(data) {
+			// 									//1.服务器返回响应，根据响应结果，分析是否登录成功；
+			// 									if(data.status == true) {
+			// 											that.datas.splice(index,1)
+                                                
+			// 									}
+												
+
+			// 								},
+			// 								error: function(xhr, type, errorThrown) {
+			// 									//异常处理；
+			// 									mui.toast(errorThrown, {
+			// 										duration: 'long',
+			// 										type: 'div'
+			// 									})
+			// 								}
+			// 							});
+						
+			// 		}
+			// 	},'div')
+      // },
+      	//封盘
 			fengpan(name,index,objectId){
 				var that=this
 				var title='確認【封盤】'+name+'此盤源嗎？'
@@ -148,17 +186,20 @@ template: `
 						//点击了取消
 					}else if(data.index==1){
 						//点击了确定
-									mui.ajax(Boss + 'agent/'+objectId, {
+									mui.ajax(Boss22 + 'agent/'+objectId+'/show', {
 											data:{
-												sessiontoken:sessiontoken
+                        sessiontoken:sessiontoken,
+                        objectId:objectId,
+                        show:'0'
 											},
 											dataType: 'json', //服务器返回json格式数据
-											type: 'DELETE', //HTTP请求类型
+											type: 'POST', //HTTP请求类型
 											timeout: 10000, //超时时间设置为10秒；
    									success: function(data) {
 												//1.服务器返回响应，根据响应结果，分析是否登录成功；
 												if(data.status == true) {
-														that.datas.splice(index,1)
+                          that.datas[index].show=0
+														// that.datas.splice(index,1)
                                                 
 												}
 												
@@ -185,31 +226,47 @@ template: `
 					if(data.index==0){
 						//点击了取消
 					}else if(data.index==1){
-						//点击了确定  暂无接口
-									// mui.ajax(Boss + 'agent/'+objectId, {
-									// 		data:{
-									// 			sessiontoken:sessiontoken
-									// 		},
-									// 		dataType: 'json', //服务器返回json格式数据
-									// 		type: 'DELETE', //HTTP请求类型
-									// 		timeout: 10000, //超时时间设置为10秒；
-   								// 	success: function(data) {
-									// 			//1.服务器返回响应，根据响应结果，分析是否登录成功；
-									// 			if(data.status == true) {
-									// 					that.datas.splice(index,1)
+            //点击了确定  暂无接口
+          //   $.post(Boss22 + 'agent/'+objectId+'/show',
+          // {
+          //         sessiontoken:sessiontoken,
+          //       objectId:objectId,
+          //       show:'1'
+          // },function(data){
+          //   							if(data.status == true) {
+          //                 that.datas[index].show=1
+					// 									// that.datas.splice(index,1)
                                                 
-									// 			}
+					// 							}
+          // }
+          // )
+            mui.ajax(Boss22 + 'agent/'+objectId+'/show', {
+              data:{
+                sessiontoken:sessiontoken,
+                objectId:objectId,
+                show:'1'
+              },
+											dataType: 'json', //服务器返回json格式数据
+											type: 'POST', //HTTP请求类型
+											timeout: 10000, //超时时间设置为10秒；
+   									success: function(data) {
+												//1.服务器返回响应，根据响应结果，分析是否登录成功；
+												if(data.status == true) {
+                          that.datas[index].show=1
+														// that.datas.splice(index,1)
+                                                
+												}
 												
 
-									// 		},
-									// 		error: function(xhr, type, errorThrown) {
-									// 			//异常处理；
-									// 			mui.toast(errorThrown, {
-									// 				duration: 'long',
-									// 				type: 'div'
-									// 			})
-									// 		}
-									// 	});
+											},
+											error: function(xhr, type, errorThrown) {
+												//异常处理；
+												mui.toast(errorThrown, {
+													duration: 'long',
+													type: 'div'
+												})
+											}
+										});
 						
 					}
 				},'div')
