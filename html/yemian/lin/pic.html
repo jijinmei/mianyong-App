@@ -25,8 +25,8 @@
           <ul class="ul">
             <li v-for="(urlstr, index) in imgUrl" class="alltu"><span class="pic-r"></span><img :src="urlstr" alt="" @click="clickImg(index, $event)"><span class="slc-style" @click="cancelSlc(index, $event)"></span></li>
             <li :style="setStyle" v-if="showAdd">
-              <input type="file" id="input" name="file" @change="change($event)" accept="image/*"  ref="input" multiple >
-              <!-- <input  type="file" name="file" id="file" class="file addsfile" value="" 
+              <input type="file" id="input" name="file"  accept="image/*"  ref="input" multiple >
+              <!-- <input  type="file" name="file" id="file" class="file addsfile" @change="change($event)"value="" 
               accept="image/jpg,image/jpeg,image/png,image/bmp,image/JPG,image/JPEG,image/PNG,image/BMP" multiple /> -->
             </li>
           </ul>
@@ -63,6 +63,7 @@
     <script src="../../static/common.js"></script>
     <link rel="stylesheet" href="../../static/mui.min.css">
     <script src="../../static/mui.min.js"></script>
+    <script src="../../static/exif.js"></script>
     <script src="./js/imgUp.js"></script>
     <!-- 引入组件 -->
     <!-- <script src="https://unpkg.com/vant/lib/vant.min.js"></script> -->

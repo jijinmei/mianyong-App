@@ -45,8 +45,8 @@ var store = new Vuex.Store({
     userData: {}, // 登錄 / 註冊存儲的用戶個人信息的對象
     files: null,
     sellObject: {},
-    notEdit: false,
-    imgUrl:[]
+    notEdit: false
+    // imgUrl:[]
   },
   getters: {                                // getters : 获取数据
     readCurrentData(state) {

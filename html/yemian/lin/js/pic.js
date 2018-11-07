@@ -35,83 +35,83 @@ var vm = new Vue({
     back: function back() {
       // this.$router.go(-1)
     },
-// 添加图片
-change: function change(e) {
-  return
-  console.log('files点击了图片上传框,粗发了事件')
-  var file = document.getElementById("input");
-  var fileList = file.files //获取的图片文件
-console.log(fileList)
-// 缓存获取的图片的长度加上现在上传的图片的长度不能超过12个,声明变量记录超出的个数,到时候超出了的不进入循环
-var num = fileList.length + this.imgUrl.length;
-if(locations('where')){
-  // 只有我的页面才有传这个东西,只要有这个,就是不能超过9张照片
-  console.log('不能超过9张图片')
-        if (num > 9) {
-          mui.toast('图片不能超过9张,请重新选择!')
-          return;
-          // console.log('超过' + (num - 12), num);
-          // var chao = num - 12;
-        } else if(num==9) {
-          // var chao = 0;
-            this.showAdd = false;//上传框消失
+// // 添加图片
+// change: function change(e) {
+//   return
+//   console.log('files点击了图片上传框,粗发了事件')
+//   var file = document.getElementById("input");
+//   var fileList = file.files //获取的图片文件
+// console.log(fileList)
+// // 缓存获取的图片的长度加上现在上传的图片的长度不能超过12个,声明变量记录超出的个数,到时候超出了的不进入循环
+// var num = fileList.length + this.imgUrl.length;
+// if(locations('where')){
+//   // 只有我的页面才有传这个东西,只要有这个,就是不能超过9张照片
+//   console.log('不能超过9张图片')
+//         if (num > 9) {
+//           mui.toast('图片不能超过9张,请重新选择!')
+//           return;
+//           // console.log('超过' + (num - 12), num);
+//           // var chao = num - 12;
+//         } else if(num==9) {
+//           // var chao = 0;
+//             this.showAdd = false;//上传框消失
 
-        }
-}else{
-  console.log('不能超过12张图片')
-        if (num > 12) {
-          mui.toast('图片不能超过12张,请重新选择!')
-          return;
-          // console.log('超过' + (num - 12), num);
-          // var chao = num - 12;
-        } else if(num==12) {
-          // var chao = 0;
-            this.showAdd = false;//上传框消失
+//         }
+// }else{
+//   console.log('不能超过12张图片')
+//         if (num > 12) {
+//           mui.toast('图片不能超过12张,请重新选择!')
+//           return;
+//           // console.log('超过' + (num - 12), num);
+//           // var chao = num - 12;
+//         } else if(num==12) {
+//           // var chao = 0;
+//             this.showAdd = false;//上传框消失
 
-        }
-}
+//         }
+// }
       
 
-  console.log("图片数量符合") 
-    fileList = validateUp(fileList);
-    // return
-    fileList.forEach(function(file, i) {
-       console.log("开始处理上传文件")  			 
-          var reader = new FileReader();          
-//          获取图片大小
-          reader.onload = function() {
-             var result = this.result;
-              var img = new Image();
-              img.src = result;
-              // 测试没有压缩前的文件大小
-              // upload(result,fileList[i].type);
-              // return
-              //如果图片大小小于100kb，则直接上传
-              if (result.length <= maxsize) {
-                  img = null;
+//   console.log("图片数量符合") 
+//     fileList = validateUp(fileList);
+//     // return
+//     fileList.forEach(function(file, i) {
+//        console.log("开始处理上传文件")  			 
+//           var reader = new FileReader();          
+// //          获取图片大小
+//           reader.onload = function() {
+//              var result = this.result;
+//               var img = new Image();
+//               img.src = result;
+//               // 测试没有压缩前的文件大小
+//               // upload(result,fileList[i].type);
+//               // return
+//               //如果图片大小小于100kb，则直接上传
+//               if (result.length <= maxsize) {
+//                   img = null;
                   
-                  upload(result,fileList[i].type);
-                  return;
-              }
-//      图片加载完毕之后进行压缩，然后上传
-              if (img.complete) {
-                  callback();
-              } else {
-                  img.onload = callback;
-              }
-              function callback() {
-                  var data = compress(img);
-                  console.log(data)
-                  upload(data, fileList[i].type);
-                  img = null;
-              }
-          };
-          reader.readAsDataURL(fileList[i]);
+//                   upload(result,fileList[i].type);
+//                   return;
+//               }
+// //      图片加载完毕之后进行压缩，然后上传
+//               if (img.complete) {
+//                   callback();
+//               } else {
+//                   img.onload = callback;
+//               }
+//               function callback() {
+//                   var data = compress(img);
+//                   console.log(data)
+//                   upload(data, fileList[i].type);
+//                   img = null;
+//               }
+//           };
+//           reader.readAsDataURL(fileList[i]);
    
 
-  console.log('处理上传文件完成')
-})
-    },
+//   console.log('处理上传文件完成')
+// })
+//     },
     // 添加图片
     change222: function change(e) {
       var _this = this;

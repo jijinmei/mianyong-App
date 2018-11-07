@@ -215,9 +215,34 @@
     },
      //点击上架
      shangjia(){
-      
-          this.tanchukuang=false
-        this.$refs.xiajia.shangjia(this.arrayitem.title,this.index,this.arrayitem.objectId,'1')
+       var that=this;
+      // 判断是否超过已上架已通过的发布限制,超过则提示已超过发布限制
+            $.get(Boss+'user/'+locations('userId'),function(data){
+                if(data.status){
+                    console.log(data)
+                    var all=data.result.publish_setting[1].limit
+                    $.get(Boss3 + 'user/article',{'page':1,'limit':10,'sessiontoken':sessiontoken,'section':'','status':1,'show':1},function(datas){
+                      if(datas.status){
+                        console.log(datas)
+                                          console.log(all,datas.result.count)
+                                        // 只要成功请求到ture,就有可能是数组有数据或者数组数据为空
+                                        if(all>datas.result.count){
+                                          that.tanchukuang=false
+                                          that.$refs.xiajia.shangjia(that.arrayitem.title,that.index,that.arrayitem.objectId,'1')
+                                        }else{
+                                          that.tanchukuang=false
+                                          mui.alert('您已到達發佈上限，若需調整發佈條數，請聯繫我們。',['好的'])
+                                        }
+                                    }else{
+                                      //联网失败的回调,隐藏下拉刷新和上拉加载的状态;
+                                      mui.toast(datas.result.message)
+                                    }
+                    })
+                                   
+                }
+            })
+ 
+           
         
     },
     //点击编辑跳去8大模块的对应的发布页面
