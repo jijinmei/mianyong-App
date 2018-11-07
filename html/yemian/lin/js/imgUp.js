@@ -112,6 +112,7 @@ function rotateImg(img, direction,canvas,fileType,step) {
               default:
                   //  rotateshow = img.src;
                    rotateshow = rotateImg(img,'',canvas,fileType,0); 
+                   console.log(0);
                   //  upload(canvas.toDataURL('image/jpeg',0.75), fileType);
 
                    

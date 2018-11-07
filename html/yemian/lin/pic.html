@@ -23,11 +23,13 @@
         <!-- <cp-nav @back="back" title="添加照片"></cp-nav> -->
         <div class="main">
           <ul class="ul">
-            <li v-for="(urlstr, index) in imgUrl" class="alltu"><span class="pic-r"></span><img :src="urlstr" alt="" @click="clickImg(index, $event)"><span class="slc-style" @click="cancelSlc(index, $event)"></span></li>
+            <li v-for="(urlstr, index) in imgUrl"  v-if="normalType==false" class="alltu"><span class="pic-r"></span><img :src="urlstr" alt="" @click="clickImg(index, $event)"  ><span class="slc-style" @click="cancelSlc(index, $event)"></span></li>
+
+            <li v-for="(urlstr, index) in imgUrl" v-if="normalType==true" class="alltu"><span class="pic-r"></span><img :src="urlstr" alt="" @click="clickImg(index, $event)" :data-preview-src="urlstr"  data-preview-group="urlstr" ><span class="slc-style" @click="cancelSlc(index, $event)"></span></li>
+
             <li :style="setStyle" v-if="showAdd">
               <input type="file" id="input" name="file"  accept="image/*"  ref="input" multiple >
-              <!-- <input  type="file" name="file" id="file" class="file addsfile" @change="change($event)"value="" 
-              accept="image/jpg,image/jpeg,image/png,image/bmp,image/JPG,image/JPEG,image/PNG,image/BMP" multiple /> -->
+            
             </li>
           </ul>
         </div>
@@ -37,7 +39,7 @@
             <button @click="editImg">編輯</button>
             <button @click="saveImg">保存</button>
           </div>
-    
+
           <div v-if="delType">
             <button @click="cancelClick">取消</button>
             <button @click="delClick">刪除</button>
@@ -69,6 +71,13 @@
     <!-- <script src="https://unpkg.com/vant/lib/vant.min.js"></script> -->
     <script src="./js/saveObject.js"></script>
     <script src="./js/pic.js"></script>
+    <script src="../../static/mui.zoom.js"></script>
+    <script src="../../static/mui.previewimage.js"></script>
+    <script>
+           // 初始化previewImage
+      mui.previewImage();
+      mui.init();
+    </script>
     <!-- <script src="../../static/vconsole.min.js"></script> -->
 
 </body>

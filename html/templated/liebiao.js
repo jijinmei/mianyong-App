@@ -82,7 +82,9 @@ template: `
 		data:function() {
 			return {
 				bb:'yifabu',
-				imageView2:'?imageView2/1/w/'+parseInt(245*w0)+'/h/'+parseInt(215*w0)
+        imageView2:'?imageView2/1/w/'+parseInt(245*w0)+'/h/'+parseInt(215*w0),
+        fabulimit:'',//8大板块的发布限制数
+        yifabu:''//8大板块的已发布已通过数量
 			}
 		},
 		props:['datas','name'],//接收父元素传过来的经过帅选的数据
@@ -103,7 +105,7 @@ template: `
       },
       	//我的楼盘操作事件
 			caozuos(id,item,bb,index){
-        
+        var that=this;
           if(bb=='1'){
             //1.可以封盘+编辑(灰)
             this.$parent.keep=1
@@ -116,6 +118,28 @@ template: `
           this.$parent.tanchukuang=true
           this.$parent.arrayitem=item
           this.$parent.index=index
+
+            // 请求总发布限制数量和已发布已通过数量
+        $.get(Boss+'user/'+locations('userId'),function(data){
+          if(data.status){
+              console.log(data)
+              that.$parent.fabulimit=data.result.publish_setting[1].limit
+              that.fabulimit=data.result.publish_setting[1].limit
+              $.get(Boss3 + 'user/article',{'page':1,'limit':10,'sessiontoken':sessiontoken,'section':'','status':1,'show':1},function(datas){
+                if(datas.status){
+                  console.log(datas);
+                 that.$parent.yifabu=datas.result.count;
+                 that.yifabu=datas.result.count;
+                 console.log(that.$parent.fabulimit,that.$parent.yifabu);
+                         
+                              }else{
+                                //联网失败的回调,隐藏下拉刷新和上拉加载的状态;
+                                mui.toast(datas.result.message)
+                              }
+              })
+                             
+          }
+      })
         },
         
 			// //我的楼盘操作事件
@@ -180,7 +204,8 @@ template: `
 			fengpan(name,index,objectId){
 				var that=this
 				var title='確認【封盤】'+name+'此盤源嗎？'
-				mui.confirm(title,'  ',['取消','確認'],function(data){
+        var content='此账号已成功发布租售信息'+that.yifabu+'条（上限'+that.fabulimit+'条）'
+        mui.confirm(content,title,['取消','確認'],function(data){
 					console.log(data)
 					if(data.index==0){
 						//点击了取消
@@ -217,11 +242,41 @@ template: `
 					}
 				},'div')
       },
+      	//删除
+			shanchu(name,index,objectId,action){
+				var that=this
+				var title='確認【刪除】此盤源嗎？'
+        var content='此账号已成功发布租售信息'+that.yifabu+'条（上限'+that.fabulimit+'条）'
+        mui.confirm(content,title,['取消','確認'],function(data){
+					console.log(data)
+					if(data.index==0){
+						//点击了取消
+					}else if(data.index==1){
+						//点击了确定          
+            $.ajax({    
+              url : Boss22+"agent/"+objectId,    
+              type : "DELETE",    
+              data :{'sessiontoken':sessiontoken,'objectId':objectId},    
+              success : function(data) {    
+                    if(data.status){
+                      that.datas.splice(index,1)
+                    }else{
+                      mui.toast(data.result.message)
+                    }
+              },    
+              error : function(data) {    
+                   
+              }    
+         });   																	
+					}
+				},'div')
+      },
       			//开盘
 			kaipan(name,index,objectId){
 				var that=this
 				var title='確認【開盤】'+name+'此盤源嗎？'
-				mui.confirm(title,'  ',['取消','確認'],function(data){
+        var content='此账号已成功发布租售信息'+that.yifabu+'条（上限'+that.fabulimit+'条）'
+        mui.confirm(content,title,['取消','確認'],function(data){
 					console.log(data)
 					if(data.index==0){
 						//点击了取消

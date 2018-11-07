@@ -71,7 +71,9 @@ template: `
 			return {
 				bb:'yifabu',
 				name:'no',
-				imageView2:'?imageView2/1/w/'+parseInt(245*w0)+'/h/'+parseInt(215*w0)
+        imageView2:'?imageView2/1/w/'+parseInt(245*w0)+'/h/'+parseInt(215*w0),
+        fabulimit:'',//8大板块的发布限制数
+        yifabu:''//8大板块的已发布已通过数量
 			}
 		},
 	props:['datas','who'],//接收父元素传过来的经过帅选的数据
@@ -93,6 +95,7 @@ template: `
       },
       	//我的发布操作事件
 			caozuos2(id,item,bb,index){
+        var that=this;
 				if(bb=='1'){
 					//1.可以下架+编辑灰
 					this.$parent.keep=1
@@ -103,7 +106,31 @@ template: `
 				//改变父元素
 				this.$parent.tanchukuang=true
 				this.$parent.arrayitem=item
-				this.$parent.index=index
+        this.$parent.index=index
+        
+        // 请求总发布限制数量和已发布已通过数量
+        $.get(Boss+'user/'+locations('userId'),function(data){
+          if(data.status){
+              console.log(data)
+              that.$parent.fabulimit=data.result.publish_setting[1].limit
+              that.fabulimit=data.result.publish_setting[1].limit
+              $.get(Boss3 + 'user/article',{'page':1,'limit':10,'sessiontoken':sessiontoken,'section':'','status':1,'show':1},function(datas){
+                if(datas.status){
+                  console.log(datas);
+                 that.$parent.yifabu=datas.result.count;
+                 that.yifabu=datas.result.count;
+                 console.log(that.$parent.fabulimit,that.$parent.yifabu);
+                         
+                              }else{
+                                //联网失败的回调,隐藏下拉刷新和上拉加载的状态;
+                                mui.toast(datas.result.message)
+                              }
+              })
+                             
+          }
+      })
+
+
 			},
 			// //我的发布操作事件
 			// caozuos2(id,item,bb,index){
@@ -126,7 +153,8 @@ template: `
 			xiajia(name,index,objectId,action){
 				var that=this
 				var title='確認【下架】此商店嗎？'
-				mui.confirm(title,'  ',['取消','確認'],function(data){
+        var content='此账号已成功发布分类信息'+that.yifabu+'条（上限'+that.fabulimit+'条）'
+        mui.confirm(content,title,['取消','確認'],function(data){
 					console.log(data)
 					if(data.index==0){
 						//点击了取消
@@ -158,8 +186,9 @@ template: `
       			//上架
 			shangjia(name,index,objectId,action){
 				var that=this
-				var title='確認【上架】此商店嗎？'
-				mui.confirm(title,'  ',['取消','確認'],function(data){
+        var title='確認【上架】此商店嗎？'
+        var content='此账号已成功发布分类信息'+that.yifabu+'条（上限'+that.fabulimit+'条）'
+        mui.confirm(content,title,['取消','確認'],function(data){
 					console.log(data)
 					if(data.index==0){
 						//点击了取消
@@ -185,7 +214,37 @@ template: `
                     })               																	
 					}
 				},'div')
-			},
+      },
+      	//删除
+			shanchu(name,index,objectId,action){
+				var that=this
+				var title='確認【刪除】此商店嗎？'
+        var content='此账号已成功发布分类信息'+that.yifabu+'条（上限'+that.fabulimit+'条）'
+        mui.confirm(content,title,['取消','確認'],function(data){
+					console.log(data)
+					if(data.index==0){
+						//点击了取消
+					}else if(data.index==1){
+						//点击了确定          
+                    // $.post(Boss3 + 'article/'+objectId+"/status",{
+                    //   sessiontoken:sessiontoken,
+                    //   objectId:objectId,
+                    //   action:action
+                    // },function(data){
+                    //   console.log(data);
+                    //   //1.服务器返回响应，根据响应结果，分析是否登录成功；
+                    //      if(data.status == true) {
+                    //        //修改对应的发布状态 改为已下架
+                    //        that.datas[index].show=0
+                    //         //  that.datas[index].status='-2'
+                                                 
+                    //      }else{
+                    //       mui.toast("HTTP Request Failed")
+                    //      }
+                    // })               																	
+					}
+				},'div')
+      },
 			//跳到详情
 			xiangqings(objectId,item){
 				//含有检举按钮，不是预览

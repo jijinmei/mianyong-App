@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="../../static/mui.min.css">
     <link rel="stylesheet" href="../../static/mescroll.min.css"> -->
 <style scoped>
+  body>div.mui-popup.mui-popup-in>div.mui-popup-inner>div.mui-popup-title{display:block !important;margin-bottom:0.2rem;}
 /*子组件liebiao.js的样式*/
 /*左边的图片的样式*/	
 	.tukuang {
@@ -144,10 +145,12 @@
 <div @click="tanchukuang=false" v-if="tanchukuang==true" class="wai_kuangs" style="z-index:2000;">
 <ul class="bai w497 center radius spjz" style="top:3rem;">
     <li v-show="keep==1" @click.stop="xiajia"  class="fz33 c000000 h100 lh100 border-b"  >下架</li>
-    <li v-show="keep==1"  class="fz33 h100 lh100" style="opacity:0.3;">編輯(下架後可編輯)</li>
+    <li v-show="keep==1"  class="fz33 h100 lh100 border-b c888888" >編輯(下架後可編輯)</li>
+    <li v-show="keep==1"  class="fz33 h100 lh100 c888888" >刪除(下架後可刪除)</li>
     
     <li v-show="keep==2" @click.stop="shangjia"  class="fz33 c000000 h100 lh100 border-b"  >上架</li>
-    <li v-show="keep==2" @click.stop="gobianji" class="fz33 c000000 h100 lh100" >編輯</li>
+    <li v-show="keep==2" @click.stop="gobianji" class="fz33 c000000 h100 lh100 border-b" >編輯</li>
+    <li v-show="keep==2" @click.stop="godeleted" class="fz33 c000000 h100 lh100" >刪除</li>
   <!-- <li v-show="keep==0||keep==2" @click.stop="gobianji" class="fz33 c000000" :class="{h100:keep==2,h150:keep==0,lh100:keep==2,lh150:keep==0,'border-b':keep==2}">編輯</li>
   <li v-show="keep==1||keep==2" @click.stop="xiajia"  class="fz33 c000000"  :class="{h100:keep==2,h150:keep==1,lh100:keep==2,lh150:keep==1}">下架</li> -->
 </ul>
@@ -196,7 +199,9 @@
         // you:['全部狀態','審核中','已發佈','不通過','已下架'],
         youitem:'全部狀態',//当前选择的状态
         backdrop:false,
-        datas: []
+        datas: [],
+        fabulimit:'',//8大板块的发布限制数
+        yifabu:''//8大板块的已发布已通过数量
 
       },
             //在创建vue实例时，引入路由
@@ -213,34 +218,39 @@
         this.$refs.xiajia.xiajia(this.arrayitem.title,this.index,this.arrayitem.objectId,'-1')
         
     },
+    // 点击删除
+    godeleted(){
+      this.tanchukuang=false
+        this.$refs.xiajia.shanchu(this.arrayitem.title,this.index,this.arrayitem.objectId,'-1')
+    },
      //点击上架
      shangjia(){
        var that=this;
       // 判断是否超过已上架已通过的发布限制,超过则提示已超过发布限制
-            $.get(Boss+'user/'+locations('userId'),function(data){
-                if(data.status){
-                    console.log(data)
-                    var all=data.result.publish_setting[1].limit
-                    $.get(Boss3 + 'user/article',{'page':1,'limit':10,'sessiontoken':sessiontoken,'section':'','status':1,'show':1},function(datas){
-                      if(datas.status){
-                        console.log(datas)
-                                          console.log(all,datas.result.count)
+            // $.get(Boss+'user/'+locations('userId'),function(data){
+            //     if(data.status){
+            //         console.log(data)
+            //         var all=data.result.publish_setting[1].limit
+            //         $.get(Boss3 + 'user/article',{'page':1,'limit':10,'sessiontoken':sessiontoken,'section':'','status':1,'show':1},function(datas){
+            //           if(datas.status){
+            //             console.log(datas)
+            //                               console.log(all,datas.result.count)
                                         // 只要成功请求到ture,就有可能是数组有数据或者数组数据为空
-                                        if(all>datas.result.count){
+                                        if(that.fabulimit>that.yifabu){
                                           that.tanchukuang=false
                                           that.$refs.xiajia.shangjia(that.arrayitem.title,that.index,that.arrayitem.objectId,'1')
                                         }else{
                                           that.tanchukuang=false
                                           mui.alert('您已到達發佈上限，若需調整發佈條數，請聯繫我們。',['好的'])
                                         }
-                                    }else{
-                                      //联网失败的回调,隐藏下拉刷新和上拉加载的状态;
-                                      mui.toast(datas.result.message)
-                                    }
-                    })
+            //                         }else{
+            //                           //联网失败的回调,隐藏下拉刷新和上拉加载的状态;
+            //                           mui.toast(datas.result.message)
+            //                         }
+            //         })
                                    
-                }
-            })
+            //     }
+            // })
  
            
         
