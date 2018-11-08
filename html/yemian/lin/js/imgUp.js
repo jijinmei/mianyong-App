@@ -108,6 +108,8 @@ function rotateImg(img, direction,canvas,fileType,step) {
       EXIF.getData(img, function(){
           EXIF.getAllTags(img);
           Orientation = EXIF.getTag(img,'Orientation');
+          console.log('2.1进入了compres调用判断图片方向的函数返回Orientation')
+          tts()
           switch (Orientation){
               case 6:
                rotateshow = rotateImg(img,'left',canvas,fileType,1); 
