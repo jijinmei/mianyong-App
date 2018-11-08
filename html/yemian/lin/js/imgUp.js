@@ -18,6 +18,7 @@ $(function(){
 
 		/*点击图片的文本框*/
 	$(document).on('change','#input',function(){
+    vm.loading=true
         console.log('1.files点击了图片上传框,粗发了事件')
        getTimes()
     var orientation = 0;
@@ -49,12 +50,26 @@ $(function(){
 			fileList.forEach(function(file, i) {
         console.log('3.开始循环fileList上传的图片对象:'+orientation)
         getTimes()	
-        EXIF.getData(fileList[i], function() {
-          EXIF.getAllTags(this);
-          orientation = EXIF.getTag(this, 'Orientation');
-          console.log('4.exif里面获取图片的方向信息'+orientation)
-          getTimes()
-        });
+
+
+       // 判斷機型, android / ios
+ 
+  var ua = navigator.userAgent.toLowerCase();
+  if (ua.match(/iPhone\sOS/i) == "iphone os") {
+    console.log('苹果手机执行方向函数判断')
+    EXIF.getData(fileList[i], function() {
+      EXIF.getAllTags(this);
+      orientation = EXIF.getTag(this, 'Orientation');
+      console.log('4.exif里面获取图片的方向信息'+orientation)
+      getTimes()
+    });
+  }else{
+    // 安卓手机内存小导致图片读取非常慢,所以直接不判断方向
+    console.log('安卓手机不执行方向函数判断,直接赋值0')
+    
+     orientation=0
+  }
+        
         
         
             var reader = new FileReader();          
@@ -72,6 +87,7 @@ $(function(){
                     upload(result,fileList[i].type);
                     return;
                 }
+              
 //2.图片大于100kb,图片加载完毕之后进行压缩，然后上传
                 if (img.complete) {
                     callback();
@@ -86,7 +102,9 @@ $(function(){
                 }
             };
             reader.readAsDataURL(fileList[i]);
-     
+            // var imgUrl0 = window.URL.createObjectURL(fileList[i]);
+            // vm.imgUrl0.push(imgUrl0)
+            // console.log(imgUrl0)
 
 
 		})
@@ -247,6 +265,8 @@ function rotateImg(img, direction,canvas,fileType,step) {
           ctx.drawImage(img, -width, 0,width,height);
           break;
   }
+  // console.log("8.0:旋转压缩完直接赋值base64")
+  // getTimes()
   upload(canvas.toDataURL('image/jpeg',0.75), fileType);
 
 }
@@ -254,6 +274,7 @@ function rotateImg(img, direction,canvas,fileType,step) {
   // 5.图片上传，将base64的图片转成二进制对象，塞进formdata上传
   function upload(basestr, type) {
     vm.imgUrl.push(basestr);
+    vm.loading=false;
     console.log("8.旋转压缩完开始转换fordata并且赋图片路径base64到页面上upload函数")
     getTimes()
     return//只需要base64,不需要下面的blob对象

@@ -412,6 +412,7 @@ var vm = new Vue({
   },
   data: function data() {
     return {
+      loading:false,//图片加载中按钮
       // insave:false,//判断是否按了保存按钮,来对返回的数据进行处理
       imgUrl: [],
       showAdd: true,

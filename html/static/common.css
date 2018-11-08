@@ -332,8 +332,8 @@ background: linear-gradient(to right, rgba(255, 255, 255, 0), #FFFFFF 0%) repeat
   }
 
 /*4.固定定位的弹出框样式，透明背景加白色框*/
-.wai_kuang{z-index:2000;display:none;position: fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.7);}
-.wai_kuangs{z-index:2000;position: fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.7);}
+.wai_kuang{z-index:2000;display:none;position: fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);}
+.wai_kuangs{z-index:2000;position: fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);}
 .nei_kuang{position: absolute;left:50%;top:50%;-webkit-transform: translate(-50%,-50%);-moz-transform: translate(-50%,-50%);transform: translate(-50%,-50%);}/*字体会因为transform变模糊*/
 .nei_kuang2{margin: auto;  position: absolute;top: 0; left: 0; bottom: 0; right: 0;}/*字体不会因为transform变模糊*/
 

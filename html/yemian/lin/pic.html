@@ -18,6 +18,15 @@
 
 <body style="background:white;">
     <div id="app" v-cloak>
+      <div class="wai_kuangs" v-if="loading==true" style="background:rgba(0,0,0,0);">
+        <div class="nei_kuang">
+            <img src="../../static/bbb.gif" alt="">
+        </div>
+        <!-- <div class="nei_kuang bai center" style="width:4rem;height:1rem;line-height:1rem;font-size:0.3rem;">
+            圖片添加中,請稍後...
+        </div> -->
+       
+      </div>
       <!-- <div style="display:none;">{{pics}}</div> -->
       <div ref="temp">
         <!-- <cp-nav @back="back" title="添加照片"></cp-nav> -->
