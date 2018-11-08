@@ -1,4 +1,16 @@
-
+function tts(){
+  var date = new Date();
+  this.year = date.getFullYear();
+  this.month = date.getMonth() + 1;
+  this.date = date.getDate();
+  this.day = new Array("星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六")[date.getDay()];
+  this.hour = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
+  this.minute = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
+  this.second = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
+  var currentTime = "现在是:" + this.year + "年" + this.month + "月" + this.date + "日 " + this.hour + ":" + this.minute + ":" + this.second + " " + this.day;
+  console.log(currentTime);
+  
+}
 // 判断图片旋转的函数
 function getPhotoOrientation(img) {
   var orient;
@@ -9,7 +21,8 @@ function getPhotoOrientation(img) {
 }
 
 function rotateImg(img, direction,canvas,fileType,step) {
-  console.log('进入了实际的旋转出来rotateImg')
+  console.log('3.进入了实际的进行旋转和压缩')
+  tts()
   // //img的高度和宽度不能在img元素隐藏后获取，否则会出错
   var height = img.height;
   var width = img.width;
@@ -88,7 +101,8 @@ function rotateImg(img, direction,canvas,fileType,step) {
 
 
     function compress(img, fileType) {
-      console.log('进入了compress')
+      console.log('2.进入了compress判断图片方向的函数')
+      tts()
       var canvas = document.createElement("canvas");
       var rotateshow;
       EXIF.getData(img, function(){
@@ -124,7 +138,8 @@ function rotateImg(img, direction,canvas,fileType,step) {
    
     //    图片上传，将base64的图片转成二进制对象，塞进formdata上传
     function upload(basestr, type) {
-      console.log("开始转换fordata")
+      console.log("4.旋转压缩完开始转换fordata并且赋图片路径base64到页面上")
+      tts()
         var text = window.atob(basestr.split(",")[1]);
         var buffer = new ArrayBuffer(text.length);
         var ubuffer = new Uint8Array(buffer);
@@ -280,6 +295,8 @@ $(function(){
                     return;
                 }
 //      图片加载完毕之后进行压缩，然后上传
+console.log('第一步开始计时')
+tts()
                 if (img.complete) {
                     callback();
                 } else {
@@ -292,69 +309,10 @@ $(function(){
             };
             reader.readAsDataURL(fileList[i]);
      
-// 				// tdate.unshift(fileList[i])
-// 			 var imgUrl = window.URL.createObjectURL(fileList[i]);
-// 			     imgArr.push(imgUrl);
-// 			 var $section = $("<section class='up-section fl loading'>");
-// 			     imgContainer.append($section);//prepend
-// 			 var $span = $("<span class='up-span'>");
-// 			     $span.appendTo($section);
-			
-// 		     var $img0 = $("<img class='close-upimg'>").on("click",function(event){
-//            delParent= $(this).parent();
-// 				    event.preventDefault();
-// 					event.stopPropagation();
-// 					$(".works-mask").show();
-// 							console.log($(delParent).index())
-// //		var delEle = parseInt($(delParent).index())-vm.$store.state.mtjxmm.mu_photo.length//获取当前删除图片的相对下标
-//     var delEle = $(delParent).index()//获取当前删除图片的相对下标
-// 		var forlen = window.store.state.tdate.length//获取formdate数组的长度
-// 		var delArr =  delEle //获取需要删除的数组位置
-// 		// 执行删除对应数组位置
-// 		window.store.state.tdate.splice(delArr-1,1)
-// 		$(".works-mask").hide();
-// 		var numUp = delParent.siblings().length;
-// 		if(numUp < 9){
-// 			delParent.parent().find(".z_file").show();
-// 		}
-// 		 delParent.remove();
-// 					delParent = $(this).parent();
-//                     // 删除输入框的值 ，防止上传后删除图片后再次上传该图片的时候导致上传不了
-//                     $(".addsfile").val("")
-        // }); 
-        
-				// $img0.attr("src","../../static/deleteds.png").appendTo($section);
-		    //  var $img = $("<img class='up-img up-opcity'>");
-		    //      $img.attr("src",imgArr[i]);
-		    //      $img.attr("data-preview-src",imgArr[i]);
-		    //      $img.attr("data-preview-group",'imgArr1');
-		    //      $img.appendTo($section);
-		    //  var $p = $("<p class='img-name-p'>");
-		    //      $p.html(fileList[i].name).appendTo($section);
-		    //  var $input = $("<input id='taglocation' name='taglocation' value='' type='hidden'>");
-		    //      $input.appendTo($section);
-		    //  var $input2 = $("<input id='tags' name='tags' value='' type='hidden'/>");
-		    //      $input2.appendTo($section);	
+
 
 		})
-		// setTimeout(function(){
-    //          $(".up-section").removeClass("loading");
-		//  	 $(".up-img").removeClass("up-opcity");
-		//  	 	// 调整图片的大小
-		//   var thisImage=$('.up-img')
-    //           for (var j = 0; j < thisImage.length; j++) {
-    //             console.log($(thisImage[j]).height(),$(thisImage[j]).width())
-    //            if($(thisImage[j]).height()>$(thisImage[j]).width()){
-    //              $(thisImage[j]).css("width","100%")
-    //            }else if($(thisImage[j]).height()==$(thisImage[j]).width()){
-    //               $(thisImage[j]).css("width","100%")
-    //               $(thisImage[j]).css("height","100%")
-    //            }else{
-    //              $(thisImage[j]).css("height","100%")
-    //            }
-             
-    //           }
-		//   },1000);
+	
 		 numUp = imgContainer.find(".up-section").length;
 		if(numUp >= 9){//如果图片大于9张则隐藏上传框
 			// $(this).parent().hide();
