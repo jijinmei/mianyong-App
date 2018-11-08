@@ -142,8 +142,7 @@ function rotateImg(img, direction,canvas,fileType,step) {
         }
         // tdate.unshift(blob)
         window.store.state.tdate.push(blob)
-        $('#uuu').attr('src',basestr)
-        $('#ddd').val(basestr)
+       
        console.log("转换完成！") 
     }
  /**
