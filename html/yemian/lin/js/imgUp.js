@@ -18,7 +18,7 @@ $(function(){
 
 		/*点击图片的文本框*/
 	$(document).on('change','#input',function(){
-    vm.loading=true
+    
         console.log('1.files点击了图片上传框,粗发了事件')
        getTimes()
     var orientation = 0;
@@ -44,9 +44,19 @@ $(function(){
      mui.toast('图片不能超过'+maxlength+'张,请重新选择!')
        }
    else if(totalNum <= maxlength){
+      
 			fileList = validateUp(fileList);
       console.log('2.上传的图片没有超过总张数限制:'+orientation)
       getTimes()
+      console.log('是否从相册或拍照中选择了')
+      console.log(fileList.length)
+      if(fileList.length>0){
+        console.log('获取的图片张数不为0')
+         vm.loading=true;
+      }else{
+        console.log('获取的图片张数为0')
+        vm.loading=false;
+      }
 			fileList.forEach(function(file, i) {
         console.log('3.开始循环fileList上传的图片对象:'+orientation)
         getTimes()	
