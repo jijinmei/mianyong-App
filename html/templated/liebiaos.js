@@ -108,8 +108,8 @@ template: `
 				this.$parent.arrayitem=item
         this.$parent.index=index
         
-        // 请求总发布限制数量和已发布已通过数量
-        $.get(Boss+'user/'+locations('userId'),function(data){
+        // 请求总发布限制数量和已发布已通过数量locations('userId')
+        $.get(Boss+'user/'+window.localStorage.getItem('userId'),function(data){
           if(data.status){
               console.log(data)
               that.$parent.fabulimit=data.result.publish_setting[1].limit
