@@ -45,7 +45,7 @@ template: `
 							
 							
 							<p v-if="item.templeId=='content_02'"  class="mui-pull-right right cff4d00 fz35 relative"  style="height:0.43rem;line-height:0.43rem;width:100%;font-weight:none;">
-                <span class="fz16 c666666 absolute" style="left:0;bottom:0.03rem;line-height:0.2rem;">{{item.createdAt}}</span>
+                <span class="fz16 c666666 absolute" style="left:0;bottom:0.03rem;line-height:0.2rem;">{{item.publishAt||item.createdAt}}</span>
                
 								{{item.price==-1||item.price=='面議'?'面議':(item.price+'元')}}
 							</p>
@@ -161,9 +161,7 @@ template: `
 					}else if(data.index==1){
 						//点击了确定
 					var formData = new FormData();             
-                    // formData.append("sessiontoken",sessiontoken);
-                    // formData.append("objectId",objectId);
-                    // formData.append("action",action);
+                   
                     $.post(Boss3 + 'article/'+objectId+"/status",{
                       sessiontoken:sessiontoken,
                       objectId:objectId,
@@ -172,8 +170,9 @@ template: `
                       console.log(data);
                       //1.服务器返回响应，根据响应结果，分析是否登录成功；
                          if(data.status == true) {
+                          mescroll.resetUpScroll(); //重新搜索,重置列表数据
                            //修改对应的发布状态 改为已下架
-                           that.datas[index].show=0
+                          //  that.datas[index].show=0
                             //  that.datas[index].status='-2'
                                                  
                          }else{
@@ -205,7 +204,12 @@ template: `
                       //1.服务器返回响应，根据响应结果，分析是否登录成功；
                          if(data.status == true) {
                            //修改对应的发布状态 改为已上架
-                             that.datas[index].show=1
+                           mescroll.resetUpScroll(); //重新搜索,重置列表数据
+                            //  that.datas[index].show=1
+                            //  console.log('5555555555')
+                            //  mui.toast(data.result.publishAt)
+                            //  console.log(data.result.publishAt)
+                            //  that.datas[index].publishAt=data.result.publishAt;
                             //  that.datas[index].status='-2'
                                                  
                          }else{
@@ -226,22 +230,22 @@ template: `
 						//点击了取消
 					}else if(data.index==1){
 						//点击了确定          
-                    // $.post(Boss3 + 'article/'+objectId+"/status",{
-                    //   sessiontoken:sessiontoken,
-                    //   objectId:objectId,
-                    //   action:action
-                    // },function(data){
-                    //   console.log(data);
-                    //   //1.服务器返回响应，根据响应结果，分析是否登录成功；
-                    //      if(data.status == true) {
-                    //        //修改对应的发布状态 改为已下架
-                    //        that.datas[index].show=0
-                    //         //  that.datas[index].status='-2'
-                                                 
-                    //      }else{
-                    //       mui.toast("HTTP Request Failed")
-                    //      }
-                    // })               																	
+            $.ajax({    
+              url : Boss22+"article/"+objectId+'?sessiontoken='+sessiontoken,    
+              type : "DELETE",    
+              data :{'sessiontoken':sessiontoken,'objectId':objectId},    
+              success : function(data) {    
+                    if(data.status){
+                      // that.datas.splice(index,1)
+                      mescroll.resetUpScroll(); //重新搜索,重置列表数据
+                    }else{
+                      mui.toast(data.result.message)
+                    }
+              },    
+              error : function(data) {    
+                   
+              }    
+         });      																	
 					}
 				},'div')
       },

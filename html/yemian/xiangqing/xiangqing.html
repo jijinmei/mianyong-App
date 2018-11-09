@@ -107,7 +107,7 @@
         <li class="mui-table-view-cell" style="padding:0.15rem 0.2rem 0.15rem 0.2rem;">
           <p class="fz33 bugs mui-ellipsis-2">{{returns(datas.build_name||datas.title)}}</p>
           <p class="c666666 fz21 h20 lh20 mT10">
-            發佈:{{returns(datas.createdAt)}}
+            發佈:{{returns(datas.publishAt||datas.createdAt)}}
             <span class="c666666 fz21 mui-pull-right">瀏覽:{{returns(datas.views)}}人</span>
           </p>
         </li>

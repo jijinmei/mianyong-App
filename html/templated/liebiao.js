@@ -47,7 +47,7 @@ template: `
 							</p>
 							
 						</div>
-						<span class="fz16 c666666 absolute" style="right:0rem;top:0.25rem;">{{item.createdAt}}</span>
+						<span class="fz16 c666666 absolute" style="right:0rem;top:0.25rem;">{{item.publishAt||item.createdAt}}</span>
 						<div class="mui-ellipsis">
 							<div class=" relative" style="height:0.4rem;">
 								<span class="fz35 cff4d00 mui-inline" style="height:0.4rem;line-height:0.4rem;">{{item.price}}</span>
@@ -125,7 +125,7 @@ template: `
               console.log(data)
               that.$parent.fabulimit=data.result.publish_setting[1].limit
               that.fabulimit=data.result.publish_setting[1].limit
-              $.get(Boss3 + 'user/article',{'page':1,'limit':10,'sessiontoken':sessiontoken,'section':'','status':1,'show':1},function(datas){
+              $.get(Boss3 + 'user/agent',{'page':1,'limit':10,'sessiontoken':sessiontoken,'section':'','status':1,'show':1},function(datas){
                 if(datas.status){
                   console.log(datas);
                  that.$parent.yifabu=datas.result.count;
@@ -223,7 +223,8 @@ template: `
    									success: function(data) {
 												//1.服务器返回响应，根据响应结果，分析是否登录成功；
 												if(data.status == true) {
-                          that.datas[index].show=0
+                          mescroll.resetUpScroll(); //重新搜索,重置列表数据
+                          // that.datas[index].show=0
 														// that.datas.splice(index,1)
                                                 
 												}
@@ -259,7 +260,8 @@ template: `
               data :{'sessiontoken':sessiontoken,'objectId':objectId},    
               success : function(data) {    
                     if(data.status){
-                      that.datas.splice(index,1)
+                      // that.datas.splice(index,1)
+                      mescroll.resetUpScroll(); //重新搜索,重置列表数据
                     }else{
                       mui.toast(data.result.message)
                     }
@@ -281,21 +283,7 @@ template: `
 					if(data.index==0){
 						//点击了取消
 					}else if(data.index==1){
-            //点击了确定  暂无接口
-          //   $.post(Boss22 + 'agent/'+objectId+'/show',
-          // {
-          //         sessiontoken:sessiontoken,
-          //       objectId:objectId,
-          //       show:'1'
-          // },function(data){
-          //   							if(data.status == true) {
-          //                 that.datas[index].show=1
-					// 									// that.datas.splice(index,1)
-                                                
-					// 							}
-          // }
-          // )
-            mui.ajax(Boss22 + 'agent/'+objectId+'/show', {
+            mui.ajax(Boss22 + 'agent/'+objectId+'/show',{
               data:{
                 sessiontoken:sessiontoken,
                 objectId:objectId,
@@ -307,10 +295,13 @@ template: `
    									success: function(data) {
 												//1.服务器返回响应，根据响应结果，分析是否登录成功；
 												if(data.status == true) {
-                          that.datas[index].show=1
+                          mescroll.resetUpScroll(); //重新搜索,重置列表数据
+                          // that.datas[index].show=1
 														// that.datas.splice(index,1)
                                                 
-												}
+												}else{
+                          mui.toast(data.result.message)
+                        }
 												
 
 											},

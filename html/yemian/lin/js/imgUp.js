@@ -18,7 +18,6 @@ $(function(){
 
 		/*点击图片的文本框*/
 	$(document).on('change','#input',function(){
-    
         console.log('1.files点击了图片上传框,粗发了事件')
        getTimes()
     var orientation = 0;
