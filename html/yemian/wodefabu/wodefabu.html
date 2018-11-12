@@ -139,8 +139,8 @@
 <div @click="tanchukuang=false" v-if="tanchukuang==true" class="wai_kuangs" style="z-index:2000;">
 <ul class="bai w497 center radius spjz" style="top:3rem;">
     <li v-show="keep==1" @click.stop="xiajia"  class="fz33 c000000 h100 lh100 border-b"  >下架</li>
-    <li v-show="keep==1"  class="fz33 h100 lh100 border-b c888888" >編輯(下架後可編輯)</li>
-    <li v-show="keep==1"  class="fz33 h100 lh100 c888888" >刪除(下架後可刪除)</li>
+    <li v-show="keep==1"  class="fz33 h100 lh100 border-b c888888" @click.stop="stops">編輯(下架後可編輯)</li>
+    <li v-show="keep==1"  class="fz33 h100 lh100 c888888" @click.stop="stops">刪除(下架後可刪除)</li>
     
     <li v-show="keep==2" @click.stop="shangjia"  class="fz33 c000000 h100 lh100 border-b"  >上架</li>
     <li v-show="keep==2" @click.stop="gobianji" class="fz33 c000000 h100 lh100 border-b" >編輯</li>
@@ -149,7 +149,11 @@
   <li v-show="keep==1||keep==2" @click.stop="xiajia"  class="fz33 c000000"  :class="{h100:keep==2,h150:keep==1,lh100:keep==2,lh150:keep==1}">下架</li> -->
 </ul>
 </div>
-
+<div  v-if="bianjikuang==true" class="wai_kuangs" style="z-index:2000;">
+    <ul class="bai w497 center radius spjz fz35" style="top:3rem;height:2rem;line-height:2rem;">
+        即將前往,請稍後...
+    </ul>
+</div>
   </div>
 
 </div>
@@ -179,6 +183,7 @@
         data: {
         xiaolin:[],
         tanchukuang:false,//编辑和封盘的弹出框
+        bianjikuang:false,//跳去编辑的弹出框提示正在前往
         bianjiarray:'',//点击编辑跳去小林的发布房源的租盘或者售盘
         index:-1,//点击的是第几个楼盘
         arrayitem:'',//判断当前是租盘还是售盘 子元素传过来
@@ -205,6 +210,9 @@
       'liebiaos': liebiaos
     },
           methods: {
+    stops(){
+//阻止弹出框消失
+    },
     //点击下架
     xiajia(){
       
@@ -253,6 +261,8 @@
     gobianji(){
               //存我的楼盘的对应商品的数量
               var that=this
+              this.bianjikuang=true;
+              this.tanchukuang=false;
               // window.localStorage.setItem('model8fabu_array',JSON.stringify(that.arrayitem))
               // setTimeout(function(){
                 var price=''
@@ -321,6 +331,8 @@
               //   content: JSON.stringify(aa)
               // })
               setDataxiaolin(aa)
+              that.bianjikuang=false;
+              that.tanchukuang=false;
               // setTimeout(function(){
                  location.href="../zusouwuye/model8fabu.html?name="+that.arrayitem.section+'&from=wodefabu&sessiontoken='+sessiontoken
               // },1000)

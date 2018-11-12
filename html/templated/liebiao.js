@@ -203,7 +203,7 @@ template: `
       	//封盘
 			fengpan(name,index,objectId){
 				var that=this
-				var title='確認【封盤】'+name+'此盤源嗎？'
+				var title='確認【封盤】'+name+'嗎？'
         var content='此账号已成功发布租售信息'+that.yifabu+'条（上限'+that.fabulimit+'条）'
         mui.confirm(content,title,['取消','確認'],function(data){
 					console.log(data)
@@ -246,7 +246,7 @@ template: `
       	//删除
 			shanchu(name,index,objectId,action){
 				var that=this
-				var title='確認【刪除】此盤源嗎？'
+				var title='確認【刪除】'+name+'嗎？'
         var content='此账号已成功发布租售信息'+that.yifabu+'条（上限'+that.fabulimit+'条）'
         mui.confirm(content,title,['取消','確認'],function(data){
 					console.log(data)
@@ -276,7 +276,7 @@ template: `
       			//开盘
 			kaipan(name,index,objectId){
 				var that=this
-				var title='確認【開盤】'+name+'此盤源嗎？'
+				var title='確認【開盤】'+name+'嗎？'
         var content='此账号已成功发布租售信息'+that.yifabu+'条（上限'+that.fabulimit+'条）'
         mui.confirm(content,title,['取消','確認'],function(data){
 					console.log(data)
