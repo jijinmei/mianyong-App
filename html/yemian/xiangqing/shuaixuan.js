@@ -6,9 +6,8 @@ template: `
 		<ul class="mui-table-view fz23 c666666 shuaixuan relative parent" style="z-index:1000;width:100%;">
 			<li class="mui-table-view-cell mui-collapse isquyu" >
         <a class="mui-navigate-right jtc36c748 relative"style="text-align:right;padding-right:0.3rem !important;max-width:1.3rem;min-width:0.5rem !important;" href="#" :class="{c36c748:quyuIdx!=0,leng2:this.$parent.build_area.length==2,leng3:this.$parent.build_area.length==3,leng4:this.$parent.build_area.length>3}" @click="open($event)">
-        
-					{{this.$parent.build_area=='不限'?'區域':(this.$parent.build_area.indexOf(',')!=-1?this.$parent.buildsheng:this.$parent.buildshi)}}
-	
+
+        {{this.$parent.build_area=='不限'?'區域':(this.$parent.buildshi.indexOf(',')!=-1?this.$parent.build_area:(this.$parent.buildshi=='不限'?this.$parent.build_area:this.$parent.buildshi))}}	
 				</a>
 				<!--列表选项-->
 				<div class="mui-collapse-content bai paddingt0 margin0" style="left:0rem;top:0;width: 6.4rem;height:auto;">
@@ -159,17 +158,37 @@ template: `
 				this.sheng='不限'
 			},
 			quedings(){
-				if(this.shi!=''&&this.shi!='不限'){
-          this.$parent.build_area=this.shi
+      
+        // return
+        if(this.shi.indexOf(',')!=-1){//点击了第一级,并且第二级长度不为0,并且默认选择了第一级下属的所有第二级
+          this.$parent.build_area=this.sheng
           this.$parent.buildshi=this.shi
           this.$parent.buildsheng=this.sheng
 //					alert("shi"+this.shi)
-				}else{
-          this.$parent.build_area=this.sheng
+				}else if(this.shi.indexOf(',')==-1&&this.shi!=''&&this.shi!='不限'){//点击了第一级,并且第二级长度不为0,并且选择了其中一个第二级
+          this.$parent.build_area=this.shi
           this.$parent.buildsheng=this.sheng
           this.$parent.buildshi=this.shi
 //					alert("sheng"+this.sheng)
-				}
+				}else{//击了第一级,并且第二级长度为0 this.shi=='不限'
+        this.$parent.build_area=this.sheng
+        this.$parent.buildshi=this.shi
+        this.$parent.buildsheng=this.sheng
+        }
+        console.log(':::'+this.$parent.build_area)
+        console.log(':::'+this.$parent.buildsheng)
+        console.log(':::'+this.$parent.buildshi)
+// 				if(this.shi!=''&&this.shi!='不限'){//
+//           this.$parent.build_area=this.shi
+//           this.$parent.buildshi=this.shi
+//           this.$parent.buildsheng=this.sheng
+// //					alert("shi"+this.shi)
+// 				}else{
+//           this.$parent.build_area=this.sheng
+//           this.$parent.buildsheng=this.sheng
+//           this.$parent.buildshi=this.shi
+// //					alert("sheng"+this.sheng)
+// 				}
 				$('.isquyu').removeClass('mui-active')
 				this.backdrop=false
 				//调用父元素的方法根据条件去更新列表
@@ -228,6 +247,7 @@ template: `
       },
       // 点击了省,则取省对应的所有市
 			province(item,index,keys){
+        console.log(item)
 				this.quyuIdx=index
 				this.quyuIdxr=-1
         this.quyuYou=item
@@ -237,7 +257,8 @@ template: `
           this.shi=item.join(",");
         }
       
-				this.sheng=keys
+        this.sheng=keys
+        console.log(this.sheng,this.shi)
 			},
             city(item,index){
             	this.quyuIdxr=index

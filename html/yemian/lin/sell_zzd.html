@@ -10,7 +10,8 @@
       <!-- <link rel="stylesheet" href="../../static/commonS.css">  -->
       <link rel="stylesheet" href="./css/lincommon.css">
       <!-- 引入样式 -->
-      <link rel="stylesheet" href="https://unpkg.com/vant/lib/vant-css/index.css">
+      <!-- <link rel="stylesheet" href="https://unpkg.com/vant/lib/vant-css/index.css"> -->
+      <link rel="stylesheet" href="./css/vant.css">
       <link rel="stylesheet" href="./css/reset.css">
       <link rel="stylesheet" href="./css/rent_zzd.css">
       <link rel="stylesheet" href="./css/rent_public.css">
@@ -24,7 +25,7 @@
           </div>
               <!--正在發佈-->
               <div class="wai_kuangs" v-if="isending==false">
-                  <div class="nei_kuang fabuing">正在發佈,請稍後...</div>
+                  <div class="nei_kuang fabuing">{{rentobject.objectId?'正在保存,請稍後...':'正在發佈,請稍後...'}}</div>
                 </div>
         <!-- 明火煮食 -->
         <!-- <div class="cook publicCss">
@@ -134,7 +135,7 @@
           <div class="footer">
             <div>
               <button type="button" @click="next" >詳情預覽</button>
-              <button type="button" @click="publish" >立即發佈</button>
+              <button type="button" @click="publish" >{{rentobject.objectId?'保存修改':'立即發布'}}</button>
             </div>
           </div>
       </div>

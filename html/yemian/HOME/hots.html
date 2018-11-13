@@ -33,6 +33,7 @@
         <li @tap="xiangqings(item,item.objectId)" class="mui-table-view-cell mui-media padding20 afterlf0" style="height:1.7rem;" v-for="(item,index) in datas">
             <a href="javascript:;" class="padding0 margin0">
               <!--判断图片的控制显示和隐藏-->
+                <!-- <img v-if="item.pics!=undefined&&item.pics.length>0" class="mui-media-object mui-pull-right" v-lazy="item.pics[0]" style="margin-left:0.2rem;width:1.9rem;"> -->
                 <img v-if="item.pics!=undefined&&item.pics.length>0" class="mui-media-object mui-pull-right" v-lazy="item.pics[0]+imageView2" style="margin-left:0.2rem;max-width:1.9rem;min-width:1.9rem;min-height:1.3rem;">
                 <div class="mui-media-body">
                  <p class="mui-ellipsis-2 fz27 c333333">{{item.title}}</p> 
@@ -65,7 +66,7 @@
         // store,
         data: {
 
-         imageView2:'?imageView2/1/w/'+parseInt(190*w0)+'/h/'+parseInt(130*w0), 
+         imageView2:'?imageView2/1/w/'+parseInt(380*w0)+'/h/'+parseInt(260*w0)+'/q/100!', 
         // page:0,
         // count:'',
           datas:[]

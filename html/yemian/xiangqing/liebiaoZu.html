@@ -266,7 +266,8 @@ Vue.use(VueLazyload,{
                   var wheredata={}
                   wheredata['category']=that.category
                   if(that.build_area!='不限'){
-                    wheredata['build_area']=that.build_area
+                    //wheredata['build_area']=that.build_area
+                     wheredata['build_area']=that.buildshi.indexOf(',')!=-1?that.buildshi:that.build_area
                   }
                   if(that.price_min!='不限'&&that.price_min!=''){
                     wheredata['price_min']=that.price_min

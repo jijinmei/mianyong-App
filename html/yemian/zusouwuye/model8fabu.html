@@ -299,7 +299,7 @@
       </div>
       <!--正在發佈-->
       <div class="wai_kuangs" v-if="isending==false">
-        <div class="nei_kuang fz32 bai w497 h200 lh200 center radius">正在發佈,請稍後...</div>
+        <div class="nei_kuang fz32 bai w497 h200 lh200 center radius">{{objectId=='no'?'正在發佈,請稍後...':'正在保存,請稍後...'}}</div>
       </div>
     </div>
   </div>

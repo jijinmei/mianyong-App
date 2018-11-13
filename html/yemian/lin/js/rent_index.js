@@ -7,6 +7,7 @@ var vm = new Vue({
   },
   mounted: function mounted() {
     // mui.toast(location.search)
+   
   },
 
   methods: {
@@ -173,6 +174,7 @@ setDataxiaolin(this.rentobject)
     }
   },
   data: {
+
     xiaolin:[],
     rentobject: null,
     typeData: [{
