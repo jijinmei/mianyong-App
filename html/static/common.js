@@ -21,7 +21,24 @@
  var httproot = 'http://stg-static-macaucf.leanapp.cn/html/';
 
  console.log('common.js common.js common.js common.js1')
+//  监听地址栏返回
+ window.onpopstate = function(event) {
+  //这里可以监听到浏览器的返回事件，并做你想做的事情，
+  //例如：跳转到另一个网页
+  console.log(event)
+if(location.href.indexOf('ID')!=-1){
+  // mui.toast('我监听到了地址栏的返回事件new')
+  console.log('我监听到了地址栏的返回事件new')
+}else{
+  // mui.toast('我监听到了地址栏的返回事件old')
+  console.log('我监听到了地址栏的返回事件old')
+  $('.mui-zoom').click()
+}
+ 
+  // 获取mui放大图和关闭图事件,执行关闭放大图的api
+  // $('.mui-zoom').click()
 
+};
  //2.js调用ios原生的方法
  function setupWebViewJavascriptBridge(callback) {
    if (window.WebViewJavascriptBridge) {
