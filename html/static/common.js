@@ -27,10 +27,10 @@
   //例如：跳转到另一个网页
   console.log(event)
 if(location.href.indexOf('ID')!=-1){
-  mui.toast('我监听到了地址栏的返回事件new')
+  // mui.toast('我监听到了地址栏的返回事件new')
   console.log('我监听到了地址栏的返回事件new')
 }else{
-  mui.toast('我监听到了地址栏的返回事件old')
+  // mui.toast('我监听到了地址栏的返回事件old')
   console.log('我监听到了地址栏的返回事件old')
   $('.mui-zoom').click()
 }
