@@ -440,7 +440,7 @@
         },
         jiade(){
           var oState= {title: '下载' };
-          window.history.pushState(oState, '下载', 'xiangqing?ID=1');
+          window.history.pushState(oState, '下载', location.href+'&ID=1');
         },
         goback() {
           goback(1)
@@ -749,8 +749,12 @@
         $('#__MUI_PREVIEWIMAGE').append(
           '<img src="../../assets/img/login/cazhi.png"  class="absolute cursor w40 padding0 T25 R40">')
         $(document).on('click', '#__MUI_PREVIEWIMAGE', function () {
+          // history.go(-1)
           $('#__MUI_PREVIEWIMAGE').removeClass('mui-preview-in')
           $('#__MUI_PREVIEWIMAGE').addClass('mui-preview-out')
+          // console.log('关闭放大图通过右上角的叉子关闭'+location.href)
+          // return
+          // 
         })
 
       }
