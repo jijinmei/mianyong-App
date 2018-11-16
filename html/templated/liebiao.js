@@ -1,3 +1,5 @@
+//:class="{cff0000:bb=item.status=='-1',cff4d00:item.status=='0',c999999:item.status=='-2',c36c748:item.status=='1'}"
+
 const liebiao = { 
 template: `
 	<div :style="{paddingTop:datas.length==0?'1rem':'0'}">
@@ -7,7 +9,7 @@ template: `
 					
 					<!--我的楼盘特有的封盘按钮 @click.stop="caozuos(item.objectId,item,item.status,index)"-->
 				 <p v-if="name=='wodeloupan'"  @click.stop="caozuos(item.objectId,item,item.show,index)" class="border-b relative fz25 c555555 center" style="top:-0.2rem;height:0.6rem;line-height:0.6rem;">
-				 	<span class="czjz fz25" style="left:0;" :class="{cff0000:bb=item.status=='-1',cff4d00:item.status=='0',c999999:item.status=='-2',c36c748:item.status=='1'}">
+				 	<span class="czjz fz25" style="left:0;" :class="{cff0000:!(item.show=='1'&&item.status=='1'),c36c748:item.show=='1'&&item.status=='1'}">
      
            {{item.show==0?'已封盤':'已開盤'}}
            {{item.status==-1?'不通過':(item.status==0?'待審核':'已通過')}}

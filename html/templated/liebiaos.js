@@ -1,5 +1,6 @@
 // 	两个帅选的：招生 家政 汽车 家私
-	      //   一个帅选的：装修 搬屋 代购 跳蚤
+        //   一个帅选的：装修 搬屋 代购 跳蚤 
+        //:class="{cff0000:bb=item.status=='-1',cff4d00:item.status=='0',c999999:item.status=='-2',c36c748:item.status=='1'}"
 	        
 	      //  电话按钮：装修 搬屋 代购  招生 家政
 	      // 没有电话按钮的：汽车 家私 跳蚤
@@ -14,8 +15,7 @@ template: `
 				
 					<!--我的发布特有的封盘按钮 @click.stop="caozuos2(item.objectId,item,item.status,index)" @click.stop="fengpan(item.title,index,item.objectId)"-->
 				 <p v-show="who=='wodefabu'" @click.stop="caozuos2(item.objectId,item,item.show,index)" class="border-b relative fz25 c555555 center" style="top:-0.2rem;height:0.6rem;line-height:0.6rem;">
-           <span class="czjz fz25" style="left:0;" :class="{cff0000:bb=item.status=='-1',cff4d00:item.status=='0',c999999:item.status=='-2',c36c748:item.status=='1'}">
-           <!--<p>{{item.status=='-1'?'不通過':(item.status=='0'?'審核中':(item.status=='1'?'已發佈':'已下架'))}}</p>-->
+           <span class="czjz fz25" style="left:0;" :class="{cff0000:!(item.show=='1'&&item.status=='1'),c36c748:item.show=='1'&&item.status=='1'}">
            {{item.show==0?'已下架':'已上架'}}
            {{item.status==-1?'不通過':(item.status==0?'待審核':'已通過')}}
 
