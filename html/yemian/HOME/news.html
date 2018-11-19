@@ -42,7 +42,9 @@
         <li @tap="xiangqings(item.objectId)" class="mui-table-view-cell mui-media padding20 afterlf0" style="height:1.7rem;" v-for="(item,index) in datas">
             <a href="javascript:;" class="padding0 margin0">
               <!--判断图片的控制显示和隐藏-->
-                <img v-if="item.pics!=undefined&&item.pics.length>0" class="mui-media-object mui-pull-right" v-lazy="item.pics[0]+imageView2" style="margin-left:0.2rem;max-width:1.9rem;min-width:1.9rem;min-height:1.3rem;" >
+                <!-- <img v-if="item.pics!=undefined&&item.pics.length>0" class="mui-media-object mui-pull-right" v-lazy="item.pics[0]+imageView2" style="margin-left:0.2rem;max-width:1.9rem;min-width:1.9rem;min-height:1.3rem;" > -->
+                <img  v-if="item.pics==undefined||item.pics.length==0" class="mui-media-object mui-pull-right" :src="bbb(item.content)" style="margin-left:0.2rem;max-width:1.9rem;width:1.9rem;min-height:1.3rem;" >
+
                 <div class="mui-media-body">
                  <p class="mui-ellipsis-2 fz27 c333333">{{item.title}}</p> 
                     <p class="mui-ellipsis fz18 c999999" style="margin-top: 0.35rem;">發佈：{{item.createdAt}}</p>
@@ -83,6 +85,23 @@
 
       },
         methods: {
+          bbb(item){
+            var str =item
+var imgReg = /<img.*?(?:>|\/>)/gi;
+var srcReg = /src=[\'\"]?([^\'\"]*)[\'\"]?/i;
+var arr = str.match(imgReg);  // arr 为包含所有img标签的数组
+if(arr!=null){
+for (var i = 0; i < arr.length; i++) {
+ var src = arr[i].match(srcReg);
+ //获取图片地址
+  console.log('图片地址'+(i+1)+'：'+src[1]);
+  if(i==0){
+    return src[1]
+  }
+ 
+}
+}       },
+
         xiangqings(objectId){
           location.href="xiangqings.html?objectId="+objectId+"&name=news&sessiontoken="+sessiontoken
         //   if(isAPP){
