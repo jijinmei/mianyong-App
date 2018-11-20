@@ -12,7 +12,7 @@ template: `
 				 	<span class="czjz fz25" style="left:0;" :class="{cff0000:!(item.show=='1'&&item.status=='1'),c36c748:item.show=='1'&&item.status=='1'}">
      
            {{item.show==0?'已封盤':'已開盤'}}
-           {{item.status==-1?'不通過':(item.status==0?'待審核':'已通過')}}
+           <!--{{item.status==-1?'不通過':(item.status==0?'待審核':'已通過')}}-->
 
 				 	</span>
 				 	<img  src="../../assets/img/me/caozuo.png" alt="" style="width:0.29rem;right:0.6rem;" class="czjz" />

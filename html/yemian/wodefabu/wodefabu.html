@@ -102,7 +102,7 @@
     <!--1.头部帅选-->
     <header style="z-index:997;box-shadow:none;" class="WODELOUPAN mui-bar mui-bar-nav bai header padding0" data-top='0' data-offset='150' data-duration='16' data-scrollby=".mui-scroll-wrapper">
       <ul class="mui-table-view fz23 c666666" style="border-bottom:1px solid rgb(235, 235, 235);">
-          <li class="first tap mui-table-view-cell mui-collapse mui-pull-left center" style="width:50%;">
+          <li class="zzcs first tap mui-table-view-cell mui-collapse mui-pull-left center" style="width:50%;">
               <a @tap="zzc1($event)" class="mui-navigate-right tap1 fz23  center jiantou" :class="{c36c748:zuoitem!='全部分類'}" href="#">{{zuoitem}}</a>
               <div class="mui-collapse-content margint0" >
                   <ul class="mui-table-view list margint0">
@@ -116,7 +116,7 @@
               <a @tap="zzc2($event)"  class="mui-navigate-right tap2 fz23 center jiantou"  href="#"  :class="{c36c748:youitem!='全部狀態'}" >{{youitem}}</a>
               <div class="mui-collapse-content margint0 center" >
                   <ul class="mui-table-view list fz27 margint0">
-                          <li  @click="status(index,item)" class="mui-table-view-cell fz27" v-for="(item,index) in you">
+                          <li  @click="status(index,item)" class="mui-table-view-cell fz27" v-for="(item,index) in you" v-if="index==0||index==1||index==4">
                             {{item}}
                           </li>
                       </ul>
@@ -194,7 +194,8 @@
         zuoitem:'全部分類',//当前选择的类型
         zuo:'',
         statusIdx:0,
-        you:['全部狀態', '已上架 已通過', '已上架 待審核', '已上架 不通過', '已下架 已通過', '已下架 待審核', '已下架 不通過'],
+        // you:['全部狀態', '已上架 已通過', '已上架 待審核', '已上架 不通過', '已下架 已通過', '已下架 待審核', '已下架 不通過'],
+        you:['全部狀態', '已上架', '已上架 待審核', '已上架 不通過', '已下架', '已下架 待審核', '已下架 不通過'],
         // you:['全部狀態','審核中','已發佈','不通過','已下架'],
         youitem:'全部狀態',//当前选择的状态
         backdrop:false,
@@ -357,7 +358,7 @@
         },
     //点击全部类型
       zzc1(e){
-        if($(this).parent().hasClass('mui-active')){
+        if($('.zzcs').hasClass('mui-active')){
           this.backdrop=false
           console.log('wu')
         }else{

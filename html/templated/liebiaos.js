@@ -17,7 +17,7 @@ template: `
 				 <p v-show="who=='wodefabu'" @click.stop="caozuos2(item.objectId,item,item.show,index)" class="border-b relative fz25 c555555 center" style="top:-0.2rem;height:0.6rem;line-height:0.6rem;">
            <span class="czjz fz25" style="left:0;" :class="{cff0000:!(item.show=='1'&&item.status=='1'),c36c748:item.show=='1'&&item.status=='1'}">
            {{item.show==0?'已下架':'已上架'}}
-           {{item.status==-1?'不通過':(item.status==0?'待審核':'已通過')}}
+           <!--{{item.status==-1?'不通過':(item.status==0?'待審核':'已通過')}}-->
 
            </span>
 				 	<img  src="../../assets/img/me/caozuo.png" alt="" style="width:0.29rem;right:0.6rem;" class="czjz" />
