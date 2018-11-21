@@ -335,7 +335,7 @@
 	};
 	proto.close = function(index, group) {
     console.log('关闭放大图就在mui.previewimage.js里面history-1:::吉不是通过手机返回键的'+location.href)
-    history.go(-1)
+    // history.go(-1)
 		if (!this.isShown()) {
 			return;
 		}
