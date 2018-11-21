@@ -26,7 +26,7 @@ template: `
 				 
 				<a href="javascript:;" class="padding0 margin0" >
 					<div class="mui-media-object mui-pull-left tukuang overflow relative" >
-						<img class="jz" v-lazy="item.pics!=undefined?item.pics[0]+imageView2:''" style="min-width:2.45rem;min-height:2.15rem;" >
+						<img class="jz" v-lazy="item.pics!=undefined?item.pics[0]+imageView2:''" style="width:2.45rem;min-height:2.15rem;" >
 						<button type="button" class="mui-btn mui-btn-blue absolute fz19 cffffff" style="padding:0.05rem 0.1rem;border-radius:0;border:none;right: 0;top: 0;background-color: rgba(0,0,0,0.4);">
 							{{item.pics.length}}張
             </button>
@@ -71,7 +71,8 @@ template: `
 			return {
 				bb:'yifabu',
 				name:'no',
-        imageView2:'?imageView2/1/w/'+parseInt(245*w0)+'/h/'+parseInt(215*w0),
+        // imageView2:'?imageView2/1/w/'+parseInt(245*w0)+'/h/'+parseInt(215*w0),
+        imageView2:'?imageView2/1/w/'+parseInt(2*245*w0)+'/h/'+parseInt(2*215*w0),
         fabulimit:'',//8大板块的发布限制数
         yifabu:''//8大板块的已发布已通过数量
 			}

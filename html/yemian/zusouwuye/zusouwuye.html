@@ -59,7 +59,7 @@ body{background: #ebebeb !important;}
     <ul class="mui-table-view overflow before0 after00" style="padding:0.2rem 0.2rem 0 0.2rem;">
             <li @click="xiangqings(item.objectId,item)" v-if="zu!='no'" v-for="(item,index) in zu" :class="{lf:index==0||index==2,rf:index==1||index==3}" class="mui-table-view-cell padding0 border after0" style="margin-bottom:0.2rem;width:2.91rem;height:3rem;">
                 <div id="" class="relative overflow" style="height:1.7rem;">
-                  <img :src="item.cover+imageView2" alt="" style="" class="jz" style="min-height:1.7rem;"/>
+                  <img :src="item.cover+imageView2" alt=""  class="jz" style="height:1.7rem;width:100%;"/>
                   <button  type="button" class="mui-btn mui-btn-blue absolute fz19 cffffff" style="padding:0.05rem 0.1rem;border-radius:0;border:none;right: 0;top: 0;background-color: rgba(0,0,0,0.4);">
                     {{item.pics.length}}張
             </button>
@@ -103,7 +103,7 @@ body{background: #ebebeb !important;}
      <ul class="mui-table-view overflow before0 after00" style="padding:0.2rem 0.2rem 0 0.2rem;">
             <li @click="xiangqings(item.objectId,item)" v-if="zu!='no'" v-for="(item,index) in sou" :class="{lf:index==0||index==2,rf:index==1||index==3}" class="mui-table-view-cell padding0 border after0" style="margin-bottom:0.2rem;width:2.91rem;height:3rem;">
                 <div id="" class="relative overflow" style="height:1.7rem;">
-                  <img :src="item.cover+imageView2" alt="" style="" class="jz" style="min-height:1.7rem;"/>
+                  <img :src="item.cover+imageView2" alt=""  class="jz" style="height:1.7rem;width:100%;"/>
                   <button  type="button" class="mui-btn mui-btn-blue absolute fz19 cffffff" style="padding:0.05rem 0.1rem;border-radius:0;border:none;right: 0;top: 0;background-color: rgba(0,0,0,0.4);">
               {{item.pics.length}}張
             </button>
@@ -157,7 +157,8 @@ body{background: #ebebeb !important;}
     var vm = new Vue({
         el: '#app',
         data: {
-         imageView2:'?imageView2/1/w/'+parseInt(291*w0)+'/h/'+parseInt(170*w0),
+        //  imageView2:'?imageView2/1/w/'+parseInt(291*w0)+'/h/'+parseInt(170*w0),
+        imageView2:'?imageView2/1/w/'+parseInt(2*291*w0)+'/h/'+parseInt(2*170*w0),
                   header:['查看租盤','查看售盤','我要放租','我要放售'],
                   zu:'no',//最新租盘
                   sou:'no'//最新售盘

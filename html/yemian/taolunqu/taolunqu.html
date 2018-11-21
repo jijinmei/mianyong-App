@@ -333,7 +333,7 @@
                         <ul class="overflow pics">
                           <li class="bgebebeb mui-pull-left overflow relative" v-for="(pic,idx) in item.pics" :class="{onepic:item.pics.length==1,twopic:item.pics.length==2,morepic:item.pics.length>2}">
                             <img v-lazy="item.pics.length==1?pic.url+imageView1:(item.pics.length==2?pic.url+imageView2:pic.url+imageView3)" alt="" :data-preview-src="pic.url+imageView"
-                              :data-preview-group="'1'+index" style="min-width:100%;min-height:100%;" class="jz" />
+                              :data-preview-group="'1'+index" style="width:100%;min-height:100%;" class="jz" />
                           </li>
                         </ul>
 
@@ -460,11 +460,17 @@
         page1: 0,
         page2: 0,
         page3: 0,
-        imageView1: '?imageView2/1/w/' + parseInt(500 * w0) + '/h/' + parseInt(500 * w0),
-        imageView2: '?imageView2/1/w/' + parseInt(245 * w0) + '/h/' + parseInt(245 * w0),
-        imageView3: '?imageView2/1/w/' + parseInt(163 * w0) + '/h/' + parseInt(163 * w0),
+        // imageView1: '?imageView2/1/w/' + parseInt(500 * w0) + '/h/' + parseInt(500 * w0),
+        // imageView2: '?imageView2/1/w/' + parseInt(245 * w0) + '/h/' + parseInt(245 * w0),
+        // imageView3: '?imageView2/1/w/' + parseInt(163 * w0) + '/h/' + parseInt(163 * w0),
+        // imageView: '?imageView2/2/w/' + parseInt(640 * w0),
+        // imageView80: '?imageView2/1/w/' + parseInt(80 * w0) + '/h/' + parseInt(80 * w0),
+        // imageView640: '?imageView2/1/w/' + parseInt(640 * w0) ,
+        imageView1: '?imageView2/1/w/' + parseInt(2*500 * w0) + '/h/' + parseInt(2*500 * w0),
+        imageView2: '?imageView2/1/w/' + parseInt(2*245 * w0) + '/h/' + parseInt(2*245 * w0),
+        imageView3: '?imageView2/1/w/' + parseInt(2*163 * w0) + '/h/' + parseInt(2*163 * w0),
         imageView: '?imageView2/2/w/' + parseInt(640 * w0),
-        imageView80: '?imageView2/1/w/' + parseInt(80 * w0) + '/h/' + parseInt(80 * w0),
+        imageView80: '?imageView2/1/w/' + parseInt(2*80 * w0) + '/h/' + parseInt(2*80 * w0),
         imageView640: '?imageView2/1/w/' + parseInt(640 * w0) ,
         bb: '',
         paixu1: 'default', //综合记录的排序方式

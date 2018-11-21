@@ -25,7 +25,7 @@ template: `
 				 <!--正常列表1-->
 				<a  class="padding0 margin0" >
 					<div class="bgebebeb mui-media-object mui-pull-left tukuang overflow relative" >
-							<img  v-lazy="item.pics[0]+imageView2" class="jz" style="min-width:2.45rem;min-height:2.15rem;">
+							<img  v-lazy="item.pics[0]+imageView2" class="jz" style="width:2.45rem;min-height:2.15rem;">
 						<button type="button" class="mui-btn mui-btn-blue absolute fz19 cffffff" style="padding:0.05rem 0.1rem;border-radius:0;border:none;right: 0;top: 0;background-color: rgba(0,0,0,0.4);">
 							{{item.pics.length}}張
 						</button>
@@ -84,7 +84,8 @@ template: `
 		data:function() {
 			return {
 				bb:'yifabu',
-        imageView2:'?imageView2/1/w/'+parseInt(245*w0)+'/h/'+parseInt(215*w0),
+        // imageView2:'?imageView2/1/w/'+parseInt(245*w0)+'/h/'+parseInt(215*w0),
+        imageView2:'?imageView2/1/w/'+parseInt(2*245*w0)+'/h/'+parseInt(2*215*w0),
         fabulimit:'',//8大板块的发布限制数
         yifabu:''//8大板块的已发布已通过数量
 			}
