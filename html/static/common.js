@@ -39,6 +39,14 @@ if(location.href.indexOf('ID')!=-1){
   // $('.mui-zoom').click()
 
 };
+
+
+function jiade(){
+  var oState= {title: '下载' };
+  window.history.pushState(oState, '下载', location.href+'&ID=1');
+}
+
+
  //2.js调用ios原生的方法
  function setupWebViewJavascriptBridge(callback) {
    if (window.WebViewJavascriptBridge) {
