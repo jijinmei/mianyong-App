@@ -39,11 +39,13 @@ if(location.href.indexOf('ID')!=-1){
   // $('.mui-zoom').click()
 
 };
-
+    //加入以下俩行代码，才能触发 
+    // window.history.pushState('forward', null, '#'); 
+    // window.history.forward(1);
 
 function jiade(){
   var oState= {title: '下载' };
-  window.history.pushState(oState, '下载', location.href+'&ID=1');
+  window.history.pushState(oState, null, location.href+'&ID1=1&ID2=1&ID3=1');
 }
 
 
