@@ -22,33 +22,21 @@
 
  console.log('common.js common.js common.js common.js1')
 //  监听地址栏返回
-//  window.onpopstate = function(event) {
-//   //这里可以监听到浏览器的返回事件，并做你想做的事情，
-//   //例如：跳转到另一个网页
-//   console.log(event)
-// if(location.href.indexOf('ID')!=-1){
-//   // mui.toast('我监听到了地址栏的返回事件new')
-//   console.log('我监听到了地址栏的返回事件new')
-// }else{
-//   // mui.toast('我监听到了地址栏的返回事件old')
-//   console.log('我监听到了地址栏的返回事件old')
-//   $('.mui-zoom').click()
-// }
-// };
-window.addEventListener('popstate',function(event){
-  console.log("----popstate----");
-  if(location.href.indexOf('#')!=-1){
-  // mui.toast('我监听到了地址栏的返回事件new')
-  console.log('我监听到了地址栏的返回事件new')
-}else{
-  // mui.toast('我监听到了地址栏的返回事件old')
-  console.log('我监听到了地址栏的返回事件old')
-  $('.mui-zoom').click()
-}
-},false);
-    //加入以下俩行代码，才能触发 
-    // window.history.pushState('forward', null, '#'); 
-    // window.history.forward(1);
+window.addEventListener('load', function() { 
+  setTimeout(function() { 
+  window.addEventListener('popstate', function() { 
+        if(location.href.indexOf('#')!=-1){
+        // mui.toast('我监听到了地址栏的返回事件new')
+        console.log('我监听到了地址栏的返回事件new')
+      }else{
+        // mui.toast('我监听到了地址栏的返回事件old')
+        console.log('我监听到了地址栏的返回事件old')
+        $('.mui-zoom').click()
+      }
+
+  }); 
+  }, 0); 
+  }); 
     function jiade() {
 	    var state = {
 	        title: "title",
