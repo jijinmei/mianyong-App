@@ -17,9 +17,7 @@
 	};
 	var proto = PreviewImage.prototype;
 	proto.init = function() {
-    console.log('open')
-    jiade()
-    console.log('打开放大图就在mui.previewimage.js里面添加地址栏参数:::吉'+location.href)
+   
 		var options = this.options;
 		var el = document.getElementById(this.options.id);
 		if (!el) {
@@ -41,7 +39,9 @@
 		var self = this;
 		$(document.body).on('tap', 'img[data-preview-src]', function() {
       self.open(this);
-      
+      console.log('open')
+      jiade()
+      console.log('打开放大图就在mui.previewimage.js里面添加地址栏参数:::吉'+location.href)
       return false;
       
 		});
