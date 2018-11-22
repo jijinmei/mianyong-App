@@ -81,11 +81,11 @@
       <!--1.头部轮播图-->
       <div id="slider" class="swiper-container swiper6 bai" style="height:3rem;">
         <div class="swiper-wrapper" style="height:3rem;">
-          <div  class="swiper-slide" v-for="(item,index) in slideimg" style="width:6.4rem;height:3rem;">
+          <div  class="swiper-slide jiade" v-for="(item,index) in slideimg" style="width:6.4rem;height:3rem;">
             <!--租售的详情-->
             <!-- <img v-if="jianju=='yes'&&datas.templeId==undefined" :src="item.url!=undefined?item.url+imageView2:''" class="jz" :data-preview-src="item.url+imageView2"
               data-preview-group="indexs1" style="min-width: 6.4rem;min-height: 3rem;"> -->
-              <img   v-if="datas.templeId==undefined" :src="item.url!=undefined?item.url+imageView2:''" class="jz" :data-preview-src="item.url+imageView2"
+              <img  v-if="datas.templeId==undefined" :src="item.url!=undefined?item.url+imageView2:''" class="jz" :data-preview-src="item.url+imageView2"
               data-preview-group="indexs1" style="min-width: 6.4rem;min-height: 3rem;">
             <!--8大服务的详情-->
             <!-- <img v-if="jianju=='yes'&&datas.templeId!=undefined" :src="item+imageView2" class="jz" :data-preview-src="item+imageView2"
@@ -699,6 +699,7 @@
 
       },
       mounted: function () {
+        
         var that = this
         this.objectId = locations('objectId')
         this.jianju = locations('jianju')

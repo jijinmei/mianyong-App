@@ -35,8 +35,9 @@ window.addEventListener('load', function() {
       }
 
   }); 
-  }, 0); 
+  }, 1000); 
   }); 
+  
     function jiade() {
 	    var state = {
 	        title: "title",
@@ -44,7 +45,10 @@ window.addEventListener('load', function() {
 	    };
       window.history.pushState(state, "title", "#");
       console.log('执行了添加地址栏参数的操作')
-	}
+  }
+  setTimeout(function(){
+    jiade()
+  },500)
 
 // function jiade(){
 //   var oState= {title: '下载' };
