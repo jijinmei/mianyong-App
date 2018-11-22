@@ -37,7 +37,7 @@
 // };
 window.addEventListener('popstate',function(event){
   console.log("----popstate----");
-  if(location.href.indexOf('ID')!=-1){
+  if(location.href.indexOf('#')!=-1){
   // mui.toast('我监听到了地址栏的返回事件new')
   console.log('我监听到了地址栏的返回事件new')
 }else{

@@ -112,8 +112,8 @@
           </p>
         </li>
         <!-- <li @click="gos" style="height:100px;" class="blue" >返回go(-1)</li> -->
-        <!--a.租售通用-->
-        <li @click="jiade" v-if="datas.templeId==undefined" class="mui-table-view-cell cff4d00 fz30" style="padding:0.21rem 0.2rem;">
+        <!--a.租售通用 @click="jiade"-->
+        <li v-if="datas.templeId==undefined" class="mui-table-view-cell cff4d00 fz30" style="padding:0.21rem 0.2rem;">
           {{datas.category=='rent'?'租金':'售價'}}
           <span class="c666666 fz25" v-show="datas.type!='車位'&&datas.category=='rent'">({{returns(datas.rent_type)}})</span>
           <span class="mui-pull-right fz33">{{returns(datas.price)}}
