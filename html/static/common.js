@@ -22,33 +22,37 @@
 
  console.log('common.js common.js common.js common.js1')
 //  监听地址栏返回
-window.addEventListener('load', function() { 
-  setTimeout(function() { 
-  window.addEventListener('popstate', function() { 
+// window.addEventListener('load', function() { 
+//   setTimeout(function() { 
+  window.addEventListener('hashchange', function() { 
         if(location.href.indexOf('#')!=-1){
         // mui.toast('我监听到了地址栏的返回事件new')
         console.log('我监听到了地址栏的返回事件new')
       }else{
         // mui.toast('我监听到了地址栏的返回事件old')
         console.log('我监听到了地址栏的返回事件old')
-        $('.mui-zoom').click()
+        // $('.mui-zoom').click()
+             $('#__MUI_PREVIEWIMAGE').removeClass('mui-preview-in')
+          $('#__MUI_PREVIEWIMAGE').addClass('mui-preview-out')
       }
 
   }); 
-  }, 1000); 
-  }); 
+  // }, 100); 
+  // }); 
   
     function jiade() {
-	    var state = {
-	        title: "title",
-	        url: "#"
-	    };
-      window.history.pushState(state, "title", "#");
-      console.log('执行了添加地址栏参数的操作')
+      location.hash = "part5";
+      // setTimeout(function(){
+      //   var state = {
+	    //     title: "title",
+	    //     url: "#"
+	    // };
+      // window.history.pushState(state, "title", "#");
+      // console.log('执行了添加地址栏参数的操作')
+      // },100)
+	   
   }
-  setTimeout(function(){
-    jiade()
-  },500)
+ 
 
 // function jiade(){
 //   var oState= {title: '下载' };
