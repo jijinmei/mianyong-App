@@ -113,7 +113,7 @@
         </li>
         <!-- <li @click="gos" style="height:100px;" class="blue" >返回go(-1)</li> -->
         <!--a.租售通用-->
-        <li v-if="datas.templeId==undefined" class="mui-table-view-cell cff4d00 fz30" style="padding:0.21rem 0.2rem;">
+        <li @click="jiade" v-if="datas.templeId==undefined" class="mui-table-view-cell cff4d00 fz30" style="padding:0.21rem 0.2rem;">
           {{datas.category=='rent'?'租金':'售價'}}
           <span class="c666666 fz25" v-show="datas.type!='車位'&&datas.category=='rent'">({{returns(datas.rent_type)}})</span>
           <span class="mui-pull-right fz33">{{returns(datas.price)}}
@@ -438,10 +438,14 @@
           history.go(-1)
         
         },
-        // jiade(){
-        //   var oState= {title: '下载' };
-        //   window.history.pushState(oState, '下载', location.href+'&ID=1');
-        // },
+        jiade(){
+          var state = {
+            title: "title",
+            url: "#"
+        };
+        window.history.pushState(state, "title", "#");
+        console.log('执行了添加地址栏参数的操作')
+        },
         goback() {
           goback(1)
         },
