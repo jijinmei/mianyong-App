@@ -283,6 +283,17 @@
 
 
       </ul>
+      <!-- 8大板块的二级分類 -->
+      <ul v-if="datas!='no'&&datas.templeId!=undefined" class="mui-table-view fz27 c666666 mg10" style="padding:0.2rem;">
+          <li class="mui-table-view-cell" style="padding-left: 0;padding-top: 0;">
+              分類
+          </li>
+          <li class="mui-table-view-cell c000000" style="padding-left: 0;padding-bottom: 0;">
+            <span v-for="(item,index) in datas.tags">{{item}}</span>
+          </li>
+  
+  
+        </ul>
       <!--b3.非租售和非汽车，非家私，非跳蚤模块的通用模板：地址-->
       <ul v-if="datas!='no'&&datas.templeId=='content_01'" class="mui-table-view fz27 c666666 mg10 yezhu" style="padding:0.2rem;">
         <li class="mui-table-view-cell" style="padding-left: 0;padding-top: 0;">

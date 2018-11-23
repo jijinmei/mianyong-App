@@ -30,7 +30,7 @@
       <div class="add-pics" :style="setImg">
         <img :src="setaddImg" @click="addPic">
         <h2 @click="addPic" v-show="iseditImg">添加照片</h2>
-        <p v-show="iseditImg">色彩明亮的照片可以大幅度提高房屋出租的速度最多可上傳12張照片</p>
+        <p v-show="iseditImg">色彩明亮的照片可以大幅度提高房屋出售的速度最多可上傳12張照片</p>
       </div>
 
       <!-- 租金 -->
@@ -159,7 +159,7 @@
       <div class="remark publicCss">
         <p class="title">詳細描述</p>
         <div class="content">
-          <textarea placeholder="描述一下您的房源獨特之處以及對租客的期望..." v-model="rentobject.remark"></textarea>
+          <textarea placeholder="描述一下您的房源獨特之處..." v-model="rentobject.remark"></textarea>
         </div>
       </div>
 

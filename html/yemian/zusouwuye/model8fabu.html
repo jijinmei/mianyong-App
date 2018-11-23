@@ -290,7 +290,7 @@
             <span class="mui-inline h70 lh70 relative T05 mR05 opacity0" style="color:red;">*</span>
             <span>詳細內容</span>
           </p>
-          <textarea v-model="content" name="" rows="" cols="" placeholder="請詳細描述你的產品，可大幅提高售出速度" class="h165 fz25 padding20 border mT07"></textarea>
+          <textarea v-model="content" name="" rows="" cols="" :placeholder="names=='家政服務'||names=='搬屋配送'||names=='代購代收'||names=='裝修設計'?'請詳細描述貴公司的業務內容、特點、營業時間...':(names=='招生招聘'?'請詳細描述貴公司的招生/招聘內容、要求、特點...':'請詳細描述你的產品，可大幅提高售出速度')" class="h165 fz25 padding20 border mT07"></textarea>
         </div>
       </div>
       <div id="" class="fixed h98 w640 B00 L00 bai center pT15 pB15 shadow">
@@ -620,6 +620,7 @@ vm.users()
             createdAt: '',
             views: '',
             rent_type: '',
+            tags:this.Fenlei[this.type - 1],
             price:this.values == '' && this.price == -1?-1:this.values,
             // price: (this.values == '' && this.price == 0 ? '--' : (this.values == '' && this.price == -1 ? '面議' :
             //   this.values)),
