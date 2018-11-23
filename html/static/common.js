@@ -22,23 +22,21 @@
 
  console.log('common.js common.js common.js common.js1')
 //  监听地址栏返回
-// window.addEventListener('load', function() { 
-//   setTimeout(function() { 
-  window.addEventListener('hashchange', function() { 
-        if(location.href.indexOf('#')!=-1){
-        // mui.toast('我监听到了地址栏的返回事件new')
-        console.log('我监听到了地址栏的返回事件new')
-      }else{
-        // mui.toast('我监听到了地址栏的返回事件old')
-        console.log('我监听到了地址栏的返回事件old')
-        // $('.mui-zoom').click()
-             $('#__MUI_PREVIEWIMAGE').removeClass('mui-preview-in')
-          $('#__MUI_PREVIEWIMAGE').addClass('mui-preview-out')
-      }
 
-  }); 
-  // }, 100); 
+  // window.addEventListener('hashchange', function() { 
+  //       if(location.href.indexOf('#')!=-1){
+  //       // mui.toast('我监听到了地址栏的返回事件new')
+  //       console.log('我监听到了地址栏的返回事件new')
+  //     }else{
+  //       // mui.toast('我监听到了地址栏的返回事件old')
+  //       console.log('我监听到了地址栏的返回事件old')
+  //       // $('.mui-zoom').click()
+  //            $('#__MUI_PREVIEWIMAGE').removeClass('mui-preview-in')
+  //         $('#__MUI_PREVIEWIMAGE').addClass('mui-preview-out')
+  //     }
+
   // }); 
+ 
   
     function jiade() {
       location.hash = "part5";
@@ -52,12 +50,7 @@
       // },100)
 	   
   }
- 
 
-// function jiade(){
-//   var oState= {title: '下载' };
-//   window.history.pushState(oState, null, location.href+'&ID1=1&ID2=1&ID3=1');
-// }
 
 
  //2.js调用ios原生的方法
