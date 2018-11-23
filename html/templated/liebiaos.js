@@ -3,7 +3,8 @@
         //:class="{cff0000:bb=item.status=='-1',cff4d00:item.status=='0',c999999:item.status=='-2',c36c748:item.status=='1'}"
 	        
 	      //  电话按钮：装修 搬屋 代购  招生 家政
-	      // 没有电话按钮的：汽车 家私 跳蚤
+        // 没有电话按钮的：汽车 家私 跳蚤
+        //  <pre class="overflow margin0 padding0 fz21" style="font-size:0.21rem;">{{item.content==false?'這業主很懶甚麼都沒有留下...':item.content}}</pre>
 const liebiaos = {
 template: `
 	<div>
@@ -39,12 +40,19 @@ template: `
 					<div class="mui-media-body relative">
 							<p class="mui-pull-left bugs mui-ellipsis-2 fz30"  style="height:0.7rem;line-height:0.36rem;width:100%;font-weight:none;">{{item.title}}</p>
 							
-              <p  class="mui-pull-left c666666 fz21"   :class="{seconds:item.templeId=='content_01','mui-ellipsis-2':item.templeId=='content_02','mui-ellipsis-3':item.templeId=='content_01'}"  style="margin-top:0.1rem;font-weight:none;word-break:break-all">
-							 <pre class="overflow margin0 padding0 fz21" style="font-size:0.21rem;">{{item.content==false?'這業主很懶甚麼都沒有留下...':item.content}}</pre>
+              <p  class="mui-pull-left c666666 fz21"   :class="{seconds:item.templeId=='content_01','diandiandian':item.templeId=='content_02','mui-ellipsis-2':item.templeId=='content_01'}"  style="margin-top:0.1rem;font-weight:none;word-break:break-all">
+							{{item.content==false?'這業主很懶甚麼都沒有留下...':item.content}}
+              </p>
+
+              <p  class="mui-pull-left c666666 fz21" v-if="item.tags!=undefined&&item.tags!='undefined'" style="margin-top:0.1rem;font-weight:none;">
+              <span v-for="(ii,iii) in item.tags" class="fz16 c666666" >
+              分類:{{ii}}
+              </span>
 							</p>
+              
 							
-							
-							<p v-if="item.templeId=='content_02'"  class="mui-pull-right right cff4d00 fz35 relative"  style="height:0.43rem;line-height:0.43rem;width:100%;font-weight:none;">
+              <p v-if="item.templeId=='content_02'"  class="mui-pull-right right cff4d00 fz35 relative"  style="height:0.43rem;line-height:0.43rem;width:100%;font-weight:none;">
+             
                 <span class="fz16 c666666 absolute" style="left:0;bottom:0.03rem;line-height:0.2rem;">{{item.publishAt||item.createdAt}}</span>
                
 								{{item.price==-1||item.price=='面議'?'面議':(item.price+'元')}}

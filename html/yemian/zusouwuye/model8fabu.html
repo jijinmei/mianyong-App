@@ -620,7 +620,7 @@ vm.users()
             createdAt: '',
             views: '',
             rent_type: '',
-            tags:this.Fenlei[this.type - 1],
+            tags:this.Fenlei[this.type - 1]||[],
             price:this.values == '' && this.price == -1?-1:this.values,
             // price: (this.values == '' && this.price == 0 ? '--' : (this.values == '' && this.price == -1 ? '面議' :
             //   this.values)),
@@ -678,7 +678,11 @@ vm.users()
             formData.append("address", this.address); //版块名称
           }
           formData.append("section", this.names); //版块名称
-          formData.append("tags", this.Fenlei[this.type - 1]); //分类标题，多个以','分隔
+          if(this.Fenlei[this.type - 1]!=undefined){
+
+            formData.append("tags", this.Fenlei[this.type - 1]); //分类标题，多个以','分隔
+          }
+        
           if (this.names == '汽車交易' || this.names == '傢俬電器' || this.names == '跳蚤市場') {
             if (this.values == '' && this.price == -1) {
               formData.append("price", -1); //价格，当-1时为面议

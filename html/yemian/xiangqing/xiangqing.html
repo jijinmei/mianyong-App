@@ -107,6 +107,7 @@
         <li class="mui-table-view-cell" style="padding:0.15rem 0.2rem 0.15rem 0.2rem;">
           <p class="fz33 bugs mui-ellipsis-2">{{returns(datas.build_name||datas.title)}}</p>
           <p class="c666666 fz21 h20 lh20 mT10" >
+              <span v-if="datas.tags.length>0&&datas.templeId!=undefined" style="display:block;padding-bottom:0.1rem;">分類:<span v-for="(item,index) in datas.tags" >{{item}}</span>  </span>                
             發佈:{{returns(datas.publishAt||datas.createdAt)}}
             <span class="c666666 fz21 mui-pull-right">瀏覽:{{returns(datas.views)}}人</span>
           </p>
@@ -283,17 +284,7 @@
 
 
       </ul>
-      <!-- 8大板块的二级分類 -->
-      <ul v-if="datas!='no'&&datas.templeId!=undefined" class="mui-table-view fz27 c666666 mg10" style="padding:0.2rem;">
-          <li class="mui-table-view-cell" style="padding-left: 0;padding-top: 0;">
-              分類
-          </li>
-          <li class="mui-table-view-cell c000000" style="padding-left: 0;padding-bottom: 0;">
-            <span v-for="(item,index) in datas.tags">{{item}}</span>
-          </li>
-  
-  
-        </ul>
+    
       <!--b3.非租售和非汽车，非家私，非跳蚤模块的通用模板：地址-->
       <ul v-if="datas!='no'&&datas.templeId=='content_01'" class="mui-table-view fz27 c666666 mg10 yezhu" style="padding:0.2rem;">
         <li class="mui-table-view-cell" style="padding-left: 0;padding-top: 0;">
