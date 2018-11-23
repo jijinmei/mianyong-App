@@ -121,7 +121,7 @@
           </li>
           <li class="second tap mui-table-view-cell mui-collapse mui-pull-right center" style="width:50%;">
               <a @tap="zzc2($event)"  class="mui-navigate-right tap2 fz23 center"  href="#"  :class="{c36c748:youitem!=0,jiantou0:youitem==0,jiantou1:youitem!=0}" >
-              {{youitem==0?'全部狀態':(youitem==1?'已開盤':(youitem==2?'已開盤 待審核':(youitem==3?'已開盤 不通過':(youitem==4?'已封盤':(youitem==5?'已封盤 待審核':'已封盤 不通過')))))}} 
+              {{youitem==0?'全部狀態':(youitem==1?'開盤中':(youitem==2?'已開盤 待審核':(youitem==3?'已開盤 不通過':(youitem==4?'已封盤':(youitem==5?'已封盤 待審核':'已封盤 不通過')))))}} 
               <!-- {{youitem==0?'全部狀態':(youitem==1?'已開盤 已通過':(youitem==2?'已開盤 待審核':(youitem==3?'已開盤 不通過':(youitem==4?'已封盤 已通過':(youitem==5?'已封盤 待審核':'已封盤 不通過')))))}}  -->
               </a>
               <div class="mui-collapse-content margint0 center" >
@@ -201,7 +201,7 @@
         name:'wodeloupan',
         zuoitem:0,//当前选择的类型
         zuo:['全部類型','租盤','售盤'],
-        you:['全部狀態', '已開盤', '已開盤 待審核', '已開盤 不通過', '已封盤', '已封盤 待審核', '已封盤 不通過'],
+        you:['全部狀態', '開盤中', '已開盤 待審核', '已開盤 不通過', '已封盤', '已封盤 待審核', '已封盤 不通過'],
         // you:['全部狀態', '已開盤 已通過', '已開盤 待審核', '已開盤 不通過', '已封盤 已通過', '已封盤 待審核', '已封盤 不通過'],
         // you:['全部狀態','審核中','已發佈','不通過','已封盤'],
         youitem:0,//当前选择的状态

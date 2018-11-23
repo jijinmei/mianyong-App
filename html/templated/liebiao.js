@@ -11,7 +11,7 @@ template: `
 				 <p v-if="name=='wodeloupan'"  @click.stop="caozuos(item.objectId,item,item.show,index)" class="border-b relative fz25 c555555 center" style="top:-0.2rem;height:0.6rem;line-height:0.6rem;">
 				 	<span class="czjz fz25" style="left:0;" :class="{cff0000:!(item.show=='1'&&item.status=='1'),c36c748:item.show=='1'&&item.status=='1'}">
      
-           {{item.show==0?'已封盤':'已開盤'}}
+           {{item.show==0?'已封盤':'開盤中'}}
            <!--{{item.status==-1?'不通過':(item.status==0?'待審核':'已通過')}}-->
 
 				 	</span>
@@ -207,7 +207,7 @@ template: `
 			fengpan(name,index,objectId){
 				var that=this
 				var title='確認【封盤】'+name+'嗎？'
-        var content='此账号已成功发布租售信息'+that.yifabu+'条（上限'+that.fabulimit+'条）'
+        var content='此賬號已成功發布租售信息'+that.yifabu+'條（上限'+that.fabulimit+'條）'
         mui.confirm(content,title,['取消','確認'],function(data){
 					console.log(data)
 					if(data.index==0){
@@ -250,7 +250,7 @@ template: `
 			shanchu(name,index,objectId,action){
 				var that=this
 				var title='確認【刪除】'+name+'嗎？'
-        var content='此账号已成功发布租售信息'+that.yifabu+'条（上限'+that.fabulimit+'条）'
+        var content='此賬號已成功發布租售信息'+that.yifabu+'條（上限'+that.fabulimit+'條）'
         mui.confirm(content,title,['取消','確認'],function(data){
 					console.log(data)
 					if(data.index==0){
@@ -280,7 +280,7 @@ template: `
 			kaipan(name,index,objectId){
 				var that=this
 				var title='確認【開盤】'+name+'嗎？'
-        var content='此账号已成功发布租售信息'+that.yifabu+'条（上限'+that.fabulimit+'条）'
+        var content='此賬號已成功發布租售信息'+that.yifabu+'條（上限'+that.fabulimit+'條）'
         mui.confirm(content,title,['取消','確認'],function(data){
 					console.log(data)
 					if(data.index==0){

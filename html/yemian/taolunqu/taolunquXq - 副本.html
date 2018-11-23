@@ -239,7 +239,6 @@
     var vm = new Vue({
         el: '#app',
         data: {
-          user:[],
           curNavIndex: 1,
           imageView2: '?imageView2/2/w/' + parseInt(640 * w0),
          self:'',
@@ -416,15 +415,7 @@
                   that.datas.isgood=0
                   that.datas.goods=that.datas.goods-1
                   that.page1=0
-                            //重置列表数据
-					             mescroll.resetUpScroll();
-                  // for (var i = 0; i < that.datass.length; i++) {
-                  //   if(that.datass[i].objectId==that.user.objectId){
-                  //     that.datass.splice(i,1)
-                  //     that.datas1.splice(i,1)
-                  //   }
-                  // }
-                  // that.refresh()
+                  that.refresh()
                 }
                                 
               },
@@ -449,10 +440,7 @@
                   that.datas.isgood=1
                   that.datas.goods=that.datas.goods+1
                   that.page1=0
-                  // that.datass.unshift(that.user)
-                            //重置列表数据
-					mescroll.resetUpScroll();
-                  // that.refresh()
+                  that.refresh()
                 }
                                 
               },
@@ -500,13 +488,10 @@
           success: function(data) {
             //服务器返回响应，根据响应结果，分析是否登录成功；
             if(data.status == true) {
-              that.datas.comments=that.datas.comments+1
               that.shurukuang = false;
               that.page2=0;
               that.values='';
-             //重置列表数据
-					mescroll.resetUpScroll();
-
+              that.refresh();
             }else{
               mui.toast(data.result.message)
             }
@@ -734,7 +719,6 @@
       }
     },
     mounted() {
-      var that=this;
       // 添加叉子
 $('#__MUI_PREVIEWIMAGE').append('<img src="../../assets/img/login/cazhi.png"  class="absolute cursor w40 padding0 T25 R40">')
 $(document).on('click','#__MUI_PREVIEWIMAGE',function(){
@@ -748,13 +732,6 @@ $(document).on('click','#__MUI_PREVIEWIMAGE',function(){
       //刷新和加载
       this.refresh()
 
-      $.get(Boss + 'user/' + localStorage.getItem('userId'),{'sessiontoken':sessiontoken},function (data, status) {
-       if (data.status == true) {
-         console.log('查看了个人资料赋值给了电话及在线咨询')
-         that.user=data.result
-       }
-       })
-      
     }
 
     })

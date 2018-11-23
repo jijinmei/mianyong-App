@@ -154,7 +154,7 @@ template: `
 			xiajia(name,index,objectId,action){
 				var that=this
 				var title='確認【下架】'+name+'嗎？'
-        var content='此账号已成功发布分类信息'+that.yifabu+'条（上限'+that.fabulimit+'条）'
+        var content='此賬號已成功發布分類信息'+that.yifabu+'條（上限'+that.fabulimit+'條）'
         mui.confirm(content,title,['取消','確認'],function(data){
 					console.log(data)
 					if(data.index==0){
@@ -187,7 +187,7 @@ template: `
 			shangjia(name,index,objectId,action){
 				var that=this
         var title='確認【上架】'+name+'嗎？'
-        var content='此账号已成功发布分类信息'+that.yifabu+'条（上限'+that.fabulimit+'条）'
+        var content='此賬號已成功發布分類信息'+that.yifabu+'條（上限'+that.fabulimit+'條）'
         mui.confirm(content,title,['取消','確認'],function(data){
 					console.log(data)
 					if(data.index==0){
@@ -224,7 +224,7 @@ template: `
 			shanchu(name,index,objectId,action){
 				var that=this
 				var title='確認【刪除】'+name+'嗎？'
-        var content='此账号已成功发布分类信息'+that.yifabu+'条（上限'+that.fabulimit+'条）'
+        var content='此賬號已成功發布分類信息'+that.yifabu+'條（上限'+that.fabulimit+'條）'
         mui.confirm(content,title,['取消','確認'],function(data){
 					console.log(data)
 					if(data.index==0){

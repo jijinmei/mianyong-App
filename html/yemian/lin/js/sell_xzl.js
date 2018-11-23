@@ -566,12 +566,12 @@ var that=this;
         state: false
       }],
       contactTypeData: [{
-        text: "電話及在線咨詢",
+        text: "電話及在線諮詢",
         slcImg: './imgs/fangzu/checkon.png',
         normalImg: './imgs/fangzu/checkoff.png',
         state: false
       }, {
-        text: "僅在線咨詢",
+        text: "僅在線諮詢",
         slcImg: './imgs/fangzu/checkon.png',
         normalImg: './imgs/fangzu/checkoff.png',
         state: false

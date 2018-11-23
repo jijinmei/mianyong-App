@@ -70,7 +70,7 @@
               <div class="fz25 c333333 mT10" style="white-space: normal;word-break: break-all;">{{datas.content}}</div>
                 <!-- 具体某个人的在线聊天 -->
 <p class="h40 relative">
-                <button @tap="onlinechat(datas,datas.objectId,'more')"  type="button" class="czjz mui-btn-green mui-btn-outlined fz19" style="right:0;padding:0.03rem 0.06rem !important;">在線咨詢</button>
+                <button @tap="onlinechat(datas,datas.objectId,'more')"  type="button" class="czjz mui-btn-green mui-btn-outlined fz19" style="right:0;padding:0.03rem 0.06rem !important;">在線諮詢</button>
 </p>
               <img :src="item.url+imageView2" alt="" class="mui-block" style="margin:0.45rem 0;width:100%;" data-preview-src="" :data-preview-group="'tlqxq'" v-for="(item,index) in datas.pics" />
             </div>
@@ -152,7 +152,7 @@
                                    <!--具体的点击某个人回复-->
                                   <button @tap="whoIds(item.user.nickname,item.objectId)" type="button" class="czjz mui-btn-green mui-btn-outlined fz19" style="right:0rem;padding:0.03rem 0.06rem !important;">回復</button>
                                   <!-- 具体某个人的在线聊天 -->
-                                  <button @tap="onlinechat(item,item.objectId,'one')"  type="button" class="czjz mui-btn-green mui-btn-outlined fz19" style="right:1rem;padding:0.03rem 0.06rem !important;">在線咨詢</button>
+                                  <button @tap="onlinechat(item,item.objectId,'one')"  type="button" class="czjz mui-btn-green mui-btn-outlined fz19" style="right:1rem;padding:0.03rem 0.06rem !important;">在線諮詢</button>
                           </p>
 
                         </div>

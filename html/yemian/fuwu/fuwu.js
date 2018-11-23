@@ -49,7 +49,7 @@ template: `
       </li>
       <li @click="gorouter('kefuzixun')"  style="width:20%;" class="lf center">
         <img src="../../assets/img/wuyebangzhu/kfzx.png" alt="" style="width:0.54rem;"/>
-        <p class="fz20 c555555">客服咨詢</p>
+        <p class="fz20 c555555">客服諮詢</p>
       </li>
     </ul>
     
