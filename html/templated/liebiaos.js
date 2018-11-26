@@ -40,12 +40,12 @@ template: `
 					<div class="mui-media-body relative">
 							<p class="mui-pull-left bugs mui-ellipsis-2 fz30"  style="height:0.7rem;line-height:0.36rem;width:100%;font-weight:none;">{{item.title}}</p>
 							
-              <p  class="mui-pull-left c666666 fz21"   :class="{seconds:item.templeId=='content_01','diandiandian':item.templeId=='content_02','mui-ellipsis-2':item.templeId=='content_01'}"  style="margin-top:0.1rem;font-weight:none;word-break:break-all">
+              <p  class="mui-pull-left c666666 fz21"   :class="{seconds:item.templeId=='content_01','diandiandian':item.templeId=='content_02','mui-ellipsis':item.templeId=='content_01'}"  style="margin-top:0.1rem;font-weight:none;word-break:break-all">
 							{{item.content==false?'這業主很懶甚麼都沒有留下...':item.content}}
               </p>
 
               <p  class="mui-pull-left c666666 fz21" v-if="item.tags!=undefined&&item.tags!='undefined'" style="margin-top:0.1rem;font-weight:none;">
-              <span v-for="(ii,iii) in item.tags" class="fz16 c666666" >
+              <span v-for="(ii,iii) in item.tags" class="fz18 c666666" >
               分類:{{ii}}
               </span>
 							</p>
