@@ -38,22 +38,22 @@ template: `
 					</div>
 
 					<div class="mui-media-body relative">
-							<p class="mui-pull-left bugs mui-ellipsis-2 fz30"  style="height:0.7rem;line-height:0.36rem;width:100%;font-weight:none;">{{item.title}}</p>
-							
-              <p  class="mui-pull-left c666666 fz21"   :class="{seconds:item.templeId=='content_01','diandiandian':item.templeId=='content_02','mui-ellipsis':item.templeId=='content_01'}"  style="margin-top:0.1rem;font-weight:none;word-break:break-all">
+              <p class="mui-pull-left bugs mui-ellipsis fz30"  style="width:100%;font-weight:none;">{{item.title}}</p>
+              <p class="mui-pull-left bugs mui-ellipsis fz16 right c666666"  style="width:100%;font-weight:500;">
+              {{item.publishAt||item.createdAt}}
+              </p>
+             
+              <p  class="mui-pull-left c666666 fz21 mui-ellipsis-2"   :class="{seconds:item.templeId=='content_01'}"  style="line-height:0.3rem;height:0.6rem;font-weight:none;word-break:break-all">
 							{{item.content==false?'這業主很懶甚麼都沒有留下...':item.content}}
               </p>
 
-              <p  class="mui-pull-left c666666 fz21" v-if="item.tags!=undefined&&item.tags!='undefined'" style="margin-top:0.1rem;font-weight:none;">
-              <span v-for="(ii,iii) in item.tags" class="fz18 c666666" >
-              分類:{{ii}}
-              </span>
-							</p>
+            
               
 							
               <p v-if="item.templeId=='content_02'"  class="mui-pull-right right cff4d00 fz35 relative"  style="height:0.43rem;line-height:0.43rem;width:100%;font-weight:none;">
              
-                <span class="fz16 c666666 absolute" style="left:0;bottom:0.03rem;line-height:0.2rem;">{{item.publishAt||item.createdAt}}</span>
+              
+              <button v-if="item.tags!=undefined&&item.tags!='undefined'" type="button" class="mui-btn mui-btn-green fz15 czjz L00 center" v-for="(ii,iii) in item.tags" style="margin-right:0.03rem;">{{ii}}</button>
                
 								{{item.price==-1||item.price=='面議'?'面議':(item.price+'元')}}
 							</p>
@@ -87,6 +87,47 @@ template: `
 		},
 	props:['datas','who'],//接收父元素传过来的经过帅选的数据
 		methods: {
+      // handleDate(mescStr) {
+      //   console.log(mescStr)
+      //   var date24= new Date(mescStr);
+      //   var mescStr = date24.getTime();
+      //   console.log(mescStr)
+      //   var n = mescStr;
+      //   var date = new Date(n);
+      //   // var Y = date.getFullYear() + '-';
+      //   var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
+      //   var D = date.getDate() < 10 ? '0' + date.getDate() + ' ' : date.getDate() + ' ';
+      //   var H = date.getHours() + ':';
+      //   var Mi = date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes();
+       
+       
+      //   var M2 = date.getMonth() +1;
+      //   var D2 = date.getDate();
+      //   var H2 = date.getHours();
+      //   var Mi2 = date.getMinutes();
+       
+      //   var date1 = new Date();
+      //   var M1 = date1.getMonth()+1;
+      //   var D1 = date1.getDate();
+      //   var H1 = date1.getHours();
+      //   var Mi1 = date1.getMinutes();
+      //   console.log(M1 + " " + D1 + "....")
+      //   if(M1 > M2 || D1 > D2){
+      //     return (M + D + H + Mi)
+      //   }
+      //    else if (H1-H2>1){
+      //      var H3= H1-H2
+      //     return (H3+"小时前")
+      //   }
+      //   else if (Mi1 - Mi2 > 1) {
+      //     var Mi3 = Mi1 - Mi2
+      //     return (Mi3 + "分钟前")
+      //   }
+      //  else{
+      //     return "刚刚"
+      //  }
+    
+      // },
 			  //拨打电话
       call(phone){
         if(phone){
