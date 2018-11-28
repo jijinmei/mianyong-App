@@ -258,7 +258,7 @@
                 	$.ajax({
                     type: 'GET',
 		                url:Boss3 + 'article',
-                    data:{"page":page,"limit":limit20,'section':that.name,'tags':that.tags,'sort':(that.sort=='默認排序'?'':(that.sort=='發佈時間'?'createdAt':'views'))},
+                    data:{"page":page,"limit":limit20,'section':that.name,'tags':that.tags,'sort':(that.sort=='默認排序'?'':(that.sort=='發佈時間'?'publishAt':'views'))},
 		                dataType: 'json',
 		                success: function(dataAll){
                       if(dataAll.status){
