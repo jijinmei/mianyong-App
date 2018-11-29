@@ -91,22 +91,24 @@ template: `
         timespan=timespan.replace(/-/g,':').replace(' ',':');
         timespan=timespan.split(':');
         var date24 = new Date(timespan[0],(timespan[1]-1),timespan[2],timespan[3],timespan[4]);
-        console.log(date24);
+        // console.log(date24);
         var timespan = date24.getTime();
-        console.log(timespan)
-        var n = timespan;
-        var timespan = new Date(n);
-        var dateTime = new Date(timespan);  
-        var year = dateTime.getFullYear();  
-        var month = dateTime.getMonth() + 1;  
-        var day = dateTime.getDate();  
-        var hour = dateTime.getHours();  
-        var minute = dateTime.getMinutes();  
-        var second = dateTime.getSeconds();  
-        var now = new Date();  
-        var now_new = Date.parse(now.toDateString());    
+        // console.log(timespan)
+        // var n = timespan;
+        // var timespan = new Date(n);
+        // var dateTime = new Date(timespan);  
+        // var year = dateTime.getFullYear();  
+        // var month = dateTime.getMonth() + 1;  
+        // var day = dateTime.getDate();  
+        // var hour = dateTime.getHours();  
+        // var minute = dateTime.getMinutes();  
+        // var second = dateTime.getSeconds();  
+        // var now = new Date();  
+        // var now_new = Date.parse(now.toDateString());   
+        var now_new=(new Date()).getTime(); 
         var milliseconds = 0;  
         var timeSpanStr;  milliseconds = now_new - timespan; 
+        console.log(now_new,timespan,milliseconds)
          if (milliseconds <= 1000 * 60 * 1) {  
              timeSpanStr = '刚刚'; 
          }  
