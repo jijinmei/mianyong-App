@@ -40,7 +40,7 @@ template: `
 					<div class="mui-media-body relative">
               <p class="mui-pull-left bugs mui-ellipsis fz30"  style="width:100%;font-weight:none;">{{item.title}}</p>
               <p class="mui-pull-left bugs mui-ellipsis fz16 right c666666"  style="width:100%;font-weight:500;">
-              {{item.publishAt||item.createdAt}}
+              {{formatMsgTime(item.publishAt||item.createdAt)}}
               </p>
              
               <p  class="mui-pull-left c666666 fz21 mui-ellipsis-2"   :class="{seconds:item.templeId=='content_01'}"  style="line-height:0.3rem;height:0.6rem;font-weight:none;word-break:break-all">
@@ -87,47 +87,48 @@ template: `
 		},
 	props:['datas','who'],//接收父元素传过来的经过帅选的数据
 		methods: {
-      // handleDate(mescStr) {
-      //   console.log(mescStr)
-      //   var date24= new Date(mescStr);
-      //   var mescStr = date24.getTime();
-      //   console.log(mescStr)
-      //   var n = mescStr;
-      //   var date = new Date(n);
-      //   // var Y = date.getFullYear() + '-';
-      //   var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
-      //   var D = date.getDate() < 10 ? '0' + date.getDate() + ' ' : date.getDate() + ' ';
-      //   var H = date.getHours() + ':';
-      //   var Mi = date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes();
-       
-       
-      //   var M2 = date.getMonth() +1;
-      //   var D2 = date.getDate();
-      //   var H2 = date.getHours();
-      //   var Mi2 = date.getMinutes();
-       
-      //   var date1 = new Date();
-      //   var M1 = date1.getMonth()+1;
-      //   var D1 = date1.getDate();
-      //   var H1 = date1.getHours();
-      //   var Mi1 = date1.getMinutes();
-      //   console.log(M1 + " " + D1 + "....")
-      //   if(M1 > M2 || D1 > D2){
-      //     return (M + D + H + Mi)
-      //   }
-      //    else if (H1-H2>1){
-      //      var H3= H1-H2
-      //     return (H3+"小时前")
-      //   }
-      //   else if (Mi1 - Mi2 > 1) {
-      //     var Mi3 = Mi1 - Mi2
-      //     return (Mi3 + "分钟前")
-      //   }
-      //  else{
-      //     return "刚刚"
-      //  }
-    
-      // },
+      formatMsgTime (timespan) { 
+        timespan=timespan.replace(/-/g,':').replace(' ',':');
+        timespan=timespan.split(':');
+        var date24 = new Date(timespan[0],(timespan[1]-1),timespan[2],timespan[3],timespan[4]);
+        console.log(date24);
+        var timespan = date24.getTime();
+        console.log(timespan)
+        var n = timespan;
+        var timespan = new Date(n);
+        var dateTime = new Date(timespan);  
+        var year = dateTime.getFullYear();  
+        var month = dateTime.getMonth() + 1;  
+        var day = dateTime.getDate();  
+        var hour = dateTime.getHours();  
+        var minute = dateTime.getMinutes();  
+        var second = dateTime.getSeconds();  
+        var now = new Date();  
+        var now_new = Date.parse(now.toDateString());    
+        var milliseconds = 0;  
+        var timeSpanStr;  milliseconds = now_new - timespan; 
+         if (milliseconds <= 1000 * 60 * 1) {  
+             timeSpanStr = '刚刚'; 
+         }  
+         else if (1000 * 60 * 1 < milliseconds && milliseconds <= 1000 * 60 * 60) {   
+            timeSpanStr = Math.round((milliseconds / (1000 * 60))) + '分钟前';  
+          } 
+         else if (1000 * 60 * 60 * 1 < milliseconds && milliseconds <= 1000 * 60 * 60 * 24) {   
+            timeSpanStr = Math.round(milliseconds / (1000 * 60 * 60)) + '小时前';  
+          } 
+          else {
+          // if (1000 * 60 * 60 * 24 < milliseconds && milliseconds <= 1000 * 60 * 60 * 24 * 15) {  
+              timeSpanStr = Math.round(milliseconds / (1000 * 60 * 60 * 24)) + '天前';  
+            }  
+          // else if (milliseconds > 1000 * 60 * 60 * 24 * 15 && year == now.getFullYear()) {   
+          //    timeSpanStr = month + '-' + day + ' ' + hour + ':' + minute; 
+          //    }
+          // else {    
+          //   timeSpanStr = year + '-' + month + '-' + day + ' ' + hour + ':' + minute;  
+          // }  
+          return timeSpanStr;
+        },
+      
 			  //拨打电话
       call(phone){
         if(phone){
