@@ -110,10 +110,10 @@ template: `
         var timeSpanStr;  milliseconds = now_new - timespan; 
         console.log(now_new,timespan,milliseconds)
          if (milliseconds <= 1000 * 60 * 1) {  
-             timeSpanStr = '刚刚'; 
+             timeSpanStr = '剛剛'; 
          }  
          else if (1000 * 60 * 1 < milliseconds && milliseconds <= 1000 * 60 * 60) {   
-            timeSpanStr = Math.round((milliseconds / (1000 * 60))) + '分钟前';  
+            timeSpanStr = Math.round((milliseconds / (1000 * 60))) + '分鐘前';  
           } 
          else if (1000 * 60 * 60 * 1 < milliseconds && milliseconds <= 1000 * 60 * 60 * 24) {   
             timeSpanStr = Math.round(milliseconds / (1000 * 60 * 60)) + '小时前';  
