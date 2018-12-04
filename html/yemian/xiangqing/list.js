@@ -31,7 +31,7 @@ template: `
 							</p>
 							
 						</div>
-						<span class="fz16 c666666 absolute" style="right:0rem;top:0.25rem;">{{item.createdAt}}</span>
+						<span class="fz16 c666666 absolute" style="right:0rem;top:0.25rem;">{{item.publishAt}}</span>
 						<div class="mui-ellipsis">
 							<div class=" relative" style="height:0.4rem;">
 								<span class="fz35 cff4d00 mui-inline" style="height:0.4rem;line-height:0.4rem;">{{item.price}}</span>
@@ -78,8 +78,8 @@ template: `
 							
 							
 							<p v-if="item.templeId=='content_02'"  class="mui-pull-right right cff4d00 fz35 relative"  style="height:0.43rem;line-height:0.43rem;width:100%;font-weight:none;">
-								<span class="fz16 c666666 absolute" style="left:0;bottom:0.03rem;line-height:0.2rem;">{{item.createdAt}}</span>
-								{{item.price==-1?'面議':item.price}}<span class="fz25 c666666" v-if="item.price!=-1">元</span>
+								<span class="fz16 c666666 absolute" style="left:0;bottom:0.03rem;line-height:0.2rem;">{{item.publishAt}}</span>
+								{{item.price==-1?'面議':item.price}}<span class="fz25 c666666" v-if="item.price!=-1&&item.price!='面議'">元</span>
 							</p>
 							
 						

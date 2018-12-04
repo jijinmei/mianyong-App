@@ -127,7 +127,7 @@
         <li v-if="datas.templeId=='content_02'" class="mui-table-view-cell cff4d00 fz30" style="padding:0.21rem 0.2rem;">
           價錢
           <span class="mui-pull-right fz33">{{returns(datas.price)=="-1"?'面議':returns(datas.price)}}
-            <span class="c666666 fz25" v-if="returns(datas.price)!='-1'">元</span>
+            <span class="c666666 fz25" v-if="datas.price!='-1'&&datas.price!='面議'">元</span>
           </span>
           </p>
         </li>
