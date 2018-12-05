@@ -134,13 +134,13 @@
       <div class="add-pics center" :style="setImg">
         <img :src="fengmiantu!=''?'../../assets/img/home/editPic.png':'../../assets/img/home/addPic.png'" @click="addPic" class="h120 mT30 mB15">
         <h2 @click="addPic" v-show="iseditImg" class="fz28 mB30 c36c748">添加照片</h2>
-        <p v-show="iseditImg&&templeIds=='content_02'" class="fz21 cffffff lh28 bold">色彩明亮的照片可以大幅度提高物件出售的速度最多可上傳9張照片</p>
-        <p v-show="iseditImg&&templeIds!='content_02'" class="fz21 cffffff lh28 bold">最多可上傳9張照片</p>
+        <p v-show="iseditImg&&(names=='汽車交易'||names=='傢俬電器'||names=='跳蚤市場')" class="fz21 cffffff lh28 bold">色彩明亮的照片可以大幅度提高物件出售的速度最多可上傳9張照片</p>
+        <p v-show="iseditImg&&(names!='汽車交易'&&names!='傢俬電器'&&names!='跳蚤市場')" class="fz21 cffffff lh28 bold">最多可上傳9張照片</p>
       </div>
       <h1 class="h10 bgebebeb"></h1>
       <div id="model8fabu-all" class="bgebebeb bai pL20 pR20 mB112" >
         <!--1.标题:汽车，家私，跳蚤-->
-        <div class=" bai border-b h141" v-if="names!='no'&&templeIds=='content_02'">
+        <div class=" bai border-b h141" v-if="names!='no'&&(names=='汽車交易'||names=='傢俬電器'||names=='跳蚤市場')">
           <p class="fz25 c222222 center h70 lh70 pT10">
             <span class="mui-inline h70 lh70 relative T05 mR05" style="color:red;">*</span>
             <span>標
@@ -151,7 +151,7 @@
           </div>
         </div>
         <!--1.商店名稱:装修，搬屋，代购代收，招生招聘，家政服务-->
-        <div class=" bai border-b h141" v-if="names!='no'&&templeIds!='content_02'">
+        <div class=" bai border-b h141" v-if="names!='no'&&(names!='汽車交易'&&names!='傢俬電器'&&names!='跳蚤市場')">
           <p class="fz25 c222222 center h70 lh70 pT10">
             <span class="mui-inline h70 lh70 relative T05 mR05" style="color:red;">*</span>
             <span>商店名稱</span>
@@ -214,7 +214,7 @@
           </ul>
         </div>
         <!--3.價錢-->
-        <div class=" bai border-b h141" v-if="names!='no'&&templeIds=='content_02'">
+        <div class=" bai border-b h141" v-if="names!='no'&&(names=='汽車交易'||names=='傢俬電器'||names=='跳蚤市場')">
           <p class="fz25 c222222 center h70 lh70 pT10">
             <span class="mui-inline h70 lh70 relative T05 mR05" style="color:red;">*</span>
             <span>價
@@ -234,7 +234,7 @@
           </ul>
         </div>
         <!--7.地址:装修，搬屋，代购代收，招生招聘，家政服务-->
-        <div class=" bai border-b h141" v-if="names!='no'&&templeIds!='content_02'">
+        <div class=" bai border-b h141" v-if="names!='no'&&(names!='汽車交易'&&names!='傢俬電器'&&names!='跳蚤市場')">
           <p class="fz25 c222222 center h70 lh70 pT10">
             <span class="mui-inline h70 lh70 relative T05 mR05" style="color:red;">*</span>
             <span>地
@@ -245,7 +245,7 @@
             
           </div>
         </div>
-        <!--4.聯絡方式:8大板块都有 -->
+        <!--4.聯絡方式:8大板块都有 v-if="names!='no'&&(names=='qiChe'||names=='jiaSi'||names=='tiaoSi'||names=='zhaoSheng'||names=='banWu'||names=='zhuangXiu'||names=='daiGou')"-->
         <div class=" bai border-b pB30">
           <p class="fz25 c222222 center h70 lh70 pT10">
             <span class="mui-inline h70 lh70 relative T05 mR05" style="color:red;">*</span>
@@ -370,7 +370,6 @@ vm.users()
         isending: true, //是否结束了请求
         content: '',
         names: 'no', //跳转过来的模块名字
-        templeIds:'',//板块的类型,3个帖子是02,其他商店是01
         title: '', //名称
         values: '', //输入框的价格
         price: 0, //面议的变量
@@ -606,8 +605,12 @@ vm.users()
             }
           }
           console.log(pics)
-         
-          var id=this.templeIds;
+          var id = ''
+          if (this.names == '汽車交易' || this.names == '傢俬電器' || this.names == '跳蚤市場') {
+            id = 'content_02'
+          } else {
+            id = 'content_01'
+          }
           var xiangqingData = {
             objectId: this.objectId,
             pics: pics,
@@ -640,7 +643,10 @@ vm.users()
           console.log(xiangqingData)
           // 跳转到详情页面
           setDataxiangqing(xiangqingData)
-    
+          // WebViewJavascriptBridge.callHandler('SetData', {
+          //   content_key: 'xiangqingData',
+          //   content: JSON.stringify(xiangqingData)
+          // })
           location.href = httplu + 'xiangqing/xiangqing.html?jianju=no&objectId=no&name=' + that.names
 
         },
@@ -653,6 +659,7 @@ vm.users()
 
         fabus() {
           console.log('okok')
+          // this.isending=true
           var that = this
           //进入这里代表要发请求了，要把prending设置为false，代表不能再点击那个发布按钮              
           var formData = new FormData();
@@ -665,8 +672,9 @@ vm.users()
             var items = 'pics'
             commonFiles(pics, formData, items)
           }
-
-          if(this.templeIds!='content_02'){//商品才有地址
+// return
+          if (this.names == '裝修設計' || this.names == '代購代收' || this.names == '搬屋配送' || this.names == '招生招聘' || this.names ==
+            '家政服務') {
             formData.append("address", this.address); //版块名称
           }
           formData.append("section", this.names); //版块名称
@@ -675,8 +683,7 @@ vm.users()
             formData.append("tags", this.Fenlei[this.type - 1]); //分类标题，多个以','分隔
           }
         
-          // if (this.names == '汽車交易' || this.names == '傢俬電器' || this.names == '跳蚤市場') {
-            if (this.templeIds=='content_02') {
+          if (this.names == '汽車交易' || this.names == '傢俬電器' || this.names == '跳蚤市場') {
             if (this.values == '' && this.price == -1) {
               formData.append("price", -1); //价格，当-1时为面议
             } else {
@@ -701,7 +708,15 @@ vm.users()
             }
             formData.append("call", calls); //呼称
           }
-
+//           console.log(formData)
+//           console.log('sessiontoken' + sessiontoken)
+//           console.log('id' + this.objectId)
+//           console.log('小林的图片')
+//           console.log(this.huancunPics.pics.length)
+//           // console.log(this.huancunPics.pics)
+//           console.log('我的图片')
+//           // console.log(this.huancun.pics)
+// // return
 if(this.content){
   formData.append("content", this.content); //详细内容
 }
@@ -721,11 +736,20 @@ if(this.content){
                   cleardata('huancun')
                   cleardata('xiaolin')
                   cleardata('xiangqingData')
-                
+                  // WebViewJavascriptBridge.callHandler('ClearData', {
+                  //   content_key: 'huancun'
+                  // })
+                  // WebViewJavascriptBridge.callHandler('ClearData', {
+                  //   content_key: 'xiaolin'
+                  // })
+                  // WebViewJavascriptBridge.callHandler('ClearData', {
+                  //   content_key: 'xiangqingData'
+                  // })
                   that.isending = true //正在发布，请稍后
                 
                   goback(1)
-                 
+                  // location.href = '../zusouwuye/model8.html?objectId=no&name=' + that.names +
+                  //   '&sessiontoken=' + sessiontoken
 
 
                 } else {
@@ -744,6 +768,10 @@ if(this.content){
         //发布按钮为填完必填项目的时候將提示弹出框
         fabu() {
           var that = this
+          console.log('ok')
+          console.log(this.huancun.pics)
+          console.log(this.huancunPics.pics)
+          console.log(':::::'+this.names)
           // 图片是必填
           if (this.huancun || this.huancunPics) {
 
@@ -752,7 +780,6 @@ if(this.content){
               return
             }
           }
-          // 联系方式和名称是帖子和商铺共有的
           if (this.title == '' || this.contactType == -1) {
             mui.toast('带星号为必填，請填写完整')
             return
@@ -765,42 +792,61 @@ if(this.content){
               return
             }
       }
-
-  //  分类是帖子中的汽车和家私特有的,商铺中的家政和招聘特有的
-  if(this.names == '汽車交易' || this.names == '傢俬電器'||this.names == '招生招聘' || this.names == '家政服務'){
-    if (this.type == 0) {
+          if (this.names == '汽車交易' || this.names == '傢俬電器') {
+            if (this.type == 0 || (this.price == 0 && this.values == '')) {
               mui.toast('带星号为必填，請填写完整')
-              return
-            } 
-  }
 
-  // 帖子可以被发布
-  if(this.templeIds=='content_02'){
-    if (this.price == 0 && this.values == '') {
-              mui.toast('带星号为必填，請填写完整')
               return
 
-            } 
-         
-  }
-  // 商铺可以被发布
-  if(this.templeIds=='content_01'){
-    if (this.address== '') {
-              mui.toast('带星号为必填，請填写完整')
-              return
-
-            } 
-            
-  }
+            } else {
               that.isending = false //正在发布，请稍后
+              console.log('汽車交易')
               this.fabus()
+            }
+          } else if (this.names == '裝修設計' || this.names == '代購代收' || this.names == '搬屋配送') {
+            if (this.address == '') {
+              mui.toast('带星号为必填，請填写完整')
+
+              return
+
+            } else {
+              that.isending = false //正在发布，请稍后
+              console.log('裝修設計')
+              this.fabus()
+            }
+          } else if (this.names == '招生招聘' || this.names == '家政服務') {
+            if (this.type == 0 || this.address == '') {
+              mui.toast('带星号为必填，請填写完整')
+
+              return
+
+            } else {
+              that.isending = false //正在发布，请稍后
+              console.log('招生招聘')
+              this.fabus()
+            }
+          } else if (this.names == '跳蚤市場') {
+            if ((this.price == 0 && this.values == '')) {
+              mui.toast('带星号为必填，請填写完整')
+
+              return
+            } else {
+              that.isending = false //正在发布，请稍后
+              console.log('跳蚤市場')
+              this.fabus()
+            }
+          }
+
+         
+
+
+
         }
       },
       mounted() {
       
         var that = this
         this.names = locations('name')
-        this.templeIds=locations('templeId')
 
         $.get(Boss3 + 'section/tagItems', {
           'title': this.names,
@@ -839,11 +885,38 @@ if (ua.match(/iPhone\sOS/i) == "iphone os") {
   window.callHandler.getResult('xiaolin');
  
 }
+          // if(window.WebViewJavascriptBridge){
+          //             WebViewJavascriptBridge.callHandler('GetData', {
+          //               content_key: 'huancun'
+          //             })
+          //             WebViewJavascriptBridge.callHandler('GetData', {
+          //               content_key: 'xiaolin'
+          //             })
+          // }else{
+          //   setTimeout(function(){
+          //             WebViewJavascriptBridge.callHandler('GetData', {
+          //               content_key: 'huancun'
+          //             })
+          //             WebViewJavascriptBridge.callHandler('GetData', {
+          //               content_key: 'xiaolin'
+          //             })
+          //   },1000)
+          // }
+         
 
+        })
+
+
+
+        // that.huancuns()
       }
     })
   </script>
-
+  <!-- <script>
+  setInterval(function(){
+   console.log(vm.content)
+  },5000)
+  </script> -->
 </body>
 
 </html>

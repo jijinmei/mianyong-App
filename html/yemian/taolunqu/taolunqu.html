@@ -27,7 +27,7 @@
     /*顶部的轮播图*/
 
     .xiangqingSlider {
-      height: 3.8rem;
+      height: 3.85rem;
       overflow: hidden;
     }
 
@@ -178,7 +178,7 @@
 
     .xiangqingSlider img {
       width: 6.4rem;
-      height: 3.8rem;
+      height: 3.85rem;
     }
 
     .taolunqu .mui-card-footer:before,
@@ -251,20 +251,20 @@
         <div class="mui-slider-group mui-slider-loop" v-if="slideimg.length>0">
           <!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
           <div class="mui-slider-item mui-slider-item-duplicate">
-            <a @click="go(slideimg[slideimg.length-1].url)" style="width:6.4rem;height:3.8rem;">
+            <a @click="go(slideimg[slideimg.length-1].url)" style="width:6.4rem;height:3.85rem;">
               <img v-lazy="slideimg[slideimg.length-1].cover.url" >
             </a>
           </div>
 
           <!-- 第n张 -->
           <div class="mui-slider-item relative" v-for="(item,index) in slideimg">
-            <a @click="go(item.url)" style="width:6.4rem;height:3.8rem;">
+            <a @click="go(item.url)" style="width:6.4rem;height:3.85rem;">
               <img  v-lazy="item.cover.url"  class="jz">
             </a>
           </div>
           <!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
           <div class="mui-slider-item mui-slider-item-duplicate">
-            <a @click="go(slideimg[0].url)" style="width:6.4rem;height:3.8rem;">
+            <a @click="go(slideimg[0].url)" style="width:6.4rem;height:3.85rem;">
               <img   v-lazy="slideimg[0].cover.url" >
             </a>
           </div>
