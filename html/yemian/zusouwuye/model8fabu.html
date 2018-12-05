@@ -750,7 +750,7 @@ if(this.content){
           console.log(this.huancunPics)
           if (this.huancun || this.huancunPics) {
 
-            if ((this.huancun.pics == undefined && this.huancunPics.pics == undefined)||(this.huancun.pics .length== 0 && this.huancunPics.pics.length == 0)) {
+            if (this.huancun.pics .length== 0 && this.huancunPics.pics.length == 0) {
               mui.toast('图片为必填，請填写完整')
               return
             }
