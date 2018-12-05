@@ -745,15 +745,16 @@ if(this.content){
         fabu() {
           var that = this
           // 图片是必填
-          console.log('this.huancun')
-          console.log(this.huancun)
-          console.log(this.huancunPics)
-          if (this.huancun || this.huancunPics) {
-
-            if (this.huancun.pics .length== 0 && this.huancunPics.pics.length == 0) {
-              mui.toast('图片为必填，請填写完整')
+          console.log('this.huancun::'+this.huancun.pics.length)
+          console.log(this.huancun.pics)
+          console.log(this.huancunPics.pics)
+          if (this.huancun.pics.length==0) {
+   mui.toast('图片为必填，請填写完整')
               return
-            }
+            // if ((this.huancun.pics == undefined && this.huancunPics.pics == undefined)(this.huancun.pics .length== 0 && this.huancunPics.pics.length == 0)) {
+            //   mui.toast('图片为必填，請填写完整')
+            //   return
+            // }
           }
           // 联系方式和名称是帖子和商铺共有的
           if (this.title == '' || this.contactType == -1) {
