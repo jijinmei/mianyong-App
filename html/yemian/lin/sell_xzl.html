@@ -30,7 +30,8 @@
       <!-- 添加照片 -->
       <div class="add-pics" :style="setImg">
         <img :src="setaddImg" @click="addPic">
-        <h2 @click="addPic" v-show="iseditImg">添加照片</h2>
+        <h2 @click="addPic" v-show="iseditImg" class="margin" style="background:white;height:0.5rem;line-height:0.5rem;width:1.5rem;border-radius:0.5rem;opacity:0.7;"> 
+            <span class="mR05" style="color:red;">*</span>添加照片</h2>
         <p v-show="iseditImg">色彩明亮的照片可以大幅度提高房屋出售的速度最多可上傳12張照片</p>
       </div>
 

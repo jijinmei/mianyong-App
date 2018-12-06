@@ -133,7 +133,8 @@
       <!-- 添加照片 -->
       <div class="add-pics center" :style="setImg">
         <img :src="fengmiantu!=''?'../../assets/img/home/editPic.png':'../../assets/img/home/addPic.png'" @click="addPic" class="h120 mT30 mB15">
-        <h2 @click="addPic" v-show="iseditImg" class="fz28 mB30 c36c748">添加照片</h2>
+        <h2 @click="addPic" v-show="iseditImg" class="fz28 mB30 c36c748 bai h50 lh50 margin" style="width:1.5rem;border-radius:0.5rem;opacity:0.7;"> 
+           <span class="mR05" style="color:red;">*</span>添加照片</h2>
         <p v-show="iseditImg&&templeIds=='content_02'" class="fz21 cffffff lh28 bold">色彩明亮的照片可以大幅度提高物件出售的速度最多可上傳9張照片</p>
         <p v-show="iseditImg&&templeIds!='content_02'" class="fz21 cffffff lh28 bold">最多可上傳9張照片</p>
       </div>
