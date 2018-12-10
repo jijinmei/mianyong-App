@@ -22,6 +22,11 @@
             <span v-if="setaddImg!='./imgs/fangzu/addPic.png'">帶*號項為必填項</span>
             <div v-if="setaddImg=='./imgs/fangzu/addPic.png'" >图片为必填，請填写完整</div>
         </div>
+        <!-- 发布报错 -->
+        <div  v-if="errors==true&&errorss!='no'" class="alertss">
+            {{errorss.result.message}}
+        </div>
+
             <!--正在發佈-->
             <div class="wai_kuangs" v-if="isending==false">
                 <div class="nei_kuang fabuing">{{rentobject.objectId?'正在保存,請稍後...':'正在發佈,請稍後...'}}</div>

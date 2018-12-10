@@ -169,8 +169,13 @@ var vm = new Vue({
           // 跳转到查看售盘页面
           // window.location.href="../xiangqing/liebiaoSou.html"+location.search;
         }else{
+          that.errors=true
+          that.errorss=res
+          setTimeout(function(){
+            that.errors=false
+            that.errorss='no'
+          },3000)
           that.isending=true
-          mui.toast(res.result.message)
         }
       });
     },
@@ -409,6 +414,8 @@ setDataxiaolin(this.rentobject)
   },
   data: function data() {
     return {
+      errors:false,//控制后台报错的弹出框
+      errorss:'no',//后台报错的数据
      alerts: false,
       isending: true,
       iseditImg: true,

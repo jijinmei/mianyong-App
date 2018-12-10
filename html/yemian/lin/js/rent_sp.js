@@ -163,23 +163,15 @@ if (this.rentobject.pics == '' || this.rentobject.pics == null) {
           cleardata('huancun')
           cleardata('xiaolin')
           cleardata('xiangqingData')
-          // WebViewJavascriptBridge.callHandler('ClearData', {
-          //   content_key: 'huancun'
-          // })
-          // WebViewJavascriptBridge.callHandler('ClearData', {
-          //   content_key: 'xiaolin'
-          // })
-          // WebViewJavascriptBridge.callHandler('ClearData', {
-          //   content_key: 'xiangqingData'
-          // })
-                  // return
           goback(2);
-          // 跳转到查看租盘页面
-          // return
-          // window.location.href="../xiangqing/liebiaoZu.html"+location.search;
         }else{
+          that.errors=true
+          that.errorss=res
+          setTimeout(function(){
+            that.errors=false
+            that.errorss='no'
+          },3000)
           that.isending=true
-          mui.toast(res.result.message)
         }
       });
     },
@@ -194,7 +186,7 @@ if (this.rentobject.pics == '' || this.rentobject.pics == null) {
       location.href = 'pic.html?sessiontoken='+locations('sessiontoken')//' + location.search;
     },
 
-    // 下一步
+    // 下一步1
     next: function next(name) {
        // 保存数据
       //  WebViewJavascriptBridge.callHandler('SetData', {
@@ -448,6 +440,8 @@ if (this.rentobject.pics == '' || this.rentobject.pics == null) {
   },
   data: function data() {
     return {
+      errors:false,//控制后台报错的弹出框
+      errorss:'no',//后台报错的数据
      alerts: false,
       isending: true,
       iseditImg: true,

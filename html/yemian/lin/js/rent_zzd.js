@@ -108,22 +108,15 @@ console.log(res)
           cleardata('huancun')
           cleardata('xiaolin')
           cleardata('xiangqingData')
-          // WebViewJavascriptBridge.callHandler('ClearData', {
-          //   content_key: 'huancun'
-          // })
-          // WebViewJavascriptBridge.callHandler('ClearData', {
-          //   content_key: 'xiaolin'
-          // })
-          // WebViewJavascriptBridge.callHandler('ClearData', {
-          //   content_key: 'xiangqingData'
-          // })
-          // return
           goback(3);
-          // 跳转到查看租盘页面
-          // window.location.href="../xiangqing/liebiaoZu.html"+location.search; 
         }else{
+          that.errors=true
+          that.errorss=res
+          setTimeout(function(){
+            that.errors=false
+            that.errorss='no'
+          },3000)
           that.isending=true
-          mui.toast(res.result.message)
         }
       });
     },
@@ -345,6 +338,8 @@ console.log(res)
     }
   },
   data: {
+    errors:false,//控制后台报错的弹出框
+    errorss:'no',//后台报错的数据
     alerts:false,
     isending:true,
     DatetimePickerShow: false,

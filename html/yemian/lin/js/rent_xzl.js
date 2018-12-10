@@ -159,21 +159,17 @@ var vm = new Vue({
           cleardata('huancun')
           cleardata('xiaolin')
           cleardata('xiangqingData')
-          // WebViewJavascriptBridge.callHandler('ClearData', {
-          //   content_key: 'huancun'
-          // })
-          // WebViewJavascriptBridge.callHandler('ClearData', {
-          //   content_key: 'xiaolin'
-          // })
-          // WebViewJavascriptBridge.callHandler('ClearData', {
-          //   content_key: 'xiangqingData'
-          // })
+        
           goback(2);
-          // 跳转到查看租盘页面
-          // window.location.href="../xiangqing/liebiaoZu.html"+location.search;
+        
         }else{
+          that.errors=true
+          that.errorss=res
+          setTimeout(function(){
+            that.errors=false
+            that.errorss='no'
+          },3000)
           that.isending=true
-          mui.toast(res.result.message)
         }
       });
     },
@@ -488,6 +484,8 @@ floorEdit: function floorEdit(value) {
   },
   data: function data() {
     return {
+      errors:false,//控制后台报错的弹出框
+      errorss:'no',//后台报错的数据
       ref_floor:'',
       iseditImg: true,
       alerts: false,
