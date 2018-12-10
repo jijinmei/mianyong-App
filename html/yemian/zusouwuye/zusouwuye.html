@@ -214,8 +214,13 @@ body{background: #ebebeb !important;}
                      checker('agents',function(data) {
                            if(data.status){
                                 if(data.result.pass==1){
-                                     // 可以发布
-                                     location.href='../lin/rent_index.html?sessiontoken='+sessiontoken
+                                  if(getUsers.block==true){
+                mui.toast('該用戶已被列入黑名單')
+              }else{
+                       // 可以发布
+                       location.href='../lin/rent_index.html?sessiontoken='+sessiontoken
+              }
+                                   
                                 }else{
                                      mui.alert('您已到達發佈上限，若需調整發佈條數，請聯繫我們。',['好的'])
                                 }
@@ -258,8 +263,13 @@ body{background: #ebebeb !important;}
                      checker('agents',function(data) {
                            if(data.status){
                                 if(data.result.pass==1){
-                                     // 可以发布
-                                     location.href='../lin/sell_index.html?sessiontoken='+sessiontoken
+                                  if(getUsers.block==true){
+                mui.toast('該用戶已被列入黑名單')
+              }else{
+ // 可以发布
+ location.href='../lin/sell_index.html?sessiontoken='+sessiontoken
+              }
+                                    
                                 }else{
                                      mui.alert('您已到達發佈上限，若需調整發佈條數，請聯繫我們。',['好的'])
                                 }

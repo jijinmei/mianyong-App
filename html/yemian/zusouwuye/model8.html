@@ -169,8 +169,13 @@
                      checker('posts',function(data) {
                            if(data.status){
                                 if(data.result.pass==1){
-                                     // 可以发布
-                                     location.href="model8fabu.html?name="+that.name+'&from=model8'+'&templeId='+that.templeId+'&sessiontoken='+sessiontoken
+                                  if(getUsers.block==true){
+                mui.toast('該用戶已被列入黑名單')
+              }else{
+                       // 可以发布
+                       location.href="model8fabu.html?name="+that.name+'&from=model8'+'&templeId='+that.templeId+'&sessiontoken='+sessiontoken
+              }
+                                    
                                 }else{
                                      mui.alert('您已到達發佈上限，若需調整發佈條數，請聯繫我們。',['好的'])
                                 }

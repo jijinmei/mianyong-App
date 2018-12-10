@@ -502,7 +502,12 @@
         //我要发布
         fabus(name) {
           if (sessiontoken) {
-            location.href = '../woyaofabu/woyaofabu.html?sessiontoken=' + sessiontoken
+            if(getUsers.block==true){
+                mui.toast('該用戶已被列入黑名單')
+              }else{
+                location.href = '../woyaofabu/woyaofabu.html?sessiontoken=' + sessiontoken
+              }
+           
             //   if(isAPP){
             //   locationClick(name)
             // }else{

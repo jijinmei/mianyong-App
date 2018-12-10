@@ -236,7 +236,7 @@ var Boss3 = 'http://stg-boss-macaucf.leanapp.cn/api/v1/' //测试接口
  };
 
   // // 查看个人资料
-  function getusers() {
+  function getusers(callback) {
     var id = localStorage.getItem('userId')
     if (id) {
       $.get(Boss + 'user/' + id,{'sessiontoken':sessiontoken},function (data, status) {
