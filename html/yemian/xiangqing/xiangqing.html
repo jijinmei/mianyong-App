@@ -462,8 +462,14 @@
               mui.alert('您是本盤的發佈者，不能進行在線諮詢', ' ', ['好的'])
             } else {
               // window.webkit.messageHandlers.gotoChat.postMessage(this.datas)
-              console.log("数据" + this.datas)
-              gotoChat(this.datas)
+              console.log(getUsers)
+              if(getUsers.block==true){
+                mui.toast('該用戶已被列入黑名單')
+              }else{
+                gotoChat(this.datas)
+              }
+              // console.log("数据" + this.datas)
+              //
             }
 
           } else {

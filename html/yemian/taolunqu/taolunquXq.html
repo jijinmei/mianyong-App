@@ -356,9 +356,11 @@
                 if (ob == whos) {
                   mui.alert('您是本盤的發佈者，不能進行在線諮詢', ' ', ['好的'])
                 } else {
-                  // window.webkit.messageHandlers.gotoChat.postMessage(this.datas)
-                  console.log("数据" + this.datas)
-                  var ua = navigator.userAgent.toLowerCase();
+                  console.log(getUsers)
+              if(getUsers.block==true){
+                mui.toast('該用戶已被列入黑名單')
+              }else{
+                var ua = navigator.userAgent.toLowerCase();
                  if (ua.match(/iPhone\sOS/i) == "iphone os") {
                   console.log('苹果')
                   console.log(data)
@@ -370,6 +372,9 @@
                   console.log(data)
                   window.callHandler.onlinechat(JSON.stringify(data));
                  }
+              }
+                 
+                
                  
                 }
     

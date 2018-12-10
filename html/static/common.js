@@ -1,6 +1,7 @@
  var w = $(window).width() / 640 * 100;
  var w0 = $(window).width() / 640;
  document.getElementsByTagName('html')[0].style.fontSize = w + "px"
+ var getUsers='no'
 // var w = innerWidth/640 * 100;
 // var w0 =innerWidth/640;
 // document.getElementsByTagName('html')[0].style.fontSize = w + "px"
@@ -234,15 +235,31 @@ var Boss3 = 'http://stg-boss-macaucf.leanapp.cn/api/v1/' //测试接口
 
  };
 
+  // // 查看个人资料
+  function getusers() {
+    var id = localStorage.getItem('userId')
+    if (id) {
+      $.get(Boss + 'user/' + id,{'sessiontoken':sessiontoken},function (data, status) {
+        if (data.status == true) {
+          console.log('查看了个人资料赋值给了电话及在线咨询')
+          console.log(data.result)
+          getUsers=data.result
+        } 
+      })
+    }
+ 
+  }
 
  // 所有页面进来的时候手机都请求
  function information(objectId) {
    console.log('个人信息的objectId:::' + objectId)
    if (objectId) {
      window.localStorage.setItem('userId', objectId)
+     getusers()
      //  console.log(window.localStorage.getItem('userId'))
    }
  }
+
 
 
  //1.base64转文件对象
@@ -341,6 +358,8 @@ var Boss3 = 'http://stg-boss-macaucf.leanapp.cn/api/v1/' //测试接口
    }
 
  }
+
+
 
 
 //   // // 查看个人资料
