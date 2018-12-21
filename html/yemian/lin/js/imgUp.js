@@ -220,7 +220,7 @@ function rotateImg(img, direction,canvas,fileType,step) {
   switch (step) {
       case 0://1或者无或者其他
       var ratio;
-      if ((ratio = width * height / 1000000) > 1) {
+      if ((ratio = width * height / 2000000) > 1) {
           ratio = Math.sqrt(ratio);
           width /= ratio;
           height /= ratio;
@@ -233,7 +233,7 @@ function rotateImg(img, direction,canvas,fileType,step) {
           break;
       case 1://6
               var ratio;
-        if ((ratio = width * height / 1000000) > 1) {
+        if ((ratio = width * height / 2000000) > 1) {
             ratio = Math.sqrt(ratio);
             width /= ratio;
             height /= ratio;
@@ -247,7 +247,7 @@ function rotateImg(img, direction,canvas,fileType,step) {
           break;
       case 2://3
       var ratio;
-      if ((ratio = width * height / 1000000) > 1) {
+      if ((ratio = width * height / 2000000) > 1) {
           ratio = Math.sqrt(ratio);
           width /= ratio;
           height /= ratio;
@@ -261,7 +261,7 @@ function rotateImg(img, direction,canvas,fileType,step) {
           break;
       case 3://8
       var ratio;
-      if ((ratio = width * height / 1000000) > 1) {
+      if ((ratio = width * height / 2000000) > 1) {
           ratio = Math.sqrt(ratio);
           width /= ratio;
           height /= ratio;

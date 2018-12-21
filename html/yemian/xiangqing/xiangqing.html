@@ -86,12 +86,12 @@
             <!-- <img v-if="jianju=='yes'&&datas.templeId==undefined" :src="item.url!=undefined?item.url+imageView2:''" class="jz" :data-preview-src="item.url+imageView2"
               data-preview-group="indexs1" style="min-width: 6.4rem;min-height: 3rem;"> -->
               <img  v-if="datas.templeId==undefined" :src="item.url!=undefined?item.url+imageView2:''" class="jz" :data-preview-src="item.url+imageView2"
-              data-preview-group="indexs1" style="min-width: 6.4rem;min-height: 3rem;">
+              data-preview-group="indexs1" style="width: 6.4rem;min-height: 3rem;">
             <!--8大服务的详情-->
             <!-- <img v-if="jianju=='yes'&&datas.templeId!=undefined" :src="item+imageView2" class="jz" :data-preview-src="item+imageView2"
               data-preview-group="indexs2" style="min-width: 6.4rem;min-height: 3rem;"> -->
               <img  v-if="datas.templeId!=undefined" :src="item+imageView2" class="jz" :data-preview-src="item+imageView2"
-              data-preview-group="indexs2" style="min-width: 6.4rem;min-height: 3rem;">
+              data-preview-group="indexs2" style="width: 6.4rem;min-height: 3rem;">
             <!--预览的详情不能拼接远程的七牛地址-->
             <img v-if="jianju=='no'" :src="item.url!=undefined?item.url:''" class="jz" :data-preview-src="item.url" data-preview-group="indexs3"
               style="width:100%;min-height:3rem;">
@@ -424,9 +424,9 @@
         xiangqingData: [],
         jianju: '',
         objectId: '', //根据id判断是否是预览
-        imageView2: '?imageView2/2/w/' + parseInt(640 * w0),
+        imageView2: '?imageView2/2/w/' + parseInt(1280 * w0),
         // imageView2: '?imageView2/1/w/' + parseInt(640 * w0) + '/h/' + parseInt(300 * w0),
-        imageView2big: '?imageView2/2/w/' + parseInt(640 * w0),
+        imageView2big: '?imageView2/2/w/' + parseInt(1280 * w0),
         peitao: [], //配套設備：
         wuyuan: [], //屋苑設施：设施
         fujin: [], //附近設施：

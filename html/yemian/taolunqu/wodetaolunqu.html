@@ -23,7 +23,7 @@
   <link rel="stylesheet" href="../../static/mescroll.min.css">
   <style scoped>
     /*下面的列表*/
-
+    .minheight{min-height:100%;}
     /*讨论区的标题*/
 
     .mui-btn-green,
@@ -322,7 +322,7 @@
                       <ul class="overflow pics">
                         <li class="mui-pull-left overflow relative" v-for="(pic,idx) in item.pics" :class="{onepic:item.pics.length==1,twopic:item.pics.length==2,morepic:item.pics.length>2}">
                           <img v-lazy="item.pics.length==1?pic.url+imageView1:(item.pics.length==2?pic.url+imageView2:pic.url+imageView3)" alt="" :data-preview-src="pic.url"
-                            :data-preview-group="'1'+index" style="width:100%;min-height:100%;" class="jz" />
+                            :data-preview-group="'1'+index" style="width:100%;" :class="{minheight:item.pics.length!=1}" class="jz" />
                         </li>
                       </ul>
 
@@ -587,7 +587,7 @@
             // imageView1: '?imageView2/1/w/' + parseInt(500 * w0) + '/h/' + parseInt(500 * w0),
             // imageView2: '?imageView2/1/w/' + parseInt(245 * w0) + '/h/' + parseInt(245 * w0),
             // imageView3: '?imageView2/1/w/' + parseInt(163 * w0) + '/h/' + parseInt(163 * w0),
-            imageView1: '?imageView2/1/w/' + parseInt(500 * w0) + '/h/' + parseInt(500 * w0),
+            imageView1: '?imageView2/1/w/' + parseInt(1000 * w0) + '/h/' + parseInt(1000 * w0),
             imageView2: '?imageView2/1/w/' + parseInt(2*245 * w0) + '/h/' + parseInt(2*245 * w0),
             imageView3: '?imageView2/1/w/' + parseInt(2*163 * w0) + '/h/' + parseInt(2*163 * w0),
             user:null, //个人资料
