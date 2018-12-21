@@ -105,7 +105,7 @@
       <!--2.信息-->
       <ul class="mui-table-view after00" v-if="datas!='no'">
         <li class="mui-table-view-cell" style="padding:0.15rem 0.2rem 0.15rem 0.2rem;">
-          <p class="fz33 bugs mui-ellipsis-2">{{returns(datas.build_name||datas.title)}}</p>
+          <p class="fz33 bugs mui-ellipsis-2" style="line-height:130%;" >{{returns(datas.build_name||datas.title)}}</p>
           <p class="c666666 fz21 h20 lh20 mT10" >
               <span v-if="datas.tags!=undefined&&datas.templeId!=undefined" style="display:block;padding-bottom:0.1rem;"><span v-for="(item,index) in datas.tags" >分類:{{item}}</span>  </span>                
             發佈:{{returns(datas.publishAt||datas.createdAt)}}

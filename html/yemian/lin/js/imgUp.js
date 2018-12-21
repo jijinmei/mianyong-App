@@ -64,7 +64,7 @@ $(function(){
        // 判斷機型, android / ios
  
   var ua = navigator.userAgent.toLowerCase();
-  if (ua.match(/iPhone\sOS/i) == "iphone os") {
+  // if (ua.match(/iPhone\sOS/i) == "iphone os") {
     console.log('苹果手机执行方向函数判断')
     EXIF.getData(fileList[i], function() {
       EXIF.getAllTags(this);
@@ -72,12 +72,12 @@ $(function(){
       console.log('4.exif里面获取图片的方向信息'+orientation)
       getTimes()
     });
-  }else{
-    // 安卓手机内存小导致图片读取非常慢,所以直接不判断方向
-    console.log('安卓手机不执行方向函数判断,直接赋值0')
+  // }else{
+  //   // 安卓手机内存小导致图片读取非常慢,所以直接不判断方向
+  //   console.log('安卓手机不执行方向函数判断,直接赋值0')
     
-     orientation=0
-  }
+  //    orientation=0
+  // }
         
         
         

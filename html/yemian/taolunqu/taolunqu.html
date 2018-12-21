@@ -502,11 +502,48 @@
         //我要发布
         fabus(name) {
           if (sessiontoken) {
-            if(getUsers.block==true){
+            
+           //检测用户是否可发布   检测点，posts = 帖，agents = 楼盘
+           var id = localStorage.getItem('userId')
+              if (id) {
+                $.get(Boss + 'user/' + id,{'sessiontoken':sessiontoken},function (data, status) {
+                  if (data.status==true) {
+                    var reg=/^\d{1,}$/
+                    var pattern=new RegExp(reg);
+                   var phones=pattern.test(data.result.phone);
+                  if(phones){
+                  // if(data.result.phone){
+                     //检测用户是否可发布   检测点，posts = 帖，agents = 楼盘
+                     checker('posts',function(data) {
+                           if(data.status){
+                                if(data.result.pass==1){
+                                  if(getUsers.block==true){
                 mui.toast('該用戶已被列入黑名單')
               }else{
-                location.href = '../woyaofabu/woyaofabu.html?sessiontoken=' + sessiontoken
+                       // 可以发布
+                       location.href = '../woyaofabu/woyaofabu.html?sessiontoken=' + sessiontoken
               }
+                                    
+                                }else{
+                                     mui.alert('您已到達發佈上限，若需調整發佈條數，請聯繫我們。',['好的'])
+                                }
+                           }
+                       })
+                  }else{
+                    mui.alert('請先到【我的】--【個人資料】綁定手機號碼')
+                  }
+                      
+                  }else{
+                      
+                  }
+                })
+  }
+            // if(getUsers.block==true){
+            //     mui.toast('該用戶已被列入黑名單')
+            //   }else{
+
+            //     location.href = '../woyaofabu/woyaofabu.html?sessiontoken=' + sessiontoken
+            //   }
            
             //   if(isAPP){
             //   locationClick(name)
