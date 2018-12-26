@@ -31,7 +31,8 @@ template: `
 						</button>
 						<button type="button" class="mui-btn absolute fz21 cffffff" style="padding:0.05rem 0.1rem;border-radius:0;border:none;right: 0;bottom: 0;background-color: rgba(0,0,0,0.4);">
 		          	      	<span class="cff4d00">@{{item.unit}}</span>/呎
-		          	      </button>
+                      </button>
+            <img class="absolute T00 L00 w60" :src="item.user.user_role=='estate_agent'?'../../static/zhongjie.png':'../../static/geren.png'">
 					</div>
 
 					<div class="mui-media-body relative">
