@@ -23,7 +23,7 @@ function commonFiles(files, formData, items) {
       builder.append(buffer);
       blob = builder.getBlob(type);
     } else {
-      blob = new window.Blob([buffer], { type: 'image/jpg' });
+      blob = new window.Blob([buffer], { type: 'image/jpeg' });
     }
     //循环项目名称，依次添加项目
     formData.append(items, blob); //依次添加的项目名称

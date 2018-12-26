@@ -270,8 +270,11 @@ kaipan(){
 
             var ctx = canvas.getContext("2d");
             ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-            var dataURL = canvas.toDataURL();
-
+            var dataURL = canvas.toDataURL('image/jpeg');
+            var strLen = dataURL.length;
+var fileSize = strLen-(strLen/8)*2
+console.log("fileSize:::"+fileSize)
+return
             // 
             console.log('转换为base64')
             that.xiaolin.push(dataURL)

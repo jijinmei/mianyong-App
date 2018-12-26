@@ -315,7 +315,7 @@
 
             var ctx = canvas.getContext("2d");
             ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-            var dataURL = canvas.toDataURL();
+            var dataURL = canvas.toDataURL('image/jpeg');
 
             // 
             console.log('转换为base64')

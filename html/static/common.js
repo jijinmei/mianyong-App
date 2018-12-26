@@ -286,7 +286,7 @@ var Boss3 = 'http://stg-boss-macaucf.leanapp.cn/api/v1/' //测试接口
        blob = builder.getBlob(type);
      } else {
        blob = new window.Blob([buffer], {
-         type: 'image/jpg'
+         type: 'image/jpeg'
        });
      }
      //循环项目名称，依次添加项目
@@ -389,7 +389,7 @@ var Boss3 = 'http://stg-boss-macaucf.leanapp.cn/api/v1/' //测试接口
 
      var ctx = canvas.getContext("2d");
      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-     var dataURL = canvas.toDataURL();
+     var dataURL = canvas.toDataURL('image/jpeg');
 
      // 
      console.log('转换为base64')
