@@ -286,7 +286,7 @@ var Boss3 = 'http://stg-boss-macaucf.leanapp.cn/api/v1/' //测试接口
        blob = builder.getBlob(type);
      } else {
        blob = new window.Blob([buffer], {
-         type: 'image/png'
+         type: 'image/jpg'
        });
      }
      //循环项目名称，依次添加项目
