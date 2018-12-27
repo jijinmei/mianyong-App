@@ -118,7 +118,7 @@ var vm = new Vue({
         }
         this.xishoujian--;
       }
-      str = '房間:' + this.fangjian + ',客廳' + this.keting + ',洗手間' + this.xishoujian;
+      str = '房間:' + this.fangjian + ',客廳:' + this.keting + ',洗手間:' + this.xishoujian;
       this.rentobject.space = str;
     },
 
