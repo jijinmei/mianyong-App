@@ -62,7 +62,7 @@
         
     </div>
     
-<p @click="paizhao=!(paizhao)">切换内容</p>
+<p @click="paizhao=!(paizhao)">切换内容{{isios}}{{paizhao}}</p>
 <!--添加本地图片.uploads .up-img  -->
 <div class="bai">
   <ul class="uploads overflow bai" style="padding:0 0.2rem 0.1rem 0.2rem;width:100%;">
@@ -76,9 +76,9 @@
                       <input v-if="isios==true"  type="file" name="file" id="file" class="file addsfile" value="" 
                        accept="image/jpg,image/jpeg,image/png,image/bmp,image/JPG,image/JPEG,image/PNG,image/BMP" multiple />
                        <!-- 可拍照： -->
-                       <input v-if="isios==false&&paizhao==1"  id="file" accept="image/*" type="file" capture="camera"  class="file addsfile" name="pictureA_file"/>
+                       <input v-if="isios==false&&paizhao==true"  id="file" accept="image/*" type="file" capture="camera"  class="file addsfile" name="pictureA_file"/>
                    <!-- 可选图： -->
-                       <input v-if="isios==false&&paizhao==0"   id="file" type="file" name="pictureA_file"  class="file addsfile"/>
+                       <input v-if="isios==false&&paizhao==false"   id="file" type="file" name="pictureA_file"  class="file addsfile"/>
                       
                       </section>
              </div>
