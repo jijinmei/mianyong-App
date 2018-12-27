@@ -270,7 +270,8 @@
           {{datas.user.user_role=='base_user'?'業主的話':'詳細描述'}}
         </li>
         <li class="mui-table-view-cell c000000" style="padding-left: 0;padding-bottom: 0;">
-          <pre class="padding0 margin0">{{datas.remark==undefined||datas.remark==''?'這業主很懶甚麼都沒有留下...':datas.remark}}</pre>
+          <pre class="padding0 margin0" v-if="datas.user.user_role=='base_user'">{{datas.remark==undefined||datas.remark==''?'這業主很懶甚麼都沒有留下...':datas.remark}}</pre>
+          <pre class="padding0 margin0"  v-if="datas.user.user_role!='base_user'">{{datas.remark==undefined||datas.remark==''?'暫無詳細描述...':datas.remark}}</pre>
         </li>
 
       </ul>

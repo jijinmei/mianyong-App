@@ -44,7 +44,7 @@ template: `
               </p>
              
               <p  class="mui-pull-left c666666 fz21 mui-ellipsis-2"   :class="{seconds:item.templeId=='content_01'}"  style="line-height:0.3rem;height:0.6rem;font-weight:none;word-break:break-all">
-							{{item.content==false?'這業主很懶甚麼都沒有留下...':item.content}}
+							{{item.content==false?'暫無詳細描述...':item.content}}
               </p>
 
             

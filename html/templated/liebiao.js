@@ -64,7 +64,10 @@ template: `
 							<div class="fz25 c666666" style="height:0.4rem;line-height:0.4rem;">{{item.sub_title}}</div>
               <div class="fz19 c000000 mui-ellipsis-2" style="height:0.48rem;line-height:0.25rem;margin-bottom:0.12rem;white-space: normal;">
                 <p class="fz19" v-if="item.intro!=''&&item.intro!=undefined">{{item.intro}}</p>
-								<pre style="font-size:0.19rem;" class="overflow fz19 padding0 margin0" v-if="item.intro==''||item.intro==undefined">{{item.intro==''||item.intro==undefined?'這業主很懶甚麼都沒有留下...':item.intro}}</pre>
+                <pre style="font-size:0.19rem;" class="overflow fz19 padding0 margin0" v-if="(item.intro==''||item.intro==undefined)&&item.user.user_role!=''">{{item.intro==''||item.intro==undefined?(item.user.user_role=='base_user'?'這業主很懶甚麼都沒有留下...':'暫無詳細描述...'):item.intro}}</pre>
+                
+                <pre style="font-size:0.19rem;" class="overflow fz19 padding0 margin0" v-if="(item.intro==''||item.intro==undefined)&&item.user.user_role==''">{{item.intro==''||item.intro==undefined?(message.user_role=='base_user'?'這業主很懶甚麼都沒有留下...':'暫無詳細描述...'):item.intro}}</pre>
+                
 							</div>
 							<!--苹果保持居中-->
 							<button type="button" class="mui-btn mui-btn-green fz15 mui-pull-left center" v-for="(items,indexs) in item.tag" style="margin-right:0.03rem;">{{items}}</button>
