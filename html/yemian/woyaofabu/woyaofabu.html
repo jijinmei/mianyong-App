@@ -128,8 +128,8 @@
         el: '#app',
         store,
         data: {
-          isios:'',//true是苹果
-          paizhao:0,//0是相册,1是拍照
+          // isios:'',//true是苹果
+          // paizhao:0,//0是相册,1是拍照
           cha:false,
          isending:true,//是否结束了请求
         tdate:[],
@@ -259,9 +259,9 @@ setTimeout(function(){
                
     },
     mounted() {
-      var u = navigator.userAgent, app = navigator.appVersion;
-      this.isios=!(u.indexOf('Android') > -1 || u.indexOf('Linux') > -1); //android终端或者uc浏览器
-      console.log(this.isios)
+      // var u = navigator.userAgent, app = navigator.appVersion;
+      // this.isios=!(u.indexOf('Android') > -1 || u.indexOf('Linux') > -1); //android终端或者uc浏览器
+      // console.log(this.isios)
 // 添加叉子
 $('#__MUI_PREVIEWIMAGE').append('<img src="../../assets/img/login/cazhi.png"  class="absolute cursor w40 padding0 T25 R40">')
 $(document).on('click','#__MUI_PREVIEWIMAGE',function(){
