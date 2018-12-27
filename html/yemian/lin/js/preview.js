@@ -176,9 +176,9 @@ var that=this
 
     // 平方尺
     averageFeet: function averageFeet() {
-      var areaNumb = this.rentobject.area;
+      var areaNumb = this.rentobject.area||this.rentobject.useable_area;
       var price = this.rentobject.price;
-      if (!this.rentobject.area) {
+      if (!areaNumb) {
         return '--';
       } else {
 

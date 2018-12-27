@@ -19,6 +19,7 @@
   <link rel="stylesheet" href="./css/lincommon.css"></link>
   <!-- <link rel="stylesheet" href="../css/lincommon.css"></link> -->
   <link rel="stylesheet" href="../../static/common.css"></link>
+  <link href="../../static/commonS.css" rel="stylesheet">
   <script src="./js/flexible.min.js"></script>
 <style>
   /*轮播图*/
@@ -437,10 +438,14 @@
       </div>
     </div>
     <div class="pubStyle sectionSeven">
-      <span>詳細描述</span>
-      <p><pre>{{rentobject.remark || "這業主很懶什麼都沒有留下..."}}</pre></p>
+      <span>{{fabuzhe.user_role=='base_user'?'業主的話':'詳細描述'}}</span>
+      <p >
+          <pre class="padding0 margin0 fz27" v-if="fabuzhe.user_role=='base_user'">{{rentobject.remark==undefined||rentobject.remark==''?'這業主很懶甚麼都沒有留下...':rentobject.remark}}</pre>
+          <pre class="padding0 margin0 fz27"  v-if="fabuzhe.user_role!='base_user'">{{rentobject.remark==undefined||rentobject.remark==''?'暫無詳細描述...':rentobject.remark}}</pre>
+        <!-- <pre class="fz27">{{rentobject.remark || fang"這業主很懶什麼都沒有留下..."}}</pre> -->
+      </p>
     </div>
-    <div class="pubStyle sectionEight" :class="{showfooter : rentobject.contactType==='1'}">
+    <div class="pubStyle sectionEight" style="margin-bottom:1.08rem;" :class="{showfooter : rentobject.contactType==='1'}">
       <span>發佈者資訊</span>
       <div class="info">
         <p class="icon">
@@ -448,9 +453,13 @@
         </p>
         <p class="username relative">{{fabuzhe.displayname}}{{fabuzhe.call=='miss'?'小姐':(fabuzhe.call=='mrs'?'太太':'先生')}}
           <!-- <span>{{fabuzhe.user_role=='base_user'?'業主':'中介'}}</span> -->
-          <span v-if="rentobject.category=='rent'&&rentobject.from!=''&&rentobject.from!='轉租客'"
-          class="mui-badge fz17 cffffff czjz" :class="{bg36c748:rentobject.from=='業主',bgff4d00:rentobject.from=='中介'}" style="margin-left: 0.05rem;">{{rentobject.from}}</span>
-          
+          <!-- <span v-if="rentobject.category=='rent'&&rentobject.from!=''&&rentobject.from!='轉租客'"
+          class="mui-badge fz17 cffffff czjz" :class="{bg36c748:rentobject.from=='業主',bgff4d00:rentobject.from=='中介'}" style="margin-left: 0.05rem;">{{rentobject.from}}</span> -->
+           <!-- 租盘的身份 -->
+           <span v-if="rentobject.category=='rent'&&rentobject.from!=''&&(!(rentobject.from=='轉租客'&&fabuzhe.user_role=='base_user'))" class="mui-badge fz17 cffffff czjz" :class="{bg36c748:fabuzhe.user_role=='base_user',bgff693a:fabuzhe.user_role!='base_user'}"
+           style="margin-left: 0.05rem;">{{fabuzhe.user_role=='base_user'?'業主':'中介'}}</span>
+
+
           <span v-if="rentobject.category=='sell'&&fabuzhe.user_role!=''"
           class="mui-badge fz17 cffffff czjz" :class="{bg36c748:fabuzhe.user_role=='base_user',bgff4d00:fabuzhe.user_role=='estate_agent'}" style="margin-left: 0.05rem;">{{fabuzhe.user_role=='estate_agent'?'中介':'業主'}}</span>
         </p>
@@ -466,18 +475,58 @@
         </div>
       </div>
     </div>
-    <!-- 显示底栏电话及在线咨询v-if="rentobject.contactType==='1'" -->
-    <!-- <div class="footer"  style="border:1px solid red;">
-      <div >
-        <p>{{rentobject.from}} 联络人</p>
-        <p>{{rentobject.call}}{{rentobject.contacts}}</p>
+   
+<!--3.联系人电话：纯绿色：左边联络人文字+右边电话图标-->
+      <!--从租售列表跳过来的并且contactType==1-->
+      <!--1.联系人+在线咨询：左边绿色 右边白色-->
+      <div v-if="rentobject!='no'&&rentobject.contactType==1" style="position:fixed;left:0;bottom:0;width:6.4rem;height: 0.98rem;"
+      class="bai border-t">
+      <div  class="mui-pull-left bg36c748 relative" style="width: 4rem;height:100%;padding:0.1rem 0.2rem;">
+        <p class="fz24 cff4d00 mB01" v-if="rentobject.from!='中介'">
+          <!-- <span v-if="datas.from!='中介'&&datas.category=='rent'">{{returns(datas.from)}} </span> -->
+          <span v-if="rentobject.from!='中介'&&rentobject.category=='sell'">{{rentobject.from==''?'業主':''}} </span>
+          聯絡人
+        </p>
+
+        <p class="fz30 cffffff mui-ellipsis" style="width:2.5rem;">
+          {{rentobject.contacts}}{{rentobject.call=='miss'?'小姐':(rentobject.call=='mrs'?'太太':'先生')}}
+        </p>
+        <img src="../../assets/img/xiangqing/phone.png" @alt="" style="width:0.66rem;right:0.42rem;" class="czjz" />
+      </div>
+      <!--  -->
+      <div  class="mui-pull-right fz30 c333333 relative" style="height:0.98rem;padding-right:0.26rem;line-height:0.98rem;">
+        <img src="../../assets/img/xiangqing/zixun.png" alt="" style="width:0.53rem;right:1.5rem;" class="czjz" /> 在線諮詢
+      </div>
+    </div>
+
+    <!--从租售列表跳过来的并且contactType==0 -->
+    <!--2.在线咨询：纯绿色：白色微信图片+在线咨询文字-->
+    <div  v-if="rentobject!='no'&&rentobject.contactType==0" style="position:fixed;left:0;bottom:0;width:6.4rem;height: 0.98rem;"
+      class="bai">
+      <div class="fz44 cffffff relative center bg36c748" style="height:0.98rem;padding-right:0.26rem;line-height:0.98rem;">
+        <img src="../../assets/img/xiangqing/zixun2.png" alt="" style="top:0.1rem;width:0.53rem;" class="relative" /> 在線諮詢
+      </div>
+    </div>
+
+    <!--3.联系人电话：纯绿色：左边联络人文字+右边电话图标 8大模块的预览不用写身份-->
+    <!-- <div v-if="rentobject!='no'&&rentobject.contactType==1" style="position:fixed;left:0;bottom:0;width:6.4rem;height: 0.98rem;"
+      class="bai">
+      <div  class="bg36c748 relative" style="height:100%;padding:0.1rem 0.2rem;">
+        <div style="width:3.12rem;margin:0 auto;height:100%;" class="relative">
+          <p class="fz24 cff4d00 margin0" >聯絡人</p>
+          <p class="fz30 cffffff">
+            {{ (rentobject.contacts==undefined?'': (rentobject.contacts.length>6?rentobject.contacts.substring(0,6)+"...":(rentobject.contacts.length==6?rentobject.contacts:(rentobject.contacts.length==5?rentobject.contacts+(rentobject.call=='miss'?'小...':
+            (rentobject.call=='mrs'?'太...':'先...')):(rentobject.contacts+(rentobject.call=='miss'?'小姐': (rentobject.call=='mrs'?'太太': '先生')))))
+            ))}}
+          </p>
+          <img src="../../assets/img/xiangqing/phone.png" alt="" style="width:0.66rem;right:0.42rem;" class="czjz" />
+        </div>
       </div>
     </div> -->
-<!--3.联系人电话：纯绿色：左边联络人文字+右边电话图标-->
-<div v-if="rentobject.contactType==1"  style="position:fixed;left:0;bottom:0;width:6.4rem;height: 0.98rem;" class="bai">
+<!-- <div v-if="rentobject.contactType==1"  style="position:fixed;left:0;bottom:0;width:6.4rem;height: 0.98rem;" class="bai">
     <div @click='tel(rentobject.phone)' class="bg36c748 relative" style="background:#36c748;height:100%;padding:0.1rem 0.2rem;">
       <div style="width:3.12rem;margin:0 auto;height:100%;" class="relative">
-        <p v-if="rentobject.from!='中介'" class="fz24 cff4d00" style="color:#ff4d00;font-size:0.24rem;padding-top:0.1rem;">{{rentobject.from}} 聯絡人</p>
+        <p v-if="rentobject.from!='中介'" class="fz24 cff4d00" style="color:#ff4d00;font-size:0.24rem;padding-top:0.1rem;"> 聯絡人</p>
         <p class="fz30 cffffff" style="color:#ffffff;font-size:0.30rem;">
           {{ (rentobject.contacts==undefined?'': (rentobject.contacts.length>6?rentobject.contacts.substring(0,6)+"...":(rentobject.contacts.length==6?rentobject.contacts:(rentobject.contacts.length==5?rentobject.contacts+(rentobject.call=='miss'?'小...':
           (rentobject.call=='mrs'?'太...':'先...')):(rentobject.contacts+(rentobject.call=='miss'?'小姐': (rentobject.call=='mrs'?'太太': '先生')))))
@@ -486,7 +535,7 @@
         <img src="../../assets/img/xiangqing/phone.png" alt="" style="width:0.66rem;right:0.42rem;" class="czjz" />
       </div>
     </div>
-  </div>
+  </div> -->
   </div>
   <script> 
   // mui.previewImage();

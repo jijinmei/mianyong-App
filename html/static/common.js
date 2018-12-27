@@ -1,6 +1,7 @@
  var w = $(window).width() / 640 * 100;
  var w0 = $(window).width() / 640;
  document.getElementsByTagName('html')[0].style.fontSize = w + "px"
+ console.log(11111111111)
  var getUsers='no'
 // var w = innerWidth/640 * 100;
 // var w0 =innerWidth/640;
