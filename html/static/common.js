@@ -28,7 +28,7 @@ var Boss3 = 'http://stg-boss-macaucf.leanapp.cn/api/v1/' //测试接口
  var H = 0;
  var httplu = 'http://stg-static-macaucf.leanapp.cn/html/yemian/';
  var httproot = 'http://stg-static-macaucf.leanapp.cn/html/';
-
+ var usermessage
  console.log('common.js common.js common.js common.js1')
 //  监听地址栏返回
 
@@ -361,7 +361,21 @@ var Boss3 = 'http://stg-boss-macaucf.leanapp.cn/api/v1/' //测试接口
 
 
 
+ // // 查看个人资料
+ function usermessages() {
+  var id = localStorage.getItem('userId')
+  if (id) {
+    $.get(Boss + 'user/' + id,{'sessiontoken':sessiontoken},function (data, status) {
+      if (data.status == true) {
+        console.log('查看了个人资料勾选租盘身份的时候获取用户身份')
+        console.log(data.result)
+         usermessage=data.result
+      }
+    })
+  }
 
+}
+usermessages()
 //   // // 查看个人资料
 //   var getuserd
 //   function getusers() {

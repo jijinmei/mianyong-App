@@ -208,6 +208,32 @@ console.log(res)
 
     // 發佈者身份
     fromClick: function fromClick(item, index) {
+      // return
+     console.log(index)
+    //  当前用户身份是个人,如果勾选了中介,提示当前账号身份是个人
+    // var that=this;
+    // console.log(usermessage)
+    //  if(usermessage.user_role=='base_user'){
+    //     if(index==2){
+    //         this.totrips1=true
+    //         setTimeout(function(){
+    //           that.totrips1=false
+    //         },2000)
+    //         for(var i=0;i< this.fromData.length;i++){
+    //           this.fromData[i].state=false
+    //         } 
+    //         return
+    //     }
+    //  }else{
+    //   //  当前用户身份是中介,勾选业主,转租客,提示当前账号身份是中介,如需更改,请联系客服
+    //   if(index==0||index==1){
+    //        this.totrips2=true
+    //        setTimeout(function(){
+    //         that.totrips2=false
+    //       },2000)
+    //       return
+    //   }
+    //  }
       this.rentobject.from = item.text;
     },
 
@@ -338,6 +364,8 @@ console.log(res)
     }
   },
   data: {
+    totrips1:false,//个人
+    totrips2:false,//中介
     errors:false,//控制后台报错的弹出框
     errorss:'no',//后台报错的数据
     alerts:false,
@@ -577,7 +605,14 @@ console.log(res)
       slcImg: './imgs/fangzu/checkon.png',
       normalImg: './imgs/fangzu/checkoff.png',
       state: false
-    }],
+    },
+    {
+      text: "中介",
+      slcImg: './imgs/fangzu/checkon.png',
+      normalImg: './imgs/fangzu/checkoff.png',
+      state: false
+    }
+  ],
     // 聯繫方式
     contactTypeData: [{
       text: "電話及在線諮詢",

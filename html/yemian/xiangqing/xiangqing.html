@@ -70,6 +70,7 @@
     .mui-badge {
       border-radius: 0.1rem !important;
     }
+    .bgff693a{background:#ff693a !important;}
   </style>
 </head>
 
@@ -266,7 +267,7 @@
       <!--b1租售模块的通用模板：业主的话-->
       <ul v-if="datas!='no'&&datas.templeId==undefined" class="mui-table-view fz27 c666666 mg10 yezhu after00" style="padding:0.2rem;">
         <li class="mui-table-view-cell" style="padding-left: 0;padding-top: 0;">
-          業主的話
+          {{datas.user.user_role=='base_user'?'業主的話':'詳細描述'}}
         </li>
         <li class="mui-table-view-cell c000000" style="padding-left: 0;padding-bottom: 0;">
           <pre class="padding0 margin0">{{datas.remark==undefined||datas.remark==''?'這業主很懶甚麼都沒有留下...':datas.remark}}</pre>
@@ -307,11 +308,11 @@
           <img style="width: 1.62rem;margin-top: 0.19rem;" src="../../assets/img/xiangqing/logo.png" alt="" />
           <p class="c000000 fz31 relative" style="margin-top: 0.2rem;">{{returns(datas.user.displayname)}}{{datas.user.call=='miss'?'小姐':(datas.user.call=='mrs'?'太太':'先生')}}
             <!-- 租盘的身份 -->
-            <span v-if="datas.category=='rent'&&datas.from!=''&&datas.from!='轉租客'" class="mui-badge fz17 cffffff czjz" :class="{bg36c748:datas.from=='業主',bgff4d00:datas.from=='中介'}"
-              style="margin-left: 0.05rem;">{{datas.from}}</span>
+            <span v-if="datas.category=='rent'&&datas.from!=''&&datas.from!='轉租客'" class="mui-badge fz17 cffffff czjz" :class="{bg36c748:datas.user.user_role=='base_user',bgff693a:datas.user.user_role!='base_user'}"
+              style="margin-left: 0.05rem;">{{datas.user.user_role=='base_user'?'業主':'中介'}}</span>
             <!-- 搜盘的身份 -->
-            <span v-if="datas.category=='sell'" class="mui-badge fz17 cffffff czjz" :class="{bg36c748:datas.from=='',bgff4d00:datas.from=='中介'}"
-              style="margin-left: 0.05rem;">{{datas.from==''?'業主':'中介'}}</span>
+            <span v-if="datas.category=='sell'" class="mui-badge fz17 cffffff czjz" :class="{bg36c748:datas.user.user_role=='base_user',bgff693a:datas.user.user_role!='base_user'}"
+              style="margin-left: 0.05rem;">{{datas.user.user_role=='base_user'?'業主':'中介'}}</span>
             <!-- 8大模块不用显示的身份 -->
           </p>
           <p class="c888888 fz20">

@@ -32,7 +32,8 @@ template: `
 						<button type="button" class="mui-btn absolute fz21 cffffff" style="padding:0.05rem 0.1rem;border-radius:0;border:none;right: 0;bottom: 0;background-color: rgba(0,0,0,0.4);">
 		          	      	<span class="cff4d00">@{{item.unit}}</span>/呎
                       </button>
-            <img class="absolute T00 L00 w60" :src="item.user.user_role=='estate_agent'?'../../static/zhongjie.png':'../../static/geren.png'">
+            <img v-if="item.user.user_role!=''" class="absolute T00 L00 w60" :src="item.user.user_role=='estate_agent'?'../../static/zhongjie.png':'../../static/geren.png'">
+            <img v-if="item.user.user_role==''"  class="absolute T00 L00 w60" :src="message.user_role=='estate_agent'?'../../static/zhongjie.png':'../../static/geren.png'">
 					</div>
 
 					<div class="mui-media-body relative">
@@ -84,7 +85,8 @@ template: `
   `,
 		data:function() {
 			return {
-				bb:'yifabu',
+        bb:'yifabu',
+        message:'no',
         // imageView2:'?imageView2/1/w/'+parseInt(245*w0)+'/h/'+parseInt(215*w0),
         imageView2:'?imageView2/1/w/'+parseInt(2*245*w0)+'/h/'+parseInt(2*215*w0),
         fabulimit:'',//8大板块的发布限制数
@@ -320,11 +322,29 @@ template: `
 						
 					}
 				},'div')
-			}
+      },
+      getuser(){
+        var that=this;
+        var id = localStorage.getItem('userId')
+        if (id) {
+          $.get(Boss + 'user/' + id,{'sessiontoken':sessiontoken},function (data, status) {
+            if (data.status == true) {
+              console.log('查看了个人资料勾选租盘身份的时候获取用户身份')
+              console.log(data.result)
+              that.message=data.result
+            }
+          })
+        }
+      
+      }
 			
 
 		},
 		mounted() {
+      var that=this;
         console.log('到底执行了liebiao的组件')
+         this.getuser()
+        
+      
 	}
 		}

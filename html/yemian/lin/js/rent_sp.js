@@ -440,6 +440,8 @@ if (this.rentobject.pics == '' || this.rentobject.pics == null) {
   },
   data: function data() {
     return {
+      totrips1:false,//个人
+      totrips2:false,//中介
       errors:false,//控制后台报错的弹出框
       errorss:'no',//后台报错的数据
      alerts: false,

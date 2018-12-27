@@ -18,6 +18,14 @@
 <body>
 
     <div id="app" v-cloak>
+        <div  v-if="totrips1==true" class="alertss">
+            當前賬號身份是個人,如需更改,請聯系客服
+     
+        </div>
+        <div  v-if="totrips2==true" class="alertss">
+            當前賬號身份是中介,如需更改,請聯系客服    
+        </div>
+        
         <div  v-if="alerts==true" class="alertss">
             <span v-if="setaddImg!='./imgs/fangzu/addPic.png'">帶*號項為必填項</span>
             <div v-if="setaddImg=='./imgs/fangzu/addPic.png'" >图片为必填，請填写完整</div>

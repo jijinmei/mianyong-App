@@ -14,6 +14,30 @@ Vue.component('w-radio', {
       };
     },
     clickFunc: function clickFunc(item, index) {
+      console.log(22222)
+      var that=this;
+      console.log(usermessage)
+       if(usermessage.user_role=='base_user'){
+          if(item.text=='中介'){
+              vm.totrips1=true
+              setTimeout(function(){
+                vm.totrips1=false
+              },2000)
+             
+              return
+          }
+       }else{
+        //  当前用户身份是中介,勾选业主,转租客,提示当前账号身份是中介,如需更改,请联系客服
+        if(item.text=='業主'||item.text=='轉租客'){
+          vm.totrips2=true
+             setTimeout(function(){
+              vm.totrips2=false
+            },2000)
+            return
+        }
+       }
+
+
 
       this.$emit('actionclick', item, index);
 
