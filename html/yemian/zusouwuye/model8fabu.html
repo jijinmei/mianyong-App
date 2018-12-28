@@ -275,13 +275,13 @@
           </ul>
           <p class="relative pL35 mT05" v-if="contactType==1">
             <span class="fz23 c333333 mR02">先生</span>
-            <img @click="call=1" :src="call==1?'../../assets/img/jisuan/yx.png':'../../assets/img/jisuan/wx.png'" alt="" style="width:0.3rem;vertical-align: middle;"
+            <img @click="call='mr'" :src="call=='mr'?'../../assets/img/jisuan/yx.png':'../../assets/img/jisuan/wx.png'" alt="" style="width:0.3rem;vertical-align: middle;"
               class="mR15" />
             <span class="fz23 c333333 mR02">小姐</span>
-            <img @click="call=2" :src="call==2?'../../assets/img/jisuan/yx.png':'../../assets/img/jisuan/wx.png'" alt="" style="width:0.3rem;vertical-align: middle;"
+            <img @click="call='miss'" :src="call=='miss'?'../../assets/img/jisuan/yx.png':'../../assets/img/jisuan/wx.png'" alt="" style="width:0.3rem;vertical-align: middle;"
               class="mR15" />
             <span class="fz23 c333333 mR02">太太</span>
-            <img @click="call=3" :src="call==3?'../../assets/img/jisuan/yx.png':'../../assets/img/jisuan/wx.png'" alt="" style="width:0.3rem;vertical-align: middle;"
+            <img @click="call='mrs'" :src="call=='mrs'?'../../assets/img/jisuan/yx.png':'../../assets/img/jisuan/wx.png'" alt="" style="width:0.3rem;vertical-align: middle;"
               class="mR15" />
           </p>
         </div>
@@ -330,7 +330,8 @@
           vm.huancun.pics=vm.huancunPics.pics//小林的有数据则赋值给小吉的图片
         } else { //我的数组对象huancun
           console.log('you我的')
-          vm.huancun = JSON.parse(data) //小吉的有数据则赋给小吉       
+          vm.huancun = JSON.parse(data) //小吉的有数据则赋给小吉  
+          // console.log(JSON.parse(data))     
         }
         vm.huancuns()//读取赋值的数据进行渲染
       } else {
@@ -375,7 +376,7 @@ vm.users()
         title: '', //名称
         values: '', //输入框的价格
         price: 0, //面议的变量
-        call: '', //先生1 小姐2  太太3
+        // call: '', //先生1 小姐2  太太3
         contactType: -1, //联繁方式, 1=电话; 0= 仅在线 
         call: 0, //呼称
         phone: '', //联系电话
@@ -505,8 +506,9 @@ vm.users()
                   // 同时没有填写则获取发布的资料
                   that.phone = data.result.phone
                 that.contacts = data.result.displayname
-                that.call = (data.result.call == 'mr' ? '1' : (data.result.call == 'miss' ? '2' : (data.result.call ==
-                  'mrs' ? '3' : '')))
+                that.call =data.result.call
+                //  (data.result.call == 'mr' ? '1' : (data.result.call == 'miss' ? '2' : (data.result.call ==
+                  // 'mrs' ? '3' : '')))
                 }
                
 
@@ -519,6 +521,7 @@ vm.users()
         huancuns() {
          
           console.log('app存储的huancun')
+          console.log(this.huancun)
           var hh = this.huancun
           if (isNaN(hh.type)) {
               console.log('类型是中文' + hh.type)
@@ -625,6 +628,8 @@ vm.users()
             category: '1',
             content: this.content,
             contacts: this.contacts,
+            // call:(this.call=='1'?'mr':(this.call=='3'?'mrs':(this.call=='2'?'miss':'0'))),
+            call:this.call,
             templeId: id,
             // remark:this.content,
             contactType: this.contactType,
@@ -692,15 +697,15 @@ vm.users()
           if (this.contactType == 1) {
             formData.append("contacts", this.contacts); //联繁人
             formData.append("phone", this.phone); //联繁电话
-            var calls = ''
-            if (this.call == 1) {
-              calls = '先生'
-            } else if (this.call == 2) {
-              calls = '小姐'
-            } else if (this.call == 3) {
-              calls = '太太'
-            }
-            formData.append("call", calls); //呼称
+            // var calls = ''
+            // if (this.call == 1) {
+            //   calls = 'mr'
+            // } else if (this.call == 2) {
+            //   calls = 'miss'
+            // } else if (this.call == 3) {
+            //   calls = 'mrs'
+            // }
+            formData.append("call", this.call); //呼称
           }
 
 if(this.content){
