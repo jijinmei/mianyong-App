@@ -569,7 +569,15 @@ background: linear-gradient(to right, rgba(255, 255, 255, 0), #FFFFFF 0%) repeat
     background-color: #36C748;
     padding:0.01rem 0.02rem !important;
     border-radius: 0.05rem;
-    }
+	}
+	.mui-btn-orange {
+		color: #fff !important;
+		border: 1px solid #ff693a !important;
+		background-color: #ff693a !important;
+		padding:0.01rem 0.02rem !important;
+		border-radius: 0.05rem !important;
+		}
+
 .radius05{border-radius: 0.5rem !important;}
 .mui-btn-8{
     color: #888888 !important;

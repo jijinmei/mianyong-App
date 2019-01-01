@@ -53,7 +53,7 @@ template: `
               <p v-if="item.templeId=='content_02'"  class="mui-pull-right right cff4d00 fz35 relative"  style="height:0.43rem;line-height:0.43rem;width:100%;font-weight:none;">
              
               
-              <button v-if="item.tags!=undefined&&item.tags!='undefined'" type="button" class="mui-btn mui-btn-green fz15 czjz L00 center" v-for="(ii,iii) in item.tags" style="margin-right:0.03rem;">{{ii}}</button>
+              <button v-if="item.tags!=undefined&&item.tags!='undefined'" type="button" :class="{'mui-btn-green':ii.indexOf('中介')==-1,'mui-btn-orange':ii.indexOf('中介')!=-1}" class="mui-btn fz15 czjz L00 center" v-for="(ii,iii) in item.tags" style="margin-right:0.03rem;">{{ii}}</button>
                
 								{{item.price==-1||item.price=='面議'?'面議':(item.price+'元')}}
 							</p>
