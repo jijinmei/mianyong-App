@@ -323,13 +323,15 @@
     function getAppLocalData(data) {
       data=data.replace(/\n/g,"\\n").replace(/\r/g,"\\r")
       if (data) {
-        console.log('有值传过来',data)
+        // console.log('有值传过来',data)
         if (JSON.parse(data).start_time != undefined) { //小林的数组对象
-          console.log('you小林的')
+          console.log('有值传过来，小林的')
+          console.log(JSON.parse(data))
           vm.huancunPics = JSON.parse(data)
           vm.huancun.pics=vm.huancunPics.pics//小林的有数据则赋值给小吉的图片
         } else { //我的数组对象huancun
-          console.log('you我的')
+          console.log('有值传过来，我的')
+          console.log(JSON.parse(data))
           vm.huancun = JSON.parse(data) //小吉的有数据则赋给小吉  
           // console.log(JSON.parse(data))     
         }

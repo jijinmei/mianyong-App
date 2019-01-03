@@ -436,11 +436,12 @@ var vm = new Vue({
 function getAppLocalData(data) {
   data=data.replace(/\n/g,"\\n").replace(/\r/g,"\\r");
   if (data) { 
-    console.log('有传值过来', data);
+    console.log('有传值过来');
+    console.log(JSON.parse(data))
     vm.rentobject = JSON.parse(data);
     initdata(); 
   } else {
-    console.log('没有传值过来', data);
+    console.log('没有传值过来');
     vm.rentobject = JSON.parse(JSON.stringify(saveObject));
     initdata();
   }

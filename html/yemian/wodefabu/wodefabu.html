@@ -295,9 +295,12 @@
                 }
                 // console.log(that.arrayitem)
                 // return
+               
                for (var i = 0; i < that.arrayitem.pics.length; i++) {
+                 
                 that.getBase64(that.arrayitem.pics[i], that.arrayitem.pics.length, i)
               }
+
                 // WebViewJavascriptBridge.callHandler('SetData', {content_key: 'huancun', content:JSON.stringify(huancun)})
                 setDatahuancun(huancun)
                 // WebViewJavascriptBridge.callHandler('ClearData', {content_key: 'xiaolin'})
@@ -335,6 +338,9 @@
               //   content: JSON.stringify(aa)1
               // })
               setDataxiaolin(aa)
+              // console.log('setDataxiaolin(aa)')
+              // console.log(aa)
+              // return
               that.bianjikuang=false;
               that.tanchukuang=false;
               // setTimeout(function(){
